@@ -1,0 +1,130 @@
+/**
+ * Zentrale Konstanten — überall gleich verwendet.
+ * Wenn sich Öffnungszeiten/Kontakt/Reservierung ändert, hier anpassen.
+ */
+
+export const SITE = {
+  name: "Wald & Wiese",
+  shortName: "Wald & Wiese",
+  legalName: "Wald & Wiese UG",
+  tagline: "Frühstück mitten im Grünen.",
+  description:
+    "Familiengeführtes Frühstücks- und Abendrestaurant in Sinzing bei Regensburg. Regional, saisonal, hundefreundlich. Klein, fein, ehrlich.",
+  url: "https://restaurant-waldwiese.de",
+  locale: "de_DE",
+} as const;
+
+export const CONTACT = {
+  street: "Bruckdorfer Straße 42",
+  postalCode: "93161",
+  city: "Sinzing",
+  region: "Bayern",
+  country: "Deutschland",
+  phone: "+49 160 4265772",
+  phoneRaw: "+491604265772",
+  email: "info@restaurant-waldwiese.de",
+  whatsapp: "+491604265772",
+  instagram: "https://www.instagram.com/waldundwiese_restaurant/",
+  instagramHandle: "@waldundwiese_restaurant",
+} as const;
+
+/**
+ * Aktuelle Öffnungszeiten — bis zum 06.07.2026 (vor Frühstücks-Launch).
+ * Quelle: restaurant-waldwiese.de Stand 2026-05.
+ */
+export const CURRENT_OPENING_HOURS = [
+  { days: "Mo, Do – Sa", hours: "17:00 – 22:00", isoSpec: "Mo,Th-Sa 17:00-22:00" },
+  { days: "Sonntag", hours: "12:00 – 20:00", isoSpec: "Su 12:00-20:00" },
+] as const;
+
+/**
+ * Neue Öffnungszeiten ab Frühstücks-Launch — User-bestätigt 2026-05-21.
+ * Fr–So mit Doppelschicht (Frühstück + Abendservice, dazwischen Pause).
+ */
+export const NEW_OPENING_HOURS = [
+  {
+    days: "Mo – Do",
+    slots: ["08:00 – 14:00"],
+    isoSpec: "Mo-Th 08:00-14:00",
+  },
+  {
+    days: "Fr – So",
+    slots: ["08:00 – 14:00", "17:00 – 22:00"],
+    isoSpec: "Fr-Su 08:00-14:00,17:00-22:00",
+  },
+] as const;
+
+/**
+ * Wird in Layout/Schema-JSON-LD verwendet. Aktuell die *gültigen* Zeiten —
+ * also bis Launch CURRENT, danach NEW. Manuell umschalten beim Launch.
+ */
+export const OPENING_HOURS = CURRENT_OPENING_HOURS.map((s) => ({
+  days: s.days,
+  hours: s.hours,
+  isoSpec: s.isoSpec,
+}));
+
+export const RESERVATION_URL =
+  "https://mylightspeed.app/reservation/abfa7c53-5be9-4ace-806d-3276d3f70e9b/reservation";
+
+/** Eröffnung Frühstücks-Konzept — User-bestätigt 2026-05-21. */
+export const BREAKFAST_LAUNCH = {
+  date: "2026-07-06",
+  dateShort: "06.07.2026",
+  dateLong: "6. Juli 2026",
+};
+
+/**
+ * Magic Dinner Summer Edition.
+ * Quelle: magicel.de — Emilian Leber (Sohn der Familie Leber) ist Magicel.
+ * Buchung läuft ausschließlich über Lightspeed (RESERVATION_URL) oder
+ * telefonisch — Gastronovi wird nicht mehr genutzt.
+ */
+export const MAGIC_DINNER = {
+  date: "2026-07-11",
+  dateShort: "11.07.2026",
+  dateLong: "11. Juli 2026",
+  startTime: "17:00 Uhr",
+  location: "Wald & Wiese · Terrasse & Innenbereich",
+  magicianName: "Emilian Leber",
+  magicianStageName: "Magicel",
+  magicianUrl: "https://www.magicel.de/tickets/magic-dinner-summer-edition",
+};
+
+/**
+ * Hauptnavigation — gleiche Reihenfolge in Header und Footer.
+ */
+/**
+ * Aktuelles Setup: Startseite ist ein Onepager. Alle Navigationspunkte
+ * verlinken auf Section-IDs auf der Startseite. Sobald eigenständige
+ * Unterseiten gebaut werden, hier die `href` auf die Route umstellen.
+ */
+/**
+ * Schlanke Desktop-Nav — vier wichtigste Unterseiten.
+ * Alle übrigen Routen (Frühstück, Veranstaltungen, Events, Rezepte) bleiben
+ * im Mobile-Menü unter NAV_FULL erreichbar.
+ */
+export const NAV: Array<{ label: string; href: string }> = [
+  { label: "Karte", href: "/abendessen" },
+  { label: "Getränke", href: "/getraenke" },
+  { label: "Über uns", href: "/ueber-uns" },
+  { label: "Kontakt", href: "/kontakt" },
+];
+
+export const NAV_FULL: Array<{ label: string; href: string }> = [
+  { label: "Speisekarte", href: "/abendessen" },
+  { label: "Getränke", href: "/getraenke" },
+  { label: "Reservieren", href: "/reservieren" },
+  { label: "Frühstück", href: "/fruehstueck" },
+  { label: "Veranstaltungen", href: "/veranstaltungen" },
+  { label: "Events", href: "/events" },
+  { label: "Rezepte", href: "/rezepte" },
+  { label: "Über uns", href: "/ueber-uns" },
+  { label: "Kontakt", href: "/kontakt" },
+];
+
+export const LEGAL_NAV: Array<{ label: string; href: string }> = [
+  { label: "Impressum", href: "/impressum" },
+  { label: "Datenschutz", href: "/datenschutz" },
+  { label: "AGB", href: "/agb" },
+];
