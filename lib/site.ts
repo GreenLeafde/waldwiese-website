@@ -128,3 +128,58 @@ export const LEGAL_NAV: Array<{ label: string; href: string }> = [
   { label: "Datenschutz", href: "/datenschutz" },
   { label: "AGB", href: "/agb" },
 ];
+
+/**
+ * Footer-Sitemap — gruppierte Links auf ALLE Seiten. Steht auf jeder Seite,
+ * gibt damit auch den SEO-/Städteseiten interne Links von überall.
+ */
+export const FOOTER_NAV: Array<{
+  title: string;
+  links: Array<{ label: string; href: string }>;
+}> = [
+  {
+    title: "Essen & Trinken",
+    links: [
+      { label: "Frühstück", href: "/fruehstueck" },
+      { label: "Speisekarte", href: "/abendessen" },
+      { label: "Getränke", href: "/getraenke" },
+      { label: "Speisen", href: "/speisen" },
+    ],
+  },
+  {
+    title: "Besuch",
+    links: [
+      { label: "Reservieren", href: "/reservieren" },
+      { label: "Kontakt & Anfahrt", href: "/kontakt" },
+      { label: "Events", href: "/events" },
+      { label: "Veranstaltungen", href: "/veranstaltungen" },
+    ],
+  },
+  {
+    title: "Wald & Wiese",
+    links: [
+      { label: "Über uns", href: "/ueber-uns" },
+      { label: "Rezepte", href: "/rezepte" },
+    ],
+  },
+  {
+    title: "In der Region",
+    links: [
+      { label: "Frühstück Regensburg", href: "/fruehstueck-regensburg" },
+      { label: "Frühstück Sinzing", href: "/fruehstueck-sinzing" },
+      {
+        label: "Veganes Frühstück Regensburg",
+        href: "/veganes-fruehstueck-regensburg",
+      },
+      {
+        label: "Hochzeitslocation Regensburg",
+        href: "/hochzeitslocation-regensburg",
+      },
+      { label: "Restaurant Sinzing", href: "/restaurant-sinzing" },
+      {
+        label: "Hundefreundliches Restaurant",
+        href: "/hundefreundliches-restaurant-regensburg",
+      },
+    ],
+  },
+];
