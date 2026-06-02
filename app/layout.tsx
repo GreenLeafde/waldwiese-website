@@ -1,7 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Fraunces, DM_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { ConsentProvider } from "@/components/consent-provider";
+import { CookieBanner } from "@/components/cookie-banner";
+import { TrackingScripts } from "@/components/tracking-scripts";
+import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
 import { CONTACT, OPENING_HOURS, SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -96,13 +101,23 @@ export default function RootLayout({
       className={`${fraunces.variable} ${dmSans.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-white text-ink">
+        {/* Google Consent Mode v2 — Defaults (denied) VOR jedem Tracking. */}
+        <Script
+          id="consent-default"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULT_SCRIPT }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
         />
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <ConsentProvider>
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+          <CookieBanner />
+          <TrackingScripts />
+        </ConsentProvider>
       </body>
     </html>
   );

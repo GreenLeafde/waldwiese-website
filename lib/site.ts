@@ -6,7 +6,7 @@
 export const SITE = {
   name: "Wald & Wiese",
   shortName: "Wald & Wiese",
-  legalName: "Wald & Wiese UG",
+  legalName: "Wald & Wiese UG (haftungsbeschränkt)",
   tagline: "Frühstück mitten im Grünen.",
   description:
     "Familiengeführtes Frühstücks- und Abendrestaurant in Sinzing bei Regensburg. Regional, saisonal, hundefreundlich. Klein, fein, ehrlich.",

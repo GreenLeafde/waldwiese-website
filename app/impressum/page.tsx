@@ -1,5 +1,4 @@
 import { Eyebrow } from "@/components/eyebrow";
-import { PlaceholderNotice } from "@/components/placeholder-notice";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
@@ -16,13 +15,6 @@ export default function ImpressumPage() {
         <h1 className="mt-6 text-5xl md:text-6xl font-display leading-[0.95]">
           Impressum
         </h1>
-
-        <PlaceholderNotice title="Volltext durch Familie Leber prüfen">
-          Die folgenden Angaben sind aus den bestätigten Stammdaten
-          zusammengestellt. Bitte ergänzen: Geschäftsführer, Handelsregister
-          (Amtsgericht / HRB-Nummer), USt-IdNr., Verantwortliche/r i. S. d.
-          § 18 Abs. 2 MStV. Erst danach freigeben.
-        </PlaceholderNotice>
 
         <div className="mt-10 space-y-8 text-base leading-relaxed">
           <section>
@@ -42,7 +34,7 @@ export default function ImpressumPage() {
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">Vertreten durch</h2>
-            <p className="mt-3 text-waldgruen/60 italic">[Geschäftsführer ergänzen]</p>
+            <p className="mt-3">Sven Leber (Geschäftsführer)</p>
           </section>
 
           <section>
@@ -58,16 +50,22 @@ export default function ImpressumPage() {
             <h2 className="font-display text-xl text-tonwarm">
               Registereintrag
             </h2>
-            <p className="mt-3 text-waldgruen/60 italic">
-              [Eintragung im Handelsregister · Registergericht · Registernummer
-              ergänzen]
+            <p className="mt-3">
+              Eintragung im Handelsregister
+              <br />
+              Registergericht: Amtsgericht Regensburg
+              <br />
+              Registernummer: HRB 21989
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">Umsatzsteuer-ID</h2>
-            <p className="mt-3 text-waldgruen/60 italic">
-              [USt-IdNr. nach § 27 a UStG ergänzen]
+            <p className="mt-3">
+              Umsatzsteuer-Identifikationsnummer gemäß § 27 a
+              Umsatzsteuergesetz:
+              <br />
+              DE459044362
             </p>
           </section>
 
@@ -75,8 +73,12 @@ export default function ImpressumPage() {
             <h2 className="font-display text-xl text-tonwarm">
               Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
             </h2>
-            <p className="mt-3 text-waldgruen/60 italic">
-              [Name + Anschrift der verantwortlichen Person ergänzen]
+            <p className="mt-3">
+              Sven Leber
+              <br />
+              {CONTACT.street}
+              <br />
+              {CONTACT.postalCode} {CONTACT.city}
             </p>
           </section>
 
@@ -100,6 +102,49 @@ export default function ImpressumPage() {
               Wir sind nicht bereit oder verpflichtet, an
               Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
               teilzunehmen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-tonwarm">
+              Haftung für Inhalte
+            </h2>
+            <p className="mt-3">
+              Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene
+              Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+              verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+              Diensteanbieter jedoch nicht verpflichtet, übermittelte oder
+              gespeicherte fremde Informationen zu überwachen oder nach
+              Umständen zu forschen, die auf eine rechtswidrige Tätigkeit
+              hinweisen. Verpflichtungen zur Entfernung oder Sperrung der
+              Nutzung von Informationen nach den allgemeinen Gesetzen bleiben
+              hiervon unberührt.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-tonwarm">
+              Haftung für Links
+            </h2>
+            <p className="mt-3">
+              Unser Angebot enthält Links zu externen Websites Dritter, auf
+              deren Inhalte wir keinen Einfluss haben. Deshalb können wir für
+              diese fremden Inhalte auch keine Gewähr übernehmen. Für die
+              Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter
+              oder Betreiber der Seiten verantwortlich. Bei Bekanntwerden von
+              Rechtsverletzungen werden wir derartige Links umgehend entfernen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-tonwarm">Urheberrecht</h2>
+            <p className="mt-3">
+              Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
+              diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge
+              Dritter sind als solche gekennzeichnet. Die Vervielfältigung,
+              Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb
+              der Grenzen des Urheberrechts bedürfen der schriftlichen
+              Zustimmung des jeweiligen Autors bzw. Erstellers.
             </p>
           </section>
         </div>

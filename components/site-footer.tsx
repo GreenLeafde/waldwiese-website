@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ConsentSettingsLink } from "@/components/consent-settings-link";
 import { CONTACT, LEGAL_NAV, SITE } from "@/lib/site";
 
 /**
@@ -36,6 +37,9 @@ export function SiteFooter() {
             >
               Instagram
             </a>
+          </li>
+          <li>
+            <ConsentSettingsLink className="hover:text-tonwarm transition-colors" />
           </li>
         </ul>
 

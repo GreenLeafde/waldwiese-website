@@ -22,6 +22,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/rezepte", priority: 0.7, changeFrequency: "weekly" },
     { path: "/kontakt", priority: 0.6, changeFrequency: "yearly" },
     { path: "/reservieren", priority: 0.8, changeFrequency: "yearly" },
+    // SEO-/Städte-Landingpages
+    { path: "/fruehstueck-regensburg", priority: 0.85, changeFrequency: "monthly" },
+    { path: "/fruehstueck-sinzing", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/veganes-fruehstueck-regensburg", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/hochzeitslocation-regensburg", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/restaurant-sinzing", priority: 0.8, changeFrequency: "monthly" },
+    {
+      path: "/hundefreundliches-restaurant-regensburg",
+      priority: 0.75,
+      changeFrequency: "monthly",
+    },
   ];
 
   const entries: MetadataRoute.Sitemap = staticPaths.map((s) => ({

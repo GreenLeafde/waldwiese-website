@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MapsEmbed } from "@/components/maps-embed";
 import {
   BREAKFAST_LAUNCH,
   CONTACT,
@@ -152,6 +153,18 @@ export default function KontaktPage() {
             >
               Tisch reservieren <span aria-hidden>→</span>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ANFAHRT / KARTE */}
+      <section className="bg-white">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-24 md:pb-32">
+          <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+            Anfahrt
+          </p>
+          <div className="mt-5">
+            <MapsEmbed />
           </div>
         </div>
       </section>
