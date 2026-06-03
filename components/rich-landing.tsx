@@ -30,9 +30,11 @@ export type LandingContent = {
 };
 
 /**
- * Reichhaltiges, einheitliches Layout für die SEO-/Städte-Landingpages.
- * Sektionen: Hero → Story → Bild-Split → Feature-Grid → Zahlen-Band →
- * FAQ (+ FAQ-/Breadcrumb-JSON-LD) → verwandte Seiten → CTA.
+ * Schlankes, bild-geführtes Layout für die Landingpages.
+ * Bewusst WENIG Text: Hero → großes echtes Foto → 3 kurze Punkte →
+ * Zahlen-Band → FAQ (eingeklappt, für SEO) → CTA.
+ * (story/split/related aus dem Content werden absichtlich NICHT als
+ *  Textblöcke gerendert — interne Links liefert der Footer.)
  */
 export function RichLanding({
   content,
@@ -66,6 +68,8 @@ export function RichLanding({
     ],
   };
 
+  const features = content.features.items.slice(0, 3);
+
   return (
     <>
       <script
@@ -91,9 +95,9 @@ export function RichLanding({
             <span className="text-stone-500">{content.breadcrumb}</span>
           </nav>
         </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-16 md:pb-24 text-center">
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center">
           <p className="eyebrow no-line justify-center">{content.eyebrow}</p>
-          <h1 className="mt-7 text-4xl md:text-6xl lg:text-7xl font-display font-normal leading-[0.98] tracking-tight text-waldgruen">
+          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-waldgruen">
             {content.h1Lead} <span className="accent">{content.h1Accent}</span>
           </h1>
           <p className="mt-8 text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
@@ -114,72 +118,39 @@ export function RichLanding({
             </a>
           </div>
         </div>
-      </section>
 
-      {/* STORY */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 reveal">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
-            {content.story.heading}{" "}
-            <span className="accent">{content.story.accent}</span>
-          </h2>
-          <div className="mt-8 space-y-5 text-stone-600 leading-relaxed text-lg">
-            {content.story.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+        {/* GROSSES ECHTES FOTO */}
+        <div className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28">
+          <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-3xl reveal">
+            <Image
+              src={splitImage.src}
+              alt={splitImage.alt}
+              fill
+              priority
+              sizes="(min-width: 768px) 80vw, 100vw"
+              className="object-cover"
+              style={{ objectPosition: splitImage.position ?? "center" }}
+            />
           </div>
         </div>
       </section>
 
-      {/* BILD-SPLIT */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="reveal">
-              <p className="eyebrow no-line">{content.split.eyebrow}</p>
-              <h2 className="mt-6 text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
-                {content.split.heading}{" "}
-                <span className="accent">{content.split.accent}</span>
-              </h2>
-              <div className="mt-7 space-y-4 text-stone-600 leading-relaxed">
-                {content.split.paragraphs.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-            </div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl reveal">
-              <Image
-                src={splitImage.src}
-                alt={splitImage.alt}
-                fill
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-                style={{ objectPosition: splitImage.position ?? "center" }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURE-GRID */}
+      {/* 3 KURZE PUNKTE */}
       <section className="bg-white">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28">
           <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
             {content.features.heading}{" "}
             <span className="accent">{content.features.accent}</span>
           </h2>
-          <ul className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-            {content.features.items.map((item, i) => (
-              <li key={item.title} className="reveal">
-                <div className="flex items-baseline gap-4 mb-3">
-                  <span className="font-display italic text-tonwarm text-xl leading-none">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-xl md:text-2xl font-display font-normal leading-tight tracking-tight text-waldgruen">
-                    {item.title}
-                  </h3>
-                </div>
-                <p className="text-stone-600 leading-relaxed">{item.text}</p>
+          <ul className="mt-12 grid sm:grid-cols-3 gap-x-10 gap-y-10">
+            {features.map((item) => (
+              <li key={item.title}>
+                <h3 className="text-xl font-display font-normal tracking-tight text-waldgruen">
+                  {item.title}
+                </h3>
+                <p className="mt-2.5 text-stone-600 leading-relaxed">
+                  {item.text}
+                </p>
               </li>
             ))}
           </ul>
@@ -204,11 +175,11 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ — eingeklappt, hält die Seite ruhig, liefert aber SEO-Text */}
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28">
           <p className="eyebrow no-line">Häufige Fragen</p>
-          <h2 className="mt-6 text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+          <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
             Gut zu <span className="accent">wissen.</span>
           </h2>
           <div className="mt-10 divide-y divide-stone-200 border-y border-stone-200">
@@ -229,33 +200,6 @@ export function RichLanding({
               </details>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* VERWANDTE SEITEN */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
-          <p className="eyebrow no-line">Das könnte dich auch interessieren</p>
-          <ul className="mt-10 grid md:grid-cols-3 gap-6">
-            {content.related.map((r) => (
-              <li key={r.href}>
-                <Link
-                  href={r.href}
-                  className="group block h-full rounded-2xl bg-white ring-1 ring-waldgruen/10 hover:ring-tonwarm/40 p-7 transition-all"
-                >
-                  <h3 className="text-xl font-display text-waldgruen group-hover:text-tonwarm transition-colors">
-                    {r.label}
-                  </h3>
-                  <p className="mt-3 text-sm text-stone-600 leading-relaxed">
-                    {r.blurb}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-tonwarm">
-                    Ansehen <span aria-hidden>→</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 

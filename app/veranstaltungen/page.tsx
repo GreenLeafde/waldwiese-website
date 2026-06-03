@@ -15,7 +15,10 @@ export default function VeranstaltungenPage() {
     <RichLanding
       content={content}
       path="/veranstaltungen"
-      splitImage={{ src: IMG.sceneFestive.src, alt: IMG.sceneFestive.alt }}
+      splitImage={{
+        src: IMG.wwEvent.src,
+        alt: "Abend mit Gästen im Wald & Wiese",
+      }}
     />
   );
 }

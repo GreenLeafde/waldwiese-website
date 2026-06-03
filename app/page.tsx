@@ -30,34 +30,18 @@ export const metadata = {
  * Kontakt). Mehlcreme einmalig als Beige-Akzent auf der Frühstück-Sektion.
  * ------------------------------------------------------------------------- */
 
-/** Startseite zeigt nur Kategorien + ein Highlight + Bild — nicht die ganze
- *  Karte. Details & Preise stehen auf /abendessen. */
-const menuCategories: Array<{
-  title: string;
-  highlight: string;
-  img: { src: string; alt: string };
-}> = [
-  {
-    title: "Beginner",
-    highlight: "z. B. Rote Bete Carpaccio",
-    img: IMG.dipsBowls,
-  },
-  { title: "Burger", highlight: "z. B. Die mähende Moni", img: IMG.burger },
+/** Startseite zeigt nur die Kategorien + je ein konkretes Highlight — nicht
+ *  die ganze Karte. Details & Preise stehen auf /abendessen. Keine Food-Stock-
+ *  Bilder (echte Gericht-Fotos liegen noch nicht vor). */
+const menuCategories: Array<{ title: string; highlight: string }> = [
+  { title: "Beginner", highlight: "Rote Bete Carpaccio · Gemüse im Tempurateig" },
+  { title: "Burger", highlight: "Die mähende Moni · Der fetzige Sven · Heinzi" },
   {
     title: "Schüssel voller Glück",
-    highlight: "z. B. Prinzessin auf der Kichererbse",
-    img: IMG.foodBowl,
+    highlight: "Prinzessin auf der Kichererbse · Caesar",
   },
-  {
-    title: "Vom Grill",
-    highlight: "Steak, Spare Ribs & Teriyaki-Lachs",
-    img: IMG.steak,
-  },
-  {
-    title: "Finale",
-    highlight: "Pistazientiramisu — über 1.500× verkauft",
-    img: IMG.pistazientiramisu,
-  },
+  { title: "Vom Grill", highlight: "Steak, Spare Ribs & Teriyaki-Lachs" },
+  { title: "Finale", highlight: "Pistazientiramisu · Krachender Crumble" },
 ];
 
 export default function HomePage() {
@@ -86,11 +70,11 @@ export default function HomePage() {
         </div>
       </a>
 
-      {/* 2 · SPEISEKARTE — nur Kategorien mit Bild + Highlight, keine Ausschnitte */}
+      {/* 2 · SPEISEKARTE — Kategorien als klare, lesbare Liste (kein Stock) */}
       <section id="speisekarte" className="bg-white scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-32">
+        <div className="mx-auto max-w-4xl px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-32">
           {/* Header */}
-          <div className="max-w-3xl mx-auto text-center reveal">
+          <div className="text-center reveal">
             <p className="eyebrow no-line justify-center">Heute Abend</p>
             <h2 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
               Die Karte.
@@ -108,36 +92,32 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Kategorien — Bild + Highlight, verlinkt auf die volle Karte */}
-          <div className="mt-16 md:mt-24 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {/* Kategorien — große, lesbare Liste, verlinkt auf die volle Karte */}
+          <ul className="mt-14 md:mt-20 border-t border-stone-200 reveal">
             {menuCategories.map((cat) => (
-              <Link
-                key={cat.title}
-                href="/abendessen"
-                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl reveal"
-              >
-                <Image
-                  src={cat.img.src}
-                  alt={cat.img.alt}
-                  fill
-                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                  className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/85 via-waldgruen-dark/25 to-transparent"
-                />
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
-                  <h3 className="text-2xl md:text-3xl font-display font-normal tracking-tight text-mehlcreme">
-                    {cat.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-mehlcreme/80 leading-snug">
-                    {cat.highlight}
-                  </p>
-                </div>
-              </Link>
+              <li key={cat.title}>
+                <Link
+                  href="/abendessen"
+                  className="group flex items-center justify-between gap-6 py-7 md:py-8 border-b border-stone-200"
+                >
+                  <div>
+                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal tracking-tight text-waldgruen group-hover:text-tonwarm transition-colors">
+                      {cat.title}
+                    </h3>
+                    <p className="mt-2 font-display italic text-stone-500 text-base md:text-lg">
+                      {cat.highlight}
+                    </p>
+                  </div>
+                  <span
+                    aria-hidden
+                    className="shrink-0 text-tonwarm text-2xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
 
           {/* CTA */}
           <div className="mt-14 md:mt-20 text-center reveal">

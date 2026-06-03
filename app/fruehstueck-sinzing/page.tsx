@@ -15,7 +15,10 @@ export default function FruehstueckSinzingPage() {
     <RichLanding
       content={content}
       path="/fruehstueck-sinzing"
-      splitImage={{ src: IMG.foodBreakfast.src, alt: IMG.foodBreakfast.alt }}
+      splitImage={{
+        src: IMG.wwFood1.src,
+        alt: "Bar und Gastraum im Wald & Wiese in Sinzing",
+      }}
     />
   );
 }

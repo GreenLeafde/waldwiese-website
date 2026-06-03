@@ -15,7 +15,10 @@ export default function HochzeitslocationRegensburgPage() {
     <RichLanding
       content={content}
       path="/hochzeitslocation-regensburg"
-      splitImage={{ src: IMG.interiorScene.src, alt: IMG.interiorScene.alt }}
+      splitImage={{
+        src: IMG.wwFood3.src,
+        alt: "Festlich gedeckter Gastraum mit grünen Stühlen im Wald & Wiese",
+      }}
     />
   );
 }

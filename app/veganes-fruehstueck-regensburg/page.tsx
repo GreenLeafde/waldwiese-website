@@ -15,7 +15,10 @@ export default function VeganesFruehstueckRegensburgPage() {
     <RichLanding
       content={content}
       path="/veganes-fruehstueck-regensburg"
-      splitImage={{ src: IMG.foodBowl.src, alt: IMG.foodBowl.alt }}
+      splitImage={{
+        src: IMG.wwFood2.src,
+        alt: "Gastraum mit Siebträger im Wald & Wiese",
+      }}
     />
   );
 }
