@@ -12,6 +12,14 @@ const content: LandingContent = {
   intro:
     "Aus Nittendorf seid ihr in wenigen Minuten bei uns: Wald & Wiese in Sinzing, familiengeführt und im Grünen. Abends Burger, Bowls und Gerichte vom Grill, ab 6. Juli 2026 auch Frühstück. Vegetarisch und vegan gleichberechtigt, Hund willkommen.",
   primaryCta: { label: "Zur Speisekarte", href: "/abendessen" },
+  split: {
+    eyebrow: "Einen Sprung entfernt",
+    heading: "Von Nittendorf",
+    accent: "ins Grüne.",
+    paragraphs: [
+      "Aus Nittendorf bist du in wenigen Minuten da — perfekt für den Abend essen gehen oder bald das Frühstück auf der Terrasse.",
+    ],
+  },
   features: {
     heading: "Ein Abstecher, der sich",
     accent: "lohnt.",

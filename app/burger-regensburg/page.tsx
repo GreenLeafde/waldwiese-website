@@ -12,6 +12,14 @@ const content: LandingContent = {
   intro:
     "Handgemachte Burger, wenige Minuten von Regensburg: Bei Wald & Wiese in Sinzing kommt das Patty nach Wahl — Beef oder vegan — auf ein Brioche- oder Laugenbun vom Bäcker. Von der mähenden Moni bis zum fetzigen Sven.",
   primaryCta: { label: "Zur Speisekarte", href: "/abendessen" },
+  split: {
+    eyebrow: "So machen wir's",
+    heading: "Handgemacht,",
+    accent: "Patty nach Wahl.",
+    paragraphs: [
+      "Buns vom Bäcker, Patty nach Wahl — Beef oder vegan — und Extras vom Cheddar bis zum Spiegelei. Jeder Burger so, wie du ihn magst.",
+    ],
+  },
   features: {
     heading: "Unsere",
     accent: "Burger.",

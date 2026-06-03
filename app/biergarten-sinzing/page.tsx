@@ -12,6 +12,14 @@ const content: LandingContent = {
   intro:
     "Wenn das Wetter passt, sitzt du bei uns draußen: Die Terrasse von Wald & Wiese liegt mitten im Grünen, am Waldrand in Sinzing — nur wenige Minuten von Regensburg. Bier, hausgemachte Limonaden und regionale Küche unter freiem Himmel.",
   primaryCta: { label: "Tisch reservieren", href: "/reservieren" },
+  split: {
+    eyebrow: "Drinnen & draußen",
+    heading: "Bei jedem Wetter",
+    accent: "ein guter Platz.",
+    paragraphs: [
+      "Scheint die Sonne, sitzt du draußen auf der Terrasse im Grünen. Wird's kühler, geht's rein in den warmen Gastraum — der Hund darf überall mit.",
+    ],
+  },
   features: {
     heading: "Draußen bei uns",
     accent: "im Grünen.",

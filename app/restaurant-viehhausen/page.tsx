@@ -12,6 +12,14 @@ const content: LandingContent = {
   intro:
     "Von Viehhausen sind es nur ein paar Minuten zu uns: Wald & Wiese in Sinzing ist euer familiengeführtes Restaurant im Grünen. Abends Burger, Bowls und Gerichte vom Grill, ab 6. Juli 2026 auch Frühstück. Hund herzlich willkommen.",
   primaryCta: { label: "Zur Speisekarte", href: "/abendessen" },
+  split: {
+    eyebrow: "Gleich nebenan",
+    heading: "Von Viehhausen",
+    accent: "schnell im Grünen.",
+    paragraphs: [
+      "Ein paar Minuten Fahrt, und du sitzt bei uns am Waldrand — drinnen oder auf der Terrasse, mit Hund, ohne Stadt-Trubel.",
+    ],
+  },
   features: {
     heading: "Warum's sich lohnt",
     accent: "vorbeizukommen.",

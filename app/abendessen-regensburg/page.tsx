@@ -12,6 +12,14 @@ const content: LandingContent = {
   intro:
     "Raus aus der Stadt, gut essen im Grünen: Bei Wald & Wiese in Sinzing gibt's abends Burger, Bowls und Gerichte vom Grill — regional, ehrlich, nur wenige Minuten von Regensburg. Fleisch, vegetarisch und vegan stehen gleichberechtigt auf der Karte.",
   primaryCta: { label: "Zur Speisekarte", href: "/abendessen" },
+  split: {
+    eyebrow: "Abends bei uns",
+    heading: "Frisch gekocht,",
+    accent: "nichts vom Fließband.",
+    paragraphs: [
+      "Burger, Bowls und Gerichte vom Grill — alles frisch zubereitet. Jedes Gericht trägt einen Namen und eine kleine Geschichte, benannt nach Familie, Freunden und Tieren.",
+    ],
+  },
   features: {
     heading: "Was abends auf den Tisch",
     accent: "kommt.",

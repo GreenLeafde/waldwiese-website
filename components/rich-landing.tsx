@@ -18,10 +18,10 @@ export type LandingContent = {
   };
   stats: { value: string; label: string }[];
   faq: { question: string; answer: string }[];
-  /** Aus früherem, ausführlicherem Template — vom schlanken Layout nicht
-   *  gerendert, daher optional. */
-  story?: { heading: string; accent: string; paragraphs: string[] };
+  /** Optionaler, kurzer Akzent-Textblock (eine Sektion mehr). */
   split?: { eyebrow: string; heading: string; accent: string; paragraphs: string[] };
+  /** Aus früherem Template — nicht gerendert, daher optional. */
+  story?: { heading: string; accent: string; paragraphs: string[] };
   related?: { label: string; href: string; blurb: string }[];
   closing: {
     heading: string;
@@ -32,11 +32,9 @@ export type LandingContent = {
 };
 
 /**
- * Schlankes, bild-geführtes Layout für die Landingpages.
- * Bewusst WENIG Text: Hero → großes echtes Foto → 3 kurze Punkte →
- * Zahlen-Band → FAQ (eingeklappt, für SEO) → CTA.
- * (story/split/related aus dem Content werden absichtlich NICHT als
- *  Textblöcke gerendert — interne Links liefert der Footer.)
+ * Bild-geführtes Landingpage-Layout mit etwas Schwung, aber wenig Text:
+ * Hero → großes Foto → nummerierte Punkte → (optionaler Akzent-Block) →
+ * Claim-Band (tonwarm) → Zahlen-Band → FAQ (eingeklappt) → CTA.
  */
 export function RichLanding({
   content,
@@ -71,6 +69,7 @@ export function RichLanding({
   };
 
   const features = content.features.items.slice(0, 3);
+  const splitParas = content.split?.paragraphs.slice(0, 2) ?? [];
 
   return (
     <>
@@ -137,7 +136,7 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* 3 KURZE PUNKTE */}
+      {/* NUMMERIERTE PUNKTE */}
       <section className="bg-white">
         <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28">
           <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
@@ -145,9 +144,12 @@ export function RichLanding({
             <span className="accent">{content.features.accent}</span>
           </h2>
           <ul className="mt-12 grid sm:grid-cols-3 gap-x-10 gap-y-10">
-            {features.map((item) => (
-              <li key={item.title}>
-                <h3 className="text-xl font-display font-normal tracking-tight text-waldgruen">
+            {features.map((item, i) => (
+              <li key={item.title} className="border-t border-stone-200 pt-5">
+                <span className="font-display italic text-tonwarm text-2xl leading-none">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-3 text-xl font-display font-normal tracking-tight text-waldgruen">
                   {item.title}
                 </h3>
                 <p className="mt-2.5 text-stone-600 leading-relaxed">
@@ -156,6 +158,36 @@ export function RichLanding({
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* OPTIONALER AKZENT-BLOCK */}
+      {content.split && splitParas.length > 0 && (
+        <section className="bg-stone-soft border-y border-stone-200">
+          <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 reveal">
+            <p className="eyebrow no-line">{content.split.eyebrow}</p>
+            <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.08] tracking-tight text-waldgruen">
+              {content.split.heading}{" "}
+              <span className="accent">{content.split.accent}</span>
+            </h2>
+            <div className="mt-7 space-y-4 text-stone-600 leading-relaxed text-lg">
+              {splitParas.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CLAIM-BAND — warmer Farb-Pop */}
+      <section className="bg-tonwarm text-white">
+        <div className="mx-auto max-w-4xl px-6 md:px-10 py-16 md:py-20 text-center">
+          <p className="font-display italic text-3xl md:text-4xl lg:text-5xl leading-[1.1]">
+            Klein, fein &amp; ehrlich.
+          </p>
+          <p className="mt-4 text-white/85 tracking-[0.04em]">
+            Familiengeführt in Sinzing — mitten im Grünen, bei Regensburg.
+          </p>
         </div>
       </section>
 
@@ -177,7 +209,7 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* FAQ — eingeklappt, hält die Seite ruhig, liefert aber SEO-Text */}
+      {/* FAQ */}
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28">
           <p className="eyebrow no-line">Häufige Fragen</p>
