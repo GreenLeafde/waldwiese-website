@@ -33,6 +33,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
       changeFrequency: "monthly",
     },
+    { path: "/abendessen-regensburg", priority: 0.8, changeFrequency: "monthly" },
+    {
+      path: "/vegetarisches-restaurant-regensburg",
+      priority: 0.8,
+      changeFrequency: "monthly",
+    },
+    { path: "/burger-regensburg", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/restaurant-viehhausen", priority: 0.75, changeFrequency: "monthly" },
+    { path: "/restaurant-nittendorf", priority: 0.75, changeFrequency: "monthly" },
   ];
 
   const entries: MetadataRoute.Sitemap = staticPaths.map((s) => ({

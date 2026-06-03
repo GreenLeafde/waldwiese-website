@@ -11,16 +11,18 @@ export type LandingContent = {
   h1Accent: string;
   intro: string;
   primaryCta: { label: string; href: string };
-  story: { heading: string; accent: string; paragraphs: string[] };
   features: {
     heading: string;
     accent: string;
     items: { title: string; text: string }[];
   };
-  split: { eyebrow: string; heading: string; accent: string; paragraphs: string[] };
   stats: { value: string; label: string }[];
   faq: { question: string; answer: string }[];
-  related: { label: string; href: string; blurb: string }[];
+  /** Aus früherem, ausführlicherem Template — vom schlanken Layout nicht
+   *  gerendert, daher optional. */
+  story?: { heading: string; accent: string; paragraphs: string[] };
+  split?: { eyebrow: string; heading: string; accent: string; paragraphs: string[] };
+  related?: { label: string; href: string; blurb: string }[];
   closing: {
     heading: string;
     accent: string;

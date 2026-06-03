@@ -147,23 +147,17 @@ export const FOOTER_NAV: Array<{
     ],
   },
   {
-    title: "Besuch",
+    title: "Entdecken",
     links: [
-      { label: "Reservieren", href: "/reservieren" },
-      { label: "Kontakt & Anfahrt", href: "/kontakt" },
       { label: "Events", href: "/events" },
       { label: "Veranstaltungen", href: "/veranstaltungen" },
-    ],
-  },
-  {
-    title: "Wald & Wiese",
-    links: [
       { label: "Über uns", href: "/ueber-uns" },
       { label: "Rezepte", href: "/rezepte" },
+      { label: "Kontakt & Anfahrt", href: "/kontakt" },
     ],
   },
   {
-    title: "In der Region",
+    title: "Frühstück & Küche",
     links: [
       { label: "Frühstück Regensburg", href: "/fruehstueck-regensburg" },
       { label: "Frühstück Sinzing", href: "/fruehstueck-sinzing" },
@@ -172,10 +166,23 @@ export const FOOTER_NAV: Array<{
         href: "/veganes-fruehstueck-regensburg",
       },
       {
+        label: "Vegetarisches Restaurant",
+        href: "/vegetarisches-restaurant-regensburg",
+      },
+      { label: "Burger Regensburg", href: "/burger-regensburg" },
+    ],
+  },
+  {
+    title: "Region & Anlässe",
+    links: [
+      { label: "Restaurant Sinzing", href: "/restaurant-sinzing" },
+      { label: "Abendessen Regensburg", href: "/abendessen-regensburg" },
+      { label: "Restaurant Viehhausen", href: "/restaurant-viehhausen" },
+      { label: "Restaurant Nittendorf", href: "/restaurant-nittendorf" },
+      {
         label: "Hochzeitslocation Regensburg",
         href: "/hochzeitslocation-regensburg",
       },
-      { label: "Restaurant Sinzing", href: "/restaurant-sinzing" },
       {
         label: "Hundefreundliches Restaurant",
         href: "/hundefreundliches-restaurant-regensburg",
