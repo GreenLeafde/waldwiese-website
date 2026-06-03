@@ -70,13 +70,14 @@ export function ReviewsCarousel() {
         type="button"
         onClick={() => scroll(-1)}
         aria-label="Vorherige Bewertungen"
-        className="absolute left-0 sm:-left-3 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full bg-white text-waldgruen shadow-md ring-1 ring-waldgruen/10 hover:text-tonwarm hover:shadow-lg transition"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full bg-white text-waldgruen shadow-md ring-1 ring-waldgruen/10 hover:text-tonwarm hover:shadow-lg transition"
       >
         <span aria-hidden className="text-2xl leading-none">‹</span>
       </button>
 
       <ul
         ref={ref}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         className="flex items-stretch gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar px-1 sm:px-8 py-2"
       >
         {REVIEWS.map((r, i) => (
@@ -113,7 +114,7 @@ export function ReviewsCarousel() {
         type="button"
         onClick={() => scroll(1)}
         aria-label="Weitere Bewertungen"
-        className="absolute right-0 sm:-right-3 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full bg-white text-waldgruen shadow-md ring-1 ring-waldgruen/10 hover:text-tonwarm hover:shadow-lg transition"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full bg-white text-waldgruen shadow-md ring-1 ring-waldgruen/10 hover:text-tonwarm hover:shadow-lg transition"
       >
         <span aria-hidden className="text-2xl leading-none">›</span>
       </button>
