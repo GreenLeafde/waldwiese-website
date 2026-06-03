@@ -30,60 +30,33 @@ export const metadata = {
  * Kontakt). Mehlcreme einmalig als Beige-Akzent auf der Frühstück-Sektion.
  * ------------------------------------------------------------------------- */
 
-type MenuRow = { name: string; desc: string; price: string; tag?: string };
-type MenuGroup = { title: string; rows: MenuRow[] };
-
-const menuGroups: MenuGroup[] = [
+/** Startseite zeigt nur Kategorien + ein Highlight + Bild — nicht die ganze
+ *  Karte. Details & Preise stehen auf /abendessen. */
+const menuCategories: Array<{
+  title: string;
+  highlight: string;
+  img: { src: string; alt: string };
+}> = [
   {
     title: "Beginner",
-    rows: [
-      {
-        name: "Rote Bete Carpaccio",
-        desc: "Rucola · Ziegenkäse · frittierte Kapern · Granatapfel.",
-        price: "9,90",
-      },
-      {
-        name: "Gemüse im Tempurateig",
-        desc: "mit hausgemachtem Teriyaki- und WALD&WIESE Dip.",
-        price: "10,90",
-      },
-    ],
+    highlight: "z. B. Rote Bete Carpaccio",
+    img: IMG.dipsBowls,
+  },
+  { title: "Burger", highlight: "z. B. Die mähende Moni", img: IMG.burger },
+  {
+    title: "Schüssel voller Glück",
+    highlight: "z. B. Prinzessin auf der Kichererbse",
+    img: IMG.foodBowl,
   },
   {
-    title: "Warmes",
-    rows: [
-      {
-        name: "Die mähende Moni",
-        desc: "Patty nach Wahl · Ziegenkäse · Birnenchutney · Rucola · Balsamico-Zwiebeln · Walnusspesto.",
-        price: "17,50",
-      },
-      {
-        name: "Prinzessin auf der Kichererbse",
-        desc: "Spinat · Avocado · Granatapfel · würzige Kartoffelspalten · Limetten-Dressing.",
-        price: "16,90",
-        tag: "Vegan",
-      },
-      {
-        name: "Teriyaki-Lachs",
-        desc: "Knoblauch-Spinat · würzige Kartoffelspalten · Sesam.",
-        price: "23,90",
-      },
-    ],
+    title: "Vom Grill",
+    highlight: "Steak, Spare Ribs & Teriyaki-Lachs",
+    img: IMG.steak,
   },
   {
-    title: "Süßes",
-    rows: [
-      {
-        name: "Pistazientiramisu",
-        desc: "Unser Klassiker. Schon über 1.500 Mal verkauft.",
-        price: "6,50",
-      },
-      {
-        name: "Sternstunden-Finale",
-        desc: "Wechselndes Dessert — frag uns einfach.",
-        price: "7,90",
-      },
-    ],
+    title: "Finale",
+    highlight: "Pistazientiramisu — über 1.500× verkauft",
+    img: IMG.pistazientiramisu,
   },
 ];
 
@@ -113,19 +86,18 @@ export default function HomePage() {
         </div>
       </a>
 
-      {/* 2 · SPEISEKARTE — schlank, typografisch, keine Bilder */}
+      {/* 2 · SPEISEKARTE — nur Kategorien mit Bild + Highlight, keine Ausschnitte */}
       <section id="speisekarte" className="bg-white scroll-mt-24">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-32">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-32">
           {/* Header */}
-          <div className="text-center reveal">
-            <p className="eyebrow no-line justify-center">
-              Heute Abend
-            </p>
+          <div className="max-w-3xl mx-auto text-center reveal">
+            <p className="eyebrow no-line justify-center">Heute Abend</p>
             <h2 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
               Die Karte.
             </h2>
             <p className="mt-7 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
-              Eine kleine Auswahl. Die ganze Karte findest du{" "}
+              Burger, Bowls, vom Grill und süßes Finale. Die ganze Karte mit
+              allen Gerichten und Preisen findest du{" "}
               <Link
                 href="/abendessen"
                 className="underline decoration-tonwarm/40 decoration-2 underline-offset-[6px] hover:decoration-tonwarm hover:text-tonwarm transition-colors"
@@ -136,55 +108,39 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Menü-Gruppen */}
-          <div className="mt-20 md:mt-28 space-y-16 md:space-y-20">
-            {menuGroups.map((group) => (
-              <div key={group.title} className="reveal">
-                {/* Kategorie-Header */}
-                <div className="flex items-center gap-5 mb-10">
-                  <span className="font-display italic text-stone-400 text-lg tracking-wide">
-                    {group.title}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="flex-1 h-px bg-stone-200"
-                  />
+          {/* Kategorien — Bild + Highlight, verlinkt auf die volle Karte */}
+          <div className="mt-16 md:mt-24 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {menuCategories.map((cat) => (
+              <Link
+                key={cat.title}
+                href="/abendessen"
+                className="group relative block aspect-[4/5] overflow-hidden rounded-2xl reveal"
+              >
+                <Image
+                  src={cat.img.src}
+                  alt={cat.img.alt}
+                  fill
+                  sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+                  className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/85 via-waldgruen-dark/25 to-transparent"
+                />
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                  <h3 className="text-2xl md:text-3xl font-display font-normal tracking-tight text-mehlcreme">
+                    {cat.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-mehlcreme/80 leading-snug">
+                    {cat.highlight}
+                  </p>
                 </div>
-
-                {/* Gerichte */}
-                <ul className="space-y-9">
-                  {group.rows.map((row) => (
-                    <li key={row.name}>
-                      <div className="flex items-baseline gap-3">
-                        <h3 className="text-2xl md:text-[1.75rem] font-display font-normal leading-tight tracking-tight text-waldgruen">
-                          {row.name}
-                          {row.tag && (
-                            <span className="ml-3 align-middle text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-body font-medium">
-                              {row.tag}
-                            </span>
-                          )}
-                        </h3>
-                        <span
-                          aria-hidden
-                          className="flex-1 border-b border-dotted border-stone-300 translate-y-[-4px]"
-                        />
-                        <span className="font-display text-xl md:text-2xl text-tonwarm whitespace-nowrap">
-                          {row.price}{" "}
-                          <span className="text-stone-400 text-base">€</span>
-                        </span>
-                      </div>
-                      <p className="mt-2 font-display italic text-stone-500 leading-relaxed max-w-2xl">
-                        {row.desc}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </Link>
             ))}
           </div>
 
           {/* CTA */}
-          <div className="mt-20 md:mt-28 text-center reveal">
+          <div className="mt-14 md:mt-20 text-center reveal">
             <Link
               href="/abendessen"
               className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
