@@ -161,6 +161,7 @@ export const FOOTER_NAV: Array<{
       { label: "Veranstaltungen", href: "/veranstaltungen" },
       { label: "Über uns", href: "/ueber-uns" },
       { label: "Rezepte", href: "/rezepte" },
+      { label: "Galerie", href: "/galerie" },
       { label: "Kontakt & Anfahrt", href: "/kontakt" },
     ],
   },

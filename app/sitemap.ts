@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/events", priority: 0.7, changeFrequency: "weekly" },
     { path: "/ueber-uns", priority: 0.7, changeFrequency: "monthly" },
     { path: "/rezepte", priority: 0.7, changeFrequency: "weekly" },
+    { path: "/galerie", priority: 0.6, changeFrequency: "monthly" },
     { path: "/kontakt", priority: 0.6, changeFrequency: "yearly" },
     { path: "/reservieren", priority: 0.8, changeFrequency: "yearly" },
     // SEO-/Städte-Landingpages
