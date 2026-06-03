@@ -1,23 +1,28 @@
 "use client";
 
 import { useConsent } from "./consent-provider";
-import { GOOGLE_LOCATOR_URL, GOOGLE_MAPS_URL } from "@/lib/site";
+import { CONTACT, GOOGLE_MAPS_URL } from "@/lib/site";
+
+/** Kostenlose, key-lose Google-Maps-Einbettung (output=embed) — keine API-Kosten. */
+const EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
+  `Wald und Wiese, ${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`,
+)}&output=embed`;
 
 /**
- * Google „Locator Plus"-Karte (selbst gehostet) mit Klick-zum-Laden (Opt-in).
- * Ohne Einwilligung wird nichts von Google nachgeladen — stattdessen ein
- * Platzhalter mit „Karte laden"-Button (erteilt die Einwilligung für externe
- * Medien) und einem Link aufs echte Google-Listing.
+ * Google-Maps-Karte mit Klick-zum-Laden (Opt-in). Ohne Einwilligung wird
+ * nichts von Google nachgeladen — stattdessen ein Platzhalter mit
+ * „Karte laden"-Button (Einwilligung für externe Medien) und einem Link
+ * aufs echte Google-Listing.
  */
 export function MapsEmbed() {
   const { ready, consent, grant } = useConsent();
 
   if (ready && consent.externalMedia) {
     return (
-      <div className="relative h-[600px] sm:h-[660px] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10">
         <iframe
-          title="Standort & Anfahrt — Wald & Wiese, Sinzing"
-          src={GOOGLE_LOCATOR_URL}
+          title={`Karte: ${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`}
+          src={EMBED_SRC}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           className="absolute inset-0 h-full w-full border-0"
@@ -27,7 +32,7 @@ export function MapsEmbed() {
   }
 
   return (
-    <div className="relative h-[600px] sm:h-[660px] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-stone-soft flex items-center justify-center">
+    <div className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-stone-soft flex items-center justify-center">
       <div className="px-6 py-8 text-center max-w-sm">
         <p className="font-display text-lg text-waldgruen">
           Karte von Google Maps

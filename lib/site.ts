@@ -74,9 +74,6 @@ export const GOOGLE_PLACE_ID = "ChIJjTxF3wjBn0cRLWouowLUjkk";
 export const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
   "Wald und Wiese Sinzing",
 )}&query_place_id=${GOOGLE_PLACE_ID}`;
-/** Selbst gebauter Google „Locator Plus"-Widget (von Google gehostet). */
-export const GOOGLE_LOCATOR_URL =
-  "https://storage.googleapis.com/maps-solutions-xzevz8odlk/locator-plus/x6hw/locator-plus.html";
 
 /** Eröffnung Frühstücks-Konzept — User-bestätigt 2026-05-21. */
 export const BREAKFAST_LAUNCH = {
