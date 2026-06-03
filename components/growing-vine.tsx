@@ -1,10 +1,14 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 
 /**
- * Botanische Ranke, die beim Scrollen „wächst": Der Stiel zeichnet sich von
- * unten nach oben (stroke-dashoffset), danach gehen die Blätter & Beeren
- * nacheinander auf. Komplett scroll-getrieben (CSS view-timeline `--vine` in
- * globals.css), kein JS. Mehlcreme-Blätter → für grüne Hintergründe.
+ * Botanische Ranke, die „wächst", sobald ihre Sektion ins Bild kommt: Der Stiel
+ * zeichnet sich von unten nach oben, danach gehen Blätter & Beeren gestaffelt
+ * auf. Ausgelöst per IntersectionObserver (Klasse `grow`) → ZEITBASIERTE CSS-
+ * Animation, läuft in allen Browsern und passt zum Snap-Springen (wächst beim
+ * Ankommen). Ohne JS bleibt sie einfach fertig gezeichnet stehen.
  *
  * `flip` spiegelt die Ranke (für die jeweils andere Seitenkante).
  */
@@ -14,30 +18,31 @@ type Leaf = {
   rx: number;
   ry: number;
   rot: number;
-  range: string;
+  /** Verzögerung in ms, gestaffelt von unten nach oben. */
+  delay: number;
 };
 
-type Berry = { cx: number; cy: number; r: number; range: string };
+type Berry = { cx: number; cy: number; r: number; delay: number };
 
 // Reihenfolge von unten (hohes y) nach oben — so geht die Ranke „hoch".
 const LEAVES: Leaf[] = [
-  { cx: 22, cy: 280, rx: 12, ry: 5.5, rot: -34, range: "entry 6% cover 24%" },
-  { cx: 42, cy: 248, rx: 12, ry: 5.5, rot: 34, range: "entry 13% cover 31%" },
-  { cx: 20, cy: 208, rx: 13, ry: 6, rot: -30, range: "entry 22% cover 40%" },
-  { cx: 44, cy: 172, rx: 13, ry: 6, rot: 30, range: "entry 32% cover 50%" },
-  { cx: 21, cy: 134, rx: 12, ry: 5.5, rot: -30, range: "entry 42% cover 60%" },
-  { cx: 43, cy: 98, rx: 11, ry: 5, rot: 32, range: "entry 52% cover 70%" },
-  { cx: 30, cy: 58, rx: 10, ry: 4.8, rot: -8, range: "entry 62% cover 80%" },
+  { cx: 22, cy: 280, rx: 12, ry: 5.5, rot: -34, delay: 160 },
+  { cx: 42, cy: 248, rx: 12, ry: 5.5, rot: 34, delay: 250 },
+  { cx: 20, cy: 208, rx: 13, ry: 6, rot: -30, delay: 360 },
+  { cx: 44, cy: 172, rx: 13, ry: 6, rot: 30, delay: 470 },
+  { cx: 21, cy: 134, rx: 12, ry: 5.5, rot: -30, delay: 580 },
+  { cx: 43, cy: 98, rx: 11, ry: 5, rot: 32, delay: 690 },
+  { cx: 30, cy: 58, rx: 10, ry: 4.8, rot: -8, delay: 800 },
 ];
 
 const BERRIES: Berry[] = [
-  { cx: 40, cy: 230, r: 3, range: "entry 17% cover 35%" },
-  { cx: 18, cy: 154, r: 3, range: "entry 46% cover 64%" },
-  { cx: 38, cy: 84, r: 2.6, range: "entry 58% cover 76%" },
+  { cx: 40, cy: 230, r: 3, delay: 300 },
+  { cx: 18, cy: 154, r: 3, delay: 620 },
+  { cx: 38, cy: 84, r: 2.6, delay: 760 },
 ];
 
-function leafStyle(rot: number, range: string): CSSProperties {
-  return { "--rot": `${rot}deg`, animationRange: range } as CSSProperties;
+function leafStyle(rot: number, delay: number): CSSProperties {
+  return { "--rot": `${rot}deg`, "--delay": `${delay}ms` } as CSSProperties;
 }
 
 export function GrowingVine({
@@ -47,8 +52,35 @@ export function GrowingVine({
   className?: string;
   flip?: boolean;
 }) {
+  const ref = useRef<SVGSVGElement | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Reduzierte Bewegung oder kein Observer → einfach fertig gezeichnet lassen.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || typeof IntersectionObserver === "undefined") return;
+
+    // „armed" = versteckt; passiert außerhalb des Sichtfelds → kein Aufblitzen.
+    el.classList.add("armed");
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          // Beim Hineinkommen wachsen, beim Verlassen zurücksetzen (Replay).
+          el.classList.toggle("grow", entry.isIntersecting);
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <svg
+      ref={ref}
       viewBox="0 0 64 320"
       fill="none"
       aria-hidden
@@ -70,7 +102,7 @@ export function GrowingVine({
           <ellipse
             key={`l${i}`}
             className="vine-leaf"
-            style={leafStyle(l.rot, l.range)}
+            style={leafStyle(l.rot, l.delay)}
             cx={l.cx}
             cy={l.cy}
             rx={l.rx}
@@ -84,7 +116,7 @@ export function GrowingVine({
           <circle
             key={`b${i}`}
             className="vine-leaf"
-            style={leafStyle(0, b.range)}
+            style={leafStyle(0, b.delay)}
             cx={b.cx}
             cy={b.cy}
             r={b.r}

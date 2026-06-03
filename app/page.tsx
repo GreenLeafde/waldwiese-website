@@ -5,7 +5,6 @@ import { LeafDivider } from "@/components/leaf-divider";
 import { LeafOrnament } from "@/components/leaf-ornament";
 import { GrowingVine } from "@/components/growing-vine";
 import { StampBadge } from "@/components/stamp-badge";
-import { SectionSnap } from "@/components/section-snap";
 import { ReviewsSection } from "@/components/reviews-section";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
@@ -90,7 +89,7 @@ function SideVine({ side = "left" }: { side?: "left" | "right" }) {
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 hidden xl:block h-[55%] max-h-[440px] ${
+      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 hidden lg:block h-[55%] max-h-[440px] ${
         side === "left" ? "left-2 2xl:left-[5%]" : "right-2 2xl:right-[5%]"
       }`}
     >
@@ -124,11 +123,6 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
       />
-      {/* Marker: CSS-Snap-Fallback NUR auf der Startseite (reduce-motion / kein JS) */}
-      <div className="snap-home" aria-hidden hidden />
-      {/* JS-gesteuertes Full-Page-Snapping mit grünem Fade (rendert ein Overlay) */}
-      <SectionSnap />
-
       {/* 1 · INTRO — Waldgrün-Wortmarke, sticky, Vollbild */}
       <LogoIntro />
 
@@ -155,10 +149,10 @@ export default function HomePage() {
       {/* 2 · SPEISEKARTE — grün, große Serif-Headline, Kategorien als Liste */}
       <section
         id="speisekarte"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <SideVine side="left" />
-        <div className="relative w-full mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-28">
+        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-28">
           <div className="text-center reveal">
             <p className="eyebrow no-line justify-center text-tonwarm">
               Heute Abend
@@ -220,7 +214,7 @@ export default function HomePage() {
       {/* 3 · FRÜHSTÜCK — Vollbild-Foto (echtes Gästefoto) mit grünem Schleier */}
       <section
         id="fruehstueck"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <Image
           src={IMG.fruehstueckFoto.src}
@@ -284,7 +278,7 @@ export default function HomePage() {
       {/* 4 · GETRÄNKE — dunkles Grün, ruhig, mit Botanik (kein Stock-Foto) */}
       <section
         id="getraenke"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <SideLeaves flip />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
@@ -317,7 +311,7 @@ export default function HomePage() {
       {/* 5 · ÜBER UNS — der EINE beige Akzent: familiär, lieblich, mit Familienfoto */}
       <section
         id="ueber-uns"
-        className="relative isolate min-h-svh flex items-center bg-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
           <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
@@ -364,10 +358,10 @@ export default function HomePage() {
       {/* 6 · RESERVIEREN — grün, Öffnungszeiten + CTA (Puffer zwischen zwei Fotos) */}
       <section
         id="reservieren"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <SideVine side="right" />
-        <div className="relative w-full mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32 text-center">
+        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
           <div className="reveal">
             <p className="eyebrow no-line justify-center text-tonwarm">
               Reservieren
@@ -448,7 +442,7 @@ export default function HomePage() {
       {/* 7 · HUNDEFREUNDLICH — Vollbild-Foto (echte Hunde im Wald) + grüner Schleier */}
       <section
         id="hund"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <Image
           src={IMG.hundWald.src}
@@ -492,7 +486,7 @@ export default function HomePage() {
       {/* 8 · EVENTS — Magic Dinner, dunkles Grün, mittig, mit Datum-Stempel */}
       <section
         id="events"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <SideLeaves flip />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
@@ -529,7 +523,7 @@ export default function HomePage() {
       {/* 9 · VERANSTALTUNGEN — Vollbild-Foto (echte Terrasse) + grüner Schleier */}
       <section
         id="veranstaltungen"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <Image
           src={IMG.terrasseTische.src}
@@ -572,7 +566,7 @@ export default function HomePage() {
       {/* 10 · REZEPTE — grün, Typo (Stock-Dessertbild entfernt) */}
       <section
         id="rezepte"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <SideVine side="left" />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
@@ -606,7 +600,7 @@ export default function HomePage() {
       {/* 12 · KONTAKT — dunkler Anker am Ende, fließt nahtlos in den Footer */}
       <section
         id="kontakt"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-12 gap-12 md:gap-16">
           <div className="md:col-span-6 reveal">

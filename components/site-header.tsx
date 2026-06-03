@@ -19,7 +19,7 @@ function PhoneIcon({ className = "" }: { className?: string }) {
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M12 2a10 10 0 0 0-8.6 15l-1 3.7 3.8-1A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-2.5.7.7-2.4-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.1-1.5-.2-.3.2-.4.5-.9.1-.2 0-.3 0-.5l-.8-1.7c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.4c.1.2 1.7 2.6 4.1 3.5 1.5.6 2 .6 2.8.5.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.5-.3z" />
+      <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.86-7.01zM12.04 20.13h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.06s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z" />
     </svg>
   );
 }
@@ -66,7 +66,7 @@ export function SiteHeader() {
                 href={`tel:${CONTACT.phoneRaw}`}
                 className="inline-flex items-center gap-1.5 hover:text-tonwarm transition-colors"
               >
-                <PhoneIcon className="w-3.5 h-3.5" />
+                <PhoneIcon className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">{CONTACT.phone}</span>
                 <span className="sm:hidden">Anrufen</span>
               </a>
@@ -76,7 +76,7 @@ export function SiteHeader() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 hover:text-tonwarm transition-colors"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5" />
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
                 WhatsApp
               </a>
             </div>
@@ -91,7 +91,7 @@ export function SiteHeader() {
                 aria-label="Instagram"
                 className="inline-flex items-center gap-1.5 hover:text-tonwarm transition-colors"
               >
-                <InstagramIcon className="w-3.5 h-3.5" />
+                <InstagramIcon className="w-4 h-4 shrink-0" />
                 <span className="hidden sm:inline">Instagram</span>
               </a>
             </div>

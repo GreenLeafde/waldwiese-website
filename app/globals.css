@@ -246,58 +246,43 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ---------------------------------------------------------------------------
- * Sektions-Snap — sanftes Einrasten zur nächsten Sektion. NUR auf der
- * Startseite (Marker `.snap-home`), und nur bei erlaubter Bewegung. `proximity`
- * (nicht `mandatory`), damit Sektionen, die höher als der Viewport sind, frei
- * lesbar bleiben und nichts „eingesperrt" wird.
+ * Wachsende Ranke — zeichnet sich, sobald ihre Sektion sichtbar wird (ein
+ * IntersectionObserver in growing-vine.tsx setzt `.grow`). ZEITBASIERT, damit
+ * es in ALLEN Browsern läuft (nicht nur scroll-timeline-fähige) und auch zum
+ * Snap-Springen passt (wächst beim Ankommen). Standard ohne JS = gezeichnet.
  * --------------------------------------------------------------------------*/
-@media (prefers-reduced-motion: no-preference) {
-  html:has(.snap-home) {
-    scroll-snap-type: y proximity;
-  }
+.vine-stem {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0; /* Fallback ohne JS: Stiel sichtbar */
 }
-.snap-sec {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
+.vine-leaf {
+  /* --rot je Blatt inline; Standard offen (Fallback ohne JS) */
+  transform: rotate(var(--rot, 0deg)) scale(1);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
 }
-
-/* ---------------------------------------------------------------------------
- * Wachsende Ranke — der Stiel „zeichnet" sich beim Scrollen, die Blätter
- * gehen nacheinander auf. Scroll-getrieben über eine benannte View-Timeline
- * der Ranke, sodass alle Teile am Fortschritt DER RANKE hängen (nicht am
- * eigenen Mini-Sichtbereich). Kein JS.
- * --------------------------------------------------------------------------*/
-@supports (animation-timeline: view()) {
-  .vine {
-    view-timeline-name: --vine;
-    view-timeline-axis: block;
-  }
-  .vine-stem {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    animation: vine-grow linear both;
-    animation-timeline: --vine;
-    animation-range: entry 0% cover 72%;
-  }
-  @keyframes vine-grow {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-  .vine-leaf {
-    /* --rot (Drehung) wird je Blatt inline gesetzt; Scale wird animiert. */
-    transform: rotate(var(--rot, 0deg)) scale(0);
-    transform-box: fill-box;
-    transform-origin: 50% 100%;
-    animation: vine-leaf-pop cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-timeline: --vine;
-    /* animation-range wird je Blatt inline gesetzt (gestaffeltes Aufgehen) */
-  }
-  @keyframes vine-leaf-pop {
-    to {
-      transform: rotate(var(--rot, 0deg)) scale(1);
-    }
-  }
+/* „armed": von JS gesetzt (während noch außerhalb des Sichtfelds) → versteckt */
+.vine.armed .vine-stem {
+  stroke-dashoffset: 1;
+}
+.vine.armed .vine-leaf {
+  transform: rotate(var(--rot, 0deg)) scale(0);
+}
+/* „grow": Sektion sichtbar → abspielen */
+.vine.grow .vine-stem {
+  animation: vine-grow 1.1s ease forwards;
+}
+.vine.grow .vine-leaf {
+  animation: vine-leaf-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes vine-grow {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes vine-leaf-pop {
+  from { transform: rotate(var(--rot, 0deg)) scale(0); }
+  to   { transform: rotate(var(--rot, 0deg)) scale(1); }
 }
 
 /* Respekt vor reduce-motion */
@@ -315,12 +300,14 @@ h1, h2, h3, h4, h5 {
     opacity: 1 !important;
     transform: none !important;
   }
-  /* Ranke vollständig gezeichnet & Blätter offen zeigen (statisch) */
-  .vine-stem {
+  /* Ranke statisch & vollständig gezeichnet zeigen (auch wenn JS „armed" setzt) */
+  .vine.armed .vine-stem,
+  .vine.grow .vine-stem {
     animation: none !important;
     stroke-dashoffset: 0 !important;
   }
-  .vine-leaf {
+  .vine.armed .vine-leaf,
+  .vine.grow .vine-leaf {
     animation: none !important;
     transform: rotate(var(--rot, 0deg)) scale(1) !important;
   }
