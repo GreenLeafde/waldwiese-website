@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Mariaort in der Nähe | Wald & Wiese",
+  "metaDescription": "Essen gehen nahe Mariaort: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli Frühstück. Tisch sichern.",
+  "breadcrumb": "Restaurant Mariaort",
+  "eyebrow": "Restaurant · nahe Mariaort",
+  "h1Lead": "Dein Restaurant ganz in der Nähe von",
+  "h1Accent": "Mariaort.",
+  "intro": "Du bist in Mariaort unterwegs und hast Hunger auf etwas Ehrliches? Wald & Wiese liegt nur einen kurzen Weg entfernt in Sinzing, mitten im Grünen am Waldrand. Bei uns gibt's abends Burger, Bowls und Gerichte vom Grill — handgemacht, regional und mit Namen und Geschichte. Klein, fein & ehrlich: mehr Familientisch als steifes Restaurant, dafür mit ganz viel Herz.",
+  "primaryCta": {
+    "label": "Zur Speisekarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen rund um Mariaort",
+    "heading": "Von Mariaort schnell ins",
+    "accent": "Grüne.",
+    "paragraphs": [
+      "Von Mariaort sind wir in wenigen Minuten erreichbar — nah genug für einen spontanen Abend, weit genug raus für Ruhe, Wiese und frische Luft. Du findest uns an der Bruckdorfer Straße 42 in 93161 Sinzing. Reservieren kannst du online über unser System oder ganz klassisch per Telefon, spontan vorbeischauen geht natürlich auch."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der kurze Weg aus Mariaort",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Abendküche mit Charakter",
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Gerichte vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Jedes trägt einen eigenen Namen und eine kleine Geschichte."
+      },
+      {
+        "title": "Vegan, vegetarisch & Fleisch",
+        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange zu suchen. Auch die Bowl Prinzessin auf der Kichererbse wartet schon."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "kurzer Weg",
+      "label": "wenige Minuten von Mariaort"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    },
+    {
+      "value": "100 %",
+      "label": "familiengeführt"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wie weit ist das Restaurant von Mariaort entfernt?",
+      "answer": "Wald & Wiese liegt in Sinzing, nur einen kurzen Weg von Mariaort entfernt — mitten im Grünen am Waldrand. Du findest uns an der Bruckdorfer Straße 42 in 93161 Sinzing; die genaue Anfahrt steht auf unserer Kontaktseite."
+    },
+    {
+      "question": "Was gibt es bei euch zu essen?",
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional, saisonal und mit vegetarischen wie veganen Optionen gleichberechtigt auf der Karte. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück dazu."
+    },
+    {
+      "question": "Darf ich meinen Hund mitbringen?",
+      "answer": "Ja, sehr gern. Dein Hund ist bei uns drinnen wie auf der Terrasse herzlich willkommen — bei uns sind Tiere Familie. Unser Gericht Heinzi ist nach Hund Henry benannt."
+    },
+    {
+      "question": "Wie reserviere ich einen Tisch?",
+      "answer": "Am einfachsten über unser Online-Reservierungssystem auf der Seite Reservieren — oder ruf uns einfach an. Wenn du aus Mariaort kommst, sicher dir vorab einen Platz auf der Terrasse im Grünen."
+    }
+  ],
+  "closing": {
+    "heading": "Komm aus Mariaort vorbei und",
+    "accent": "bleib.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — der kurze Weg aus Mariaort lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { RECIPES } from "@/lib/recipes";
+import { ORTE } from "@/lib/landing/orte";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -58,6 +59,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.5,
+    });
+  }
+
+  // Nachbarort-Landingpages (/restaurant/<ort>) — nur Sitemap, nicht im Footer
+  for (const o of ORTE) {
+    entries.push({
+      url: `${base}/restaurant/${o.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.65,
     });
   }
 

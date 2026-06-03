@@ -7,7 +7,7 @@ import { ConsentProvider } from "@/components/consent-provider";
 import { CookieBanner } from "@/components/cookie-banner";
 import { TrackingScripts } from "@/components/tracking-scripts";
 import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
-import { CONTACT, OPENING_HOURS, SITE } from "@/lib/site";
+import { CONTACT, GEO, GOOGLE_MAPS_URL, OPENING_HOURS, SITE } from "@/lib/site";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -89,6 +89,12 @@ const restaurantJsonLd = {
     "@type": "OpeningHoursSpecification",
     description: slot.isoSpec,
   })),
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: GEO.lat,
+    longitude: GEO.lng,
+  },
+  hasMap: GOOGLE_MAPS_URL,
   sameAs: [CONTACT.instagram],
 };
 

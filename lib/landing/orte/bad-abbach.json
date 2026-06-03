@@ -1,0 +1,65 @@
+{
+  "metaTitle": "Restaurant Bad Abbach in der Nähe – Wald & Wiese",
+  "metaDescription": "Essen gehen rund um Bad Abbach? Wald & Wiese in Sinzing: familiengeführt, im Grünen, hundefreundlich. Abends Burger, Bowls & Grill. Jetzt Tisch sichern.",
+  "breadcrumb": "Restaurant Bad Abbach",
+  "eyebrow": "Restaurant · in der Nähe von Bad Abbach",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Bad Abbach.",
+  "intro": "Du willst rund um Bad Abbach essen gehen und suchst mehr als die nächste Standardkarte? Wald & Wiese in Sinzing liegt nur wenige Minuten entfernt, mitten im Grünen am Waldrand. Abends gibt's bei uns Burger wie die mähende Moni oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Familiengeführt von der Familie Leber: klein, fein & ehrlich.",
+  "primaryCta": { "label": "Zur Abendkarte", "href": "/abendessen" },
+  "split": {
+    "eyebrow": "Von Bad Abbach raus ins Grüne",
+    "heading": "Ein kurzer Weg von Bad Abbach,",
+    "accent": "und du bist am Waldrand.",
+    "paragraphs": [
+      "Wer's in Bad Abbach gern ruhig und naturnah mag, fühlt sich bei uns gleich zuhause: nur wenige Minuten entfernt, dafür echtes Grün statt Trubel. Drinnen gemütlich oder draußen auf der Terrasse – reservieren kannst du online oder einfach per Telefon."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Weg aus Bad Abbach",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Burger & Grill mit Namen",
+        "text": "Bei uns heißen die Burger mähende Moni, fetziger Sven oder gackernde Julia – handgemacht, jedes mit eigener Geschichte. Vom Grill kommen Steak, Spare Ribs oder Teriyaki-Lachs."
+      },
+      {
+        "title": "Fleisch, vegetarisch & vegan",
+        "text": "Alle drei stehen bei uns gleichberechtigt auf der Karte – von der Bowl Prinzessin auf der Kichererbse bis zum Steak. Du findest dein Gericht, ganz ohne Suchen."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt – Tiere sind bei uns Familie."
+      }
+    ]
+  },
+  "stats": [
+    { "value": "wenige Minuten", "label": "von Bad Abbach entfernt" },
+    { "value": "ab 6. Juli 2026", "label": "zusätzlich Frühstück im Grünen" },
+    { "value": "Hund willkommen", "label": "drinnen wie auf der Terrasse" }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es in der Nähe von Bad Abbach ein gutes Restaurant?",
+      "answer": "Ja – Wald & Wiese in Sinzing liegt nur wenige Minuten von Bad Abbach entfernt, mitten im Grünen am Waldrand. Familiengeführt von der Familie Leber, regional und mit Terrasse."
+    },
+    {
+      "question": "Was kommt bei euch abends auf den Tisch?",
+      "answer": "Burger mit Namen wie mähende Moni oder Dorfbazi, Bowls wie Caesar oder Prinzessin auf der Kichererbse und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs – Fleisch, vegetarisch und vegan gleichberechtigt."
+    },
+    {
+      "question": "Kann ich meinen Hund mitbringen?",
+      "answer": "Sehr gern, drinnen wie auf der Terrasse. Bei uns sind Tiere Familie – darum gibt's auf der Karte sogar den Heinzi, benannt nach unserem Hund Henry."
+    },
+    {
+      "question": "Bietet ihr auch Frühstück an?",
+      "answer": "Ab dem 6. Juli 2026 ja. Dann startet unser Frühstück im Grünen – regional, mit veganen und vegetarischen Optionen. Davor sind wir abends für dich da."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Bad Abbach",
+    "accent": "schnell bei uns.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – der Weg aus Bad Abbach zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
+  }
+}

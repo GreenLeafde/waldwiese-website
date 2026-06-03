@@ -1,0 +1,65 @@
+{
+  "metaTitle": "Restaurant Pentling – essen im Grünen | Wald & Wiese",
+  "metaDescription": "Restaurant in der Nähe von Pentling: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli auch Frühstück.",
+  "breadcrumb": "Restaurant Pentling",
+  "eyebrow": "Restaurant · in der Nähe von Pentling",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Pentling.",
+  "intro": "Du suchst zum Essen gehen in Pentling einen Tisch ohne Großstadt-Trubel? Wald & Wiese in Sinzing liegt nur wenige Minuten von Pentling entfernt, mitten im Grünen am Waldrand. Abends gibt's Burger wie die mähende Moni oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Klein, fein & ehrlich, familiengeführt von der Familie Leber.",
+  "primaryCta": { "label": "Zur Speisekarte", "href": "/abendessen" },
+  "split": {
+    "eyebrow": "Von Pentling raus ins Grüne",
+    "heading": "Kurzer Weg von Pentling,",
+    "accent": "großer Unterschied.",
+    "paragraphs": [
+      "Von Pentling bist du in wenigen Minuten bei uns am Waldrand – nah genug für spontan nach Feierabend, weit genug raus für echte Ruhe. Drinnen gemütlich oder draußen auf der Terrasse im Grünen, ganz wie dir lieber ist."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Sprung von Pentling",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Burger mit Namen",
+        "text": "Bei uns heißen die Burger mähende Moni, fetziger Sven oder gackernde Julia – handgemacht, mit Geschichte. Dazu Bowls und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs."
+      },
+      {
+        "title": "Für jeden was dabei",
+        "text": "Fleisch, vegetarisch und vegan stehen gleichberechtigt auf der Karte. Egal wie du isst, du findest dein Gericht – ohne lange zu suchen."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+      }
+    ]
+  },
+  "stats": [
+    { "value": "wenige Minuten", "label": "von Pentling entfernt" },
+    { "value": "ab 6. Juli 2026", "label": "auch Frühstück im Grünen" },
+    { "value": "familiengeführt", "label": "Familie Leber kocht & serviert" }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es ein Restaurant in der Nähe von Pentling?",
+      "answer": "Ja – Wald & Wiese in Sinzing ist nur wenige Minuten von Pentling entfernt. Familiengeführt, regional und mit Terrasse im Grünen am Waldrand."
+    },
+    {
+      "question": "Was gibt es bei euch zu essen?",
+      "answer": "Abends Burger mit Namen wie mähende Moni oder Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan. Ab 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+    },
+    {
+      "question": "Kann ich meinen Hund mitbringen?",
+      "answer": "Sehr gern, drinnen wie auf der Terrasse. Bei uns sind Tiere Familie – darum gibt's auf der Karte sogar den Heinzi, benannt nach unserem Hund Henry."
+    },
+    {
+      "question": "Wie reserviere ich einen Tisch?",
+      "answer": "Am einfachsten online über unser Reservierungssystem oder telefonisch. Spontan vorbeikommen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Pentling",
+    "accent": "schnell bei uns.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
+    "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
+  }
+}

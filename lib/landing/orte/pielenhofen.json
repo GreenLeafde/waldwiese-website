@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant nahe Pielenhofen | Wald & Wiese",
+  "metaDescription": "Restaurant in der Nähe von Pielenhofen: Wald & Wiese in Sinzing — familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli Frühstück.",
+  "breadcrumb": "Restaurant Pielenhofen",
+  "eyebrow": "Restaurant · nahe Pielenhofen",
+  "h1Lead": "Dein Restaurant nahe",
+  "h1Accent": "Pielenhofen.",
+  "intro": "Du willst rund um Pielenhofen essen gehen, aber kein steifes Lokal? Dann komm zu Wald & Wiese nach Sinzing — wenige Minuten entfernt, familiengeführt und mitten im Grünen am Waldrand. Abends gibt's Burger, Bowls und Gerichte vom Grill, jedes mit eigenem Namen und kleiner Geschichte. Fleisch, vegetarisch und vegan stehen gleichberechtigt auf der Karte. Klein, fein & ehrlich.",
+  "primaryCta": {
+    "label": "Zur Speisekarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen bei Pielenhofen",
+    "heading": "Von Pielenhofen ein",
+    "accent": "kurzer Weg.",
+    "paragraphs": [
+      "Aus Pielenhofen bist du in wenigen Minuten bei uns am Waldrand in Sinzing — nah genug für spontan, weit genug raus zum Durchatmen. Reservieren kannst du online oder telefonisch, vorbeischauen geht natürlich auch."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Abstecher",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Abendküche mit Namen",
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und alles vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Jedes Gericht trägt seine eigene kleine Geschichte."
+      },
+      {
+        "title": "Für jeden Geschmack",
+        "text": "Fleisch, vegetarisch und vegan sind bei uns gleichberechtigt. Regional und saisonal gekocht — du findest deinen Teller, ganz ohne langes Suchen."
+      },
+      {
+        "title": "Hund gehört dazu",
+        "text": "Dein Vierbeiner ist drinnen wie auf der Terrasse herzlich willkommen. Unser Gericht „Heinzi“ ist sogar nach Hund Henry benannt — Tiere sind bei uns Familie."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Pielenhofen"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen & auf der Terrasse"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es ein gutes Restaurant in der Nähe von Pielenhofen?",
+      "answer": "Ja — Wald & Wiese in Sinzing ist nur wenige Minuten von Pielenhofen entfernt. Familiengeführt von der Familie Leber, regional gekocht, mit Terrasse im Grünen am Waldrand."
+    },
+    {
+      "question": "Was kommt bei euch am Abend auf den Tisch?",
+      "answer": "Burger, Bowls und Gerichte vom Grill wie Steak, Spare Ribs oder Teriyaki-Lachs — vegetarisch und vegan gleichberechtigt dabei. Ab dem 6. Juli 2026 gibt's morgens zusätzlich Frühstück im Grünen."
+    },
+    {
+      "question": "Kann ich meinen Hund mitbringen?",
+      "answer": "Klar, sehr gern. Dein Hund ist bei uns drinnen wie auf der Terrasse willkommen — unser Gericht „Heinzi“ ist nach unserem Hund Henry benannt."
+    },
+    {
+      "question": "Wie reserviere ich von Pielenhofen aus einen Tisch?",
+      "answer": "Am einfachsten online über unser Reservierungssystem oder ganz klassisch per Telefon. Spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Pielenhofen",
+    "accent": "schnell bei uns.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

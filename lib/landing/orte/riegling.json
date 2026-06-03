@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Riegling – essen gehen | Wald & Wiese",
+  "metaDescription": "Essen gehen in der Nähe von Riegling: Wald & Wiese in Sinzing bei Regensburg – familiengeführt, im Grünen, hundefreundlich. Abends Burger, Bowls & Grill. Tisch sichern.",
+  "breadcrumb": "Restaurant Riegling",
+  "eyebrow": "Restaurant · nahe Riegling",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Riegling.",
+  "intro": "Du wohnst in oder um Riegling und hast Lust, mal wieder richtig schön essen zu gehen? Wald & Wiese in Sinzing liegt nur wenige Minuten von Riegling entfernt, mitten im Grünen am Waldrand bei Regensburg. Abends kommen bei uns Burger, Bowls und Gerichte vom Grill auf den Tisch — jedes mit eigenem Namen und kleiner Geschichte. Klein, fein & ehrlich, von der Familie Leber selbst geführt.",
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen nahe Riegling",
+    "heading": "Ein kurzer Weg von Riegling ins",
+    "accent": "Grüne.",
+    "paragraphs": [
+      "Von Riegling bist du in wenigen Minuten bei uns in Sinzing, Bruckdorfer Straße 42 — raus aus dem Alltag, rein ins Grüne. Statt Trubel gibt's bei uns Waldrand, frische Luft und Zeit zum Durchatmen. Reservieren kannst du online oder ganz klassisch per Telefon, spontan vorbeischauen geht aber auch."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Weg von Riegling",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Abendküche mit Charakter",
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Gerichte vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Handgemacht, ehrlich und jedes mit eigenem Namen."
+      },
+      {
+        "title": "Für alle, egal wie du isst",
+        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt auf der Karte. Du findest dein Gericht, ohne lange suchen zu müssen — und zum Schluss vielleicht ein Pistazientiramisu."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner gehört bei uns dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Riegling ins Grüne"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wie weit ist Wald & Wiese von Riegling entfernt?",
+      "answer": "Wir liegen in Sinzing, nur wenige Minuten von Riegling entfernt — an der Bruckdorfer Straße 42, mitten im Grünen am Waldrand bei Regensburg. Die genaue Anfahrt findest du auf unserer Kontaktseite."
+    },
+    {
+      "question": "Was gibt es bei euch am Abend zu essen?",
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — etwa Steak, Spare Ribs oder Teriyaki-Lachs, dazu vegetarische und vegane Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+    },
+    {
+      "question": "Kann ich meinen Hund mitbringen?",
+      "answer": "Sehr gern. Dein Hund ist bei uns drinnen wie auf der Terrasse herzlich willkommen — bei uns sind Tiere Familie. Unser Gericht „Heinzi“ ist nach Hund Henry benannt."
+    },
+    {
+      "question": "Wie reserviere ich einen Tisch?",
+      "answer": "Am einfachsten über unser Online-System auf der Seite „Reservieren“ — oder ruf uns einfach an. Spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Komm von Riegling",
+    "accent": "vorbei.",
+    "text": "Ob abends ein Tisch oder ab Juli das Frühstück im Grünen — der kurze Weg von Riegling lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

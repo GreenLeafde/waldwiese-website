@@ -1,13 +1,13 @@
 "use client";
 
 import { useConsent } from "./consent-provider";
-import { CONTACT } from "@/lib/site";
+import { CONTACT, GOOGLE_MAPS_URL } from "@/lib/site";
 
-const QUERY = encodeURIComponent(
-  `${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`,
-);
-const EMBED_SRC = `https://www.google.com/maps?q=${QUERY}&output=embed`;
-const EXTERNAL_SRC = `https://www.google.com/maps?q=${QUERY}`;
+const EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
+  `Wald und Wiese, ${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`,
+)}&output=embed`;
+/** Link auf das echte Google-Listing (Bewertungen/Sterne sichtbar). */
+const EXTERNAL_SRC = GOOGLE_MAPS_URL;
 
 /**
  * Google-Maps-Karte mit Klick-zum-Laden (Opt-in). Ohne Einwilligung wird

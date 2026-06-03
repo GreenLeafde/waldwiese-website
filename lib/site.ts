@@ -67,6 +67,14 @@ export const OPENING_HOURS = CURRENT_OPENING_HOURS.map((s) => ({
 export const RESERVATION_URL =
   "https://mylightspeed.app/reservation/abfa7c53-5be9-4ace-806d-3276d3f70e9b/reservation";
 
+/** Google-Place-Daten (aus dem Google-Eintrag, Place ID). */
+export const GEO = { lat: 48.9901749, lng: 12.0235966 } as const;
+export const GOOGLE_PLACE_ID = "ChIJjTxF3wjBn0cRLWouowLUjkk";
+/** Öffnet exakt das Google-Listing (mit Bewertungen/Sternen). */
+export const GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  "Wald und Wiese Sinzing",
+)}&query_place_id=${GOOGLE_PLACE_ID}`;
+
 /** Eröffnung Frühstücks-Konzept — User-bestätigt 2026-05-21. */
 export const BREAKFAST_LAUNCH = {
   date: "2026-07-06",

@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Eilsbrunn? Wald & Wiese nebenan in Sinzing",
+  "metaDescription": "Essen gehen nahe Eilsbrunn: Wald & Wiese in Sinzing – familiengeführt, hundefreundlich, mitten im Grünen. Abends Burger, Bowls & Grill. Jetzt Tisch sichern.",
+  "breadcrumb": "Restaurant Eilsbrunn",
+  "eyebrow": "Restaurant · wenige Minuten von Eilsbrunn",
+  "h1Lead": "Essen gehen nahe",
+  "h1Accent": "Eilsbrunn.",
+  "intro": "Du suchst ein Restaurant in der Nähe von Eilsbrunn, in dem es ehrlich, persönlich und unkompliziert zugeht? Dann komm rüber nach Sinzing zu Wald & Wiese — nur einen kurzen Weg von Eilsbrunn entfernt, mitten im Grünen am Waldrand. Abends gibt's bei uns Burger, Bowls und Gerichte vom Grill, regional gekocht und mit Namen versehen. Klein, fein & ehrlich: kein steifes Lokal, sondern ein Platz zum Bleiben.",
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen in Eilsbrunn & Umgebung",
+    "heading": "Von Eilsbrunn schnell im Grünen",
+    "accent": "angekommen.",
+    "paragraphs": [
+      "Von Eilsbrunn aus bist du in wenigen Minuten bei uns in Sinzing — nah genug für einen spontanen Abend, weit genug raus, um wirklich abzuschalten. Du findest uns an der Bruckdorfer Straße 42 in 93161 Sinzing, am Waldrand statt mitten im Trubel. Reservieren kannst du online über unsere Seite „Reservieren“ oder ganz klassisch per Telefon — und spontan reinschauen geht natürlich auch."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der kurze Weg aus Eilsbrunn",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Abendküche mit Charakter",
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Gerichte vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+      },
+      {
+        "title": "Für jeden was dabei",
+        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange zu suchen oder Extrawünsche erklären zu müssen."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse im Grünen. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Eilsbrunn entfernt, im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es ein gutes Restaurant in der Nähe von Eilsbrunn?",
+      "answer": "Ja — Wald & Wiese in Sinzing liegt nur einen kurzen Weg von Eilsbrunn entfernt, an der Bruckdorfer Straße 42 in 93161 Sinzing. Familiengeführt, mitten im Grünen am Waldrand. Abends gibt's Burger, Bowls und Gerichte vom Grill. Die genaue Anfahrt findest du auf unserer Kontaktseite."
+    },
+    {
+      "question": "Was gibt es bei Wald & Wiese zu essen?",
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional und mit vegetarischen wie veganen Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+    },
+    {
+      "question": "Darf ich meinen Hund mitbringen?",
+      "answer": "Sehr gern. Dein Hund ist bei uns drinnen wie auf der Terrasse herzlich willkommen — bei uns sind Tiere Familie. Unser Gericht „Heinzi“ ist nach unserem Hund Henry benannt."
+    },
+    {
+      "question": "Wie reserviere ich einen Tisch?",
+      "answer": "Am einfachsten über unser Online-Reservierungssystem auf der Seite „Reservieren“ — oder ruf uns einfach an. Wenn du aus Eilsbrunn kommst, reicht der kurze Weg nach Sinzing; spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Komm vorbei und",
+    "accent": "bleib.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — von Eilsbrunn bist du in wenigen Minuten bei uns. Reservier in ein paar Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "metaTitle": "Restaurant Königswiesen – raus ins Grüne | Wald & Wiese",
+  "metaDescription": "Restaurant in der Nähe von Königswiesen: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli auch Frühstück.",
+  "breadcrumb": "Restaurant Königswiesen",
+  "eyebrow": "Restaurant · wenige Minuten von Königswiesen",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Königswiesen.",
+  "intro": "Lust, von Königswiesen mal richtig rauszukommen? Wald & Wiese in Sinzing liegt nur wenige Minuten entfernt – nicht mehr Großstadt, sondern Waldrand, Grün und Ruhe. Abends kochen wir Burger mit Namen wie den fetzigen Sven oder den Dorfbazi, dazu Bowls und Gerichte vom Grill, Fleisch genauso wie vegetarisch und vegan. Familiengeführt von der Familie Leber, nach unserem Leitsatz: klein, fein & ehrlich.",
+  "primaryCta": { "label": "Zur Abendkarte", "href": "/abendessen" },
+  "split": {
+    "eyebrow": "Von Königswiesen ins Grüne",
+    "heading": "Ein kurzer Weg aus Königswiesen,",
+    "accent": "ganz andere Welt.",
+    "paragraphs": [
+      "Von Königswiesen bist du im Handumdrehen bei uns am Waldrand – nah genug für spontan unter der Woche, weit genug raus, dass der Stadtlärm hinter dir bleibt. Setz dich rein, wenn's gemütlich sein soll, oder raus auf die Terrasse im Grünen. Reservieren kannst du online oder einfach per Telefon."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Weg aus Königswiesen",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Burger & Bowls mit Geschichte",
+        "text": "Jedes Gericht hat bei uns einen Namen – vom fetzigen Sven über die gackernde Julia bis zur Prinzessin auf der Kichererbse. Dazu kommt vom Grill Steak, Spare Ribs oder Teriyaki-Lachs."
+      },
+      {
+        "title": "Egal wie du isst",
+        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt nebeneinander. Niemand muss zur Beilage gemacht werden – jeder findet sein Hauptgericht."
+      },
+      {
+        "title": "Vierbeiner gehören dazu",
+        "text": "Dein Hund ist drinnen wie auf der Terrasse herzlich willkommen. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt – bei uns sind Tiere Familie."
+      }
+    ]
+  },
+  "stats": [
+    { "value": "wenige Minuten", "label": "von Königswiesen ins Grüne" },
+    { "value": "ab 6. Juli 2026", "label": "auch Frühstück im Grünen" },
+    { "value": "Hund willkommen", "label": "drinnen wie auf der Terrasse" }
+  ],
+  "faq": [
+    {
+      "question": "Was gibt es bei Wald & Wiese auf der Karte?",
+      "answer": "Abends Burger mit Namen wie den fetzigen Sven oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Steak, Spare Ribs, Teriyaki-Lachs. Fleisch, vegetarisch und vegan gleichberechtigt. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+    },
+    {
+      "question": "Gibt es ein Restaurant in der Nähe von Königswiesen?",
+      "answer": "Ja – Wald & Wiese in Sinzing ist nur wenige Minuten von Königswiesen entfernt. Familiengeführt, regional und mitten im Grünen am Waldrand statt im Stadttrubel."
+    },
+    {
+      "question": "Kann ich meinen Hund mitnehmen?",
+      "answer": "Klar, sehr gern – drinnen wie draußen auf der Terrasse. Auf der Karte gibt's bei uns sogar den Heinzi, benannt nach unserem Hund Henry."
+    },
+    {
+      "question": "Wie bekomme ich einen Tisch?",
+      "answer": "Am einfachsten online über unser Reservierungssystem oder telefonisch. Aus Königswiesen ist der Weg kurz – spontan vorbeischauen klappt also auch."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Königswiesen",
+    "accent": "schnell im Grünen.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder komm einfach spontan nach Sinzing rüber.",
+    "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
+  }
+}

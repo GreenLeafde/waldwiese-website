@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Undorf in der Nähe – Wald & Wiese",
+  "metaDescription": "Essen gehen in der Nähe von Undorf? Wald & Wiese in Sinzing: familiengeführt, im Grünen, hundefreundlich. Abends Burger, Bowls & Grill. Jetzt Tisch sichern.",
+  "breadcrumb": "Restaurant Undorf",
+  "eyebrow": "Restaurant · nahe Undorf",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Undorf.",
+  "intro": "Du suchst zum Essen gehen in der Nähe von Undorf einen Platz, der nicht nach Kette schmeckt? Wald & Wiese liegt nur wenige Minuten entfernt in Sinzing, mitten im Grünen am Waldrand. Abends gibt's bei uns Burger, Bowls und Gerichte vom Grill — alle mit Namen und Geschichte. Familiengeführt von der Familie Leber, klein, fein und ehrlich.",
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen nahe Undorf",
+    "heading": "Ein kurzer Weg von Undorf —",
+    "accent": "und du bist im Grünen.",
+    "paragraphs": [
+      "Von Undorf ist es nur ein kurzer Weg zu uns nach Sinzing: nah genug für den spontanen Feierabend, weit genug raus, um wirklich anzukommen. Du findest uns an der Bruckdorfer Straße 42 — reservieren kannst du online über /reservieren oder ganz klassisch per Telefon."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Weg aus Undorf",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Abendküche mit Charakter",
+        "text": "Burger wie die mähende Moni oder der Dorfbazi, Bowls und Steak, Spare Ribs oder Teriyaki-Lachs vom Grill. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+      },
+      {
+        "title": "Vegan, vegetarisch & Fleisch",
+        "text": "Bei uns stehen Fleisch, vegetarisch und vegan gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange zu suchen."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt — Hunde sind bei uns Familie."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Undorf entfernt, im Grünen"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "zusätzlich Frühstück im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es nahe Undorf ein gutes Restaurant zum Abendessen?",
+      "answer": "Ja — Wald & Wiese in Sinzing liegt nur wenige Minuten von Undorf entfernt, mitten im Grünen. Abends servieren wir Burger, Bowls und Gerichte vom Grill, regional gekocht und jedes mit eigenem Namen und Geschichte."
+    },
+    {
+      "question": "Wie weit ist es von Undorf bis zu Wald & Wiese?",
+      "answer": "Es ist nur ein kurzer Weg: Du erreichst uns von Undorf aus in wenigen Minuten. Wir liegen an der Bruckdorfer Straße 42 in Sinzing — die genaue Anfahrt findest du auf unserer Kontaktseite."
+    },
+    {
+      "question": "Ist mein Hund im Restaurant willkommen?",
+      "answer": "Sehr gern. Dein Hund darf bei uns mit in den Innenraum und mit raus auf die Terrasse. Bei uns sind Tiere Familie — unser Gericht Heinzi ist nach Hund Henry benannt."
+    },
+    {
+      "question": "Kann ich bei euch auch frühstücken?",
+      "answer": "Ab dem 6. Juli 2026 ja. Dann startet unser Frühstück im Grünen — regional, mit veganen und vegetarischen Optionen. Davor sind wir abends für dich da."
+    }
+  ],
+  "closing": {
+    "heading": "Komm aus Undorf vorbei und",
+    "accent": "bleib.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — der Weg aus Undorf zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

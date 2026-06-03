@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Etterzhausen – Wald & Wiese in Sinzing",
+  "metaDescription": "Restaurant in der Nähe von Etterzhausen: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli Frühstück.",
+  "breadcrumb": "Restaurant Etterzhausen",
+  "eyebrow": "Restaurant · nahe Etterzhausen",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Etterzhausen.",
+  "intro": "Du suchst ein Restaurant in der Nähe von Etterzhausen, das warm, ehrlich und ein bisschen anders ist? Von Etterzhausen bist du in wenigen Minuten bei uns: Wald & Wiese in Sinzing, familiengeführt und mitten im Grünen am Waldrand. Abends gibt's Burger, Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt auf der Karte. Klein, fein & ehrlich.",
+  "primaryCta": {
+    "label": "Zur Speisekarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen bei Etterzhausen",
+    "heading": "Von Etterzhausen",
+    "accent": "schnell im Grünen.",
+    "paragraphs": [
+      "Etterzhausen liegt ein kurzer Weg von uns entfernt – nah genug für den spontanen Abend, raus genug für Ruhe, Wiese und frische Luft. Such dir drinnen einen gemütlichen Tisch oder die Terrasse im Grünen, bring den Hund mit und bleib so lange du magst."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der kurze Weg",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Gleich um die Ecke",
+        "text": "Von Etterzhausen bist du in wenigen Minuten da – ideal für den Abend zum Essen gehen oder bald das Frühstück auf der Terrasse."
+      },
+      {
+        "title": "Gerichte mit Geschichte",
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, dazu Bowls und vom Grill – jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Etterzhausen"
+    },
+    {
+      "value": "vegan & vegetarisch",
+      "label": "gleichberechtigt auf der Karte"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es ein gutes Restaurant in der Nähe von Etterzhausen?",
+      "answer": "Ja – Wald & Wiese in Sinzing liegt nur wenige Minuten von Etterzhausen entfernt. Familiengeführt von der Familie Leber, regional und mit Terrasse im Grünen am Waldrand."
+    },
+    {
+      "question": "Was kommt bei euch auf den Tisch?",
+      "answer": "Abends Burger, Bowls und Gerichte vom Grill wie Steak, Spare Ribs oder Teriyaki-Lachs – Fleisch, vegetarisch und vegan gleichberechtigt. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+    },
+    {
+      "question": "Darf mein Hund mit?",
+      "answer": "Sehr gern, drinnen wie auf der Terrasse. Bei uns sind Tiere Familie – unser Gericht Heinzi ist nach unserem Hund Henry benannt."
+    },
+    {
+      "question": "Wie reserviere ich einen Tisch?",
+      "answer": "Am einfachsten online über unser Reservierungssystem oder telefonisch. Spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Etterzhausen",
+    "accent": "schnell da.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – reservier dir in wenigen Klicks einen Platz oder schau einfach spontan vorbei. Wir freuen uns auf dich.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Kumpfmühl – raus ins Grüne | Wald & Wiese",
+  "metaDescription": "Essen gehen in der Nähe von Kumpfmühl: Wald & Wiese in Sinzing – familiengeführt, hundefreundlich, im Grünen. Abends Burger, Bowls & Grill, ab Juli Frühstück.",
+  "breadcrumb": "Restaurant Kumpfmühl",
+  "eyebrow": "Restaurant · in der Nähe von Kumpfmühl",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Kumpfmühl.",
+  "intro": "Mitten in Kumpfmühl daheim und Lust, zum Essen gehen mal raus aus dem Viertel zu kommen? Wald & Wiese in Sinzing liegt nur wenige Minuten von Kumpfmühl entfernt – kein Stadttrubel mehr, dafür Waldrand, frische Luft und Terrasse im Grünen. Abends gibt's Burger wie den Dorfbazi oder die gackernde Julia, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Klein, fein & ehrlich, von der Familie Leber selbst geführt.",
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen in Kumpfmühl",
+    "heading": "Aus dem Viertel raus,",
+    "accent": "rein ins Grüne.",
+    "paragraphs": [
+      "Von Kumpfmühl aus bist du in wenigen Minuten bei uns am Waldrand – nah genug für den spontanen Feierabend, weit genug raus, um die Stadt hinter dir zu lassen. Drinnen gemütlich oder draußen auf der Terrasse, ganz wie dir lieber ist. Reservier bequem online über /reservieren oder ruf einfach an."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Weg aus Kumpfmühl",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Burger mit Namen",
+        "text": "Handgemachte Burger wie der Dorfbazi, der Heinzi oder die gackernde Julia, dazu Bowls und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs. Jedes Gericht trägt seinen eigenen Namen und eine kleine Geschichte."
+      },
+      {
+        "title": "Fleisch, vegetarisch & vegan",
+        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte – egal wie du isst, du findest dein Gericht. Und zum Schluss lohnt sich das Pistazientiramisu aus eigener Patisserie."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Kumpfmühl ins Grüne"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    },
+    {
+      "value": "familiengeführt",
+      "label": "Familie Leber kocht & serviert"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Gibt es ein gutes Restaurant in der Nähe von Kumpfmühl?",
+      "answer": "Ja – Wald & Wiese in Sinzing ist nur wenige Minuten von Kumpfmühl entfernt. Familiengeführt, regional und mit Terrasse im Grünen am Waldrand. Die genaue Anfahrt findest du auf unserer Kontaktseite."
+    },
+    {
+      "question": "Was kommt abends bei euch auf den Tisch?",
+      "answer": "Burger mit Namen wie Dorfbazi oder gackernde Julia, Bowls und Gerichte vom Grill – etwa Steak, Spare Ribs oder Teriyaki-Lachs. Alles regional, mit vegetarischen und veganen Optionen. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+    },
+    {
+      "question": "Kann ich meinen Hund mitbringen?",
+      "answer": "Sehr gern, drinnen wie auf der Terrasse. Bei uns sind Tiere Familie – darum steht auf der Karte sogar der Heinzi, benannt nach unserem Hund Henry."
+    },
+    {
+      "question": "Wie reserviere ich von Kumpfmühl aus einen Tisch?",
+      "answer": "Am einfachsten online über unser Reservierungssystem auf der Seite /reservieren – oder ruf uns einfach an. Spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Kumpfmühl",
+    "accent": "schnell bei uns.",
+    "text": "Ob abends ein Tisch oder ab Juli das Frühstück im Grünen – der kurze Weg aus Kumpfmühl lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

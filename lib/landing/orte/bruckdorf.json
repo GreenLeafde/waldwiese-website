@@ -1,0 +1,80 @@
+{
+  "metaTitle": "Restaurant Bruckdorf in der Nähe | Wald & Wiese",
+  "metaDescription": "Essen gehen in der Nähe von Bruckdorf? Wald & Wiese in Sinzing: familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill. Jetzt Tisch sichern.",
+  "breadcrumb": "Restaurant Bruckdorf",
+  "eyebrow": "Restaurant · in der Nähe von Bruckdorf",
+  "h1Lead": "Dein Restaurant in der Nähe von",
+  "h1Accent": "Bruckdorf.",
+  "intro": "Du willst in der Nähe von Bruckdorf essen gehen, ohne in der Stadt zu landen? Wald & Wiese liegt nur wenige Minuten entfernt in Sinzing, mitten im Grünen am Waldrand. Bei uns gibt's abends Burger, Bowls und Gerichte vom Grill — handgemacht, regional und mit Augenzwinkern. Klein, fein & ehrlich: ein familiengeführtes Restaurant, kein steifer Laden.",
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/abendessen"
+  },
+  "split": {
+    "eyebrow": "Essen gehen bei Bruckdorf",
+    "heading": "Ein kurzer Weg von Bruckdorf, mitten ins",
+    "accent": "Grüne.",
+    "paragraphs": [
+      "Von Bruckdorf bist du in wenigen Minuten bei uns an der Bruckdorfer Straße 42 in Sinzing — raus aus dem Alltag, rein ins Grüne am Waldrand. Reservieren kannst du online über unser System oder ganz klassisch per Telefon. Und damit du Bescheid weißt: Wir sind ein Restaurant, kein Brunch-Buffet — abends à la carte, ab Juli zusätzlich Frühstück, alles frisch und in Ruhe serviert."
+    ]
+  },
+  "features": {
+    "heading": "Warum sich der Weg von Bruckdorf",
+    "accent": "lohnt.",
+    "items": [
+      {
+        "title": "Gerichte mit Namen",
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Steaks, Spare Ribs oder Teriyaki-Lachs vom Grill. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+      },
+      {
+        "title": "Vegan, vegetarisch, Fleisch",
+        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange suchen zu müssen oder Kompromisse zu machen."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt — Tiere sind bei uns Familie."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "wenige Minuten",
+      "label": "von Bruckdorf, mitten im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    },
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wie weit ist Wald & Wiese von Bruckdorf entfernt?",
+      "answer": "Nur ein kurzer Weg: Du erreichst uns von Bruckdorf aus in wenigen Minuten. Wir liegen an der Bruckdorfer Straße 42 in 93161 Sinzing, mitten im Grünen am Waldrand. Die genaue Anfahrt findest du auf unserer Kontaktseite."
+    },
+    {
+      "question": "Was gibt es bei euch zu essen?",
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — etwa Steak, Spare Ribs oder Teriyaki-Lachs, dazu vegetarische und vegane Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück dazu."
+    },
+    {
+      "question": "Ist mein Hund im Restaurant willkommen?",
+      "answer": "Ja, sehr gern. Dein Hund ist bei uns drinnen wie auf der Terrasse herzlich willkommen — bei uns sind Tiere Familie. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+    },
+    {
+      "question": "Wie reserviere ich einen Tisch?",
+      "answer": "Am einfachsten über unser Online-Reservierungssystem auf der Seite „Reservieren“ — oder ruf uns einfach an. Spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "closing": {
+    "heading": "Komm vorbei und",
+    "accent": "bleib.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — von Bruckdorf ist es nur ein kurzer Weg zu uns. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}
