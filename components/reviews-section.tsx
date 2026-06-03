@@ -50,11 +50,11 @@ export function ReviewsSection() {
           </a>
         </div>
 
-        <ul className="mt-14 md:mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <ul className="mt-14 md:mt-20 flex items-stretch gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar -mx-6 px-6 md:-mx-10 md:px-10 pb-2">
           {REVIEWS.map((r) => (
             <li
               key={r.name}
-              className="reveal flex flex-col rounded-2xl bg-white ring-1 ring-waldgruen/10 p-7"
+              className="snap-start shrink-0 w-[82%] sm:w-[22rem] flex flex-col rounded-3xl bg-white ring-1 ring-waldgruen/10 shadow-sm p-7 md:p-8"
             >
               <Stars n={r.rating} />
               <p className="mt-4 flex-1 text-stone-700 leading-relaxed">
@@ -67,6 +67,9 @@ export function ReviewsSection() {
             </li>
           ))}
         </ul>
+        <p className="mt-5 text-center text-xs tracking-[0.18em] uppercase text-stone-400">
+          ← wischen für mehr →
+        </p>
       </div>
     </section>
   );
