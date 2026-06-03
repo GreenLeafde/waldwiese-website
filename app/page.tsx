@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LogoIntro } from "@/components/logo-intro";
 import { LeafDivider } from "@/components/leaf-divider";
 import { LeafOrnament } from "@/components/leaf-ornament";
+import { GrowingVine } from "@/components/growing-vine";
 import { StampBadge } from "@/components/stamp-badge";
 import { ReviewsSection } from "@/components/reviews-section";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
@@ -81,6 +82,22 @@ function SideLeaves({
   );
 }
 
+/** Wachsende Ranke in einer Seitenkante grüner Sektionen (zeichnet sich beim
+ *  Scrollen). Erst ab xl sichtbar, damit auf schmaleren Screens nichts mit dem
+ *  Inhalt kollidiert. */
+function SideVine({ side = "left" }: { side?: "left" | "right" }) {
+  return (
+    <div
+      aria-hidden
+      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 hidden xl:block h-[55%] max-h-[440px] ${
+        side === "left" ? "left-2 2xl:left-[5%]" : "right-2 2xl:right-[5%]"
+      }`}
+    >
+      <GrowingVine flip={side === "right"} className="h-full w-auto" />
+    </div>
+  );
+}
+
 export default function HomePage() {
   const reviewsJsonLd = {
     "@context": "https://schema.org",
@@ -106,6 +123,9 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
       />
+      {/* Marker: aktiviert Sektions-Snap NUR auf der Startseite (globals.css) */}
+      <div className="snap-home" aria-hidden hidden />
+
       {/* 1 · INTRO — Waldgrün-Wortmarke, sticky, Vollbild */}
       <LogoIntro />
 
@@ -132,9 +152,9 @@ export default function HomePage() {
       {/* 2 · SPEISEKARTE — grün, große Serif-Headline, Kategorien als Liste */}
       <section
         id="speisekarte"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
-        <SideLeaves />
+        <SideVine side="left" />
         <div className="relative w-full mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-28">
           <div className="text-center reveal">
             <p className="eyebrow no-line justify-center text-tonwarm">
@@ -197,7 +217,7 @@ export default function HomePage() {
       {/* 3 · FRÜHSTÜCK — Vollbild-Foto (echtes Gästefoto) mit grünem Schleier */}
       <section
         id="fruehstueck"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <Image
           src={IMG.fruehstueckFoto.src}
@@ -215,29 +235,26 @@ export default function HomePage() {
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
         />
+        {/* Stempel frei in der Ecke — überlappt den Text nicht */}
+        <StampBadge
+          tone="light"
+          rotate={-8}
+          className="hidden sm:grid absolute z-10 top-24 right-6 md:right-12 lg:right-20 w-28 h-28 md:w-32 md:h-32"
+        >
+          <span className="block text-[0.5rem] tracking-[0.2em] uppercase text-mehlcreme/80">
+            Neu ab
+          </span>
+          <span className="block font-display text-base md:text-lg mt-0.5">
+            {BREAKFAST_LAUNCH.dateShort}
+          </span>
+        </StampBadge>
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
           <div className="max-w-xl reveal">
-            <div className="flex items-start gap-5">
-              <div>
-                <p className="eyebrow no-line text-tonwarm">Demnächst</p>
-                <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-                  Frühstück,{" "}
-                  <span className="accent">mitten im Grünen.</span>
-                </h2>
-              </div>
-              <StampBadge
-                tone="light"
-                rotate={-8}
-                className="hidden sm:grid shrink-0 w-28 h-28 md:w-32 md:h-32 mt-1"
-              >
-                <span className="block text-[0.5rem] tracking-[0.2em] uppercase text-mehlcreme/80">
-                  Neu ab
-                </span>
-                <span className="block font-display text-base md:text-lg mt-0.5">
-                  {BREAKFAST_LAUNCH.dateShort}
-                </span>
-              </StampBadge>
-            </div>
+            <p className="eyebrow no-line text-tonwarm">Demnächst</p>
+            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
+              Frühstück,{" "}
+              <span className="accent">mitten im Grünen.</span>
+            </h2>
             <p className="mt-6 italic text-xl md:text-2xl text-mehlcreme/85">
               ab {BREAKFAST_LAUNCH.dateShort} · in Sinzing.
             </p>
@@ -264,7 +281,7 @@ export default function HomePage() {
       {/* 4 · GETRÄNKE — dunkles Grün, ruhig, mit Botanik (kein Stock-Foto) */}
       <section
         id="getraenke"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <SideLeaves flip />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
@@ -297,11 +314,11 @@ export default function HomePage() {
       {/* 5 · ÜBER UNS — der EINE beige Akzent: familiär, lieblich, mit Familienfoto */}
       <section
         id="ueber-uns"
-        className="relative isolate min-h-svh flex items-center bg-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
           <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-            <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal">
+            <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal-scale">
               <Image
                 src={IMG.teamFamilie.src}
                 alt={IMG.teamFamilie.alt}
@@ -344,9 +361,9 @@ export default function HomePage() {
       {/* 6 · RESERVIEREN — grün, Öffnungszeiten + CTA (Puffer zwischen zwei Fotos) */}
       <section
         id="reservieren"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
-        <SideLeaves />
+        <SideVine side="right" />
         <div className="relative w-full mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32 text-center">
           <div className="reveal">
             <p className="eyebrow no-line justify-center text-tonwarm">
@@ -428,7 +445,7 @@ export default function HomePage() {
       {/* 7 · HUNDEFREUNDLICH — Vollbild-Foto (echte Hunde im Wald) + grüner Schleier */}
       <section
         id="hund"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <Image
           src={IMG.hundWald.src}
@@ -472,7 +489,7 @@ export default function HomePage() {
       {/* 8 · EVENTS — Magic Dinner, dunkles Grün, mittig, mit Datum-Stempel */}
       <section
         id="events"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <SideLeaves flip />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
@@ -509,7 +526,7 @@ export default function HomePage() {
       {/* 9 · VERANSTALTUNGEN — Vollbild-Foto (echte Terrasse) + grüner Schleier */}
       <section
         id="veranstaltungen"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <Image
           src={IMG.terrasseTische.src}
@@ -552,9 +569,9 @@ export default function HomePage() {
       {/* 10 · REZEPTE — grün, Typo (Stock-Dessertbild entfernt) */}
       <section
         id="rezepte"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
-        <SideLeaves />
+        <SideVine side="left" />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
           <div className="reveal">
             <p className="eyebrow no-line justify-center text-tonwarm">Rezepte</p>
@@ -586,7 +603,7 @@ export default function HomePage() {
       {/* 12 · KONTAKT — dunkler Anker am Ende, fließt nahtlos in den Footer */}
       <section
         id="kontakt"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
       >
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-12 gap-12 md:gap-16">
           <div className="md:col-span-6 reveal">

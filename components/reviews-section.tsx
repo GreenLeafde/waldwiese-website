@@ -10,7 +10,7 @@ export function ReviewsSection() {
   return (
     <section
       id="rezensionen"
-      className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+      className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden snap-sec"
     >
       <div className="w-full mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32">
         <div className="text-center reveal">
