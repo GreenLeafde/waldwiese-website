@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LogoIntro } from "@/components/logo-intro";
+import { ReviewsSection } from "@/components/reviews-section";
+import { REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
 import {
   BREAKFAST_LAUNCH,
@@ -45,8 +47,30 @@ const menuCategories: Array<{ title: string; highlight: string }> = [
 ];
 
 export default function HomePage() {
+  const reviewsJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    name: SITE.name,
+    url: SITE.url,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: REVIEWS.length,
+      bestRating: "5",
+    },
+    review: REVIEWS.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.name },
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5 },
+      reviewBody: r.text,
+    })),
+  };
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
+      />
       {/* 1 · INTRO */}
       <LogoIntro />
 
@@ -468,6 +492,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 9b · REZENSIONEN — echte Google-Bewertungen als Social Proof */}
+      <ReviewsSection />
 
       {/* 10 · KONTAKT — dunkler Anker am Ende, fließt nahtlos in den Footer */}
       <section
