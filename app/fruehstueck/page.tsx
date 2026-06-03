@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LeafDivider } from "@/components/leaf-divider";
 import { IMG } from "@/lib/images";
 import { BREAKFAST_LAUNCH, CONTACT } from "@/lib/site";
 
@@ -21,52 +22,56 @@ const teaserItems = [
 export default function FruehstueckPage() {
   return (
     <>
-      {/* HEADER */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 hover:text-tonwarm transition-colors"
-          >
-            <span aria-hidden>←</span> Startseite
-          </Link>
-        </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center">
-          <p className="eyebrow no-line justify-center">Demnächst</p>
-          <h1 className="mt-7 text-5xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
-            Frühstück,{" "}
-            <span className="accent">mitten im Grünen.</span>
-          </h1>
-          <p className="mt-7 font-display italic text-xl md:text-2xl text-waldgruen/85">
-            ab {BREAKFAST_LAUNCH.dateShort} · in Sinzing.
-          </p>
-          <p className="mt-8 text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
-            Wir sind kurz davor. Wenn's losgeht, startet der Tag bei uns
-            früher — mit echtem Frühstück, regional, herzhaft oder süß. Bring
-            den Hund mit, bleib so lange du magst.
-          </p>
-        </div>
-      </section>
-
-      {/* BILD */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-20 md:pb-28">
-          <div className="relative mx-auto max-w-lg aspect-[4/5] overflow-hidden rounded-2xl reveal">
-            <Image
-              src={IMG.fruehstueckFoto.src}
-              alt={IMG.fruehstueckFoto.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 32rem, 100vw"
-              className="object-cover"
-              style={{ objectPosition: "center 55%" }}
-            />
+      {/* HERO — Vollbild-Foto (echtes Gästefoto) mit grünem Schleier */}
+      <section className="relative isolate flex items-center min-h-svh text-mehlcreme overflow-hidden">
+        <Image
+          src={IMG.fruehstueckFoto.src}
+          alt={IMG.fruehstueckFoto.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover parallax"
+          style={{ objectPosition: "center 55%" }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/95 via-waldgruen-dark/75 to-waldgruen-dark/35"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
+        />
+        <div className="relative w-full">
+          <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/60 hover:text-tonwarm transition-colors"
+            >
+              <span aria-hidden>←</span> Startseite
+            </Link>
+          </div>
+          <div className="mx-auto max-w-7xl px-6 md:px-10 pt-10 md:pt-14 pb-20 md:pb-28">
+            <div className="max-w-xl reveal">
+              <p className="eyebrow no-line text-tonwarm">Demnächst</p>
+              <h1 className="mt-7 text-5xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
+                Frühstück,{" "}
+                <span className="accent">mitten im Grünen.</span>
+              </h1>
+              <p className="mt-7 italic text-xl md:text-2xl text-mehlcreme/85">
+                ab {BREAKFAST_LAUNCH.dateShort} · in Sinzing.
+              </p>
+              <p className="mt-8 text-lg text-mehlcreme/80 max-w-xl leading-relaxed">
+                Wir sind kurz davor. Wenn's losgeht, startet der Tag bei uns
+                früher — mit echtem Frühstück, regional, herzhaft oder süß. Bring
+                den Hund mit, bleib so lange du magst.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* WAS DICH ERWARTET */}
-      <section className="bg-white">
+      {/* WAS DICH ERWARTET — Creme-Lesebereich */}
+      <section className="bg-mehlcreme">
         <div className="mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center reveal">
             <div className="lg:col-span-5">
@@ -75,14 +80,14 @@ export default function FruehstueckPage() {
                 Klein, fein,{" "}
                 <span className="accent">& ehrlich.</span>
               </h2>
-              <p className="mt-8 text-stone-600 leading-relaxed">
+              <p className="mt-8 text-waldgruen/70 leading-relaxed">
                 Brot vom Bäcker aus der Region. Obst aus Sinzinger Höfen.
                 Hausgemachte Aufstriche, Granola, Bananenbrot — vieles, was
                 sonst nur die Oma so kocht. Vegan, vegetarisch und herzhaft
                 gleichberechtigt auf der Karte.
               </p>
             </div>
-            <ul className="lg:col-span-7 divide-y divide-stone-200 self-center">
+            <ul className="lg:col-span-7 divide-y divide-waldgruen/15 self-center">
               {teaserItems.map((t) => (
                 <li
                   key={t}
@@ -102,14 +107,14 @@ export default function FruehstueckPage() {
         </div>
       </section>
 
-      {/* FAMILIE LEBER NOTE */}
-      <section className="bg-stone-soft border-y border-stone-200">
+      {/* FAMILIE LEBER NOTE — grüner Abschluss, fließt in den Footer */}
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center reveal">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
             Schön, dass du{" "}
             <span className="accent">vorbei schaust.</span>
           </h2>
-          <div className="mt-10 space-y-5 font-display italic text-lg md:text-xl text-stone-600 leading-relaxed">
+          <div className="mt-10 space-y-5 italic text-lg md:text-xl text-mehlcreme/80 leading-relaxed">
             <p>
               Aktuell sind wir abends für dich da — Burger, Bowls, vom Grill.
               Das Frühstücks-Konzept bauen wir gerade auf.
@@ -130,15 +135,16 @@ export default function FruehstueckPage() {
             </a>
             <a
               href={`mailto:${CONTACT.email}?subject=Fr%C3%BChst%C3%BCck%20%E2%80%94%20wann%20geht%27s%20los%3F`}
-              className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               Schreib uns
             </a>
           </div>
-          <p className="mt-16 font-display italic text-base text-stone-500">
+          <LeafDivider tone="light" className="mt-16 opacity-80" />
+          <p className="mt-10 italic text-base text-mehlcreme/55">
             Genießt den Morgen,
             <br />
-            <span className="text-waldgruen font-normal not-italic">
+            <span className="text-mehlcreme font-normal not-italic">
               Eure Familie Leber
             </span>
           </p>

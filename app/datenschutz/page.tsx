@@ -1,4 +1,5 @@
 import { Eyebrow } from "@/components/eyebrow";
+import { LeafDivider } from "@/components/leaf-divider";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
@@ -10,16 +11,24 @@ export const metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <article className="bg-mehlcreme">
-      <div className="mx-auto max-w-3xl px-5 md:px-8 pt-12 md:pt-20 pb-20">
-        <Eyebrow>Pflichtangaben</Eyebrow>
-        <h1 className="mt-6 text-5xl md:text-6xl font-display leading-[0.95]">
-          Datenschutz
-        </h1>
+    <article>
+      {/* KOPF — Waldgrün, ruhig (kein Vollbild, Rechtstext bleibt lesbar) */}
+      <section className="bg-waldgruen text-mehlcreme">
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-28 md:pt-36 pb-14 md:pb-16 reveal">
+          <Eyebrow>Pflichtangaben</Eyebrow>
+          <h1 className="mt-6 text-5xl md:text-6xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
+            Datenschutz
+          </h1>
+          <LeafDivider tone="light" className="mt-10 justify-start opacity-80" />
+        </div>
+      </section>
 
-        <div className="mt-10 space-y-10 text-base leading-relaxed">
+      {/* RECHTSTEXT — Creme, dunkelgrüner Body */}
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-14 md:pt-16 pb-20 text-waldgruen/75">
+          <div className="space-y-10 text-base leading-relaxed">
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               1. Verantwortlicher
             </h2>
             <p className="mt-3">
@@ -41,7 +50,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               2. Allgemeines zur Datenverarbeitung
             </h2>
             <p className="mt-3">
@@ -55,7 +64,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               3. Hosting (Vercel)
             </h2>
             <p className="mt-3">
@@ -72,7 +81,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               4. Server-Logfiles
             </h2>
             <p className="mt-3">
@@ -87,7 +96,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               5. Cookies &amp; externe Inhalte
             </h2>
             <p className="mt-3">
@@ -110,7 +119,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               6. Google Maps
             </h2>
             <p className="mt-3">
@@ -127,7 +136,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               7. Reservierung über Lightspeed
             </h2>
             <p className="mt-3">
@@ -142,7 +151,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               8. Externe Links (Instagram, WhatsApp)
             </h2>
             <p className="mt-3">
@@ -155,7 +164,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               9. Deine Rechte
             </h2>
             <p className="mt-3">
@@ -172,7 +181,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               10. Beschwerderecht bei der Aufsichtsbehörde
             </h2>
             <p className="mt-3">
@@ -184,7 +193,7 @@ export default function DatenschutzPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               11. SSL-/TLS-Verschlüsselung
             </h2>
             <p className="mt-3">
@@ -193,8 +202,9 @@ export default function DatenschutzPage() {
               du an dem „https://" in der Adresszeile deines Browsers.
             </p>
           </section>
+          </div>
         </div>
-      </div>
+      </section>
     </article>
   );
 }

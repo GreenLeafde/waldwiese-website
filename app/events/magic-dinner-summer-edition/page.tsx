@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { MagicDinnerForm } from "@/components/magic-dinner-form";
+import { StampBadge } from "@/components/stamp-badge";
+import { LeafDivider } from "@/components/leaf-divider";
 import { IMG } from "@/lib/images";
 import { CONTACT, MAGIC_DINNER, RESERVATION_URL, SITE } from "@/lib/site";
 
@@ -42,13 +44,13 @@ const programItems = [
 export default function MagicDinnerPage() {
   return (
     <>
-      {/* HERO */}
-      <section className="bg-white pt-28 md:pt-40 pb-16 md:pb-24">
+      {/* HERO — Waldgrün, echtes Foto + Datums-Stempel */}
+      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden pt-28 md:pt-40 pb-16 md:pb-24">
         <div className="mx-auto max-w-7xl px-6 md:px-10 grid md:grid-cols-12 gap-10 md:gap-16 items-end">
           <div className="md:col-span-7 reveal">
             <nav
               aria-label="Brotkrumen"
-              className="text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 mb-7"
+              className="text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 mb-7"
             >
               <Link
                 href="/events"
@@ -59,17 +61,17 @@ export default function MagicDinnerPage() {
               <span aria-hidden className="mx-3">
                 /
               </span>
-              <span className="text-tonwarm">Magic Dinner</span>
+              <span className="text-mehlcreme/80">Magic Dinner</span>
             </nav>
-            <p className="eyebrow no-line">
+            <p className="eyebrow no-line text-tonwarm">
               {MAGIC_DINNER.dateLong} · ab {MAGIC_DINNER.startTime}
             </p>
-            <h1 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
+            <h1 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
               Magic Dinner.
               <br />
               <span className="accent">Summer Edition.</span>
             </h1>
-            <p className="mt-8 max-w-xl font-display italic text-lg md:text-xl text-stone-600 leading-relaxed">
+            <p className="mt-8 max-w-xl italic text-lg md:text-xl text-mehlcreme/80 leading-relaxed">
               Ein Abend zwischen Küche und Magie. Mehrgängiges Menü aus der
               Wald & Wiese-Küche, dazwischen Tischzauberei direkt vor dir.
             </p>
@@ -81,7 +83,7 @@ export default function MagicDinnerPage() {
             </a>
           </div>
           <div className="md:col-span-5 reveal">
-            <div className="relative aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-mehlcreme/10">
               <Image
                 src={IMG.magicBalloon.src}
                 alt={IMG.magicBalloon.alt}
@@ -91,13 +93,26 @@ export default function MagicDinnerPage() {
                 className="object-cover"
                 style={{ objectPosition: "center 25%" }}
               />
+              {/* Datums-Stempel frei in der Ecke */}
+              <StampBadge
+                tone="light"
+                rotate={-8}
+                className="hidden sm:grid absolute z-10 top-5 right-5 w-28 h-28 md:w-32 md:h-32"
+              >
+                <span className="block text-[0.5rem] tracking-[0.12em] uppercase text-mehlcreme/80">
+                  Save the date
+                </span>
+                <span className="block font-display text-sm md:text-base mt-1">
+                  {MAGIC_DINNER.dateShort}
+                </span>
+              </StampBadge>
             </div>
           </div>
         </div>
       </section>
 
-      {/* DAS WUNDERBARE — Story */}
-      <section className="bg-stone-soft border-y border-stone-200">
+      {/* DAS WUNDERBARE — Story, Lese-Bereich auf Creme */}
+      <section className="bg-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-32 text-center reveal">
           <p className="eyebrow no-line justify-center">
             Wer macht die Magie
@@ -106,7 +121,7 @@ export default function MagicDinnerPage() {
             {MAGIC_DINNER.magicianName} —{" "}
             <span className="accent">alias {MAGIC_DINNER.magicianStageName}.</span>
           </h2>
-          <p className="mt-8 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 italic text-lg md:text-xl text-waldgruen/65 max-w-xl mx-auto leading-relaxed">
             Mitglied der Familie Leber. Auftragsmagier für Hochzeiten,
             Firmenfeiern und Events. Beim Magic Dinner wandert er zwischen
             den Tischen und sorgt mit Close-Up-Magie für die Momente, von
@@ -123,12 +138,12 @@ export default function MagicDinnerPage() {
         </div>
       </section>
 
-      {/* PROGRAMM */}
-      <section className="bg-white">
+      {/* PROGRAMM — dunkles Grün */}
+      <section className="bg-waldgruen-dark text-mehlcreme">
         <div className="mx-auto max-w-4xl px-6 md:px-10 py-20 md:py-32">
           <div className="reveal text-center">
-            <p className="eyebrow no-line justify-center">Ablauf</p>
-            <h2 className="mt-6 text-4xl md:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+            <p className="eyebrow no-line justify-center text-tonwarm">Ablauf</p>
+            <h2 className="mt-6 text-4xl md:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
               So läuft der Abend.
             </h2>
           </div>
@@ -142,13 +157,13 @@ export default function MagicDinnerPage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 mb-2">
+                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/55 mb-2">
                     {item.time}
                   </p>
-                  <h3 className="text-2xl md:text-3xl font-display font-normal leading-tight tracking-tight text-waldgruen">
+                  <h3 className="text-2xl md:text-3xl font-display font-normal leading-tight tracking-tight text-mehlcreme">
                     {item.title}
                   </h3>
-                  <p className="mt-3 font-display italic text-stone-600 leading-relaxed max-w-2xl">
+                  <p className="mt-3 italic text-mehlcreme/75 leading-relaxed max-w-2xl">
                     {item.desc}
                   </p>
                 </div>
@@ -158,8 +173,8 @@ export default function MagicDinnerPage() {
         </div>
       </section>
 
-      {/* FAKTEN-LEISTE */}
-      <section className="bg-stone-soft border-y border-stone-200">
+      {/* FAKTEN-LEISTE — Waldgrün-Akzentband */}
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-14 md:py-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { label: "Datum", value: MAGIC_DINNER.dateLong },
@@ -171,7 +186,7 @@ export default function MagicDinnerPage() {
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
                 {f.label}
               </p>
-              <p className="mt-3 font-display text-lg md:text-xl text-waldgruen leading-tight">
+              <p className="mt-3 font-display text-lg md:text-xl text-mehlcreme leading-tight">
                 {f.value}
               </p>
             </div>
@@ -179,10 +194,10 @@ export default function MagicDinnerPage() {
         </div>
       </section>
 
-      {/* RESERVIEREN — Formular */}
+      {/* RESERVIEREN — Formular, Lese-/Eingabe-Bereich auf Creme */}
       <section
         id="reservieren"
-        className="bg-white scroll-mt-24"
+        className="bg-mehlcreme scroll-mt-24"
       >
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-32">
           <div className="text-center reveal">
@@ -190,7 +205,7 @@ export default function MagicDinnerPage() {
             <h2 className="mt-6 text-4xl md:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
               Wir freuen uns auf dich.
             </h2>
-            <p className="mt-7 font-display italic text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
+            <p className="mt-7 italic text-lg text-waldgruen/65 max-w-xl mx-auto leading-relaxed">
               Schick uns kurz dein Datum und die Anzahl Personen — wir
               bestätigen meistens am selben Tag.
             </p>
@@ -200,8 +215,8 @@ export default function MagicDinnerPage() {
             <MagicDinnerForm />
           </div>
 
-          <div className="mt-14 pt-10 border-t border-stone-200 reveal">
-            <p className="text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 mb-5 text-center">
+          <div className="mt-14 pt-10 border-t border-waldgruen/15 reveal">
+            <p className="text-[0.7rem] tracking-[0.22em] uppercase text-waldgruen/45 mb-5 text-center">
               Lieber direkt buchen?
             </p>
             <div className="max-w-md mx-auto">
@@ -209,7 +224,7 @@ export default function MagicDinnerPage() {
                 href={RESERVATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block border border-stone-200 hover:border-tonwarm p-6 transition-colors"
+                className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
               >
                 <div className="flex items-baseline justify-between gap-3">
                   <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
@@ -219,7 +234,7 @@ export default function MagicDinnerPage() {
                     Online-Buchung
                   </span>
                 </div>
-                <p className="mt-2 text-sm text-stone-500">
+                <p className="mt-2 text-sm text-waldgruen/65">
                   Tisch buchen, Datum {MAGIC_DINNER.dateShort} wählen.
                 </p>
                 <p className="mt-3 text-sm text-tonwarm">
@@ -230,12 +245,13 @@ export default function MagicDinnerPage() {
             <p className="mt-6 text-center text-sm">
               <a
                 href={`tel:${CONTACT.phoneRaw}`}
-                className="text-stone-500 hover:text-tonwarm transition-colors"
+                className="text-waldgruen/65 hover:text-tonwarm transition-colors"
               >
                 oder anrufen · {CONTACT.phone}
               </a>
             </p>
           </div>
+          <LeafDivider tone="dark" className="mt-16 opacity-90" />
         </div>
       </section>
 

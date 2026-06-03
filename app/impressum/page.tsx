@@ -1,4 +1,5 @@
 import { Eyebrow } from "@/components/eyebrow";
+import { LeafDivider } from "@/components/leaf-divider";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
@@ -10,16 +11,24 @@ export const metadata = {
 
 export default function ImpressumPage() {
   return (
-    <article className="bg-mehlcreme">
-      <div className="mx-auto max-w-3xl px-5 md:px-8 pt-12 md:pt-20 pb-20">
-        <Eyebrow>Pflichtangaben</Eyebrow>
-        <h1 className="mt-6 text-5xl md:text-6xl font-display leading-[0.95]">
-          Impressum
-        </h1>
+    <article>
+      {/* KOPF — Waldgrün, ruhig (kein Vollbild, Rechtstext bleibt lesbar) */}
+      <section className="bg-waldgruen text-mehlcreme">
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-28 md:pt-36 pb-14 md:pb-16 reveal">
+          <Eyebrow>Pflichtangaben</Eyebrow>
+          <h1 className="mt-6 text-5xl md:text-6xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
+            Impressum
+          </h1>
+          <LeafDivider tone="light" className="mt-10 justify-start opacity-80" />
+        </div>
+      </section>
 
-        <div className="mt-10 space-y-8 text-base leading-relaxed">
+      {/* RECHTSTEXT — Creme, dunkelgrüner Body */}
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-14 md:pt-16 pb-20 text-waldgruen/75">
+          <div className="space-y-8 text-base leading-relaxed">
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               Angaben gemäß § 5 TMG
             </h2>
             <p className="mt-3">
@@ -34,12 +43,12 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">Vertreten durch</h2>
+            <h2 className="font-display text-xl text-waldgruen">Vertreten durch</h2>
             <p className="mt-3">Sven Leber (Geschäftsführer)</p>
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">Kontakt</h2>
+            <h2 className="font-display text-xl text-waldgruen">Kontakt</h2>
             <p className="mt-3">
               Telefon: {CONTACT.phone}
               <br />
@@ -48,7 +57,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               Registereintrag
             </h2>
             <p className="mt-3">
@@ -61,7 +70,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">Umsatzsteuer-ID</h2>
+            <h2 className="font-display text-xl text-waldgruen">Umsatzsteuer-ID</h2>
             <p className="mt-3">
               Umsatzsteuer-Identifikationsnummer gemäß § 27 a
               Umsatzsteuergesetz:
@@ -71,7 +80,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
             </h2>
             <p className="mt-3">
@@ -84,7 +93,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               Streitschlichtung
             </h2>
             <p className="mt-3">
@@ -107,7 +116,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               Haftung für Inhalte
             </h2>
             <p className="mt-3">
@@ -124,7 +133,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               Haftung für Links
             </h2>
             <p className="mt-3">
@@ -138,7 +147,7 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">Urheberrecht</h2>
+            <h2 className="font-display text-xl text-waldgruen">Urheberrecht</h2>
             <p className="mt-3">
               Die durch die Seitenbetreiber erstellten Inhalte und Werke auf
               diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge
@@ -148,8 +157,9 @@ export default function ImpressumPage() {
               Zustimmung des jeweiligen Autors bzw. Erstellers.
             </p>
           </section>
+          </div>
         </div>
-      </div>
+      </section>
     </article>
   );
 }

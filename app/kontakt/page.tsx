@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapsEmbed } from "@/components/maps-embed";
+import { LeafDivider } from "@/components/leaf-divider";
 import {
   BREAKFAST_LAUNCH,
   CONTACT,
@@ -19,21 +20,21 @@ export default function KontaktPage() {
   return (
     <>
       {/* HEADER */}
-      <section className="bg-white">
+      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 hover:text-tonwarm transition-colors"
+            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
           >
             <span aria-hidden>←</span> Startseite
           </Link>
         </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center">
-          <p className="eyebrow no-line justify-center">Kontakt & Anfahrt</p>
-          <h1 className="mt-7 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center reveal">
+          <p className="eyebrow no-line justify-center text-tonwarm">Kontakt & Anfahrt</p>
+          <h1 className="mt-7 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
             Sag <span className="accent">Hallo.</span>
           </h1>
-          <p className="mt-8 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
             Reservierung, Anfrage, kurze Frage — alle Wege führen zu uns.
             Antwort kommt zeitnah.
           </p>
@@ -41,8 +42,8 @@ export default function KontaktPage() {
       </section>
 
       {/* DATEN */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-24 md:pb-32 grid md:grid-cols-2 gap-12 md:gap-20">
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-2 gap-12 md:gap-20">
           <div className="reveal space-y-12">
             <div>
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
@@ -59,7 +60,7 @@ export default function KontaktPage() {
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
                 So erreichst du uns
               </p>
-              <ul className="mt-5 divide-y divide-stone-200">
+              <ul className="mt-5 divide-y divide-waldgruen/15">
                 {[
                   {
                     label: "Telefon",
@@ -86,7 +87,7 @@ export default function KontaktPage() {
                     key={item.label}
                     className="py-4 flex items-baseline justify-between gap-4 text-sm"
                   >
-                    <span className="text-stone-500">{item.label}</span>
+                    <span className="text-waldgruen/45">{item.label}</span>
                     <a
                       href={item.href}
                       target="_blank"
@@ -106,29 +107,29 @@ export default function KontaktPage() {
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
                 Öffnungszeiten · Aktuell
               </p>
-              <dl className="mt-5 divide-y divide-stone-200 text-sm">
+              <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
                 {CURRENT_OPENING_HOURS.map((s) => (
                   <div
                     key={s.days}
-                    className="py-3 flex justify-between gap-4 text-stone-600"
+                    className="py-3 flex justify-between gap-4 text-waldgruen/70"
                   >
                     <dt className="font-medium text-waldgruen">{s.days}</dt>
                     <dd>{s.hours}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-2 text-xs text-stone-400">Di & Mi Ruhetag.</p>
+              <p className="mt-2 text-xs text-waldgruen/45">Di & Mi Ruhetag.</p>
             </div>
 
             <div>
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
                 Ab {BREAKFAST_LAUNCH.dateShort}
               </p>
-              <dl className="mt-5 divide-y divide-stone-200 text-sm">
+              <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
                 {NEW_OPENING_HOURS.map((s) => (
                   <div
                     key={s.days}
-                    className="py-3 flex justify-between gap-4 text-stone-600 items-start"
+                    className="py-3 flex justify-between gap-4 text-waldgruen/70 items-start"
                   >
                     <dt className="font-medium text-waldgruen pt-0.5">
                       {s.days}
@@ -141,7 +142,7 @@ export default function KontaktPage() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-2 text-xs text-stone-400">
+              <p className="mt-2 text-xs text-waldgruen/45">
                 Fr – So mit Frühstück & Abendservice.
               </p>
             </div>
@@ -159,7 +160,7 @@ export default function KontaktPage() {
       </section>
 
       {/* ANFAHRT / KARTE */}
-      <section className="bg-white">
+      <section className="bg-mehlcreme">
         <div className="mx-auto max-w-5xl px-6 md:px-10 pb-24 md:pb-32">
           <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
             Anfahrt
@@ -167,6 +168,7 @@ export default function KontaktPage() {
           <div className="mt-5">
             <MapsEmbed />
           </div>
+          <LeafDivider tone="dark" className="mt-16 md:mt-20 opacity-90" />
         </div>
       </section>
     </>

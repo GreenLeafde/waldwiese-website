@@ -1,4 +1,5 @@
 import { Eyebrow } from "@/components/eyebrow";
+import { LeafDivider } from "@/components/leaf-divider";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
@@ -15,19 +16,27 @@ export const metadata = {
 
 export default function AgbPage() {
   return (
-    <article className="bg-mehlcreme">
-      <div className="mx-auto max-w-3xl px-5 md:px-8 pt-12 md:pt-20 pb-20">
-        <Eyebrow>Pflichtangaben</Eyebrow>
-        <h1 className="mt-6 text-5xl md:text-6xl font-display leading-[0.95]">
-          AGB
-        </h1>
-        <p className="mt-4 text-sm text-waldgruen/60">
-          Allgemeine Geschäftsbedingungen der {SITE.legalName}
-        </p>
+    <article>
+      {/* KOPF — Waldgrün, ruhig (kein Vollbild, Rechtstext bleibt lesbar) */}
+      <section className="bg-waldgruen text-mehlcreme">
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-28 md:pt-36 pb-14 md:pb-16 reveal">
+          <Eyebrow>Pflichtangaben</Eyebrow>
+          <h1 className="mt-6 text-5xl md:text-6xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
+            AGB
+          </h1>
+          <p className="mt-4 italic text-sm text-mehlcreme/80">
+            Allgemeine Geschäftsbedingungen der {SITE.legalName}
+          </p>
+          <LeafDivider tone="light" className="mt-10 justify-start opacity-80" />
+        </div>
+      </section>
 
-        <div className="mt-10 space-y-10 text-base leading-relaxed">
+      {/* RECHTSTEXT — Creme, dunkelgrüner Body */}
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-3xl px-5 md:px-8 pt-14 md:pt-16 pb-20 text-waldgruen/75">
+          <div className="space-y-10 text-base leading-relaxed">
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               § 1 Geltungsbereich &amp; Anbieter
             </h2>
             <p className="mt-3">
@@ -42,7 +51,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               § 2 Tischreservierungen
             </h2>
             <p className="mt-3">
@@ -55,7 +64,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               § 3 Veranstaltungen (Hochzeiten, Feiern &amp; Gruppen)
             </h2>
             <div className="mt-3 space-y-3">
@@ -89,7 +98,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               § 4 Storno &amp; Rücktritt bei Veranstaltungen
             </h2>
             <p className="mt-3">
@@ -143,7 +152,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">§ 5 Gutscheine</h2>
+            <h2 className="font-display text-xl text-waldgruen">§ 5 Gutscheine</h2>
             <div className="mt-3 space-y-3">
               <p>
                 Gutscheine sind ausschließlich vor Ort bei Wald &amp; Wiese
@@ -167,7 +176,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               § 6 Preise &amp; Zahlung
             </h2>
             <p className="mt-3">
@@ -179,7 +188,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">§ 7 Haftung</h2>
+            <h2 className="font-display text-xl text-waldgruen">§ 7 Haftung</h2>
             <p className="mt-3">
               Wald &amp; Wiese haftet uneingeschränkt für Schäden aus der
               Verletzung des Lebens, des Körpers oder der Gesundheit sowie für
@@ -193,7 +202,7 @@ export default function AgbPage() {
           </section>
 
           <section>
-            <h2 className="font-display text-xl text-tonwarm">
+            <h2 className="font-display text-xl text-waldgruen">
               § 8 Schlussbestimmungen
             </h2>
             <p className="mt-3">
@@ -203,8 +212,9 @@ export default function AgbPage() {
               der unwirksamen Bestimmung gilt die gesetzliche Regelung.
             </p>
           </section>
+          </div>
         </div>
-      </div>
+      </section>
     </article>
   );
 }

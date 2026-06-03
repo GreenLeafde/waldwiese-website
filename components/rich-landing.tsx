@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LeafDivider } from "@/components/leaf-divider";
+import { GrowingVine } from "@/components/growing-vine";
 import { CONTACT, SITE } from "@/lib/site";
 
 export type LandingContent = {
@@ -32,9 +34,10 @@ export type LandingContent = {
 };
 
 /**
- * Bild-geführtes Landingpage-Layout mit etwas Schwung, aber wenig Text:
- * Hero → großes Foto → nummerierte Punkte → (optionaler Akzent-Block) →
- * Claim-Band (tonwarm) → Zahlen-Band → FAQ (eingeklappt) → CTA.
+ * Grün-dominantes Landingpage-Layout im Brunch-Karten-Look:
+ * Hero (grün, Botanik) → großes echtes Foto → nummerierte Punkte (dunkelgrün)
+ * → optionaler Beige-Akzentblock → Tonwarm-Claim → Zahlen-Band → FAQ → CTA.
+ * Serif nur für Headings, Beschreibungen in kursivem Sans, Body dunkelgrün/creme.
  */
 export function RichLanding({
   content,
@@ -82,26 +85,37 @@ export function RichLanding({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
-      {/* HERO */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
+      {/* HERO — Waldgrün, Botanik */}
+      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
+        {/* wachsende Ranke in der rechten Kante (ab lg) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-2 2xl:right-[5%] hidden lg:block h-[58%] max-h-[440px]"
+        >
+          <GrowingVine flip className="h-full w-auto" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
           <nav
             aria-label="Brotkrumen"
-            className="flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-stone-400"
+            className="flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50"
           >
             <Link href="/" className="hover:text-tonwarm transition-colors">
               Startseite
             </Link>
             <span aria-hidden>/</span>
-            <span className="text-stone-500">{content.breadcrumb}</span>
+            <span className="text-mehlcreme/80">{content.breadcrumb}</span>
           </nav>
         </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center">
-          <p className="eyebrow no-line justify-center">{content.eyebrow}</p>
-          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-waldgruen">
+
+        <div className="relative mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center reveal">
+          <p className="eyebrow no-line justify-center text-tonwarm">
+            {content.eyebrow}
+          </p>
+          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-mehlcreme">
             {content.h1Lead} <span className="accent">{content.h1Accent}</span>
           </h1>
-          <p className="mt-8 text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
             {content.intro}
           </p>
           <div className="mt-10 flex flex-wrap justify-center items-center gap-5">
@@ -113,16 +127,16 @@ export function RichLanding({
             </Link>
             <a
               href={`tel:${CONTACT.phoneRaw}`}
-              className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               {CONTACT.phone}
             </a>
           </div>
         </div>
 
-        {/* GROSSES ECHTES FOTO */}
-        <div className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28">
-          <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-3xl reveal">
+        {/* GROSSES ECHTES FOTO — weich gerahmt auf Grün */}
+        <div className="relative mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28">
+          <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-mehlcreme/10 reveal-scale">
             <Image
               src={splitImage.src}
               alt={splitImage.alt}
@@ -136,23 +150,23 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* NUMMERIERTE PUNKTE */}
-      <section className="bg-white">
+      {/* NUMMERIERTE PUNKTE — dunkles Grün */}
+      <section className="bg-waldgruen-dark text-mehlcreme">
         <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28">
-          <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+          <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme reveal">
             {content.features.heading}{" "}
             <span className="accent">{content.features.accent}</span>
           </h2>
-          <ul className="mt-12 grid sm:grid-cols-3 gap-x-10 gap-y-10">
+          <ul className="mt-12 grid sm:grid-cols-3 gap-x-10 gap-y-10 reveal-1">
             {features.map((item, i) => (
-              <li key={item.title} className="border-t border-stone-200 pt-5">
+              <li key={item.title} className="border-t border-mehlcreme/20 pt-5">
                 <span className="font-display italic text-tonwarm text-2xl leading-none">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-3 text-xl font-display font-normal tracking-tight text-waldgruen">
+                <h3 className="mt-3 text-xl font-display font-normal tracking-tight text-mehlcreme">
                   {item.title}
                 </h3>
-                <p className="mt-2.5 text-stone-600 leading-relaxed">
+                <p className="mt-2.5 text-mehlcreme/75 leading-relaxed">
                   {item.text}
                 </p>
               </li>
@@ -161,25 +175,26 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* OPTIONALER AKZENT-BLOCK */}
+      {/* OPTIONALER AKZENT-BLOCK — der eine Beige-Akzent */}
       {content.split && splitParas.length > 0 && (
-        <section className="bg-stone-soft border-y border-stone-200">
+        <section className="bg-mehlcreme">
           <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 reveal">
             <p className="eyebrow no-line">{content.split.eyebrow}</p>
             <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.08] tracking-tight text-waldgruen">
               {content.split.heading}{" "}
               <span className="accent">{content.split.accent}</span>
             </h2>
-            <div className="mt-7 space-y-4 text-stone-600 leading-relaxed text-lg">
+            <div className="mt-7 space-y-4 text-waldgruen/75 leading-relaxed text-lg">
               {splitParas.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
+            <LeafDivider tone="dark" className="mt-12 opacity-90" />
           </div>
         </section>
       )}
 
-      {/* CLAIM-BAND — warmer Farb-Pop */}
+      {/* CLAIM-BAND — warmer Tonwarm-Pop */}
       <section className="bg-tonwarm text-white">
         <div className="mx-auto max-w-4xl px-6 md:px-10 py-16 md:py-20 text-center">
           <p className="font-display italic text-3xl md:text-4xl lg:text-5xl leading-[1.1]">
@@ -191,10 +206,10 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* ZAHLEN-BAND */}
+      {/* ZAHLEN-BAND — Waldgrün */}
       <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-5xl px-6 md:px-10 py-16 md:py-20">
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center">
+          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center reveal">
             {content.stats.map((s) => (
               <li key={s.label}>
                 <p className="font-display text-4xl md:text-5xl text-mehlcreme leading-none">
@@ -209,18 +224,18 @@ export function RichLanding({
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="bg-white">
+      {/* FAQ — dunkles Grün, eingeklappt */}
+      <section className="bg-waldgruen-dark text-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28">
-          <p className="eyebrow no-line">Häufige Fragen</p>
-          <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+          <p className="eyebrow no-line text-tonwarm">Häufige Fragen</p>
+          <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
             Gut zu <span className="accent">wissen.</span>
           </h2>
-          <div className="mt-10 divide-y divide-stone-200 border-y border-stone-200">
+          <div className="mt-10 divide-y divide-mehlcreme/15 border-y border-mehlcreme/15">
             {content.faq.map((f) => (
               <details key={f.question} className="group py-5">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 list-none">
-                  <span className="font-display text-lg md:text-xl text-waldgruen">
+                  <span className="font-display text-lg md:text-xl text-mehlcreme">
                     {f.question}
                   </span>
                   <span
@@ -230,15 +245,17 @@ export function RichLanding({
                     +
                   </span>
                 </summary>
-                <p className="mt-4 text-stone-600 leading-relaxed">{f.answer}</p>
+                <p className="mt-4 text-mehlcreme/75 leading-relaxed">
+                  {f.answer}
+                </p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CLOSING CTA */}
-      <section className="bg-waldgruen-dark text-mehlcreme">
+      {/* CLOSING CTA — Waldgrün, fließt in den Footer */}
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 text-center reveal">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
             {content.closing.heading}{" "}

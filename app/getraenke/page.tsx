@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CategoryTabs } from "@/components/category-tabs";
+import { LeafDivider } from "@/components/leaf-divider";
 import { DRINK_CATEGORIES } from "@/lib/drinks";
 
 export const metadata = {
@@ -48,21 +49,21 @@ export default function GetraenkePage() {
   return (
     <>
       {/* HEADER */}
-      <section className="bg-white">
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 hover:text-tonwarm transition-colors"
+            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
           >
             <span aria-hidden>←</span> Startseite
           </Link>
         </div>
         <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center">
           <p className="eyebrow no-line justify-center">Getränkekarte</p>
-          <h1 className="mt-7 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
+          <h1 className="mt-7 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
             Die <span className="accent">Bar.</span>
           </h1>
-          <p className="mt-8 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
             Kaffee mit Charakter, hausgemachte Limonaden, regionale Weine,
             Cocktails. Auch entkoffeiniert und alkoholfrei — hier kommt jeder
             auf seinen Geschmack.
@@ -73,17 +74,17 @@ export default function GetraenkePage() {
       {/* TABS */}
       <CategoryTabs
         tabs={DRINK_CATEGORIES.map((c) => ({ slug: c.slug, title: c.title }))}
-        scrollOffset={120}
+        scrollOffset={150}
       />
 
       {/* MENÜ */}
-      <section className="bg-white">
+      <section className="bg-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 pt-16 md:pt-24 pb-24 md:pb-32 space-y-20 md:space-y-28">
           {DRINK_CATEGORIES.map((cat) => (
             <div
               key={cat.slug}
               id={cat.slug}
-              className="reveal scroll-mt-[120px]"
+              className="reveal scroll-mt-[150px]"
             >
               <div className="mb-12">
                 <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
@@ -93,7 +94,7 @@ export default function GetraenkePage() {
                   {cat.title}
                 </h2>
                 {cat.hint && (
-                  <p className="mt-3 font-display italic text-stone-500 max-w-xl">
+                  <p className="mt-3 italic text-waldgruen/65 max-w-xl">
                     {cat.hint}
                   </p>
                 )}
@@ -116,12 +117,12 @@ export default function GetraenkePage() {
                       </h3>
                       <span
                         aria-hidden
-                        className="flex-1 border-b border-dotted border-stone-300 translate-y-[-4px]"
+                        className="flex-1 border-b border-dotted border-waldgruen/20 translate-y-[-4px]"
                       />
                       <Price price={d.price} />
                     </div>
                     {d.desc && (
-                      <p className="mt-1.5 font-display italic text-sm text-stone-500 leading-relaxed max-w-2xl">
+                      <p className="mt-1.5 italic text-sm text-waldgruen/65 leading-relaxed max-w-2xl">
                         {d.desc}
                       </p>
                     )}
@@ -130,21 +131,23 @@ export default function GetraenkePage() {
               </ul>
             </div>
           ))}
+          <LeafDivider tone="dark" className="mt-12 opacity-90" />
         </div>
       </section>
 
       {/* BACK TO MENU */}
-      <section className="bg-white">
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
-          <p className="font-display italic text-stone-500 text-sm">
+          <p className="italic text-mehlcreme/80 text-sm">
             Jeden Sonntag hausgemachte Kuchen — frag uns einfach an der Theke.
           </p>
           <Link
             href="/abendessen"
-            className="mt-8 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+            className="mt-8 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
           >
             Zur Speisekarte <span aria-hidden>→</span>
           </Link>
+          <LeafDivider tone="light" className="mt-12 opacity-80" />
         </div>
       </section>
     </>

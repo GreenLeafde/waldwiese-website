@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { IMG } from "@/lib/images";
+import { LeafDivider } from "@/components/leaf-divider";
 import { getRecipe, RECIPES } from "@/lib/recipes";
 
 type Props = {
@@ -30,54 +29,38 @@ export default async function RezeptDetailPage({ params }: Props) {
   if (!recipe) notFound();
 
   return (
-    <article className="bg-white">
-      {/* HEADER */}
-      <section className="bg-white">
+    <article>
+      {/* HEADER — Waldgrün */}
+      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
           <Link
             href="/rezepte"
-            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 hover:text-tonwarm transition-colors"
+            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
           >
             <span aria-hidden>←</span> Alle Rezepte
           </Link>
         </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center">
-          <p className="eyebrow no-line justify-center">Rezept · {recipe.category}</p>
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-20 md:pb-28 text-center reveal">
+          <p className="eyebrow no-line justify-center text-tonwarm">Rezept · {recipe.category}</p>
           {recipe.badge && (
             <span className="mt-5 inline-block rounded-full bg-tonwarm text-white text-[0.65rem] tracking-[0.18em] uppercase font-medium px-4 py-1.5">
               {recipe.badge}
             </span>
           )}
-          <h1 className="mt-7 text-5xl md:text-6xl lg:text-7xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
+          <h1 className="mt-7 text-5xl md:text-6xl lg:text-7xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
             {recipe.title}
           </h1>
-          <p className="mt-8 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
             {recipe.teaser}
           </p>
         </div>
       </section>
 
-      {/* BILD */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-20 md:pb-28">
-          <div className="relative aspect-[16/10] overflow-hidden reveal">
-            <Image
-              src={IMG.pistazientiramisu.src}
-              alt={IMG.pistazientiramisu.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 80vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* INTRO */}
+      {/* INTRO — Lese-Bereich auf Creme */}
       {recipe.intro && (
-        <section className="bg-white">
-          <div className="mx-auto max-w-2xl px-6 md:px-10 pb-20 md:pb-24 reveal">
-            <p className="font-display italic text-lg md:text-xl text-stone-600 leading-relaxed">
+        <section className="bg-mehlcreme">
+          <div className="mx-auto max-w-2xl px-6 md:px-10 py-20 md:py-24 reveal">
+            <p className="italic text-lg md:text-xl text-waldgruen/65 leading-relaxed">
               {recipe.intro}
             </p>
           </div>
@@ -86,9 +69,9 @@ export default async function RezeptDetailPage({ params }: Props) {
 
       {recipe.hasFullRecipe ? (
         <>
-          {/* ZUTATEN */}
+          {/* ZUTATEN — Lese-Bereich auf Creme */}
           {recipe.ingredients && recipe.ingredients.length > 0 && (
-            <section className="bg-stone-soft border-y border-stone-200">
+            <section className="bg-mehlcreme border-t border-waldgruen/15">
               <div className="mx-auto max-w-4xl px-6 md:px-10 py-20 md:py-28">
                 <div className="mb-12 reveal">
                   <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
@@ -101,10 +84,10 @@ export default async function RezeptDetailPage({ params }: Props) {
                 <div className="grid sm:grid-cols-2 gap-10 md:gap-14 reveal">
                   {recipe.ingredients.map((group) => (
                     <div key={group.title}>
-                      <p className="font-display italic text-stone-400 text-base tracking-wide mb-4">
+                      <p className="italic text-waldgruen/45 text-base tracking-wide mb-4">
                         {group.title}
                       </p>
-                      <ul className="space-y-2.5 text-waldgruen font-display">
+                      <ul className="space-y-2.5 text-waldgruen/80">
                         {group.items.map((it) => (
                           <li key={it} className="flex items-baseline gap-3">
                             <span
@@ -122,9 +105,9 @@ export default async function RezeptDetailPage({ params }: Props) {
             </section>
           )}
 
-          {/* ZUBEREITUNG */}
+          {/* ZUBEREITUNG — Lese-Bereich auf Creme */}
           {recipe.steps && recipe.steps.length > 0 && (
-            <section className="bg-white">
+            <section className="bg-mehlcreme border-t border-waldgruen/15">
               <div className="mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32">
                 <div className="mb-14 reveal">
                   <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
@@ -147,7 +130,7 @@ export default async function RezeptDetailPage({ params }: Props) {
                         <h3 className="text-2xl md:text-3xl font-display font-normal leading-tight tracking-tight text-waldgruen">
                           {step.title}
                         </h3>
-                        <p className="mt-4 text-stone-600 leading-relaxed">
+                        <p className="mt-4 text-waldgruen/70 leading-relaxed">
                           {step.body}
                         </p>
                       </div>
@@ -158,7 +141,7 @@ export default async function RezeptDetailPage({ params }: Props) {
             </section>
           )}
 
-          {/* AUTHOR */}
+          {/* AUTHOR — Waldgrün */}
           {recipe.author && (
             <section className="bg-waldgruen text-mehlcreme">
               <div className="mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 reveal text-center">
@@ -176,9 +159,9 @@ export default async function RezeptDetailPage({ params }: Props) {
           )}
         </>
       ) : (
-        <section className="bg-white">
-          <div className="mx-auto max-w-3xl px-6 md:px-10 pb-24 md:pb-32 text-center reveal">
-            <p className="font-display italic text-xl md:text-2xl text-stone-600 leading-relaxed max-w-xl mx-auto">
+        <section className="bg-mehlcreme border-t border-waldgruen/15">
+          <div className="mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center reveal">
+            <p className="italic text-xl md:text-2xl text-waldgruen/65 leading-relaxed max-w-xl mx-auto">
               Das genaue Rezept — Zutaten, Schritte, Tipps — folgt bald an
               dieser Stelle.
             </p>
@@ -186,15 +169,16 @@ export default async function RezeptDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* BACK */}
-      <section className="bg-white">
+      {/* BACK — Waldgrün, fließt in den Footer */}
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
           <Link
             href="/rezepte"
-            className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+            className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
           >
             <span aria-hidden>←</span> Andere Rezepte ansehen
           </Link>
+          <LeafDivider tone="light" className="mt-14 opacity-80" />
         </div>
       </section>
     </article>

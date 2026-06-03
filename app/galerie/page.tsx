@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { LeafDivider } from "@/components/leaf-divider";
 import { IMG } from "@/lib/images";
 import { RESERVATION_URL } from "@/lib/site";
 
@@ -30,36 +31,37 @@ const PHOTOS = [
 export default function GaleriePage() {
   return (
     <>
-      {/* HEADER */}
-      <section className="bg-mehlcreme">
+      {/* HEADER — Waldgrün */}
+      <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 hover:text-tonwarm transition-colors"
+            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/60 hover:text-tonwarm transition-colors"
           >
             <span aria-hidden>←</span> Startseite
           </Link>
         </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center">
-          <p className="eyebrow no-line justify-center">Galerie</p>
-          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-waldgruen">
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center reveal">
+          <p className="eyebrow no-line justify-center text-tonwarm">Galerie</p>
+          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-mehlcreme">
             Ein Blick <span className="accent">zu uns.</span>
           </h1>
-          <p className="mt-8 text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-8 text-lg text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
             Terrasse im Grünen, gemütlicher Innenraum, das Haus am Waldrand —
             ein paar echte Eindrücke von Wald &amp; Wiese in Sinzing.
           </p>
         </div>
       </section>
 
-      {/* MASONRY-RASTER */}
+      {/* MASONRY-RASTER — Creme-Lesebereich, Botanik-Trenner darüber */}
       <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 pb-24 md:pb-32">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 pt-16 md:pt-20 pb-24 md:pb-32">
+          <LeafDivider tone="dark" className="mb-12 md:mb-16 opacity-90" />
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 md:gap-6">
             {PHOTOS.map((p) => (
               <div
                 key={p.src}
-                className="mb-4 md:mb-6 break-inside-avoid overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 reveal"
+                className="mb-4 md:mb-6 break-inside-avoid overflow-hidden rounded-2xl ring-1 ring-waldgruen/15 reveal"
               >
                 <Image
                   src={p.src}

@@ -71,7 +71,7 @@ export function CategoryTabs({
   }
 
   return (
-    <div className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md border-b border-stone-200">
+    <div className="sticky top-[92px] z-30 bg-mehlcreme/95 backdrop-blur-md border-b border-waldgruen/10">
       <div
         ref={navRef}
         className="mx-auto max-w-5xl overflow-x-auto scrollbar-none"
@@ -89,7 +89,7 @@ export function CategoryTabs({
                   className={`block px-4 py-3.5 text-[0.7rem] tracking-[0.18em] uppercase font-medium transition-colors border-b-2 whitespace-nowrap ${
                     isActive
                       ? "text-waldgruen border-tonwarm"
-                      : "text-stone-400 border-transparent hover:text-waldgruen"
+                      : "text-waldgruen/40 border-transparent hover:text-waldgruen"
                   }`}
                 >
                   {t.title}
