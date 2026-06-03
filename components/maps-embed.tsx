@@ -1,29 +1,23 @@
 "use client";
 
 import { useConsent } from "./consent-provider";
-import { CONTACT, GOOGLE_MAPS_URL } from "@/lib/site";
-
-const EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
-  `Wald und Wiese, ${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`,
-)}&output=embed`;
-/** Link auf das echte Google-Listing (Bewertungen/Sterne sichtbar). */
-const EXTERNAL_SRC = GOOGLE_MAPS_URL;
+import { GOOGLE_LOCATOR_URL, GOOGLE_MAPS_URL } from "@/lib/site";
 
 /**
- * Google-Maps-Karte mit Klick-zum-Laden (Opt-in). Ohne Einwilligung wird
- * nichts von Google nachgeladen — stattdessen ein Platzhalter mit Hinweis,
- * „Karte laden"-Button (erteilt die Einwilligung für externe Medien) und
- * einem Link zur externen Kartenansicht.
+ * Google „Locator Plus"-Karte (selbst gehostet) mit Klick-zum-Laden (Opt-in).
+ * Ohne Einwilligung wird nichts von Google nachgeladen — stattdessen ein
+ * Platzhalter mit „Karte laden"-Button (erteilt die Einwilligung für externe
+ * Medien) und einem Link aufs echte Google-Listing.
  */
 export function MapsEmbed() {
   const { ready, consent, grant } = useConsent();
 
   if (ready && consent.externalMedia) {
     return (
-      <div className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10">
+      <div className="relative h-[600px] sm:h-[660px] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10">
         <iframe
-          title={`Karte: ${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}`}
-          src={EMBED_SRC}
+          title="Standort & Anfahrt — Wald & Wiese, Sinzing"
+          src={GOOGLE_LOCATOR_URL}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           className="absolute inset-0 h-full w-full border-0"
@@ -33,7 +27,7 @@ export function MapsEmbed() {
   }
 
   return (
-    <div className="relative aspect-[16/10] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-stone-soft flex items-center justify-center">
+    <div className="relative h-[600px] sm:h-[660px] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-stone-soft flex items-center justify-center">
       <div className="px-6 py-8 text-center max-w-sm">
         <p className="font-display text-lg text-waldgruen">
           Karte von Google Maps
@@ -52,7 +46,7 @@ export function MapsEmbed() {
             Karte laden
           </button>
           <a
-            href={EXTERNAL_SRC}
+            href={GOOGLE_MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
