@@ -12,6 +12,7 @@ export const metadata = {
   title: "Kontakt & Anfahrt",
   description:
     "Wald & Wiese, Bruckdorfer Straße 42, 93161 Sinzing bei Regensburg. Telefon, E-Mail, WhatsApp, Instagram.",
+  alternates: { canonical: "/kontakt" },
 };
 
 export default function KontaktPage() {

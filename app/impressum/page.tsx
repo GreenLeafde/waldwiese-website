@@ -4,6 +4,7 @@ import { CONTACT, SITE } from "@/lib/site";
 export const metadata = {
   title: "Impressum",
   description: "Impressum von Wald & Wiese in Sinzing bei Regensburg.",
+  alternates: { canonical: "/impressum" },
   robots: { index: false },
 };
 

@@ -6,6 +6,7 @@ export const metadata = {
   title: "Getränkekarte",
   description:
     "Komplette Getränkekarte: Kaffee, hausgemachte Limonaden, Bier, Spritz, Cocktails, Weine aus der Region und Schaumweine. Auch entkoffeiniert und alkoholfrei.",
+  alternates: { canonical: "/getraenke" },
 };
 
 type DrinkTag = "alkoholfrei" | "bio" | "vegan" | "hausgemacht";

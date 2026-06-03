@@ -8,6 +8,7 @@ import { CONTACT, MAGIC_DINNER, RESERVATION_URL, SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: `Magic Dinner — Summer Edition · ${MAGIC_DINNER.dateShort}`,
   description: `Mehrgängiges Menü mit Tischzauberei von ${MAGIC_DINNER.magicianName} alias ${MAGIC_DINNER.magicianStageName} — ${MAGIC_DINNER.dateLong} ab ${MAGIC_DINNER.startTime} im Wald & Wiese, Sinzing.`,
+  alternates: { canonical: "/events/magic-dinner-summer-edition" },
   openGraph: {
     title: `Magic Dinner — Summer Edition · ${MAGIC_DINNER.dateShort}`,
     description: `Close-Up-Magie direkt am Tisch. ${MAGIC_DINNER.dateLong} im Wald & Wiese, Sinzing.`,

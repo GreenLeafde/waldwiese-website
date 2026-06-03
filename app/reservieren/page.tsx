@@ -11,6 +11,7 @@ export const metadata = {
   title: "Reservieren",
   description:
     "Tisch reservieren bei Wald & Wiese in Sinzing — online via Lightspeed, telefonisch oder per WhatsApp.",
+  alternates: { canonical: "/reservieren" },
 };
 
 export default function ReservierenPage() {

@@ -5,6 +5,7 @@ export const metadata = {
   title: "Events",
   description:
     "Magic Dinner Summer Edition, Tischzauberei und besondere Abende bei Wald & Wiese in Sinzing.",
+  alternates: { canonical: "/events" },
 };
 
 export default function EventsPage() {

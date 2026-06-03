@@ -5,6 +5,7 @@ export const metadata = {
   title: "AGB",
   description:
     "Allgemeine Geschäftsbedingungen — Wald & Wiese, Sinzing bei Regensburg.",
+  alternates: { canonical: "/agb" },
   robots: { index: false },
 };
 

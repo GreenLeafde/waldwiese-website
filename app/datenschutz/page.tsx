@@ -5,6 +5,7 @@ import { CONTACT, SITE } from "@/lib/site";
 export const metadata = {
   title: "Datenschutz",
   description: "Datenschutzerklärung von Wald & Wiese.",
+  alternates: { canonical: "/datenschutz" },
   robots: { index: false },
 };
 

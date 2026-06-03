@@ -7,6 +7,7 @@ export const metadata = {
   title: "Über uns — Familie Leber",
   description:
     "Wir sind die Familie Leber — Tanja, Sven, Sophia, Julia und Emilian. Klein, fein und ehrlich. Wald & Wiese in Sinzing bei Regensburg.",
+  alternates: { canonical: "/ueber-uns" },
 };
 
 export default function UeberUnsPage() {

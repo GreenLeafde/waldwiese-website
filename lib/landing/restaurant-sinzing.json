@@ -1,0 +1,128 @@
+{
+  "metaTitle": "Restaurant Sinzing – familiengeführt | Wald & Wiese",
+  "metaDescription": "Dein Restaurant in Sinzing bei Regensburg: Wald & Wiese – familiengeführt, regional, hundefreundlich. Abends Burger & Bowls, ab Juli Frühstück. Tisch sichern.",
+  "breadcrumb": "Restaurant Sinzing",
+  "eyebrow": "Restaurant · in Sinzing bei Regensburg",
+  "h1Lead": "Dein Restaurant in",
+  "h1Accent": "Sinzing.",
+  "intro": "Wald & Wiese ist das familiengeführte Restaurant in Sinzing — nur einen Katzensprung südwestlich von Regensburg, mitten im Grünen. Abends gibt's bei uns Burger, Bowls und Gerichte vom Grill, regional und saisonal gekocht. Klein, fein & ehrlich: mehr Frühstückstisch als feines Restaurant, dafür mit ganz viel Herz.",
+  "primaryCta": {
+    "label": "Zur Speisekarte",
+    "href": "/abendessen"
+  },
+  "story": {
+    "heading": "Ein Restaurant, das die Familie Leber selbst",
+    "accent": "führt.",
+    "paragraphs": [
+      "Wald & Wiese an der Bruckdorfer Straße 42 ist kein anonymer Laden, sondern unser Zuhause auf Zeit. Tanja Leber steht in der Küche, Sven Leber hinter der Bar, Petra Auerbacher leitet den Service — du wirst von echten Menschen begrüßt, nicht von einer Marke. Das spürst du vom ersten Hallo an.",
+      "Wir machen kein großes Brimborium. Bei uns ist es persönlich, warm und ein bisschen mit Augenzwinkern: Jedes Gericht trägt einen Namen und eine kleine Geschichte — benannt nach Familie, Freunden und unseren Tieren. Komm vorbei, bring den Hund mit, bestell etwas vom Grill und bleib so lange du magst. Wenn du in Sinzing oder bei Regensburg essen gehen willst und keine Lust auf steifes Restaurant hast, bist du bei uns genau richtig.",
+      "Dass wir das ernst meinen, schmeckst du auch an den kleinen Dingen: an Tanjas Patisserie zum Beispiel, mit dem Pistazientiramisu als heimlichem Klassiker. Süßes Finale inklusive."
+    ]
+  },
+  "features": {
+    "heading": "Warum Wald & Wiese dein Platz in",
+    "accent": "Sinzing ist.",
+    "items": [
+      {
+        "title": "Abendküche mit Charakter",
+        "text": "Burger, Bowls und Gerichte vom Grill — handgemacht und ehrlich. Jedes trägt einen eigenen Namen und eine kleine Geschichte, benannt nach Familie, Freunden und Tieren."
+      },
+      {
+        "title": "Regional & saisonal",
+        "text": "Wir kochen mit dem, was die Region rund um Sinzing hergibt. Regionales Restaurant bei Regensburg heißt für uns: kurze Wege, frische Zutaten, ehrlicher Geschmack — ohne Schnickschnack."
+      },
+      {
+        "title": "Vegan & vegetarisch dabei",
+        "text": "Fleisch, vegetarisch oder vegan stehen bei uns gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange suchen zu müssen."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+      },
+      {
+        "title": "Drinnen oder im Grünen",
+        "text": "Gemütlicher Innenraum oder Terrasse mit Blick ins Grüne — du hast die Wahl. Viel Luft, wenig Stadt-Trubel, nur wenige Minuten von Regensburg entfernt."
+      },
+      {
+        "title": "Bald auch Frühstück",
+        "text": "Ab dem 6. Juli 2026 starten wir morgens durch — Frühstück im Grünen, regional und in Ruhe. Bis dahin sind wir abends für dich da."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "Essen gehen in Sinzing",
+    "heading": "Nah an Regensburg, weit weg vom",
+    "accent": "Trubel.",
+    "paragraphs": [
+      "Sinzing liegt nur wenige Minuten südwestlich von Regensburg — nah genug für einen spontanen Abend, weit genug raus, um wirklich anzukommen. Statt Großstadt-Hektik gibt's bei uns Grün, frische Luft und Zeit zum Durchatmen.",
+      "Du findest uns an der Bruckdorfer Straße 42 in 93161 Sinzing. Reservieren kannst du bequem über unser Online-System oder ganz klassisch per Telefon — ganz wie du magst. Spontan vorbeischauen geht natürlich auch.",
+      "Eins vorab, damit du weißt, worauf du dich freust: Wir sind ein Restaurant, kein Brunch-Buffet. Abends à la carte, ab Juli morgens mit Frühstück — alles frisch und in Ruhe serviert, nichts vom Fließband."
+    ]
+  },
+  "stats": [
+    {
+      "value": "ab 6. Juli 2026",
+      "label": "auch Frühstück im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    },
+    {
+      "value": "100 %",
+      "label": "familiengeführt"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wo genau liegt das Restaurant in Sinzing?",
+      "answer": "Wald & Wiese findest du an der Bruckdorfer Straße 42 in 93161 Sinzing, nur wenige Minuten südwestlich von Regensburg — mitten im Grünen. Die genaue Anfahrt steht auf unserer Kontaktseite."
+    },
+    {
+      "question": "Was gibt es bei Wald & Wiese zu essen?",
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional, saisonal und mit vegetarischen wie veganen Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück dazu."
+    },
+    {
+      "question": "Gibt es bei euch Brunch?",
+      "answer": "Nein, einen Brunch oder ein Buffet bieten wir nicht an. Abends gibt's à la carte, ab Juli 2026 morgens ein regionales Frühstück — beides frisch zubereitet und in Ruhe serviert."
+    },
+    {
+      "question": "Wann hat das Restaurant in Sinzing geöffnet?",
+      "answer": "Vor dem Frühstücks-Start sind wir abends für dich da. Ab dem Launch am 6. Juli 2026 öffnen wir Mo–Do morgens und Fr–So zusätzlich am Abend. Die jeweils aktuellen Zeiten findest du immer auf der Kontaktseite."
+    },
+    {
+      "question": "Ist mein Hund im Restaurant willkommen?",
+      "answer": "Ja, sehr gern. Dein Hund ist bei uns drinnen wie auf der Terrasse herzlich willkommen — bei uns sind Tiere Familie. Unser Gericht „Heinzi“ ist nach Hund Henry benannt."
+    },
+    {
+      "question": "Wie kann ich in Sinzing einen Tisch reservieren?",
+      "answer": "Am einfachsten über unser Online-Reservierungssystem auf der Seite „Reservieren“ — oder ruf uns einfach an. Spontan vorbeischauen geht natürlich auch."
+    }
+  ],
+  "related": [
+    {
+      "label": "Speisekarte Abend",
+      "href": "/abendessen",
+      "blurb": "Burger, Bowls und alles vom Grill — mit Namen und Geschichte."
+    },
+    {
+      "label": "Hundefreundliches Restaurant",
+      "href": "/hundefreundliches-restaurant-regensburg",
+      "blurb": "Warum dein Vierbeiner bei uns einfach dazugehört."
+    },
+    {
+      "label": "Über uns",
+      "href": "/ueber-uns",
+      "blurb": "Lern die Familie Leber und die Idee hinter Wald & Wiese kennen."
+    }
+  ],
+  "closing": {
+    "heading": "Komm vorbei und",
+    "accent": "bleib.",
+    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

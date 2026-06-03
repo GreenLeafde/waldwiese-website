@@ -77,13 +77,14 @@ export function LogoIntro() {
           className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-waldgruen-dark/50"
         />
 
-        {/* Links Ornament */}
-        <div className="anim-ornament delay-200 absolute -left-6 sm:left-[6%] md:left-[14%] top-1/2 -translate-y-1/2 h-[30%] sm:h-[52%] md:h-[58%] max-h-[440px] w-auto opacity-50 sm:opacity-100 pointer-events-none">
+        {/* Ornamente — nur auf sehr breiten Screens (xl+), wo sie im seitlichen
+            Freiraum NEBEN dem zentrierten Inhalt liegen. Auf schmaleren Screens
+            ausgeblendet, damit die Ranken nicht hinter den Buttons durchlaufen. */}
+        <div className="hidden xl:block anim-ornament delay-200 absolute left-[6%] 2xl:left-[11%] top-1/2 -translate-y-1/2 h-[50%] max-h-[360px] w-auto pointer-events-none">
           <LeafOrnament variant="leaves-berries" className="h-full w-auto" />
         </div>
 
-        {/* Rechts Ornament */}
-        <div className="anim-ornament delay-400 absolute -right-6 sm:right-[6%] md:right-[14%] top-1/2 -translate-y-1/2 h-[30%] sm:h-[52%] md:h-[58%] max-h-[440px] w-auto opacity-50 sm:opacity-100 pointer-events-none">
+        <div className="hidden xl:block anim-ornament delay-400 absolute right-[6%] 2xl:right-[11%] top-1/2 -translate-y-1/2 h-[50%] max-h-[360px] w-auto pointer-events-none">
           <LeafOrnament variant="berries-stem" className="h-full w-auto" />
         </div>
 

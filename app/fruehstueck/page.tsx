@@ -6,6 +6,7 @@ import { BREAKFAST_LAUNCH, CONTACT } from "@/lib/site";
 export const metadata = {
   title: "Frühstück mitten im Grünen — ab 06.07.2026 in Sinzing",
   description: `Frühstück bei Wald & Wiese — ab ${BREAKFAST_LAUNCH.dateLong} in Sinzing bei Regensburg. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche. Regional, ehrlich.`,
+  alternates: { canonical: "/fruehstueck" },
 };
 
 const teaserItems = [

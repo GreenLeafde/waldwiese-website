@@ -7,6 +7,7 @@ export const metadata = {
   title: "Speisekarte & Getränke",
   description:
     "Alle Karten von Wald & Wiese auf einen Blick — Abendkarte mit Burger, Bowls und Grill, Getränkekarte, und das kommende Frühstücks-Konzept.",
+  alternates: { canonical: "/speisen" },
 };
 
 const cards = [

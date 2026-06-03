@@ -7,6 +7,7 @@ export const metadata = {
   title: "Rezepte zum Nachkochen",
   description:
     "Unsere beliebtesten Rezepte zum Nachmachen — vom Pistazientiramisu bis zum nächsten Lieblingsgericht.",
+  alternates: { canonical: "/rezepte" },
 };
 
 export default function RezeptePage() {

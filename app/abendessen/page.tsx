@@ -7,6 +7,7 @@ export const metadata = {
   title: "Speisekarte — Burger, Bowls, Steak",
   description:
     "Die komplette Abendkarte: Burger (mähende Moni, klassischer Heinzi), Bowls (Prinzessin auf der Kichererbse), Steak, Lachs, Pistazientiramisu. Vegan, vegetarisch und herzhaft gleichberechtigt.",
+  alternates: { canonical: "/abendessen" },
 };
 
 type Tag = NonNullable<Dish["tags"]>[number];

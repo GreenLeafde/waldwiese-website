@@ -16,6 +16,7 @@ export const metadata = {
   title: `${SITE.name} · Familiengeführtes Restaurant in Sinzing`,
   description:
     "Wald & Wiese — Sinzing bei Regensburg. Familiengeführt, regional, ehrlich. Heute Abend für dich da — bald auch zum Frühstück mitten im Grünen.",
+  alternates: { canonical: "/" },
 };
 
 /* ----------------------------------------------------------------------------

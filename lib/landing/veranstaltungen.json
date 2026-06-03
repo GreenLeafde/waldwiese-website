@@ -1,0 +1,128 @@
+{
+  "metaTitle": "Feiern & Veranstaltungen bei Regensburg | Sinzing",
+  "metaDescription": "Feiern & Veranstaltungen bei Regensburg: familiengeführte Location in Sinzing für Geburtstag, Firmenfeier & Hochzeit. Regional, persönlich, auf Anfrage.",
+  "breadcrumb": "Feiern & Veranstaltungen",
+  "eyebrow": "Feiern · bei Regensburg",
+  "h1Lead": "Dein Anlass, unsere",
+  "h1Accent": "kleine Bühne.",
+  "intro": "Du suchst einen Ort für Feiern & Veranstaltungen bei Regensburg, der sich nicht anfühlt wie eine gemietete Halle? Wald & Wiese ist ein familiengeführtes Restaurant in Sinzing, nur wenige Minuten südwestlich von Regensburg, mitten im Grünen. Geburtstag, Taufe, Firmenfeier oder Hochzeit — wir planen deine Feier persönlich mit dir, regional gekocht und ehrlich, ohne Schickimicki.",
+  "primaryCta": {
+    "label": "Anfrage starten",
+    "href": "/veranstaltungen"
+  },
+  "story": {
+    "heading": "Klein, fein und",
+    "accent": "tatsächlich persönlich.",
+    "paragraphs": [
+      "Bei uns landest du nicht in einer Event-Maschinerie, sondern bei der Familie Leber. Tanja steht in der Küche und an der Patisserie, Sven hinterm Tresen, Petra hält den Service zusammen — geplant wird deine Feier mit den Menschen, die am Abend selbst mit anpacken, nicht mit einer anonymen Buchungsabteilung.",
+      "Wir sind bewusst eher Frühstückstisch als feines Restaurant: klein, fein und ehrlich. Genau das macht eine Feier hier aus. Du bekommst keinen Saal von der Stange, sondern unseren Innenraum und unsere Terrasse im Grünen — überschaubar, warm und ohne das Gefühl, nur eine Nummer im Kalender zu sein. Und wer Tanjas Pistazientiramisu schon kennt, weiß, dass der Nachtisch hier kein Beiwerk ist.",
+      "Und ja, der Hund darf mit. Drinnen wie auf der Terrasse ist er willkommen — schließlich ist sogar eines unserer Gerichte, der „Heinzi“, nach unserem Hund Henry benannt."
+    ]
+  },
+  "features": {
+    "heading": "Feiern & Veranstaltungen bei Regensburg —",
+    "accent": "für jeden Anlass der passende Rahmen.",
+    "items": [
+      {
+        "title": "Geburtstag feiern bei Regensburg",
+        "text": "Runder Geburtstag oder einfach ein langes Tischessen mit deinen Lieblingsmenschen — bei uns im Grünen, in entspannter Runde statt steifer Feierlocation. Drinnen und auf der Terrasse ist Platz für die ganze Gesellschaft."
+      },
+      {
+        "title": "Taufe & Familienfeier in Sinzing",
+        "text": "Eine Taufe feiern bei Regensburg oder eine Familienfeier in Sinzing: ruhig, persönlich und kindgerecht entspannt. Zwischen Innenraum und Terrasse findet die ganze Verwandtschaft zusammen, ohne sich in einem Saal zu verlieren."
+      },
+      {
+        "title": "Firmenfeier im Raum Regensburg",
+        "text": "Sommerfest, Weihnachtsfeier oder Teamessen: eine Firmenfeier bei Regensburg, die sich nach echtem Restaurant anfühlt und nicht nach Konferenzraum. Den Termin richten wir individuell mit dir ein — auch außerhalb der regulären Öffnungszeiten."
+      },
+      {
+        "title": "Hochzeit im kleinen Kreis",
+        "text": "Vom Standesamt direkt zu uns oder die ganze Feier — im Grünen, mit Familie und Hund. Wie eine Hochzeit bei uns abläuft, liest du im Detail auf unserer Seite zur Hochzeitslocation bei Regensburg."
+      },
+      {
+        "title": "Tischzauberei auf Wunsch",
+        "text": "Wenn du magst, kommt Emilian Leber als „Magicel“ an die Tische und sorgt mit Tischzauberei für Momente, über die deine Gäste noch lange reden — direkt am Platz, mitten ins Staunen."
+      },
+      {
+        "title": "Regional & individuell gekocht",
+        "text": "Das Menü stimmen wir auf deinen Anlass ab — mit dem, was die Region hergibt. Vegan und vegetarisch stehen dabei gleichberechtigt auf der Karte, nicht als Beilage gedacht."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "So läuft's ab",
+    "heading": "Vom ersten Hallo bis",
+    "accent": "zum letzten Gang.",
+    "paragraphs": [
+      "Du schreibst oder rufst uns an und erzählst vom Anlass, dem ungefähren Datum und davon, wie viele ihr seid. Wir melden uns mit konkreten Vorschlägen zurück — zum Menü, zur Aufteilung von Innenraum und Terrasse und zu allem, was sonst noch dazugehört.",
+      "Pakete, Preise und eine eventuelle Anzahlung gibt es bei uns nicht von der Stange, sondern individuell auf Anfrage — passend zu dem, was du dir vorstellst. So zahlst du am Ende für deine Feier und nicht für ein Standardpaket, das nur zur Hälfte passt.",
+      "Einen normalen Tisch reservierst du übrigens unkompliziert über unser Online-System oder telefonisch. Für die größere Feier sprichst du am besten direkt mit uns — dann planen wir gemeinsam, statt nur ein Formular auszufüllen."
+    ]
+  },
+  "stats": [
+    {
+      "value": "~50 + 50",
+      "label": "Gäste innen plus auf der Terrasse (kombiniert bis ~100)"
+    },
+    {
+      "value": "100 %",
+      "label": "individuell geplant — auf Anfrage"
+    },
+    {
+      "value": "1 Familie",
+      "label": "die deine Feier persönlich begleitet"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Für wie viele Gäste ist Wald & Wiese als Location bei Regensburg geeignet?",
+      "answer": "Im Innenraum finden rund 50 Gäste Platz, dazu noch einmal bis zu 50 auf der Terrasse — kombiniert also bis etwa 100 Personen. Einen separaten Festsaal oder Garten gibt es nicht; gefeiert wird im Innenraum und auf der Terrasse im Grünen."
+    },
+    {
+      "question": "Welche Anlässe kann ich bei euch feiern?",
+      "answer": "Geburtstag, Taufe, Familienfeier, Firmenfeier oder Hochzeit — für Feiern & Veranstaltungen bei Regensburg im kleineren, persönlichen Rahmen sind wir genau die richtige Adresse. Erzähl uns einfach, was gefeiert wird, dann finden wir den Rahmen dazu."
+    },
+    {
+      "question": "Was kostet eine Feier bei euch?",
+      "answer": "Pauschale Pakete und Preise haben wir bewusst nicht — wir planen Menü und Ablauf individuell mit dir und machen dir ein passendes Angebot auf Anfrage. Auch eine eventuelle Anzahlung sprechen wir dabei persönlich ab."
+    },
+    {
+      "question": "Gibt es ein Brunch-Buffet für Feiern?",
+      "answer": "Nein, ein Brunch-Buffet bieten wir nicht an. Für deine Feier kochen wir regional und stimmen das Menü individuell auf deinen Anlass ab — vegan und vegetarisch gleichberechtigt."
+    },
+    {
+      "question": "Ist mein Hund bei einer Feier willkommen?",
+      "answer": "Ja, dein Hund ist herzlich willkommen — drinnen wie auf der Terrasse. Wir sind ein hundefreundliches Restaurant, da bleibt der Vierbeiner bei deiner Feier natürlich dabei."
+    },
+    {
+      "question": "Kann man bei euch auch außerhalb der regulären Öffnungszeiten feiern?",
+      "answer": "Größere Feiern richten wir individuell ein — auch jenseits der regulären Zeiten. Ab dem Frühstücks-Launch am 6. Juli 2026 haben wir grob vormittags bis nachmittags geöffnet, an den Wochenenden zusätzlich abends; für deine Veranstaltung finden wir den passenden Zeitrahmen auf Anfrage."
+    }
+  ],
+  "related": [
+    {
+      "label": "Hochzeitslocation bei Regensburg",
+      "href": "/hochzeitslocation-regensburg",
+      "blurb": "Du heiratest? Hier erfährst du alles zur Hochzeit im Grünen bei der Familie Leber."
+    },
+    {
+      "label": "Tisch reservieren",
+      "href": "/reservieren",
+      "blurb": "Kein großer Anlass, einfach essen kommen? Sichere dir in wenigen Klicks deinen Tisch."
+    },
+    {
+      "label": "Über uns",
+      "href": "/ueber-uns",
+      "blurb": "Lern die Familie Leber kennen, die deine Feier persönlich begleitet."
+    }
+  ],
+  "closing": {
+    "heading": "Erzähl uns, was",
+    "accent": "gefeiert wird.",
+    "text": "Anlass, ungefähres Datum und wie viele ihr seid — schreib uns kurz, und wir melden uns mit Vorschlägen zurück. Persönlich, regional und ganz nach deiner Vorstellung.",
+    "cta": {
+      "label": "Anfrage starten",
+      "href": "/veranstaltungen"
+    }
+  }
+}

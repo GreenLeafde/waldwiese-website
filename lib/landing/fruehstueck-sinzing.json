@@ -1,0 +1,128 @@
+{
+  "metaTitle": "Frühstück Sinzing – familiengeführt & im Grünen",
+  "metaDescription": "Frühstücken in Sinzing bei Wald & Wiese: regional, vegan & vegetarisch, im Grünen auf der Terrasse, Hund willkommen. Ab 6. Juli 2026 – jetzt Tisch sichern.",
+  "breadcrumb": "Frühstück Sinzing",
+  "eyebrow": "Frühstück · mitten in Sinzing",
+  "h1Lead": "Frühstück in Sinzing –",
+  "h1Accent": "gleich um die Ecke.",
+  "intro": "Frühstück in Sinzing muss nicht weit weg sein: Bei Wald & Wiese in der Bruckdorfer Straße 42 deckt Familie Leber ab dem 6. Juli 2026 morgens den Tisch – regional, im Grünen und mit Platz für dich, deine Leute und den Hund. Klein, fein und ehrlich. Mehr Frühstückstisch als feines Restaurant.",
+  "primaryCta": {
+    "label": "Tisch reservieren",
+    "href": "/reservieren"
+  },
+  "story": {
+    "heading": "Dein Frühstücksplatz",
+    "accent": "in Sinzing",
+    "paragraphs": [
+      "Wir sind keine große Kette und kein anonymes Café – wir sind die Lebers, und wir wohnen quasi nebenan. Wald & Wiese liegt mitten in Sinzing, nur wenige Minuten südwestlich von Regensburg, im Grünen statt im Verkehr. Frühstücken in Sinzing heißt bei uns kurzer Weg, bekannte Gesichter und ein Tisch, an dem du so lange sitzen bleiben darfst, wie du magst – ohne dass jemand schon aufs nächste Gedeck schielt.",
+      "Lange waren wir nur abends da – mit Burgern, Bowls und Sachen vom Grill, jedes Gericht mit eigenem Namen und eigener Geschichte. Ab dem 6. Juli 2026 machen wir morgens auf und holen das Frühstück dorthin, wo es für uns hingehört: auf die Terrasse, ins Grüne, mitten in die Nachbarschaft. Bis dahin findest du uns weiterhin am Abend.",
+      "In der Küche und an der Patisserie steht Tanja, hinter dem Tresen führt Sven den Laden, und Petra hält den Service zusammen. Wir kennen unsere Gäste gern beim Namen – und freuen uns, wenn du einer davon wirst."
+    ]
+  },
+  "features": {
+    "heading": "Warum hier in Sinzing",
+    "accent": "frühstücken?",
+    "items": [
+      {
+        "title": "Regional auf dem Teller",
+        "text": "Brot vom Bäcker aus der Region, Obst aus Sinzinger Höfen, Aufstriche und Granola machen wir selbst. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Pflanzlich ist bei uns kein Sonderwunsch, sondern steht gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
+      },
+      {
+        "title": "Frühstück im Grünen",
+        "text": "Wenn das Wetter mitspielt, frühstückst du draußen auf der Terrasse statt zwischen vier Wänden. Sinzing im Rücken, Ruhe im Ohr, Kaffee in der Hand."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Hund darf mit – drinnen wie auf der Terrasse. Unser Hund Henry hat es sogar auf die Abendkarte geschafft: Das Gericht Heinzi ist nach ihm benannt."
+      },
+      {
+        "title": "Familie statt Filialleiter",
+        "text": "Bei uns kocht und serviert Familie Leber persönlich. Das merkst du am Ton, am Service und daran, dass wir uns über jeden Stammgast ehrlich freuen."
+      },
+      {
+        "title": "Mitten in der Bruckdorfer Straße",
+        "text": "Du findest uns in der Bruckdorfer Straße 42, mitten in Sinzing. Reservieren kannst du online oder ganz klassisch per Telefon."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "Erst abends, dann morgens",
+    "heading": "Ab 6. Juli wird in Sinzing",
+    "accent": "gefrühstückt",
+    "paragraphs": [
+      "Bis zum 6. Juli 2026 sind wir abends für dich da – mit Burgern, Bowls und Gerichten vom Grill, die alle ihren eigenen Namen und ihre eigene Geschichte tragen, benannt nach Familie, Freunden und Tieren. Ein Brunch-Buffet, an dem du dir selbst den Teller volllädst, wirst du bei uns übrigens nicht finden: Wir kochen und decken lieber persönlich auf.",
+      "Ab Launch starten wir morgens: Montag bis Donnerstag von 8 bis 14 Uhr, Freitag bis Sonntag von 8 bis 14 Uhr – und am Wochenende zusätzlich abends von 17 bis 22 Uhr. So passt das Frühstück in Sinzing zum frühen Vogel genauso wie zum gemütlichen Wochenende.",
+      "Am besten sicherst du dir vorab einen Tisch – gerade am Wochenende und draußen auf der Terrasse wird es schön voll."
+    ]
+  },
+  "stats": [
+    {
+      "value": "ab 6. Juli",
+      "label": "startet das Frühstück"
+    },
+    {
+      "value": "08–14 Uhr",
+      "label": "Frühstückszeit ab Launch"
+    },
+    {
+      "value": "Nr. 42",
+      "label": "Bruckdorfer Straße, Sinzing"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wo kann ich in Sinzing frühstücken?",
+      "answer": "Bei Wald & Wiese in der Bruckdorfer Straße 42, mitten in Sinzing. Ab dem 6. Juli 2026 frühstückst du bei uns regional und – wenn das Wetter passt – draußen im Grünen auf der Terrasse."
+    },
+    {
+      "question": "Was sind die Öffnungszeiten zum Frühstücken in Sinzing?",
+      "answer": "Ab Launch (6. Juli 2026) frühstückst du Montag bis Sonntag von 8 bis 14 Uhr; am Wochenende sind wir zusätzlich abends von 17 bis 22 Uhr da. Davor sind wir nur abends für dich geöffnet."
+    },
+    {
+      "question": "Seid ihr ein Café in Sinzing?",
+      "answer": "Nicht ganz: Wir sind ein familiengeführtes Restaurant mit Frühstück, kein klassisches Café zum schnellen Coffee-to-go. Guten Kaffee gibt es trotzdem – am liebsten in Ruhe an einem gedeckten Tisch, drinnen oder auf der Terrasse."
+    },
+    {
+      "question": "Gibt es auch veganes und vegetarisches Frühstück?",
+      "answer": "Ja. Vegane und vegetarische Gerichte stehen bei uns gleichberechtigt auf der Karte – mit hausgemachten Aufstrichen, eigenem Granola und Obst aus Sinzinger Höfen."
+    },
+    {
+      "question": "Darf ich meinen Hund zum Frühstück mitbringen?",
+      "answer": "Sehr gern. Dein Hund ist bei uns willkommen – drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+    },
+    {
+      "question": "Muss ich zum Frühstücken reservieren?",
+      "answer": "Reservieren ist kein Muss, aber gerade am Wochenende und für die Terrasse empfehlenswert. Du kannst bequem über unser Online-System oder telefonisch einen Tisch sichern."
+    }
+  ],
+  "related": [
+    {
+      "label": "Frühstück",
+      "href": "/fruehstueck",
+      "blurb": "Alles rund um unser Frühstück im Grünen – regional, vegan & vegetarisch."
+    },
+    {
+      "label": "Restaurant Sinzing",
+      "href": "/restaurant-sinzing",
+      "blurb": "Wer wir sind und was abends auf den Tisch kommt – mitten in Sinzing."
+    },
+    {
+      "label": "Kontakt & Anfahrt",
+      "href": "/kontakt",
+      "blurb": "So findest du uns in der Bruckdorfer Straße 42."
+    }
+  ],
+  "closing": {
+    "heading": "Komm vorbei und frühstück",
+    "accent": "mit uns.",
+    "text": "Ob allein mit Buch, mit der Familie oder mit Hund an der Leine – ab dem 6. Juli ist in der Bruckdorfer Straße 42 für dich gedeckt. Sicher dir am besten gleich deinen Tisch.",
+    "cta": {
+      "label": "Jetzt Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}
