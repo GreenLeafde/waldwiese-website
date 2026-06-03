@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { LogoIntro } from "@/components/logo-intro";
 import { LeafDivider } from "@/components/leaf-divider";
+import { LeafOrnament } from "@/components/leaf-ornament";
+import { StampBadge } from "@/components/stamp-badge";
 import { ReviewsSection } from "@/components/reviews-section";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
@@ -23,14 +25,16 @@ export const metadata = {
 };
 
 /* ----------------------------------------------------------------------------
- * Onepager-Startseite.
+ * Onepager-Startseite — Redesign nach der Brunch-Karte 2026.
  *
- * Reihenfolge bewusst funktional sortiert: erst was man bei uns essen,
- * trinken und buchen kann, dann die Geschichte dahinter, dann Anlässe und
- * Inhalte zum Mitnehmen.
- *
- * Farbrhythmus: weiß ist Standard. Waldgrün als Anker (Intro, Getränke,
- * Kontakt). Mehlcreme einmalig als Beige-Akzent auf der Frühstück-Sektion.
+ * Leitidee:
+ *   - GRÜN trägt die Seite. Beige nur ein einziges Mal (familiäre „Über uns").
+ *   - Jede Sektion ist ein Vollbild (min-h-svh), Inhalt vertikal zentriert.
+ *   - Bilder gezielt & nie gestapelt: drei echte Foto-Sektionen (Frühstück,
+ *     Hund, Terrasse), dazwischen immer eine grüne Typo-Sektion.
+ *   - Botanik (wiegende Blatt-Ornamente, Blatt-Trenner) + Scroll-Reveals +
+ *     sanfter Parallax auf den Fotos sorgen fürs „lieblich" Durchscrollen.
+ *   - Serif nur für große Headings; Beschreibungen in kursivem Sans.
  * ------------------------------------------------------------------------- */
 
 /** Startseite zeigt nur die Kategorien + je ein konkretes Highlight — nicht
@@ -46,6 +50,36 @@ const menuCategories: Array<{ title: string; highlight: string }> = [
   { title: "Vom Grill", highlight: "Steak, Spare Ribs & Teriyaki-Lachs" },
   { title: "Finale", highlight: "Pistazientiramisu · Krachender Crumble" },
 ];
+
+/** Wiegende Blatt-Ornamente in den seitlichen Freiräumen grüner Sektionen.
+ *  Erst ab xl sichtbar, damit sie auf schmalen Screens nichts überlagern. */
+function SideLeaves({
+  flip = false,
+}: {
+  flip?: boolean;
+}) {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 hidden xl:block"
+    >
+      <div
+        className={`absolute ${
+          flip ? "right-[4%] 2xl:right-[8%]" : "left-[4%] 2xl:left-[8%]"
+        } top-1/2 -translate-y-1/2 h-[46%] max-h-[330px] w-auto sway opacity-80`}
+      >
+        <LeafOrnament variant="leaves-berries" className="h-full w-auto" />
+      </div>
+      <div
+        className={`absolute ${
+          flip ? "left-[4%] 2xl:left-[8%]" : "right-[4%] 2xl:right-[8%]"
+        } top-1/2 -translate-y-1/2 h-[46%] max-h-[330px] w-auto sway-slow opacity-80`}
+      >
+        <LeafOrnament variant="berries-stem" className="h-full w-auto" />
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const reviewsJsonLd = {
@@ -72,10 +106,10 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
       />
-      {/* 1 · INTRO */}
+      {/* 1 · INTRO — Waldgrün-Wortmarke, sticky, Vollbild */}
       <LogoIntro />
 
-      {/* 1b · Hinweis-Banner direkt unter dem Hero */}
+      {/* 1b · Hinweis-Banner — schmaler Tonwarm-Akzent, kein Vollbild */}
       <a
         href="#fruehstueck"
         className="block bg-tonwarm text-white hover:bg-tonwarm-dark transition-colors"
@@ -86,30 +120,35 @@ export default function HomePage() {
           </span>
           <span className="font-medium">
             Frühstück mitten im Grünen — ab{" "}
-            <span className="font-display italic">
-              {BREAKFAST_LAUNCH.dateShort}
-            </span>{" "}
-            in Sinzing.
+            <span className="italic">{BREAKFAST_LAUNCH.dateShort}</span> in
+            Sinzing.
           </span>
-          <span aria-hidden className="text-white/80">→</span>
+          <span aria-hidden className="text-white/80">
+            →
+          </span>
         </div>
       </a>
 
-      {/* 2 · SPEISEKARTE — Kategorien als klare, lesbare Liste (kein Stock) */}
-      <section id="speisekarte" className="bg-mehlcreme scroll-mt-24">
-        <div className="mx-auto max-w-4xl px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-32">
-          {/* Header */}
+      {/* 2 · SPEISEKARTE — grün, große Serif-Headline, Kategorien als Liste */}
+      <section
+        id="speisekarte"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+      >
+        <SideLeaves />
+        <div className="relative w-full mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-28">
           <div className="text-center reveal">
-            <p className="eyebrow no-line justify-center">Heute Abend</p>
-            <h2 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
+            <p className="eyebrow no-line justify-center text-tonwarm">
+              Heute Abend
+            </p>
+            <h2 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
               Die Karte.
             </h2>
-            <p className="mt-7 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
+            <p className="mt-7 italic text-lg md:text-xl text-mehlcreme/75 max-w-xl mx-auto leading-relaxed">
               Burger, Bowls, vom Grill und süßes Finale. Die ganze Karte mit
               allen Gerichten und Preisen findest du{" "}
               <Link
                 href="/abendessen"
-                className="underline decoration-tonwarm/40 decoration-2 underline-offset-[6px] hover:decoration-tonwarm hover:text-tonwarm transition-colors"
+                className="not-italic underline decoration-tonwarm/50 decoration-2 underline-offset-[6px] hover:decoration-tonwarm hover:text-tonwarm transition-colors"
               >
                 hier
               </Link>
@@ -118,18 +157,18 @@ export default function HomePage() {
           </div>
 
           {/* Kategorien — große, lesbare Liste, verlinkt auf die volle Karte */}
-          <ul className="mt-14 md:mt-20 border-t border-stone-200 reveal">
+          <ul className="mt-12 md:mt-16 border-t border-mehlcreme/15 reveal-1">
             {menuCategories.map((cat) => (
               <li key={cat.title}>
                 <Link
                   href="/abendessen"
-                  className="group flex items-center justify-between gap-6 py-7 md:py-8 border-b border-stone-200"
+                  className="group flex items-center justify-between gap-6 py-6 md:py-7 border-b border-mehlcreme/15"
                 >
                   <div>
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal tracking-tight text-waldgruen group-hover:text-tonwarm transition-colors">
+                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal tracking-tight text-mehlcreme group-hover:text-tonwarm transition-colors">
                       {cat.title}
                     </h3>
-                    <p className="mt-2 font-display italic text-stone-500 text-base md:text-lg">
+                    <p className="mt-2 italic text-mehlcreme/55 text-base md:text-lg">
                       {cat.highlight}
                     </p>
                   </div>
@@ -144,11 +183,10 @@ export default function HomePage() {
             ))}
           </ul>
 
-          {/* CTA */}
-          <div className="mt-14 md:mt-20 text-center reveal">
+          <div className="mt-12 md:mt-16 text-center reveal-2">
             <Link
               href="/abendessen"
-              className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               Komplette Karte ansehen <span aria-hidden>→</span>
             </Link>
@@ -156,59 +194,175 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3 · GETRÄNKE — dunkel, mit Bild */}
+      {/* 3 · FRÜHSTÜCK — Vollbild-Foto (echtes Gästefoto) mit grünem Schleier */}
       <section
-        id="getraenke"
-        className="relative isolate bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+        id="fruehstueck"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <Image
-          src={IMG.cocktail.src}
-          alt={IMG.cocktail.alt}
+          src={IMG.fruehstueckFoto.src}
+          alt={IMG.fruehstueckFoto.alt}
           fill
           sizes="100vw"
-          className="object-cover opacity-40"
-          style={{ objectPosition: "center 30%" }}
+          className="object-cover parallax"
+          style={{ objectPosition: "center 55%" }}
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark via-waldgruen-dark/70 to-waldgruen-dark/30"
+          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/95 via-waldgruen-dark/75 to-waldgruen-dark/35"
         />
-        <div className="relative mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-7 reveal">
-            <p className="eyebrow no-line">Getränke</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] text-mehlcreme tracking-tight">
-              Was du{" "}
-              <span className="text-tonwarm italic font-normal">dazu trinkst.</span>
-            </h2>
-            <p className="mt-8 max-w-xl text-mehlcreme/80 leading-relaxed">
-              Kaffee mit Charakter, hausgemachte Limonaden, regionale Weine,
-              Cocktails, Schaumweine. Auch entkoffeiniert und alkoholfrei —
-              hier kommt jeder auf seinen Geschmack.
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
+        />
+        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
+          <div className="max-w-xl reveal">
+            <div className="flex items-start gap-5">
+              <div>
+                <p className="eyebrow no-line text-tonwarm">Demnächst</p>
+                <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
+                  Frühstück,{" "}
+                  <span className="accent">mitten im Grünen.</span>
+                </h2>
+              </div>
+              <StampBadge
+                tone="light"
+                rotate={-8}
+                className="hidden sm:grid shrink-0 w-28 h-28 md:w-32 md:h-32 mt-1"
+              >
+                <span className="block text-[0.5rem] tracking-[0.2em] uppercase text-mehlcreme/80">
+                  Neu ab
+                </span>
+                <span className="block font-display text-base md:text-lg mt-0.5">
+                  {BREAKFAST_LAUNCH.dateShort}
+                </span>
+              </StampBadge>
+            </div>
+            <p className="mt-6 italic text-xl md:text-2xl text-mehlcreme/85">
+              ab {BREAKFAST_LAUNCH.dateShort} · in Sinzing.
             </p>
-            <Link
-              href="/getraenke"
-              className="mt-10 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+            <div className="mt-7 text-mehlcreme/80 leading-relaxed space-y-5">
+              <p>
+                Wir bauen gerade unser Frühstücks-Konzept auf. Brot vom Bäcker
+                aus der Region, Obst aus Sinzing, hausgemachte Aufstriche. Genau
+                wie zuhause — nur eben früher aufgestanden.
+              </p>
+              <p>Wenn&apos;s so weit ist, schicken wir&apos;s übers Instagram raus.</p>
+            </div>
+            <a
+              href={CONTACT.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-9 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
-              Zur Getränkekarte <span aria-hidden>→</span>
-            </Link>
+              {CONTACT.instagramHandle} <span aria-hidden>→</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* 4 · RESERVIEREN */}
-      <section id="reservieren" className="bg-mehlcreme scroll-mt-24">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-28 md:py-40 text-center reveal">
-          <p className="eyebrow no-line justify-center">Reservieren</p>
-          <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
-            Tisch sichern —{" "}
-            <span className="accent">ein Klick.</span>
-          </h2>
-          <p className="mt-8 max-w-xl mx-auto text-stone-600 leading-relaxed">
-            Wir buchen über Lightspeed. Datum wählen, Uhrzeit, Personenzahl —
-            fertig. Bestätigung kommt per Mail. Oder ruf einfach an, wenn dir
-            das lieber ist.
+      {/* 4 · GETRÄNKE — dunkles Grün, ruhig, mit Botanik (kein Stock-Foto) */}
+      <section
+        id="getraenke"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
+      >
+        <SideLeaves flip />
+        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
+          <div className="reveal">
+            <p className="eyebrow no-line justify-center text-tonwarm">
+              Getränke
+            </p>
+            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] text-mehlcreme tracking-tight">
+              Was du{" "}
+              <span className="accent">dazu trinkst.</span>
+            </h2>
+          </div>
+          <p className="mt-8 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-1">
+            Kaffee mit Charakter, hausgemachte Limonaden, regionale Weine,
+            Cocktails, Schaumweine. Auch entkoffeiniert und alkoholfrei — hier
+            kommt jeder auf seinen Geschmack.
           </p>
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-5">
+          <div className="mt-10 reveal-2">
+            <Link
+              href="/getraenke"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+            >
+              Zur Getränkekarte <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <LeafDivider tone="light" className="mt-14 opacity-80" />
+        </div>
+      </section>
+
+      {/* 5 · ÜBER UNS — der EINE beige Akzent: familiär, lieblich, mit Familienfoto */}
+      <section
+        id="ueber-uns"
+        className="relative isolate min-h-svh flex items-center bg-mehlcreme scroll-mt-24 overflow-hidden"
+      >
+        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
+          <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
+            <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal">
+              <Image
+                src={IMG.teamFamilie.src}
+                alt={IMG.teamFamilie.alt}
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="md:col-span-7 reveal-1">
+              <p className="eyebrow no-line">Über uns</p>
+              <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+                Dein{" "}
+                <span className="accent">familiengeführtes</span>
+                <br />
+                Restaurant in Sinzing.
+              </h2>
+              <div className="mt-9 max-w-xl text-waldgruen/75 leading-relaxed space-y-5">
+                <p>
+                  Wir sind die Familie Leber — Tanja, Sven, Sophia, Julia und
+                  Emilian. Klein, fein, ehrlich. Mehr Frühstückstisch als feines
+                  Restaurant.
+                </p>
+                <p>
+                  Was hier wächst, kommt auf den Teller. Vegan, vegetarisch und
+                  herzhaft, gleichberechtigt auf der Karte.
+                </p>
+              </div>
+              <Link
+                href="/ueber-uns"
+                className="mt-9 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              >
+                Mehr über uns <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+          <LeafDivider tone="dark" className="mt-16 md:mt-20 opacity-90" />
+        </div>
+      </section>
+
+      {/* 6 · RESERVIEREN — grün, Öffnungszeiten + CTA (Puffer zwischen zwei Fotos) */}
+      <section
+        id="reservieren"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
+      >
+        <SideLeaves />
+        <div className="relative w-full mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32 text-center">
+          <div className="reveal">
+            <p className="eyebrow no-line justify-center text-tonwarm">
+              Reservieren
+            </p>
+            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
+              Tisch sichern —{" "}
+              <span className="accent">ein Klick.</span>
+            </h2>
+            <p className="mt-8 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed">
+              Wir buchen über Lightspeed. Datum wählen, Uhrzeit, Personenzahl —
+              fertig. Bestätigung kommt per Mail. Oder ruf einfach an, wenn dir
+              das lieber ist.
+            </p>
+          </div>
+          <div className="mt-10 flex flex-wrap justify-center items-center gap-5 reveal-1">
             <a
               href={RESERVATION_URL}
               target="_blank"
@@ -219,40 +373,42 @@ export default function HomePage() {
             </a>
             <a
               href={`tel:${CONTACT.phoneRaw}`}
-              className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               {CONTACT.phone}
             </a>
           </div>
-          <div className="mt-16 mx-auto max-w-2xl grid sm:grid-cols-2 gap-10 text-left text-sm">
+          <div className="mt-14 mx-auto max-w-2xl grid sm:grid-cols-2 gap-10 text-left text-sm reveal-2">
             <div>
-              <p className="text-[0.7rem] tracking-[0.22em] uppercase text-stone-400 font-medium">
+              <p className="text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/55 font-medium">
                 Aktuell
               </p>
-              <dl className="mt-3 divide-y divide-stone-200">
+              <dl className="mt-3 divide-y divide-mehlcreme/15">
                 {CURRENT_OPENING_HOURS.map((slot) => (
                   <div
                     key={slot.days}
-                    className="flex justify-between py-2.5 text-stone-600 gap-4"
+                    className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
                   >
-                    <dt className="font-medium text-waldgruen">{slot.days}</dt>
+                    <dt className="font-medium text-mehlcreme">{slot.days}</dt>
                     <dd className="text-right">{slot.hours}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="mt-2 text-xs text-stone-400">Di & Mi Ruhetag.</p>
+              <p className="mt-2 text-xs text-mehlcreme/45">Di & Mi Ruhetag.</p>
             </div>
             <div>
               <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
                 Ab {BREAKFAST_LAUNCH.dateShort}
               </p>
-              <dl className="mt-3 divide-y divide-stone-200">
+              <dl className="mt-3 divide-y divide-mehlcreme/15">
                 {NEW_OPENING_HOURS.map((slot) => (
                   <div
                     key={slot.days}
-                    className="flex justify-between py-2.5 text-stone-600 gap-4"
+                    className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
                   >
-                    <dt className="font-medium text-waldgruen pt-0.5">{slot.days}</dt>
+                    <dt className="font-medium text-mehlcreme pt-0.5">
+                      {slot.days}
+                    </dt>
                     <dd className="text-right">
                       {slot.slots.map((s) => (
                         <div key={s}>{s}</div>
@@ -261,7 +417,7 @@ export default function HomePage() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-2 text-xs text-stone-400">
+              <p className="mt-2 text-xs text-mehlcreme/45">
                 Fr – So mit Frühstück & Abendservice.
               </p>
             </div>
@@ -269,72 +425,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 · ÜBER UNS */}
-      <section
-        id="ueber-uns"
-        className="bg-mehlcreme border-t border-stone-200 scroll-mt-24"
-      >
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg reveal">
-            <Image
-              src={IMG.haus.src}
-              alt={IMG.haus.alt}
-              fill
-              sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover grayscale-[15%]"
-            />
-          </div>
-          <div className="md:col-span-7 reveal">
-            <p className="eyebrow no-line">Über uns</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
-              Ihr{" "}
-              <span className="accent">familiengeführtes</span>
-              <br />
-              Restaurant in Sinzing.
-            </h2>
-            <div className="mt-10 max-w-xl text-stone-600 leading-relaxed space-y-5">
-              <p>
-                Wir sind die Familie Leber — Tanja, Sven, Sophia, Julia und
-                Emilian. Klein, fein, ehrlich. Mehr Frühstückstisch als feines
-                Restaurant.
-              </p>
-              <p>
-                Was hier wächst, kommt auf den Teller. Vegan, vegetarisch und
-                herzhaft, gleichberechtigt auf der Karte.
-              </p>
-            </div>
-            <Link
-              href="/ueber-uns"
-              className="mt-10 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Mehr über uns <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 5b · HUNDEFREUNDLICH — Image-Block, dark overlay */}
+      {/* 7 · HUNDEFREUNDLICH — Vollbild-Foto (echte Hunde im Wald) + grüner Schleier */}
       <section
         id="hund"
-        className="relative isolate bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden min-h-[80vh] md:min-h-[85vh] flex items-center"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <Image
           src={IMG.hundWald.src}
           alt={IMG.hundWald.alt}
           fill
           sizes="100vw"
-          className="object-cover"
+          className="object-cover parallax"
           style={{ objectPosition: "center 35%" }}
         />
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/90 via-waldgruen-dark/70 to-waldgruen-dark/30"
+          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/90 via-waldgruen-dark/65 to-waldgruen-dark/25"
         />
         <div
           aria-hidden
           className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
         />
-
         <div className="relative w-full mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 text-center">
           <div className="reveal">
             <p className="eyebrow no-line text-tonwarm justify-center">
@@ -358,79 +469,79 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6 · FRÜHSTÜCK — der eine Mehlcreme-Akzent */}
-      <section id="fruehstueck" className="bg-mehlcreme scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-6 md:order-2 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg reveal">
-            <Image
-              src={IMG.fruehstueckFoto.src}
-              alt={IMG.fruehstueckFoto.alt}
-              fill
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover"
-              style={{ objectPosition: "center 55%" }}
-            />
+      {/* 8 · EVENTS — Magic Dinner, dunkles Grün, mittig, mit Datum-Stempel */}
+      <section
+        id="events"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
+      >
+        <SideLeaves flip />
+        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
+          <div className="flex justify-center reveal">
+            <StampBadge tone="light" rotate={-6} className="w-28 h-28 md:w-32 md:h-32">
+              <span className="block text-[0.55rem] tracking-[0.22em] uppercase text-mehlcreme/80">
+                Save the date
+              </span>
+              <span className="block font-display text-base md:text-lg mt-0.5">
+                {MAGIC_DINNER.dateShort}
+              </span>
+            </StampBadge>
           </div>
-          <div className="md:col-span-6 reveal">
-            <p className="eyebrow no-line">Demnächst</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
-              Frühstück,{" "}
-              <span className="accent">mitten im Grünen.</span>
-            </h2>
-            <p className="mt-6 font-display italic text-xl md:text-2xl text-waldgruen/85">
-              ab {BREAKFAST_LAUNCH.dateShort} · in Sinzing.
-            </p>
-            <div className="mt-8 max-w-xl text-stone-600 leading-relaxed space-y-5">
-              <p>
-                Wir bauen gerade unser Frühstücks-Konzept auf. Brot vom Bäcker
-                aus der Region, Obst aus Sinzing, hausgemachte Aufstriche.
-                Genau wie zuhause — nur eben früher aufgestanden.
-              </p>
-              <p>
-                Wenn's so weit ist, schicken wir's übers Instagram raus.
-              </p>
-            </div>
-            <a
-              href={CONTACT.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-10 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+          <h2 className="mt-8 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.1] tracking-tight text-mehlcreme reveal-1">
+            Magic Dinner —{" "}
+            <span className="accent">Summer Edition.</span>
+          </h2>
+          <p className="mt-7 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-2">
+            Mehrgängiges Menü, dazwischen Tischzauberei von{" "}
+            {MAGIC_DINNER.magicianName} alias {MAGIC_DINNER.magicianStageName}.
+            Plätze begrenzt.
+          </p>
+          <div className="mt-10 reveal-3">
+            <Link
+              href="/events/magic-dinner-summer-edition"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
-              {CONTACT.instagramHandle} <span aria-hidden>→</span>
-            </a>
+              Programm &amp; Tisch sichern <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </section>
 
-      <LeafDivider className="bg-mehlcreme py-3" />
-
-      {/* 7 · VERANSTALTUNGEN */}
-      <section id="veranstaltungen" className="bg-mehlcreme scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg reveal">
-            <Image
-              src={IMG.terrasseTische.src}
-              alt={IMG.terrasseTische.alt}
-              fill
-              sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover"
-              style={{ objectPosition: "center 50%" }}
-            />
-          </div>
-          <div className="md:col-span-7 reveal">
-            <p className="eyebrow no-line">Veranstaltungen</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+      {/* 9 · VERANSTALTUNGEN — Vollbild-Foto (echte Terrasse) + grüner Schleier */}
+      <section
+        id="veranstaltungen"
+        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
+      >
+        <Image
+          src={IMG.terrasseTische.src}
+          alt={IMG.terrasseTische.alt}
+          fill
+          sizes="100vw"
+          className="object-cover parallax"
+          style={{ objectPosition: "center 50%" }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/92 via-waldgruen-dark/70 to-waldgruen-dark/30"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
+        />
+        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
+          <div className="max-w-xl reveal">
+            <p className="eyebrow no-line text-tonwarm">Veranstaltungen</p>
+            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
               Wenn der Anlass{" "}
               <span className="accent">groß ist.</span>
             </h2>
-            <p className="mt-8 max-w-xl text-stone-600 leading-relaxed">
+            <p className="mt-8 text-mehlcreme/85 leading-relaxed">
               Hochzeit, Geburtstag, Firmenfeier oder einfach ein Abend mit
               vielen Menschen, die du magst. Wir planen mit dir — ehrlich
               gekocht, mit viel Liebe und ohne Schickimicki.
             </p>
             <a
               href={`mailto:${CONTACT.email}?subject=Anfrage%20Veranstaltung`}
-              className="mt-10 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="mt-9 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               Anfrage schicken <span aria-hidden>→</span>
             </a>
@@ -438,88 +549,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8 · EVENTS — kurz und ruhig */}
+      {/* 10 · REZEPTE — grün, Typo (Stock-Dessertbild entfernt) */}
       <section
-        id="events"
-        className="bg-mehlcreme scroll-mt-24 border-y border-stone-200"
+        id="rezepte"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
       >
-        <div className="mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 text-center reveal">
-          <p className="eyebrow no-line justify-center">Events · {MAGIC_DINNER.dateShort}</p>
-          <h2 className="mt-7 text-4xl md:text-5xl font-display font-normal leading-[1.1] tracking-tight text-waldgruen">
-            Magic Dinner —{" "}
-            <span className="accent">Summer Edition.</span>
-          </h2>
-          <p className="mt-7 max-w-xl mx-auto text-stone-600 leading-relaxed">
-            Mehrgängiges Menü, dazwischen Tischzauberei von{" "}
-            {MAGIC_DINNER.magicianName} alias {MAGIC_DINNER.magicianStageName}.
-            Plätze begrenzt.
-          </p>
-          <Link
-            href="/events/magic-dinner-summer-edition"
-            className="mt-10 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-          >
-            Programm & Tisch sichern <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
-
-      <LeafDivider className="bg-mehlcreme py-3" />
-
-      {/* 9 · REZEPTE */}
-      <section id="rezepte" className="bg-mehlcreme scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-7 reveal">
-            <p className="eyebrow no-line">Rezepte</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
+        <SideLeaves />
+        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
+          <div className="reveal">
+            <p className="eyebrow no-line justify-center text-tonwarm">Rezepte</p>
+            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
               Mitkochen{" "}
               <span className="accent">zuhause.</span>
             </h2>
-            <p className="mt-8 max-w-xl text-stone-600 leading-relaxed">
-              Unser Pistazientiramisu — über 1.500 Mal verkauft. Bald gibt's
-              das Rezept hier zum Nachmachen. Und ein paar andere
-              Lieblingsgerichte dazu.
-            </p>
+          </div>
+          <p className="mt-8 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-1">
+            Unser Pistazientiramisu — über 1.500 Mal verkauft. Bald gibt&apos;s
+            das Rezept hier zum Nachmachen. Und ein paar andere
+            Lieblingsgerichte dazu.
+          </p>
+          <div className="mt-10 reveal-2">
             <Link
               href="/rezepte"
-              className="mt-10 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               Zu den Rezepten <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="md:col-span-5 relative aspect-square overflow-hidden rounded-3xl shadow-lg reveal">
-            <Image
-              src={IMG.dessert.src}
-              alt={IMG.dessert.alt}
-              fill
-              sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+          <LeafDivider tone="light" className="mt-14 opacity-80" />
         </div>
       </section>
 
-      {/* 9b · REZENSIONEN — echte Google-Bewertungen als Social Proof */}
+      {/* 11 · REZENSIONEN — echte Google-Bewertungen (jetzt auf Grün) */}
       <ReviewsSection />
 
-      {/* 10 · KONTAKT — dunkler Anker am Ende, fließt nahtlos in den Footer */}
+      {/* 12 · KONTAKT — dunkler Anker am Ende, fließt nahtlos in den Footer */}
       <section
         id="kontakt"
-        className="bg-waldgruen text-mehlcreme scroll-mt-24"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
       >
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-12 md:gap-16">
+        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-12 gap-12 md:gap-16">
           <div className="md:col-span-6 reveal">
-            <p className="eyebrow no-line">Kontakt</p>
+            <p className="eyebrow no-line text-tonwarm">Kontakt</p>
             <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal text-mehlcreme leading-[1.05] tracking-tight">
               Komm{" "}
-              <span className="text-tonwarm italic font-normal">vorbei.</span>
+              <span className="accent">vorbei.</span>
             </h2>
             <p className="mt-8 max-w-md text-mehlcreme/80 leading-relaxed">
-              Bruckdorfer Straße 42, Sinzing — direkt vor dem Wald, mit
-              eigenem Parkplatz. Hund mitbringen ist selbstverständlich.
+              Bruckdorfer Straße 42, Sinzing — direkt vor dem Wald, mit eigenem
+              Parkplatz. Hund mitbringen ist selbstverständlich.
             </p>
           </div>
 
-          <div className="md:col-span-6 reveal grid sm:grid-cols-2 gap-10 text-sm">
+          <div className="md:col-span-6 reveal-1 grid sm:grid-cols-2 gap-10 text-sm">
             <div>
               <p className="eyebrow no-line text-tonwarm">Adresse</p>
               <address className="not-italic mt-4 leading-relaxed text-mehlcreme/90">
@@ -560,9 +642,7 @@ export default function HomePage() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-4 text-xs text-mehlcreme/55">
-                Di & Mi Ruhetag.
-              </p>
+              <p className="mt-4 text-xs text-mehlcreme/55">Di & Mi Ruhetag.</p>
               <div className="mt-6 pt-5 border-t border-mehlcreme/15">
                 <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
                   Ab {BREAKFAST_LAUNCH.dateShort}

@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------------------
- * Wald & Wiese — Reduced Palette
+ * Wald & Wiese — Grün-dominante Palette (Redesign, angelehnt an die Brunch-Karte)
  *
- * Markenfarben:   Waldgrün (primary), Tonwarm (single accent)
- * Neutralpalette: Weiß als Standard, Graustufen, Schwarz
- * Mehlcreme:      nur als seltener Beige-Akzent (max 1× pro Seite)
+ * Markenfarben:   Waldgrün TRÄGT die Seite (dominant), Tonwarm = einziger Akzent
+ * Mehlcreme:      sparsamer Beige-Akzent (z. B. die familiäre „Über uns"-Sektion)
+ * Body-Text:      auf hellen Flächen dunkelgrün statt schwarz
  *
- * Ziel: gemütlich-warm im Bauernhof-Stil, aber modern und ruhig.
+ * Typo (Brunch-Karte): Serif (Fraunces) NUR für große Headings,
+ * Beschreibungen in kursivem Sans (DM Sans italic), nicht in Serif.
+ *
+ * Ziel: lieblich-familiär, botanisch, mit weichem Durchscrollen.
  * ------------------------------------------------------------------------- */
 
 @theme {
@@ -32,6 +35,13 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
+}
+
+/* Weiches Durchscrollen — nur wenn der Nutzer keine reduzierte Bewegung will */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -161,12 +171,71 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Reveal-Stagger — gleiche Technik wie .reveal, aber zeitlich versetzt, damit
+ * z. B. Eyebrow → Headline → Text nacheinander einschweben. Reine Zugabe,
+ * ändert .reveal selbst nicht.
+ * --------------------------------------------------------------------------*/
+@supports (animation-timeline: view()) {
+  .reveal-1,
+  .reveal-2,
+  .reveal-3 {
+    opacity: 0;
+    transform: translateY(26px);
+    animation: reveal-show linear both;
+    animation-timeline: view();
+  }
+  .reveal-1 { animation-range: entry 2% cover 26%; }
+  .reveal-2 { animation-range: entry 7% cover 33%; }
+  .reveal-3 { animation-range: entry 12% cover 40%; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Parallax — Vollbild-Fotos wandern beim Durchscrollen sanft (mit leichtem
+ * Zoom, damit nie ein Rand frei wird). Scroll-getrieben, kein JS.
+ * --------------------------------------------------------------------------*/
+@supports (animation-timeline: view()) {
+  .parallax {
+    animation: parallax-pan linear both;
+    animation-timeline: view();
+    animation-range: cover;
+    will-change: transform;
+  }
+  @keyframes parallax-pan {
+    from { transform: translate3d(0, -4.5%, 0) scale(1.12); }
+    to   { transform: translate3d(0, 4.5%, 0) scale(1.12); }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Botanik-Sway — Blatt-Ornamente wiegen sich ganz leicht („lieblich").
+ * Nur bei erlaubter Bewegung; respektiert reduce-motion automatisch.
+ * --------------------------------------------------------------------------*/
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes leaf-sway {
+    0%, 100% { transform: rotate(-2.2deg) translateY(0); }
+    50%      { transform: rotate(2.2deg) translateY(-7px); }
+  }
+  .sway {
+    animation: leaf-sway 7.5s ease-in-out infinite;
+    transform-origin: top center;
+  }
+  .sway-slow {
+    animation: leaf-sway 11s ease-in-out infinite;
+    transform-origin: top center;
+  }
+}
+
 /* Respekt vor reduce-motion */
 @media (prefers-reduced-motion: reduce) {
   .anim-fade-up,
   .anim-fade-in,
   .anim-ornament,
-  .reveal {
+  .reveal,
+  .reveal-1,
+  .reveal-2,
+  .reveal-3,
+  .parallax {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
