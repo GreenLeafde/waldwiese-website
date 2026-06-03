@@ -16,8 +16,9 @@ export default function HochzeitslocationRegensburgPage() {
       content={content}
       path="/hochzeitslocation-regensburg"
       splitImage={{
-        src: IMG.wwFood3.src,
-        alt: "Festlich gedeckter Gastraum mit grünen Stühlen im Wald & Wiese",
+        src: IMG.terrasseTische.src,
+        alt: IMG.terrasseTische.alt,
+        position: "center 50%",
       }}
     />
   );

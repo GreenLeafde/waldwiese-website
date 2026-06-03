@@ -77,8 +77,9 @@ export default function AbendessenRegensburgPage() {
       content={content}
       path="/abendessen-regensburg"
       splitImage={{
-        src: IMG.wwFood3.src,
-        alt: "Gastraum mit Tischen und grünen Stühlen im Wald & Wiese",
+        src: IMG.gebaeudeAbend.src,
+        alt: IMG.gebaeudeAbend.alt,
+        position: "center 40%",
       }}
     />
   );

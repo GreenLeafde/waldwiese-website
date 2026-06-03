@@ -177,6 +177,7 @@ export const FOOTER_NAV: Array<{
     links: [
       { label: "Restaurant Sinzing", href: "/restaurant-sinzing" },
       { label: "Abendessen Regensburg", href: "/abendessen-regensburg" },
+      { label: "Biergarten Sinzing", href: "/biergarten-sinzing" },
       { label: "Restaurant Viehhausen", href: "/restaurant-viehhausen" },
       { label: "Restaurant Nittendorf", href: "/restaurant-nittendorf" },
       {

@@ -338,11 +338,12 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
           <div className="md:col-span-6 md:order-2 relative aspect-[4/5] overflow-hidden reveal">
             <Image
-              src={IMG.hero.src}
-              alt={IMG.hero.alt}
+              src={IMG.fruehstueckFoto.src}
+              alt={IMG.fruehstueckFoto.alt}
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
               className="object-cover"
+              style={{ objectPosition: "center 55%" }}
             />
           </div>
           <div className="md:col-span-6 reveal">
@@ -381,12 +382,12 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
           <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden reveal">
             <Image
-              src={IMG.sceneFestive.src}
-              alt="Innenraum vom Wald & Wiese mit Gästen"
+              src={IMG.terrasseTische.src}
+              alt={IMG.terrasseTische.alt}
               fill
               sizes="(min-width: 768px) 40vw, 100vw"
               className="object-cover"
-              style={{ objectPosition: "center 40%" }}
+              style={{ objectPosition: "center 50%" }}
             />
           </div>
           <div className="md:col-span-7 reveal">

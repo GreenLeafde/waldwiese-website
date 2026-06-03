@@ -197,6 +197,32 @@ export const IMG = {
     height: 3335,
   },
 
+  // Echte Terrassen- & Gebäudefotos (vom Betreiber, 2026-06)
+  terrasseOlivenbaum: {
+    src: "/photos/terrasse-olivenbaum.jpg",
+    alt: "Terrasse von Wald & Wiese mit Olivenbaum, im Grünen am Waldrand",
+    width: 1500,
+    height: 2000,
+  },
+  terrasseTische: {
+    src: "/photos/terrasse-tische.jpg",
+    alt: "Terrasse mit gedeckten Tischen und Loungemöbeln im Grünen",
+    width: 1500,
+    height: 2000,
+  },
+  gebaeudeAbend: {
+    src: "/photos/gebaeude-abend.jpg",
+    alt: "Wald & Wiese bei Abendlicht — Holzfassade, beleuchtete Fenster, Eingang",
+    width: 1506,
+    height: 2000,
+  },
+  gebaeudeLuft: {
+    src: "/photos/gebaeude-luft.webp",
+    alt: "Wald & Wiese in Sinzing von oben, am Waldrand",
+    width: 1600,
+    height: 1200,
+  },
+
   // Alias-Kompatibilität für ältere Verwendungen
   dessert: {
     src: "/photos/scene-warm.png",

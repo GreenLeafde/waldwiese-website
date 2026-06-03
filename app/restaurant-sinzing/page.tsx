@@ -15,7 +15,7 @@ export default function RestaurantSinzingPage() {
     <RichLanding
       content={content}
       path="/restaurant-sinzing"
-      splitImage={{ src: IMG.haus.src, alt: IMG.haus.alt }}
+      splitImage={{ src: IMG.gebaeudeLuft.src, alt: IMG.gebaeudeLuft.alt }}
     />
   );
 }
