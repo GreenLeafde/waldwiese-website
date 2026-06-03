@@ -5,6 +5,7 @@ import { LeafDivider } from "@/components/leaf-divider";
 import { LeafOrnament } from "@/components/leaf-ornament";
 import { GrowingVine } from "@/components/growing-vine";
 import { StampBadge } from "@/components/stamp-badge";
+import { SectionSnap } from "@/components/section-snap";
 import { ReviewsSection } from "@/components/reviews-section";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
@@ -123,8 +124,10 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
       />
-      {/* Marker: aktiviert Sektions-Snap NUR auf der Startseite (globals.css) */}
+      {/* Marker: CSS-Snap-Fallback NUR auf der Startseite (reduce-motion / kein JS) */}
       <div className="snap-home" aria-hidden hidden />
+      {/* JS-gesteuertes Full-Page-Snapping mit grünem Fade (rendert ein Overlay) */}
+      <SectionSnap />
 
       {/* 1 · INTRO — Waldgrün-Wortmarke, sticky, Vollbild */}
       <LogoIntro />
@@ -239,12 +242,12 @@ export default function HomePage() {
         <StampBadge
           tone="light"
           rotate={-8}
-          className="hidden sm:grid absolute z-10 top-24 right-6 md:right-12 lg:right-20 w-28 h-28 md:w-32 md:h-32"
+          className="hidden sm:grid absolute z-10 top-24 right-6 md:right-12 lg:right-20 w-32 h-32 md:w-36 md:h-36"
         >
-          <span className="block text-[0.5rem] tracking-[0.2em] uppercase text-mehlcreme/80">
+          <span className="block text-[0.5rem] tracking-[0.12em] uppercase text-mehlcreme/80">
             Neu ab
           </span>
-          <span className="block font-display text-base md:text-lg mt-0.5">
+          <span className="block font-display text-sm md:text-base mt-1">
             {BREAKFAST_LAUNCH.dateShort}
           </span>
         </StampBadge>
@@ -494,11 +497,11 @@ export default function HomePage() {
         <SideLeaves flip />
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
           <div className="flex justify-center reveal">
-            <StampBadge tone="light" rotate={-6} className="w-28 h-28 md:w-32 md:h-32">
-              <span className="block text-[0.55rem] tracking-[0.22em] uppercase text-mehlcreme/80">
+            <StampBadge tone="light" rotate={-6} className="w-32 h-32 md:w-36 md:h-36">
+              <span className="block text-[0.5rem] tracking-[0.12em] uppercase text-mehlcreme/80">
                 Save the date
               </span>
-              <span className="block font-display text-base md:text-lg mt-0.5">
+              <span className="block font-display text-sm md:text-base mt-1">
                 {MAGIC_DINNER.dateShort}
               </span>
             </StampBadge>

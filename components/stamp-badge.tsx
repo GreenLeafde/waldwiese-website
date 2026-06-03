@@ -25,9 +25,9 @@ export function StampBadge({
     tone === "light" ? "var(--color-mehlcreme)" : "var(--color-waldgruen)";
 
   // Zackenkranz: abwechselnd äußerer/innerer Radius rund um den Mittelpunkt.
-  const teeth = 30;
+  const teeth = 32;
   const outer = 49;
-  const inner = 43;
+  const inner = 44;
   const polygon = Array.from({ length: teeth * 2 }, (_, i) => {
     const r = i % 2 === 0 ? outer : inner;
     const a = (Math.PI / teeth) * i - Math.PI / 2;
@@ -59,14 +59,14 @@ export function StampBadge({
           <circle
             cx="50"
             cy="50"
-            r="37"
+            r="38"
             stroke={color}
             strokeWidth="0.8"
             strokeOpacity="0.55"
           />
         </svg>
         <div
-          className="relative z-10 px-3 text-center leading-[1.05]"
+          className="relative z-10 w-[62%] text-center leading-[1.04]"
           style={{ color }}
         >
           {children}
