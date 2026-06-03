@@ -114,7 +114,7 @@ export default function RootLayout({
       lang="de"
       className={`${fraunces.variable} ${dmSans.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col bg-white text-ink">
+      <body className="min-h-full flex flex-col bg-mehlcreme text-ink">
         {/* Google Consent Mode v2 — Defaults (denied) VOR jedem Tracking. */}
         <Script
           id="consent-default"

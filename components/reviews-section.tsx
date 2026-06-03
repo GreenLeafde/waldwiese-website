@@ -21,7 +21,7 @@ export function ReviewsSection() {
   return (
     <section
       id="rezensionen"
-      className="bg-stone-soft border-y border-stone-200 scroll-mt-24"
+      className="bg-mehlcreme border-y border-stone-200 scroll-mt-24"
     >
       <div className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32">
         <div className="text-center reveal">

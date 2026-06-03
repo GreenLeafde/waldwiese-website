@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LogoIntro } from "@/components/logo-intro";
+import { LeafDivider } from "@/components/leaf-divider";
 import { ReviewsSection } from "@/components/reviews-section";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
@@ -95,7 +96,7 @@ export default function HomePage() {
       </a>
 
       {/* 2 · SPEISEKARTE — Kategorien als klare, lesbare Liste (kein Stock) */}
-      <section id="speisekarte" className="bg-white scroll-mt-24">
+      <section id="speisekarte" className="bg-mehlcreme scroll-mt-24">
         <div className="mx-auto max-w-4xl px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-32">
           {/* Header */}
           <div className="text-center reveal">
@@ -195,7 +196,7 @@ export default function HomePage() {
       </section>
 
       {/* 4 · RESERVIEREN */}
-      <section id="reservieren" className="bg-white scroll-mt-24">
+      <section id="reservieren" className="bg-mehlcreme scroll-mt-24">
         <div className="mx-auto max-w-5xl px-6 md:px-10 py-28 md:py-40 text-center reveal">
           <p className="eyebrow no-line justify-center">Reservieren</p>
           <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
@@ -271,10 +272,10 @@ export default function HomePage() {
       {/* 5 · ÜBER UNS */}
       <section
         id="ueber-uns"
-        className="bg-white border-t border-stone-200 scroll-mt-24"
+        className="bg-mehlcreme border-t border-stone-200 scroll-mt-24"
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden reveal">
+          <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg reveal">
             <Image
               src={IMG.haus.src}
               alt={IMG.haus.alt}
@@ -360,7 +361,7 @@ export default function HomePage() {
       {/* 6 · FRÜHSTÜCK — der eine Mehlcreme-Akzent */}
       <section id="fruehstueck" className="bg-mehlcreme scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-6 md:order-2 relative aspect-[4/5] overflow-hidden reveal">
+          <div className="md:col-span-6 md:order-2 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg reveal">
             <Image
               src={IMG.fruehstueckFoto.src}
               alt={IMG.fruehstueckFoto.alt}
@@ -401,10 +402,12 @@ export default function HomePage() {
         </div>
       </section>
 
+      <LeafDivider className="bg-mehlcreme py-3" />
+
       {/* 7 · VERANSTALTUNGEN */}
-      <section id="veranstaltungen" className="bg-white scroll-mt-24">
+      <section id="veranstaltungen" className="bg-mehlcreme scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-          <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden reveal">
+          <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg reveal">
             <Image
               src={IMG.terrasseTische.src}
               alt={IMG.terrasseTische.alt}
@@ -438,7 +441,7 @@ export default function HomePage() {
       {/* 8 · EVENTS — kurz und ruhig */}
       <section
         id="events"
-        className="bg-stone-soft scroll-mt-24 border-y border-stone-200"
+        className="bg-mehlcreme scroll-mt-24 border-y border-stone-200"
       >
         <div className="mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 text-center reveal">
           <p className="eyebrow no-line justify-center">Events · {MAGIC_DINNER.dateShort}</p>
@@ -460,8 +463,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <LeafDivider className="bg-mehlcreme py-3" />
+
       {/* 9 · REZEPTE */}
-      <section id="rezepte" className="bg-white scroll-mt-24">
+      <section id="rezepte" className="bg-mehlcreme scroll-mt-24">
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-28 md:py-40 grid md:grid-cols-12 gap-10 md:gap-16 items-center">
           <div className="md:col-span-7 reveal">
             <p className="eyebrow no-line">Rezepte</p>
@@ -481,7 +486,7 @@ export default function HomePage() {
               Zu den Rezepten <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="md:col-span-5 relative aspect-square overflow-hidden reveal">
+          <div className="md:col-span-5 relative aspect-square overflow-hidden rounded-3xl shadow-lg reveal">
             <Image
               src={IMG.dessert.src}
               alt={IMG.dessert.alt}
