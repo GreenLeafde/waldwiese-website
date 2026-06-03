@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LogoIntro } from "@/components/logo-intro";
 import { ReviewsSection } from "@/components/reviews-section";
-import { REVIEWS } from "@/lib/reviews";
+import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
 import {
   BREAKFAST_LAUNCH,
@@ -54,8 +54,8 @@ export default function HomePage() {
     url: SITE.url,
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: REVIEWS.length,
+      ratingValue: String(GOOGLE_RATING.value),
+      reviewCount: GOOGLE_RATING.count,
       bestRating: "5",
     },
     review: REVIEWS.map((r) => ({

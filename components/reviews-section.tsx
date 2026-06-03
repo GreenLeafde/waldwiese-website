@@ -1,4 +1,5 @@
-import { REVIEWS } from "@/lib/reviews";
+import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
+import { GOOGLE_MAPS_URL } from "@/lib/site";
 
 function Stars({ n }: { n: number }) {
   return (
@@ -31,6 +32,22 @@ export function ReviewsSection() {
           <p className="mt-6 font-display italic text-lg md:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed">
             Originale Rezensionen unserer Gäste auf Google.
           </p>
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-7 inline-flex items-center gap-2.5 rounded-full bg-white ring-1 ring-waldgruen/10 px-5 py-2.5 hover:ring-tonwarm/40 transition-colors"
+          >
+            <span className="text-tonwarm tracking-[0.1em]" aria-hidden>
+              ★★★★★
+            </span>
+            <span className="font-display text-xl text-waldgruen">
+              {GOOGLE_RATING.value.toLocaleString("de-DE")}
+            </span>
+            <span className="text-sm text-stone-500">
+              · {GOOGLE_RATING.count} Rezensionen auf Google
+            </span>
+          </a>
         </div>
 
         <ul className="mt-14 md:mt-20 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">

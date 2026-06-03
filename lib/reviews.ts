@@ -10,6 +10,9 @@ export type Review = {
   rating: number;
 };
 
+/** Echte Google-Gesamtbewertung (vom Betreiber bestätigt, Stand 2026-06). */
+export const GOOGLE_RATING = { value: 4.9, count: 116 };
+
 export const REVIEWS: Review[] = [
   {
     name: "Dominic Pfannenstein",

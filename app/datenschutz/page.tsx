@@ -1,5 +1,4 @@
 import { Eyebrow } from "@/components/eyebrow";
-import { PlaceholderNotice } from "@/components/placeholder-notice";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
@@ -17,15 +16,6 @@ export default function DatenschutzPage() {
         <h1 className="mt-6 text-5xl md:text-6xl font-display leading-[0.95]">
           Datenschutz
         </h1>
-
-        <PlaceholderNotice title="Vor Launch: IDs eintragen & AV-Verträge">
-          Consent-Banner und Opt-in-Gating sind eingebaut: Google Analytics 4,
-          Google Tag Manager, Hotjar, Google Ads und die Google-Maps-Karte
-          laden erst nach aktiver Einwilligung. Vor dem Launch noch offen:
-          Tracking-IDs in der Umgebungskonfiguration hinterlegen (siehe
-          .env.example) und Auftragsverarbeitungsverträge mit Google und Hotjar
-          abschließen.
-        </PlaceholderNotice>
 
         <div className="mt-10 space-y-10 text-base leading-relaxed">
           <section>
@@ -98,101 +88,38 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              5. Cookies &amp; Einwilligung
+              5. Cookies &amp; externe Inhalte
             </h2>
             <p className="mt-3">
-              Technisch notwendige Cookies setzen wir auf Grundlage unseres
-              berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO bzw. § 25
-              Abs. 2 TTDSG). Alle nicht notwendigen Dienste (insbesondere
-              Statistik- und Marketing-Tools sowie eingebettete Karten) werden
-              erst geladen, nachdem du im Consent-Banner aktiv eingewilligt
-              hast (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Deine
-              Auswahl kannst du jederzeit über die Cookie-Einstellungen
-              widerrufen oder anpassen. Soweit Google-Dienste eingesetzt
-              werden, nutzen wir den Google Consent Mode v2, der das
-              Verhalten der Tags an deine Einwilligung anpasst.
+              Wir setzen nur technisch notwendige Cookies ein (Art. 6 Abs. 1
+              lit. f DSGVO bzw. § 25 Abs. 2 TTDSG). Externe Inhalte, die Daten
+              an Dritte übertragen können — insbesondere die eingebettete
+              Google-Maps-Karte —, werden erst geladen, nachdem du aktiv
+              zugestimmt hast (Klick auf „Karte laden"; Art. 6 Abs. 1 lit. a
+              DSGVO, § 25 Abs. 1 TTDSG).
+            </p>
+            <p className="mt-3">
+              <strong className="font-medium">
+                Analyse- und Marketing-Tools (z. B. Google Analytics, Hotjar,
+                Google Ads) setzen wir derzeit nicht ein.
+              </strong>{" "}
+              Sollten wir solche Dienste künftig nutzen, geschieht das
+              ausschließlich nach deiner Einwilligung, und wir ergänzen diese
+              Erklärung vorher entsprechend.
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              6. Google Tag Manager
+              6. Google Maps
             </h2>
             <p className="mt-3">
-              Wir nutzen den Google Tag Manager (Google Ireland Limited, Gordon
-              House, Barrow Street, Dublin 4, Irland). Der Tag Manager ist ein
-              Werkzeug, mit dem Tracking- und Marketing-Tags verwaltet werden.
-              Der Google Tag Manager selbst setzt keine Cookies und erfasst
-              keine personenbezogenen Daten; er sorgt lediglich für das
-              Auslösen anderer Tags, die ihrerseits Daten erfassen können.
-              Tools, die eine Einwilligung erfordern, werden erst nach deiner
-              Zustimmung aktiviert.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="font-display text-xl text-tonwarm">
-              7. Google Analytics 4
-            </h2>
-            <p className="mt-3">
-              Auf Grundlage deiner Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)
-              nutzen wir Google Analytics 4, einen Webanalysedienst der Google
-              Ireland Limited. Google Analytics verwendet Cookies und ähnliche
-              Technologien, um die Nutzung der Website zu analysieren (z. B.
-              aufgerufene Seiten, Verweildauer, ungefährer Standort). Die
-              IP-Adresse wird von Google gekürzt verarbeitet. Dabei können
-              Daten auch an Server von Google in den USA übermittelt werden;
-              die Übermittlung ist über die EU-Standardvertragsklauseln
-              abgesichert. Mit Google besteht ein
-              Auftragsverarbeitungsvertrag. Deine Einwilligung kannst du
-              jederzeit mit Wirkung für die Zukunft widerrufen.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="font-display text-xl text-tonwarm">8. Hotjar</h2>
-            <p className="mt-3">
-              Auf Grundlage deiner Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)
-              setzen wir Hotjar ein, einen Analysedienst der Hotjar Ltd., Level
-              2, St Julian&apos;s Business Centre, 3, Elia Zammit Street, St
-              Julian&apos;s STJ 1000, Malta. Mit Hotjar erfassen wir das
-              Nutzungsverhalten (z. B. Mausbewegungen, Klicks, Scrollverhalten)
-              in Form von pseudonymisierten Nutzungsprofilen und Heatmaps, um
-              unsere Website zu verbessern. Es werden keine Daten erhoben, mit
-              denen du persönlich identifiziert wirst. Mit Hotjar besteht ein
-              Auftragsverarbeitungsvertrag. Deine Einwilligung kannst du
-              jederzeit mit Wirkung für die Zukunft widerrufen.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="font-display text-xl text-tonwarm">
-              9. Google Ads &amp; Conversion-Tracking
-            </h2>
-            <p className="mt-3">
-              Auf Grundlage deiner Einwilligung (Art. 6 Abs. 1 lit. a DSGVO)
-              nutzen wir Google Ads mit Conversion-Tracking (Google Ireland
-              Limited). Damit können wir messen, ob Nutzer, die über eine
-              Google-Anzeige auf unsere Website gelangt sind, eine bestimmte
-              Aktion durchführen. Dazu wird ein Cookie gesetzt. Wir erhalten von
-              Google statistische Auswertungen und können dich nicht persönlich
-              identifizieren. Auch hier kann eine Datenübermittlung in die USA
-              erfolgen, abgesichert über die EU-Standardvertragsklauseln. Deine
-              Einwilligung kannst du jederzeit mit Wirkung für die Zukunft
-              widerrufen.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="font-display text-xl text-tonwarm">
-              10. Google Maps
-            </h2>
-            <p className="mt-3">
-              Zur Darstellung unserer Anfahrt binden wir Kartenmaterial von
-              Google Maps (Google Ireland Limited) ein. Die Karte wird erst
-              geladen, nachdem du eingewilligt hast (Art. 6 Abs. 1 lit. a
-              DSGVO). Beim Laden der Karte wird deine IP-Adresse an Google
-              übertragen; eine Übermittlung in die USA ist möglich und über die
+              Zur Darstellung unserer Anfahrt binden wir auf der Kontaktseite
+              Kartenmaterial von Google Maps (Google Ireland Limited) ein. Die
+              Karte wird erst geladen, nachdem du auf „Karte laden" geklickt
+              und damit eingewilligt hast (Art. 6 Abs. 1 lit. a DSGVO). Beim
+              Laden wird deine IP-Adresse an Google übertragen; eine
+              Übermittlung in die USA ist möglich und über die
               EU-Standardvertragsklauseln abgesichert. Ohne Einwilligung zeigen
               wir dir alternativ unsere Adresse als Text sowie einen Link zur
               externen Kartenansicht.
@@ -201,7 +128,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              11. Reservierung über Lightspeed
+              7. Reservierung über Lightspeed
             </h2>
             <p className="mt-3">
               Für Tischreservierungen verlinken wir auf das externe
@@ -216,7 +143,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              12. Externe Links (Instagram, WhatsApp)
+              8. Externe Links (Instagram, WhatsApp)
             </h2>
             <p className="mt-3">
               Wir verlinken auf unser Instagram-Profil und bieten eine
@@ -229,7 +156,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              13. Deine Rechte
+              9. Deine Rechte
             </h2>
             <p className="mt-3">
               Dir stehen gegenüber uns folgende Rechte hinsichtlich deiner
@@ -246,23 +173,24 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              14. Beschwerderecht bei der Aufsichtsbehörde
+              10. Beschwerderecht bei der Aufsichtsbehörde
             </h2>
             <p className="mt-3">
-              Dir steht ein Beschwerderecht bei einer Datenschutz-Aufsichts­behörde
-              zu. Zuständig ist das Bayerische Landesamt für Datenschutzaufsicht
-              (BayLDA), Promenade 18, 91522 Ansbach.
+              Dir steht ein Beschwerderecht bei einer
+              Datenschutz-Aufsichtsbehörde zu. Zuständig ist das Bayerische
+              Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522
+              Ansbach.
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-xl text-tonwarm">
-              15. SSL-/TLS-Verschlüsselung
+              11. SSL-/TLS-Verschlüsselung
             </h2>
             <p className="mt-3">
-              Diese Website nutzt aus Sicherheitsgründen eine SSL-/TLS-
-              Verschlüsselung. Eine verschlüsselte Verbindung erkennst du an
-              dem „https://" in der Adresszeile deines Browsers.
+              Diese Website nutzt aus Sicherheitsgründen eine
+              SSL-/TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennst
+              du an dem „https://" in der Adresszeile deines Browsers.
             </p>
           </section>
         </div>

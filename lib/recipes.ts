@@ -110,6 +110,198 @@ export const RECIPES: Recipe[] = [
         "Ein Dessert ist für mich mehr als nur ein süßer Abschluss — es ist ein Moment der Freude, der den Gästen ein Lächeln ins Gesicht zaubern soll.",
     },
   },
+  {
+    slug: "hausgemachte-aioli",
+    title: "Hausgemachte Aioli wie bei uns",
+    teaser:
+      "Der Liebling zu unseren Pommes — cremig und knoblauchig. Unsere Version für deine Küche.",
+    category: "Hauptgang",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Unsere Aioli bekommt von euch das meiste Lob — kein Wunder, frisch gemacht schmeckt sie einfach besser als gekauft. Das ist unsere unkomplizierte Version für Zuhause; die genaue Würzung aus unserer Küche bleibt unser kleines Geheimnis, aber damit kommst du sehr nah ran. Tipp: ganz frische Eier verwenden.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "1 Eigelb (zimmerwarm)",
+          "1 TL mittelscharfer Senf",
+          "1–2 Knoblauchzehen, fein gerieben",
+          "ca. 150 ml neutrales Öl",
+          "1 TL Zitronensaft",
+          "Salz, Pfeffer",
+          "optional: 1 Prise Zucker",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Basis verrühren",
+        body:
+          "Eigelb, Senf und Knoblauch in einem hohen Gefäß glatt verrühren.",
+      },
+      {
+        title: "Emulgieren",
+        body:
+          "Das Öl zuerst tröpfchenweise, dann in dünnem Strahl unterrühren (Stabmixer oder Schneebesen), bis eine dicke, cremige Masse entsteht.",
+      },
+      {
+        title: "Abschmecken",
+        body:
+          "Mit Zitronensaft, Salz, Pfeffer und nach Geschmack einer Prise Zucker abschmecken.",
+      },
+      {
+        title: "Ziehen lassen",
+        body:
+          "Mindestens 30 Minuten kühl stellen — dann schmeckt der Knoblauch runder.",
+      },
+    ],
+  },
+  {
+    slug: "hausgemachte-zitronenlimonade",
+    title: "Hausgemachte Zitronen-Limonade",
+    teaser:
+      "Spritzig, nicht zu süß — wie bei uns auf der Terrasse. In Minuten selbst gemacht.",
+    category: "Drinks",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Hausgemachte Limonade gehört bei uns zum Sommer auf der Terrasse dazu. So machst du sie zuhause — Süße und Säure ganz nach deinem Geschmack.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "4–5 Bio-Zitronen (Saft, ca. 150 ml)",
+          "80–100 g Zucker",
+          "100 ml Wasser (für den Sirup)",
+          "ca. 700 ml kaltes Wasser oder Sprudel",
+          "frische Minze",
+          "Eiswürfel",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Sirup kochen",
+        body:
+          "Zucker mit 100 ml Wasser aufkochen, bis er sich löst. Vom Herd nehmen und abkühlen lassen.",
+      },
+      {
+        title: "Mischen",
+        body:
+          "Zitronensaft, Sirup und das kalte Wasser bzw. den Sprudel verrühren.",
+      },
+      {
+        title: "Abschmecken",
+        body: "Nach Geschmack mehr Sirup oder Zitrone zugeben.",
+      },
+      {
+        title: "Servieren",
+        body: "Mit reichlich Eis und frischer Minze servieren.",
+      },
+    ],
+  },
+  {
+    slug: "knuspriges-granola",
+    title: "Knuspriges Granola fürs Frühstück",
+    teaser:
+      "Die Basis für unsere Frühstücks-Bowls — einmal gemacht, lange Vorrat.",
+    category: "Frühstück",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Bei uns kommt das Granola fürs Frühstück selbst aus dem Ofen. Das Schöne: einmal gemacht, hast du wochenlang etwas davon. Hier unsere Variante für Zuhause — Nüsse und Süße passt du einfach an.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "300 g zarte Haferflocken",
+          "100 g gehackte Nüsse (z. B. Mandeln, Walnüsse)",
+          "50 g Kerne (Sonnenblumen- oder Kürbiskerne)",
+          "4 EL Honig oder Ahornsirup (vegan)",
+          "3 EL neutrales Öl",
+          "1 TL Zimt",
+          "1 Prise Salz",
+          "optional: getrocknete Früchte",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Vorheizen",
+        body: "Den Ofen auf 160 °C Umluft vorheizen.",
+      },
+      {
+        title: "Mischen",
+        body:
+          "Hafer, Nüsse, Kerne, Zimt und Salz vermengen. Honig bzw. Sirup und Öl untermischen, bis alles leicht glänzt.",
+      },
+      {
+        title: "Backen",
+        body:
+          "Auf einem Blech 20–25 Minuten backen, alle 8–10 Minuten wenden, bis es goldbraun ist.",
+      },
+      {
+        title: "Auskühlen",
+        body:
+          "Vollständig auskühlen lassen — erst dann wird's knusprig. Bei Bedarf getrocknete Früchte unterrühren.",
+      },
+      {
+        title: "Aufbewahren",
+        body: "Luftdicht verschlossen hält das Granola mehrere Wochen.",
+      },
+    ],
+  },
+  {
+    slug: "saftiges-bananenbrot",
+    title: "Saftiges Bananenbrot",
+    teaser:
+      "Perfekt für reife Bananen — saftig und einfach. Zum Frühstück und zum Kaffee.",
+    category: "Frühstück",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Bananenbrot ist bei uns die Rettung für reife Bananen — und ein Liebling auf dem Frühstückstisch. Unkompliziert und gelingsicher; hier unsere Version für Zuhause.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "3 reife Bananen",
+          "2 Eier",
+          "80 g Zucker (gern brauner Zucker)",
+          "80 g neutrales Öl oder geschmolzene Butter",
+          "200 g Mehl",
+          "1 TL Backpulver",
+          "1 Prise Salz",
+          "optional: Walnüsse oder Schokostückchen",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Vorbereiten",
+        body: "Ofen auf 175 °C vorheizen, eine Kastenform einfetten.",
+      },
+      {
+        title: "Bananen zerdrücken",
+        body: "Die Bananen mit einer Gabel fein zerdrücken.",
+      },
+      {
+        title: "Teig rühren",
+        body:
+          "Eier, Zucker und Öl verrühren, die Bananen unterrühren. Mehl, Backpulver und Salz unterheben — nicht zu lange rühren. Optional Nüsse oder Schoko zugeben.",
+      },
+      {
+        title: "Backen",
+        body:
+          "In die Form füllen und ca. 50–55 Minuten backen (Stäbchenprobe).",
+      },
+      {
+        title: "Auskühlen",
+        body: "Vor dem Anschneiden auskühlen lassen.",
+      },
+    ],
+  },
 ];
 
 export function getRecipe(slug: string): Recipe | undefined {
