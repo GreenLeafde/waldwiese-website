@@ -16,8 +16,8 @@ export default function VeranstaltungenPage() {
       content={content}
       path="/veranstaltungen"
       splitImage={{
-        src: IMG.wwEvent.src,
-        alt: "Abend mit Gästen im Wald & Wiese",
+        src: IMG.wwFood3.src,
+        alt: "Festlich gedeckter Gastraum mit grünen Stühlen im Wald & Wiese",
       }}
     />
   );

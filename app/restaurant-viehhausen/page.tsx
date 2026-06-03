@@ -76,7 +76,10 @@ export default function RestaurantViehhausenPage() {
     <RichLanding
       content={content}
       path="/restaurant-viehhausen"
-      splitImage={{ src: IMG.wwEvent.src, alt: "Abend mit Gästen im Wald & Wiese" }}
+      splitImage={{
+        src: IMG.wwFood5.src,
+        alt: "Gedeckter Tisch am Fenster mit Blick ins Grüne im Wald & Wiese",
+      }}
     />
   );
 }
