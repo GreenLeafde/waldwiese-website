@@ -16,7 +16,11 @@ export default function FruehstueckSinzingPage() {
       titleLead="Frühstück in"
       titleAccent="Sinzing."
       lead="Wald & Wiese ist dein Frühstücksplatz mitten in Sinzing — an der Bruckdorfer Straße, familiengeführt und regional. Komm vorbei, nimm dir Zeit, bleib so lange du magst."
-      image={{ src: IMG.hero.src, alt: IMG.hero.alt }}
+      image={{
+        src: IMG.fruehstueckFoto.src,
+        alt: IMG.fruehstueckFoto.alt,
+        position: "center 60%",
+      }}
       points={[
         {
           title: "Mitten in Sinzing",

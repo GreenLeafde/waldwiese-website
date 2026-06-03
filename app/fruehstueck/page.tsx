@@ -50,14 +50,15 @@ export default function FruehstueckPage() {
       {/* BILD */}
       <section className="bg-mehlcreme">
         <div className="mx-auto max-w-5xl px-6 md:px-10 pb-20 md:pb-28">
-          <div className="relative aspect-[16/10] overflow-hidden reveal">
+          <div className="relative mx-auto max-w-lg aspect-[4/5] overflow-hidden rounded-2xl reveal">
             <Image
-              src={IMG.hero.src}
-              alt={IMG.hero.alt}
+              src={IMG.fruehstueckFoto.src}
+              alt={IMG.fruehstueckFoto.alt}
               fill
               priority
-              sizes="(min-width: 768px) 80vw, 100vw"
+              sizes="(min-width: 768px) 32rem, 100vw"
               className="object-cover"
+              style={{ objectPosition: "center 55%" }}
             />
           </div>
         </div>

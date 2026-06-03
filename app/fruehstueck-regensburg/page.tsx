@@ -16,7 +16,11 @@ export default function FruehstueckRegensburgPage() {
       titleLead="Frühstück bei"
       titleAccent="Regensburg."
       lead="Raus aus der Stadt, rein ins Grüne: Bei Wald & Wiese in Sinzing frühstückst du nur wenige Minuten südwestlich von Regensburg — regional, in Ruhe, drinnen oder auf der Terrasse."
-      image={{ src: IMG.foodBreakfast.src, alt: IMG.foodBreakfast.alt }}
+      image={{
+        src: IMG.fruehstueckFoto.src,
+        alt: IMG.fruehstueckFoto.alt,
+        position: "center 60%",
+      }}
       points={[
         {
           title: "Im Grünen statt im Trubel",

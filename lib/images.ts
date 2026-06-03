@@ -13,6 +13,13 @@ export const IMG = {
     width: 1600,
     height: 2400,
   },
+  // Echtes Gästefoto (2026-06): Frühstück auf der Terrasse
+  fruehstueckFoto: {
+    src: "/photos/fruehstueck-sauerteig.jpg",
+    alt: "Frühstück in der Sonne: Sauerteigbrote mit Lachs, Avocado, Rucola, eingelegten Zwiebeln und Sesam, dazu ein Glas Orangensaft",
+    width: 900,
+    height: 1600,
+  },
   haus: {
     src: "/photos/haus-sw.webp",
     alt: "Das Haus von Wald & Wiese in Sinzing, schwarz-weiß",

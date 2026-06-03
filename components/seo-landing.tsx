@@ -11,7 +11,7 @@ export type SeoLandingProps = {
   /** Akzentwort/-teil der H1 (kursiv, tonwarm). */
   titleAccent: string;
   lead: string;
-  image?: { src: string; alt: string };
+  image?: { src: string; alt: string; position?: string };
   points: SeoPoint[];
   primaryCta: { href: string; label: string };
   closing: {
@@ -85,6 +85,7 @@ export function SeoLanding({
                 fill
                 sizes="(min-width: 768px) 80vw, 100vw"
                 className="object-cover"
+                style={{ objectPosition: image.position ?? "center" }}
               />
             </div>
           </div>
