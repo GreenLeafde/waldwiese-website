@@ -43,6 +43,11 @@ export default async function RezeptDetailPage({ params }: Props) {
         </div>
         <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center">
           <p className="eyebrow no-line justify-center">Rezept · {recipe.category}</p>
+          {recipe.badge && (
+            <span className="mt-5 inline-block rounded-full bg-tonwarm text-white text-[0.65rem] tracking-[0.18em] uppercase font-medium px-4 py-1.5">
+              {recipe.badge}
+            </span>
+          )}
           <h1 className="mt-7 text-5xl md:text-6xl lg:text-7xl font-display font-normal leading-[0.95] tracking-tight text-waldgruen">
             {recipe.title}
           </h1>

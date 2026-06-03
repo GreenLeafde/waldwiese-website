@@ -19,6 +19,8 @@ export type Recipe = {
   teaser: string;
   category: "Frühstück" | "Hauptgang" | "Dessert" | "Drinks";
   hasFullRecipe: boolean;
+  /** Optionales Badge, z. B. „Kundenliebling". */
+  badge?: string;
   /** Datum nur falls Veröffentlichungszeitpunkt bekannt — sonst null. */
   publishedAt: string | null;
   /** Volltext-Story/Einleitung über dem Rezept. */
@@ -42,6 +44,7 @@ export const RECIPES: Recipe[] = [
     teaser:
       "Unser Klassiker — schon über 1.500 Mal verkauft. Tanjas Version für deine eigene Küche.",
     category: "Dessert",
+    badge: "Kundenliebling",
     hasFullRecipe: true,
     publishedAt: "2026-05-22",
     intro:
@@ -116,6 +119,7 @@ export const RECIPES: Recipe[] = [
     teaser:
       "Der Liebling zu unseren Pommes — cremig und knoblauchig. Unsere Version für deine Küche.",
     category: "Hauptgang",
+    badge: "Gäste-Liebling",
     hasFullRecipe: true,
     publishedAt: null,
     intro:

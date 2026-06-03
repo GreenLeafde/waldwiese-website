@@ -47,7 +47,7 @@ export default function RezeptePage() {
                 href={`/rezepte/${r.slug}`}
                 className="group block reveal"
               >
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-sm">
                   <Image
                     src={IMG.pistazientiramisu.src}
                     alt={IMG.pistazientiramisu.alt}
@@ -55,6 +55,11 @@ export default function RezeptePage() {
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
+                  {r.badge && (
+                    <span className="absolute left-4 top-4 rounded-full bg-tonwarm text-white text-[0.62rem] tracking-[0.16em] uppercase font-medium px-3 py-1.5 shadow">
+                      {r.badge}
+                    </span>
+                  )}
                 </div>
                 <div className="mt-6">
                   <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
