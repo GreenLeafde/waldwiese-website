@@ -67,9 +67,9 @@ export default function RezeptePage() {
                       <StampBadge
                         solid
                         rotate={-9}
-                        className="absolute top-2.5 left-2.5 z-10 w-[74px] h-[74px] md:w-20 md:h-20 drop-shadow"
+                        className="absolute top-2.5 left-2.5 z-10 w-24 h-24 md:w-[104px] md:h-[104px] drop-shadow"
                       >
-                        <span className="block text-[0.5rem] tracking-[0.06em] uppercase font-semibold leading-[1.06]">
+                        <span className="block text-[0.46rem] md:text-[0.54rem] tracking-[0.02em] uppercase font-semibold leading-[1.05]">
                           {r.badge}
                         </span>
                       </StampBadge>

@@ -75,8 +75,9 @@ export function StampBadge({
           />
         </svg>
         <div
-          className="relative z-10 w-[68%] text-center leading-[1.04]"
+          className="relative z-10 w-[74%] text-center leading-[1.04] break-words hyphens-auto"
           style={{ color: textColor }}
+          lang="de"
         >
           {children}
         </div>

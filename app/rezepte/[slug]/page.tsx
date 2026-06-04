@@ -46,8 +46,8 @@ export default async function RezeptDetailPage({ params }: Props) {
           <p className="eyebrow no-line justify-center text-tonwarm">Rezept · {recipe.category}</p>
           {recipe.badge && (
             <div className="mt-6 flex justify-center">
-              <StampBadge solid rotate={-7} className="w-24 h-24 md:w-28 md:h-28">
-                <span className="block text-[0.6rem] md:text-[0.68rem] tracking-[0.06em] uppercase font-semibold leading-[1.1]">
+              <StampBadge solid rotate={-7} className="w-28 h-28 md:w-32 md:h-32">
+                <span className="block text-[0.52rem] md:text-[0.6rem] tracking-[0.03em] uppercase font-semibold leading-[1.08]">
                   {recipe.badge}
                 </span>
               </StampBadge>
