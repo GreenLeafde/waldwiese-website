@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
+import { StampBadge } from "@/components/stamp-badge";
 import { getRecipe, RECIPES } from "@/lib/recipes";
 
 type Props = {
@@ -44,9 +45,13 @@ export default async function RezeptDetailPage({ params }: Props) {
         <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-20 md:pb-28 text-center reveal">
           <p className="eyebrow no-line justify-center text-tonwarm">Rezept · {recipe.category}</p>
           {recipe.badge && (
-            <span className="mt-5 inline-block rounded-full bg-tonwarm text-white text-[0.65rem] tracking-[0.18em] uppercase font-medium px-4 py-1.5">
-              {recipe.badge}
-            </span>
+            <div className="mt-6 flex justify-center">
+              <StampBadge solid rotate={-7} className="w-24 h-24 md:w-28 md:h-28">
+                <span className="block text-[0.6rem] md:text-[0.68rem] tracking-[0.06em] uppercase font-semibold leading-[1.1]">
+                  {recipe.badge}
+                </span>
+              </StampBadge>
+            </div>
           )}
           <h1 className="mt-7 text-5xl md:text-6xl lg:text-7xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
             {recipe.title}

@@ -10,6 +10,8 @@
 type StampBadgeProps = {
   children: React.ReactNode;
   tone?: "light" | "dark";
+  /** Gefüllter Tonwarm-Stempel mit weißer Schrift (gut lesbar auf Foto/Grün). */
+  solid?: boolean;
   /** Drehung in Grad — leicht schief wirkt handgestempelt. */
   rotate?: number;
   className?: string;
@@ -18,11 +20,17 @@ type StampBadgeProps = {
 export function StampBadge({
   children,
   tone = "light",
+  solid = false,
   rotate = -7,
   className = "",
 }: StampBadgeProps) {
   const color =
     tone === "light" ? "var(--color-mehlcreme)" : "var(--color-waldgruen)";
+  const fill = solid ? "var(--color-tonwarm)" : "none";
+  const edge = solid ? "var(--color-tonwarm-dark)" : color;
+  const textColor = solid ? "#ffffff" : color;
+  const ring = solid ? "#ffffff" : color;
+  const ringOpacity = solid ? 0.45 : 0.55;
 
   // Zackenkranz: abwechselnd äußerer/innerer Radius rund um den Mittelpunkt.
   const teeth = 32;
@@ -52,7 +60,8 @@ export function StampBadge({
         >
           <polygon
             points={polygon}
-            stroke={color}
+            fill={fill}
+            stroke={edge}
             strokeWidth="1.4"
             strokeLinejoin="round"
           />
@@ -60,14 +69,14 @@ export function StampBadge({
             cx="50"
             cy="50"
             r="38"
-            stroke={color}
+            stroke={ring}
             strokeWidth="0.8"
-            strokeOpacity="0.55"
+            strokeOpacity={ringOpacity}
           />
         </svg>
         <div
-          className="relative z-10 w-[62%] text-center leading-[1.04]"
-          style={{ color }}
+          className="relative z-10 w-[68%] text-center leading-[1.04]"
+          style={{ color: textColor }}
         >
           {children}
         </div>

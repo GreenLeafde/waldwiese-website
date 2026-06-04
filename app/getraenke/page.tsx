@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CategoryTabs } from "@/components/category-tabs";
 import { LeafDivider } from "@/components/leaf-divider";
+import { LeafMark } from "@/components/diet-leaf";
 import { DRINK_CATEGORIES } from "@/lib/drinks";
 
 export const metadata = {
@@ -19,6 +20,14 @@ const TAG_LABEL: Record<DrinkTag, string> = {
 };
 
 function Tag({ tag }: { tag: DrinkTag }) {
+  if (tag === "vegan" || tag === "bio") {
+    return (
+      <span className="ml-3 inline-flex items-center gap-1 align-middle text-[0.6rem] tracking-[0.2em] uppercase text-waldgruen/70 font-body font-medium">
+        <LeafMark filled={tag === "vegan"} className="w-3 h-3 shrink-0" />
+        {TAG_LABEL[tag]}
+      </span>
+    );
+  }
   return (
     <span className="ml-3 align-middle text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-body font-medium">
       {TAG_LABEL[tag]}

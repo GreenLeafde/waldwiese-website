@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CategoryTabs } from "@/components/category-tabs";
 import { LeafDivider } from "@/components/leaf-divider";
+import { LeafMark } from "@/components/diet-leaf";
 import { RESERVATION_URL } from "@/lib/site";
 import { BURGER_CHOICES, DINNER_MENU, type Dish } from "@/lib/dinner-menu";
 
@@ -22,6 +23,16 @@ const TAG_LABEL: Record<Tag, string> = {
 };
 
 function Tag({ tag }: { tag: Tag }) {
+  const vegan = tag === "vegan" || tag === "vegan möglich";
+  const veg = vegan || tag === "vegetarisch" || tag === "vegetarisch möglich";
+  if (veg) {
+    return (
+      <span className="ml-3 inline-flex items-center gap-1 align-middle text-[0.6rem] tracking-[0.2em] uppercase text-waldgruen/70 font-body font-medium">
+        <LeafMark filled={vegan} className="w-3 h-3 shrink-0" />
+        {TAG_LABEL[tag]}
+      </span>
+    );
+  }
   return (
     <span className="ml-3 align-middle text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-body font-medium">
       {TAG_LABEL[tag]}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LeafDivider } from "@/components/leaf-divider";
+import { StampBadge } from "@/components/stamp-badge";
 import { RECIPES } from "@/lib/recipes";
 
 export const metadata = {
@@ -63,9 +64,15 @@ export default function RezeptePage() {
                       </div>
                     )}
                     {r.badge && (
-                      <span className="absolute top-3 left-3 rounded-full bg-tonwarm text-white text-[0.6rem] tracking-[0.16em] uppercase font-medium px-3 py-1.5">
-                        {r.badge}
-                      </span>
+                      <StampBadge
+                        solid
+                        rotate={-9}
+                        className="absolute top-2.5 left-2.5 z-10 w-[74px] h-[74px] md:w-20 md:h-20 drop-shadow"
+                      >
+                        <span className="block text-[0.5rem] tracking-[0.06em] uppercase font-semibold leading-[1.06]">
+                          {r.badge}
+                        </span>
+                      </StampBadge>
                     )}
                   </div>
                   <div className="flex flex-1 flex-col p-6 md:p-7">
