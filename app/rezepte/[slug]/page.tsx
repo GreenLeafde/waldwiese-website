@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -54,6 +55,22 @@ export default async function RezeptDetailPage({ params }: Props) {
             {recipe.teaser}
           </p>
         </div>
+
+        {/* Rezept-Bild — weich gerahmt auf Grün */}
+        {recipe.image && (
+          <div className="mx-auto max-w-4xl px-6 md:px-10 pb-16 md:pb-24">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-mehlcreme/10 reveal-scale">
+              <Image
+                src={recipe.image.src}
+                alt={recipe.image.alt}
+                fill
+                priority
+                sizes="(min-width: 768px) 70vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* INTRO — Lese-Bereich auf Creme */}

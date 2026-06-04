@@ -21,6 +21,8 @@ export type Recipe = {
   hasFullRecipe: boolean;
   /** Optionales Badge, z. B. „Kundenliebling". */
   badge?: string;
+  /** Illustratives Rezept-Bild (Unsplash) — kein Foto unseres eigenen Tellers. */
+  image?: { src: string; alt: string };
   /** Datum nur falls Veröffentlichungszeitpunkt bekannt — sonst null. */
   publishedAt: string | null;
   /** Volltext-Story/Einleitung über dem Rezept. */
@@ -40,6 +42,10 @@ export type Recipe = {
 export const RECIPES: Recipe[] = [
   {
     slug: "pistazientiramisu",
+    image: {
+      src: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=1400&q=72",
+      alt: "Cremiges Tiramisu im Glas",
+    },
     title: "Pistazien-Tiramisu zum Verlieben",
     teaser:
       "Unser Klassiker — schon über 1.500 Mal verkauft. Tanjas Version für deine eigene Küche.",
@@ -115,6 +121,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "hausgemachte-aioli",
+    image: {
+      src: "https://images.unsplash.com/photo-1579705744772-f26014b5e084?auto=format&fit=crop&w=1400&q=72",
+      alt: "Cremiger Knoblauch-Dip in einer Schale",
+    },
     title: "Hausgemachte Aioli wie bei uns",
     teaser:
       "Der Liebling zu unseren Pommes — cremig und knoblauchig. Unsere Version für deine Küche.",
@@ -163,6 +173,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "hausgemachte-zitronenlimonade",
+    image: {
+      src: "https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?auto=format&fit=crop&w=1400&q=72",
+      alt: "Glas Zitronen-Limonade mit Minze und Eis",
+    },
     title: "Hausgemachte Zitronen-Limonade",
     teaser:
       "Spritzig, nicht zu süß — wie bei uns auf der Terrasse. In Minuten selbst gemacht.",
@@ -207,6 +221,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "knuspriges-granola",
+    image: {
+      src: "https://images.unsplash.com/photo-1559951585-645e730d3cf0?auto=format&fit=crop&w=1400&q=72",
+      alt: "Knuspriges Granola in einer Schale",
+    },
     title: "Knuspriges Granola fürs Frühstück",
     teaser:
       "Die Basis für unsere Frühstücks-Bowls — einmal gemacht, lange Vorrat.",
@@ -258,6 +276,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "saftiges-bananenbrot",
+    image: {
+      src: "https://images.unsplash.com/photo-1569762404472-026308ba6b64?auto=format&fit=crop&w=1400&q=72",
+      alt: "Angeschnittenes saftiges Bananenbrot",
+    },
     title: "Saftiges Bananenbrot",
     teaser:
       "Perfekt für reife Bananen — saftig und einfach. Zum Frühstück und zum Kaffee.",

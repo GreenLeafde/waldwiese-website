@@ -83,7 +83,7 @@ export default function AbendessenPage() {
             </a>
             <Link
               href="/getraenke"
-              className="inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               Getränkekarte
             </Link>
