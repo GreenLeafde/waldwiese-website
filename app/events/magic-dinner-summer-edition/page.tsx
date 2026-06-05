@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { MagicDinnerForm } from "@/components/magic-dinner-form";
 import { StampBadge } from "@/components/stamp-badge";
 import { LeafDivider } from "@/components/leaf-divider";
 import { IMG } from "@/lib/images";
@@ -75,12 +74,33 @@ export default function MagicDinnerPage() {
               Ein Abend zwischen Küche und Magie. Mehrgängiges Menü aus der
               Wald & Wiese-Küche, dazwischen Tischzauberei direkt vor dir.
             </p>
-            <a
-              href="#reservieren"
-              className="mt-10 inline-flex items-center gap-3 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-            >
-              Tisch sichern <span aria-hidden>→</span>
-            </a>
+            <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4">
+              <a
+                href={MAGIC_DINNER.ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+              >
+                Tisch sichern <span aria-hidden>→</span>
+              </a>
+              <a
+                href={RESERVATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 border border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm text-mehlcreme px-7 py-3.5 rounded-full font-medium transition-colors"
+              >
+                Über Lightspeed buchen
+              </a>
+            </div>
+            <p className="mt-5 text-sm text-mehlcreme/55">
+              oder telefonisch ·{" "}
+              <a
+                href={`tel:${CONTACT.phoneRaw}`}
+                className="text-mehlcreme/80 hover:text-tonwarm transition-colors"
+              >
+                {CONTACT.phone}
+              </a>
+            </p>
           </div>
           <div className="md:col-span-5 reveal">
             <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-mehlcreme/10">
@@ -206,72 +226,63 @@ export default function MagicDinnerPage() {
               Wir freuen uns auf dich.
             </h2>
             <p className="mt-7 italic text-lg text-waldgruen/65 max-w-xl mx-auto leading-relaxed">
-              Schick uns kurz dein Datum und die Anzahl Personen — wir
-              bestätigen meistens am selben Tag.
+              Sichere dir deinen Platz — direkt beim Magier oder über
+              Lightspeed. Plätze sind begrenzt.
             </p>
           </div>
 
-          <div className="mt-14 reveal">
-            <MagicDinnerForm />
+          <div className="mt-12 grid sm:grid-cols-2 gap-4 reveal">
+            <a
+              href={MAGIC_DINNER.ticketUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
+                  magicel.de
+                </span>
+                <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                  Tisch sichern
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-waldgruen/65">
+                Direkt beim Magier — Tisch fürs Magic Dinner reservieren.
+              </p>
+              <p className="mt-3 text-sm text-tonwarm">
+                Zum Formular <span aria-hidden>→</span>
+              </p>
+            </a>
+            <a
+              href={RESERVATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
+                  Lightspeed
+                </span>
+                <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                  Online-Buchung
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-waldgruen/65">
+                Tisch buchen, Datum {MAGIC_DINNER.dateShort} wählen.
+              </p>
+              <p className="mt-3 text-sm text-tonwarm">
+                Reservieren <span aria-hidden>→</span>
+              </p>
+            </a>
           </div>
-
-          <div className="mt-14 pt-10 border-t border-waldgruen/15 reveal">
-            <p className="text-[0.7rem] tracking-[0.22em] uppercase text-waldgruen/45 mb-5 text-center">
-              Lieber direkt buchen?
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <a
-                href={MAGIC_DINNER.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
-              >
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
-                    magicel.de
-                  </span>
-                  <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                    Tisch sichern
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-waldgruen/65">
-                  Direkt beim Magier — Tisch fürs Magic Dinner reservieren.
-                </p>
-                <p className="mt-3 text-sm text-tonwarm">
-                  Zum Formular <span aria-hidden>→</span>
-                </p>
-              </a>
-              <a
-                href={RESERVATION_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
-              >
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
-                    Lightspeed
-                  </span>
-                  <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                    Online-Buchung
-                  </span>
-                </div>
-                <p className="mt-2 text-sm text-waldgruen/65">
-                  Tisch buchen, Datum {MAGIC_DINNER.dateShort} wählen.
-                </p>
-                <p className="mt-3 text-sm text-tonwarm">
-                  Reservieren <span aria-hidden>→</span>
-                </p>
-              </a>
-            </div>
-            <p className="mt-6 text-center text-sm">
-              <a
-                href={`tel:${CONTACT.phoneRaw}`}
-                className="text-waldgruen/65 hover:text-tonwarm transition-colors"
-              >
-                oder anrufen · {CONTACT.phone}
-              </a>
-            </p>
-          </div>
+          <p className="mt-6 text-center text-sm">
+            <a
+              href={`tel:${CONTACT.phoneRaw}`}
+              className="text-waldgruen/65 hover:text-tonwarm transition-colors"
+            >
+              oder anrufen · {CONTACT.phone}
+            </a>
+          </p>
           <LeafDivider tone="dark" className="mt-16 opacity-90" />
         </div>
       </section>
