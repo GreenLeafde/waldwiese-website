@@ -85,8 +85,8 @@ export const BREAKFAST_LAUNCH = {
 /**
  * Magic Dinner Summer Edition.
  * Quelle: magicel.de — Emilian Leber (Sohn der Familie Leber) ist Magicel.
- * Buchung läuft ausschließlich über Lightspeed (RESERVATION_URL) oder
- * telefonisch — Gastronovi wird nicht mehr genutzt.
+ * Buchung über das Ticket-/Tisch-Formular auf magicel.de (ticketUrl) oder
+ * über Lightspeed (RESERVATION_URL) bzw. telefonisch.
  */
 export const MAGIC_DINNER = {
   date: "2026-07-11",
@@ -97,6 +97,9 @@ export const MAGIC_DINNER = {
   magicianName: "Emilian Leber",
   magicianStageName: "Magicel",
   magicianUrl: "https://www.magicel.de/tickets/magic-dinner-summer-edition",
+  /** Tisch-sichern-Formular auf magicel.de (Sprungmarke direkt zur Reservierung). */
+  ticketUrl:
+    "https://www.magicel.de/tickets/magic-dinner-summer-edition#reservieren",
 };
 
 /**

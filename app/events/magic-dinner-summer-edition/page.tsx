@@ -219,7 +219,28 @@ export default function MagicDinnerPage() {
             <p className="text-[0.7rem] tracking-[0.22em] uppercase text-waldgruen/45 mb-5 text-center">
               Lieber direkt buchen?
             </p>
-            <div className="max-w-md mx-auto">
+            <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <a
+                href={MAGIC_DINNER.ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
+                    magicel.de
+                  </span>
+                  <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                    Tisch sichern
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-waldgruen/65">
+                  Direkt beim Magier — Tisch fürs Magic Dinner reservieren.
+                </p>
+                <p className="mt-3 text-sm text-tonwarm">
+                  Zum Formular <span aria-hidden>→</span>
+                </p>
+              </a>
               <a
                 href={RESERVATION_URL}
                 target="_blank"
