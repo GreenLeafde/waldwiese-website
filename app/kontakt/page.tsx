@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapsEmbed } from "@/components/maps-embed";
 import { LeafDivider } from "@/components/leaf-divider";
+import { ContactForm } from "@/components/contact-form";
 import {
   BREAKFAST_LAUNCH,
   CONTACT,
@@ -41,9 +42,30 @@ export default function KontaktPage() {
         </div>
       </section>
 
+      {/* SCHREIB UNS — Kontaktformular */}
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-2xl px-6 md:px-10 pt-20 md:pt-28">
+          <div className="reveal text-center">
+            <p className="eyebrow no-line justify-center text-tonwarm">
+              Schreib uns
+            </p>
+            <h2 className="mt-5 text-3xl md:text-4xl font-display font-normal text-waldgruen">
+              Eine Nachricht genügt
+            </h2>
+            <p className="mt-4 italic text-waldgruen/60 max-w-md mx-auto leading-relaxed">
+              Reservierungswunsch, Frage zur Karte, Idee für eine Feier — schreib
+              einfach drauflos. Wir lesen mit.
+            </p>
+          </div>
+          <div className="reveal mt-10">
+            <ContactForm />
+          </div>
+        </div>
+      </section>
+
       {/* DATEN */}
       <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-2 gap-12 md:gap-20">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 md:gap-20">
           <div className="reveal space-y-12">
             <div>
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">

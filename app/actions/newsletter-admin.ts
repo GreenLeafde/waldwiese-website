@@ -1,0 +1,179 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { Resend } from "resend";
+import { requireAdmin } from "@/lib/admin-auth";
+import { CONTACT, SITE } from "@/lib/site";
+import {
+  listSubscribed,
+  removeContact,
+  updateContact,
+  upsertContact,
+  type ContactStatus,
+} from "@/lib/contacts";
+import { signUnsubscribeToken } from "@/lib/newsletter-token";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export type AddContactState = {
+  status: "idle" | "ok" | "error";
+  message: string;
+};
+
+export type SendState = {
+  status: "idle" | "ok" | "error";
+  message: string;
+};
+
+async function siteOrigin(): Promise<string> {
+  try {
+    const h = await headers();
+    const host = h.get("host");
+    if (host) return `${host.startsWith("localhost") ? "http" : "https"}://${host}`;
+  } catch {
+    /* außerhalb Request */
+  }
+  return SITE.url;
+}
+
+function refresh() {
+  revalidatePath("/admin/newsletter");
+  revalidatePath("/admin");
+}
+
+export async function addContactAction(
+  _prev: AddContactState,
+  formData: FormData,
+): Promise<AddContactState> {
+  await requireAdmin();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const name = String(formData.get("name") ?? "").trim() || null;
+
+  if (!EMAIL_RE.test(email)) {
+    return { status: "error", message: "Bitte eine gültige E-Mail-Adresse." };
+  }
+
+  const { created } = await upsertContact({
+    email,
+    name,
+    status: "subscribed",
+    source: "admin",
+  });
+  refresh();
+  return {
+    status: "ok",
+    message: created
+      ? "Kontakt hinzugefügt."
+      : "War schon in der Liste — Status aktualisiert.",
+  };
+}
+
+export async function setContactStatusAction(id: string, status: ContactStatus) {
+  await requireAdmin();
+  await updateContact(id, { status });
+  refresh();
+}
+
+export async function renameContactAction(id: string, name: string) {
+  await requireAdmin();
+  await updateContact(id, { name: name.trim() || null });
+  refresh();
+}
+
+export async function deleteContactAction(id: string) {
+  await requireAdmin();
+  await removeContact(id);
+  refresh();
+}
+
+/** Hüllt den Inhalt in einen Rahmen mit Pflicht-Footer (Absender + Abmeldung). */
+function wrapHtml(inner: string, unsubUrl: string): string {
+  return `<div style="font-family:system-ui,-apple-system,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:0 auto">
+    ${inner}
+    <hr style="border:none;border-top:1px solid #e5e2da;margin:28px 0 16px" />
+    <p style="font-size:12px;color:#6b6960;margin:0">
+      Wald &amp; Wiese · ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city}<br />
+      Du erhältst diese E-Mail, weil du dich für unseren Newsletter angemeldet hast.
+      <a href="${unsubUrl}" style="color:#6b6960">Hier abmelden</a>.
+    </p>
+  </div>`;
+}
+
+export async function sendNewsletterAction(
+  _prev: SendState,
+  formData: FormData,
+): Promise<SendState> {
+  await requireAdmin();
+
+  const subject = String(formData.get("subject") ?? "").trim();
+  const html = String(formData.get("html") ?? "");
+
+  if (subject.length < 2) return { status: "error", message: "Bitte einen Betreff angeben." };
+  if (html.trim().length < 10)
+    return { status: "error", message: "Der Inhalt ist noch zu kurz." };
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const from =
+    process.env.CONTACT_FROM_EMAIL ??
+    "Wald & Wiese <kontakt@restaurant-waldwiese.de>";
+
+  if (!apiKey || !process.env.NEWSLETTER_SECRET) {
+    return {
+      status: "error",
+      message: "Versand ist nicht konfiguriert (RESEND_API_KEY / NEWSLETTER_SECRET).",
+    };
+  }
+
+  const subscribers = await listSubscribed();
+  if (subscribers.length === 0) {
+    return { status: "error", message: "Es gibt noch keine angemeldeten Empfänger." };
+  }
+
+  const base = await siteOrigin();
+  const resend = new Resend(apiKey);
+
+  const emails = subscribers.map((c) => {
+    const unsubUrl = `${base}/api/newsletter/abmelden?token=${encodeURIComponent(
+      signUnsubscribeToken(c.email),
+    )}`;
+    return {
+      from,
+      to: [c.email],
+      subject,
+      html: wrapHtml(html, unsubUrl),
+      headers: {
+        "List-Unsubscribe": `<${unsubUrl}>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
+    };
+  });
+
+  let sent = 0;
+  let failed = 0;
+  for (let i = 0; i < emails.length; i += 100) {
+    const chunk = emails.slice(i, i + 100);
+    try {
+      const { error } = await resend.batch.send(chunk);
+      if (error) {
+        failed += chunk.length;
+        console.error("[newsletter] batch-Fehler:", error);
+      } else {
+        sent += chunk.length;
+      }
+    } catch (err) {
+      failed += chunk.length;
+      console.error("[newsletter] batch-Ausnahme:", err);
+    }
+  }
+
+  if (sent === 0) {
+    return { status: "error", message: "Versand fehlgeschlagen. Bitte später erneut." };
+  }
+  return {
+    status: "ok",
+    message: failed
+      ? `${sent} gesendet, ${failed} fehlgeschlagen.`
+      : `Newsletter an ${sent} ${sent === 1 ? "Empfänger" : "Empfänger"} gesendet.`,
+  };
+}

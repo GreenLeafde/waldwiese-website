@@ -5,7 +5,9 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ConsentProvider } from "@/components/consent-provider";
 import { CookieBanner } from "@/components/cookie-banner";
+import { SommelierFab } from "@/components/sommelier/sommelier-fab";
 import { TrackingScripts } from "@/components/tracking-scripts";
+import { Analytics } from "@/components/analytics";
 import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
 import { CONTACT, GEO, GOOGLE_MAPS_URL, OPENING_HOURS, SITE } from "@/lib/site";
 import "./globals.css";
@@ -137,8 +139,10 @@ export default function RootLayout({
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />
+          <SommelierFab />
           <CookieBanner />
           <TrackingScripts />
+          <Analytics />
         </ConsentProvider>
       </body>
     </html>

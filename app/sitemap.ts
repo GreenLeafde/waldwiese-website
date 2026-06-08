@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }> = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" },
     { path: "/fruehstueck", priority: 0.95, changeFrequency: "weekly" },
+    { path: "/fruehstuecks-sommelier", priority: 0.7, changeFrequency: "monthly" },
     { path: "/abendessen", priority: 0.9, changeFrequency: "weekly" },
     { path: "/getraenke", priority: 0.85, changeFrequency: "weekly" },
     { path: "/speisen", priority: 0.7, changeFrequency: "monthly" },

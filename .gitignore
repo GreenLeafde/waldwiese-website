@@ -34,6 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# lokale Datenbank (libSQL-Datei) — Prod nutzt Turso
+/.data
+
 # vercel
 .vercel
 

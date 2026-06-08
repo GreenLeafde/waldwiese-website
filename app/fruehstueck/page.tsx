@@ -228,6 +228,33 @@ export default function FruehstueckPage() {
         </div>
       </section>
 
+      {/* SOMMELIER-TEASER — Creme, führt zum interaktiven Quiz */}
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-4xl px-6 md:px-10 py-20 md:py-28">
+          <div className="rounded-3xl bg-waldgruen text-mehlcreme px-8 py-12 md:px-14 md:py-16 text-center reveal-scale">
+            <p className="eyebrow no-line justify-center text-tonwarm">
+              Frühstücks-Sommelier
+            </p>
+            <h2 className="mt-5 text-3xl md:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
+              Was passt{" "}
+              <span className="accent">zu dir?</span>
+            </h2>
+            <p className="mt-6 italic text-lg text-mehlcreme/80 max-w-md mx-auto leading-relaxed">
+              Ein paar Fragen — und am Ende hast du deine Empfehlung und einen
+              Tisch zur passenden Zeit.
+            </p>
+            <div className="mt-9">
+              <Link
+                href="/fruehstuecks-sommelier"
+                className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+              >
+                Zum Frühstücks-Sommelier <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ — Creme, mit FAQPage-Schema (Rich Results) */}
       <section className="bg-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32">

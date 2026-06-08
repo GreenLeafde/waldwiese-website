@@ -1,16 +1,16 @@
 import Link from "next/link";
+import { ReservationWidget } from "@/components/reservation-widget";
 import {
   BREAKFAST_LAUNCH,
   CONTACT,
   CURRENT_OPENING_HOURS,
   NEW_OPENING_HOURS,
-  RESERVATION_URL,
 } from "@/lib/site";
 
 export const metadata = {
   title: "Reservieren",
   description:
-    "Tisch reservieren bei Wald & Wiese in Sinzing — online via Lightspeed, telefonisch oder per WhatsApp.",
+    "Tisch reservieren bei Wald & Wiese in Sinzing — online direkt auf der Seite, telefonisch oder per WhatsApp.",
   alternates: { canonical: "/reservieren" },
 };
 
@@ -34,25 +34,44 @@ export default function ReservierenPage() {
             <span className="accent">für dich.</span>
           </h1>
           <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
-            Online über Lightspeed, telefonisch oder per WhatsApp — wie es
+            Direkt hier auf der Seite, telefonisch oder per WhatsApp — wie es
             dir lieber ist.
           </p>
           <div className="mt-10">
             <a
-              href={RESERVATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#reservierung"
               className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
             >
-              Online reservieren <span aria-hidden>→</span>
+              Tisch wählen <span aria-hidden>↓</span>
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* RESERVIERUNGS-WIDGET (Lightspeed, eingebettet) */}
+      <section id="reservierung" className="bg-mehlcreme scroll-mt-24">
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-20 md:pt-28">
+          <div className="reveal text-center">
+            <p className="eyebrow no-line justify-center text-tonwarm">
+              Online reservieren
+            </p>
+            <h2 className="mt-5 text-3xl md:text-4xl font-display font-normal text-waldgruen">
+              Wähl dir deinen Tisch
+            </h2>
+            <p className="mt-4 italic text-waldgruen/60 max-w-md mx-auto leading-relaxed">
+              Datum, Uhrzeit, Personen — in wenigen Schritten erledigt. Du
+              bleibst dabei direkt bei uns.
+            </p>
+          </div>
+          <div className="reveal mt-10">
+            <ReservationWidget />
           </div>
         </div>
       </section>
 
       {/* OPTIONEN + ÖFFNUNGSZEITEN */}
       <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-2 gap-12 md:gap-20">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 md:gap-20">
           <div className="reveal">
             <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
               Lieber persönlich?

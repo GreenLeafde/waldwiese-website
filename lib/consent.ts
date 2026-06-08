@@ -50,7 +50,7 @@ export const CONSENT_CATEGORIES: {
     key: "externalMedia",
     label: "Externe Medien",
     description:
-      "Lädt die eingebettete Google-Maps-Karte auf der Kontaktseite.",
+      "Lädt eingebettete Inhalte von Drittanbietern: die Google-Maps-Karte auf der Kontaktseite und das Lightspeed-Reservierungs-Widget auf der Reservieren-Seite (inkl. Google reCAPTCHA).",
   },
 ];
 
