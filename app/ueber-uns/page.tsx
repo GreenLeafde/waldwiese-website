@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { LeafDivider } from "@/components/leaf-divider";
 import { IMG } from "@/lib/images";
-import { MAGIC_DINNER } from "@/lib/site";
+import { BREAKFAST_LAUNCH, MAGIC_DINNER } from "@/lib/site";
 
 export const metadata = {
   title: "Über uns — Familie Leber",
   description:
-    "Wir sind die Familie Leber — Tanja, Sven, Sophia, Julia und Emilian. Klein, fein und ehrlich. Wald & Wiese in Sinzing bei Regensburg.",
+    "Wir sind die Familie Leber — Tanja, Sven, Sophia, Julia und Emilian. Klein, fein und ehrlich. Wald & Wiese in Sinzing bei Regensburg — ab 6. Juli 2026 auch zum Frühstück.",
   alternates: { canonical: "/ueber-uns" },
 };
 
@@ -80,6 +80,19 @@ export default function UeberUnsPage() {
               bei unserer Familie. Hund liegt mit auf der Karte, Heinzi-Burger
               heißt nach unserem Hund Henry, und die Prinzessin auf der
               Kichererbse kommt direkt aus dem Märchenbuch.
+            </p>
+            <p>
+              Gerade schreiben wir ein neues Kapitel: Ab dem{" "}
+              {BREAKFAST_LAUNCH.dateLong} wird Wald &amp; Wiese zum
+              Frühstücksrestaurant — morgens im Grünen, regional und ehrlich,
+              genau wie alles bei uns.{" "}
+              <Link
+                href="/fruehstueck"
+                className="text-tonwarm underline decoration-tonwarm/40 decoration-2 underline-offset-[5px] hover:decoration-tonwarm transition-colors"
+              >
+                Mehr zum Frühstück
+              </Link>
+              .
             </p>
           </div>
           <LeafDivider tone="dark" className="mt-14 opacity-90" />

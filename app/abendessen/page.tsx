@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CategoryTabs } from "@/components/category-tabs";
 import { LeafDivider } from "@/components/leaf-divider";
 import { LeafMark } from "@/components/diet-leaf";
-import { RESERVATION_URL } from "@/lib/site";
+import { BREAKFAST_LAUNCH, RESERVATION_URL } from "@/lib/site";
 import { BURGER_CHOICES, DINNER_MENU, type Dish } from "@/lib/dinner-menu";
 
 export const metadata = {
@@ -101,6 +101,26 @@ export default function AbendessenPage() {
           </div>
         </div>
       </section>
+
+      {/* FRÜHSTÜCK-HINWEIS — schmaler Tonwarm-Banner, Coming-Soon-Cross-Link */}
+      <Link
+        href="/fruehstueck"
+        className="block bg-tonwarm text-white hover:bg-tonwarm-dark transition-colors"
+      >
+        <div className="mx-auto max-w-7xl px-6 md:px-10 py-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm md:text-base">
+          <span className="text-[0.7rem] md:text-xs tracking-[0.28em] uppercase text-white/75">
+            Bald
+          </span>
+          <span className="font-medium">
+            Wir werden zum Frühstücksrestaurant — ab{" "}
+            <span className="italic">{BREAKFAST_LAUNCH.dateShort}</span> auch zum
+            Frühstück in Sinzing.
+          </span>
+          <span aria-hidden className="text-white/80">
+            →
+          </span>
+        </div>
+      </Link>
 
       {/* TABS */}
       <CategoryTabs

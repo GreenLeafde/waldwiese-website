@@ -9,7 +9,7 @@ export const SITE = {
   legalName: "Wald & Wiese UG (haftungsbeschränkt)",
   tagline: "Frühstück mitten im Grünen.",
   description:
-    "Familiengeführtes Frühstücks- und Abendrestaurant in Sinzing bei Regensburg. Regional, saisonal, hundefreundlich. Klein, fein, ehrlich.",
+    "Frühstücksrestaurant in Sinzing bei Regensburg — ab 6. Juli 2026 jeden Morgen frisch. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.",
   url: "https://restaurant-waldwiese.de",
   locale: "de_DE",
 } as const;
@@ -116,17 +116,17 @@ export const MAGIC_DINNER = {
  * im Mobile-Menü unter NAV_FULL erreichbar.
  */
 export const NAV: Array<{ label: string; href: string }> = [
-  { label: "Karte", href: "/abendessen" },
+  { label: "Frühstück", href: "/fruehstueck" },
+  { label: "Abendkarte", href: "/abendessen" },
   { label: "Getränke", href: "/getraenke" },
-  { label: "Über uns", href: "/ueber-uns" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
 export const NAV_FULL: Array<{ label: string; href: string }> = [
-  { label: "Speisekarte", href: "/abendessen" },
+  { label: "Frühstück", href: "/fruehstueck" },
+  { label: "Abendkarte", href: "/abendessen" },
   { label: "Getränke", href: "/getraenke" },
   { label: "Reservieren", href: "/reservieren" },
-  { label: "Frühstück", href: "/fruehstueck" },
   { label: "Veranstaltungen", href: "/veranstaltungen" },
   { label: "Events", href: "/events" },
   { label: "Rezepte", href: "/rezepte" },

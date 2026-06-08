@@ -19,9 +19,9 @@ import {
 } from "@/lib/site";
 
 export const metadata = {
-  title: `${SITE.name} · Familiengeführtes Restaurant in Sinzing`,
+  title: `${SITE.name} · Frühstücksrestaurant in Sinzing bei Regensburg`,
   description:
-    "Wald & Wiese — Sinzing bei Regensburg. Familiengeführt, regional, ehrlich. Heute Abend für dich da — bald auch zum Frühstück mitten im Grünen.",
+    "Wald & Wiese — Frühstücksrestaurant in Sinzing bei Regensburg. Ab 6. Juli 2026 jeden Morgen frisch: Brot vom Bäcker, hausgemachte Aufstriche, Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.",
   alternates: { canonical: "/" },
 };
 
@@ -247,30 +247,45 @@ export default function HomePage() {
         </StampBadge>
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
           <div className="max-w-xl reveal">
-            <p className="eyebrow no-line text-tonwarm">Demnächst</p>
+            <p className="eyebrow no-line text-tonwarm">
+              Bald · Frühstücksrestaurant in Sinzing
+            </p>
             <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
               Frühstück,{" "}
               <span className="accent">mitten im Grünen.</span>
             </h2>
             <p className="mt-6 italic text-xl md:text-2xl text-mehlcreme/85">
-              ab {BREAKFAST_LAUNCH.dateShort} · in Sinzing.
+              Wir werden zum Frühstücksrestaurant — ab{" "}
+              {BREAKFAST_LAUNCH.dateShort} in Sinzing.
             </p>
             <div className="mt-7 text-mehlcreme/80 leading-relaxed space-y-5">
               <p>
-                Wir bauen gerade unser Frühstücks-Konzept auf. Brot vom Bäcker
-                aus der Region, Obst aus Sinzing, hausgemachte Aufstriche. Genau
-                wie zuhause — nur eben früher aufgestanden.
+                Brot vom Bäcker aus der Region, Obst aus Sinzing, hausgemachte
+                Aufstriche, Granola und Kaffee mit Charakter. Regional, herzhaft
+                oder süß — vegan und vegetarisch gleichberechtigt. Genau wie
+                zuhause, nur eben früher aufgestanden.
               </p>
-              <p>Wenn&apos;s so weit ist, schicken wir&apos;s übers Instagram raus.</p>
+              <p>
+                Die ganze Karte verraten wir kurz vor dem Start. Sei vom ersten
+                Morgen an dabei.
+              </p>
             </div>
-            <a
-              href={CONTACT.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-9 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              {CONTACT.instagramHandle} <span aria-hidden>→</span>
-            </a>
+            <div className="mt-9 flex flex-wrap items-center gap-5">
+              <Link
+                href="/fruehstueck"
+                className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+              >
+                Mehr zum Frühstück <span aria-hidden>→</span>
+              </Link>
+              <a
+                href={CONTACT.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              >
+                {CONTACT.instagramHandle} <span aria-hidden>→</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
