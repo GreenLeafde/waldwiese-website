@@ -18,7 +18,9 @@ export const ADMIN_COOKIE = "ww_admin";
 export const ADMIN_COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 Tage
 
 function secret(): string {
-  return process.env.ADMIN_SESSION_SECRET ?? "";
+  // .trim(): robust gegen ein versehentlich angehängtes Zeilenende beim Setzen
+  // der Env-Variable (z. B. via CLI-Pipe).
+  return (process.env.ADMIN_SESSION_SECRET ?? "").trim();
 }
 
 /** true, wenn Passwort UND Session-Secret konfiguriert sind. */
@@ -28,9 +30,10 @@ export function adminConfigured(): boolean {
 
 /** Zeitkonstanter Passwortvergleich (über SHA-256, damit Längen nicht leaken). */
 export function verifyPassword(input: string): boolean {
-  const pw = process.env.ADMIN_PASSWORD ?? "";
-  if (!pw || !input) return false;
-  const a = createHash("sha256").update(input).digest();
+  const pw = (process.env.ADMIN_PASSWORD ?? "").trim();
+  const given = input.trim();
+  if (!pw || !given) return false;
+  const a = createHash("sha256").update(given).digest();
   const b = createHash("sha256").update(pw).digest();
   return timingSafeEqual(a, b);
 }

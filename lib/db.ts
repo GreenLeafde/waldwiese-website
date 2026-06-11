@@ -20,8 +20,8 @@ const LOCAL_URL = "file:./.data/wald-wiese.db";
 
 export function getDb(): Client {
   if (_db) return _db;
-  const url = process.env.TURSO_DATABASE_URL || LOCAL_URL;
-  const authToken = process.env.TURSO_AUTH_TOKEN;
+  const url = (process.env.TURSO_DATABASE_URL || "").trim() || LOCAL_URL;
+  const authToken = process.env.TURSO_AUTH_TOKEN?.trim();
 
   // Lokale Datei: Verzeichnis sicherstellen (frischer Clone hat ./.data nicht).
   if (url.startsWith("file:")) {

@@ -16,7 +16,7 @@ const SUB_MAX_AGE_MS = 1000 * 60 * 60 * 24 * 7;
 type Purpose = "sub" | "unsub";
 
 function secret(): string {
-  return process.env.NEWSLETTER_SECRET ?? "";
+  return (process.env.NEWSLETTER_SECRET ?? "").trim();
 }
 
 function hmac(body: string): string {

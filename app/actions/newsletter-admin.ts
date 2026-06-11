@@ -113,12 +113,13 @@ export async function sendNewsletterAction(
   if (html.trim().length < 10)
     return { status: "error", message: "Der Inhalt ist noch zu kurz." };
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from =
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const from = (
     process.env.CONTACT_FROM_EMAIL ??
-    "Wald & Wiese <kontakt@restaurant-waldwiese.de>";
+    "Wald & Wiese <kontakt@restaurant-waldwiese.de>"
+  ).trim();
 
-  if (!apiKey || !process.env.NEWSLETTER_SECRET) {
+  if (!apiKey || !process.env.NEWSLETTER_SECRET?.trim()) {
     return {
       status: "error",
       message: "Versand ist nicht konfiguriert (RESEND_API_KEY / NEWSLETTER_SECRET).",

@@ -62,11 +62,12 @@ export async function sendContactMessage(
 
   // 3) Konfiguration prüfen — solange kein Key gesetzt ist, freundlich auf die
   //    direkten Wege verweisen statt einen Fehler zu werfen.
-  const apiKey = process.env.RESEND_API_KEY;
-  const from =
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const from = (
     process.env.CONTACT_FROM_EMAIL ??
-    "Wald & Wiese <kontakt@restaurant-waldwiese.de>";
-  const to = process.env.CONTACT_TO_EMAIL ?? CONTACT.email;
+    "Wald & Wiese <kontakt@restaurant-waldwiese.de>"
+  ).trim();
+  const to = (process.env.CONTACT_TO_EMAIL ?? CONTACT.email).trim();
 
   if (!apiKey) {
     console.warn(
