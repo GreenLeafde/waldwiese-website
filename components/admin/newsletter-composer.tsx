@@ -18,7 +18,9 @@ const inputCls =
 export function NewsletterComposer({ recipientCount }: { recipientCount: number }) {
   const [state, formAction, pending] = useActionState(sendNewsletterAction, INITIAL);
   const [templateId, setTemplateId] = useState(NEWSLETTER_TEMPLATES[0].id);
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [values, setValues] = useState<Record<string, string>>({
+    ...NEWSLETTER_TEMPLATES[0].sample,
+  });
 
   const template =
     NEWSLETTER_TEMPLATES.find((t) => t.id === templateId) ?? NEWSLETTER_TEMPLATES[0];
@@ -27,6 +29,13 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
   const set = (key: string, val: string) =>
     setValues((v) => ({ ...v, [key]: val }));
 
+  // Vorlage wählen → mit Beispiel vorbefüllen (fertige Mail zum Anpassen).
+  const choose = (id: string) => {
+    const t = NEWSLETTER_TEMPLATES.find((x) => x.id === id);
+    setTemplateId(id);
+    if (t) setValues({ ...t.sample });
+  };
+
   return (
     <section>
       <h2 className="text-sm tracking-[0.18em] uppercase text-waldgruen/45 font-medium">
@@ -34,33 +43,53 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
       </h2>
       <p className="mt-2 text-sm text-waldgruen/55">
         Geht an <strong className="text-waldgruen">{recipientCount}</strong>{" "}
-        angemeldete Empfänger. Wähl eine Vorlage und füll sie aus — Absender &amp;
-        Impressum-Footer kommen automatisch dazu.
+        angemeldete Empfänger. Wähl eine Vorlage (kommt als fertiges Beispiel),
+        pass sie an — Absender &amp; Impressum-Footer kommen automatisch dazu.
       </p>
 
-      {/* Vorlagen-Auswahl */}
-      <div className="mt-5 flex flex-wrap gap-2">
+      {/* Vorlagen-Galerie mit Vorschau pro Vorlage */}
+      <div className="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-3">
         {NEWSLETTER_TEMPLATES.map((t) => {
           const active = t.id === templateId;
           return (
             <button
               key={t.id}
               type="button"
-              onClick={() => setTemplateId(t.id)}
-              className={`rounded-full px-4 py-1.5 text-sm transition-colors ${
+              onClick={() => choose(t.id)}
+              className={`text-left rounded-2xl p-2 ring-1 transition-all ${
                 active
-                  ? "bg-waldgruen text-mehlcreme"
-                  : "bg-white text-waldgruen/70 ring-1 ring-waldgruen/15 hover:text-tonwarm"
+                  ? "ring-2 ring-tonwarm bg-tonwarm/5"
+                  : "ring-waldgruen/15 bg-white hover:ring-tonwarm/40"
               }`}
             >
-              {t.name}
+              <div className="h-[150px] overflow-hidden rounded-xl ring-1 ring-waldgruen/10 bg-white">
+                <div
+                  style={{
+                    width: 600,
+                    transform: "scale(0.46)",
+                    transformOrigin: "top left",
+                  }}
+                >
+                  <div
+                    style={{ padding: 16 }}
+                    dangerouslySetInnerHTML={{
+                      __html: renderTemplate(t.id, t.sample),
+                    }}
+                  />
+                </div>
+              </div>
+              <p className="mt-2 px-1 text-sm font-medium text-waldgruen">
+                {t.name}
+              </p>
+              <p className="px-1 text-xs text-waldgruen/45 leading-snug">
+                {t.description}
+              </p>
             </button>
           );
         })}
       </div>
-      <p className="mt-2 text-xs text-waldgruen/45">{template.description}</p>
 
-      <form action={formAction} className="mt-5 grid lg:grid-cols-2 gap-6">
+      <form action={formAction} className="mt-7 grid lg:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
             <label
@@ -79,7 +108,6 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
             />
           </div>
 
-          {/* Vorlagen-Felder */}
           {template.fields.map((f) => (
             <div key={f.key}>
               <label className="block text-sm font-medium text-waldgruen mb-1.5">
@@ -106,14 +134,13 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
               )}
               {f.type === "image" && (
                 <p className="mt-1 text-xs text-waldgruen/40">
-                  Bild-Adresse einfügen (z. B. von eurer Website oder Instagram).
-                  Echte Datei-Uploads bauen wir bei Bedarf nach.
+                  Adresse eines Bildes einfügen. Echten Datei-Upload bauen wir
+                  bei Bedarf nach.
                 </p>
               )}
             </div>
           ))}
 
-          {/* Zusammengebautes HTML für den Versand */}
           <input type="hidden" name="html" value={html} />
 
           <label className="flex items-start gap-2.5 text-sm text-waldgruen/70">
@@ -150,18 +177,20 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
           </div>
         </div>
 
-        {/* Vorschau */}
+        {/* Live-Vorschau der gewählten Vorlage */}
         <div>
           <span className="text-sm font-medium text-waldgruen">Vorschau</span>
-          <div className="mt-1.5 rounded-xl ring-1 ring-waldgruen/10 bg-white p-5 min-h-[20rem] overflow-auto">
-            {html.trim() ? (
-              <div dangerouslySetInnerHTML={{ __html: html }} />
-            ) : (
-              <p className="text-sm text-waldgruen/35">
-                Füll links die Felder aus — hier siehst du live, wie der
-                Newsletter aussieht.
-              </p>
-            )}
+          <div className="mt-1.5 rounded-xl ring-1 ring-waldgruen/10 bg-[#f7f6f3] p-4 min-h-[20rem] overflow-auto">
+            <div className="bg-white rounded-lg p-4">
+              {html.trim() ? (
+                <div dangerouslySetInnerHTML={{ __html: html }} />
+              ) : (
+                <p className="text-sm text-waldgruen/35">
+                  Füll links die Felder aus — hier siehst du live, wie der
+                  Newsletter aussieht.
+                </p>
+              )}
+            </div>
           </div>
           <p className="mt-2 text-xs text-waldgruen/40">
             Darunter wird automatisch das grüne Impressum-Footer-Band angehängt.
