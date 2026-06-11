@@ -76,6 +76,7 @@ export function SommelierQuiz({ onNavigate }: Props) {
             {ANLASS_OPTIONS.map((o) => (
               <OptionButton
                 key={o.key}
+                selected={anlass === o.key}
                 onClick={() => {
                   setAnlass(o.key);
                   setGeschmack(null);
@@ -98,6 +99,7 @@ export function SommelierQuiz({ onNavigate }: Props) {
             {GESCHMACK_OPTIONS[anlass].map((o) => (
               <OptionButton
                 key={o.key}
+                selected={geschmack === o.key}
                 onClick={() => {
                   setGeschmack(o.key);
                   setStep(2);
@@ -123,7 +125,12 @@ export function SommelierQuiz({ onNavigate }: Props) {
                   setPersonen(n);
                   setStep(3);
                 }}
-                className="rounded-2xl border border-waldgruen/15 bg-mehlcreme/40 py-4 font-display text-xl text-waldgruen transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5"
+                aria-pressed={personen === n}
+                className={`rounded-2xl border py-4 font-display text-xl transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5 ${
+                  personen === n
+                    ? "border-tonwarm bg-tonwarm/10 ring-1 ring-tonwarm/30 text-tonwarm-dark"
+                    : "border-waldgruen/15 bg-mehlcreme/40 text-waldgruen"
+                }`}
               >
                 {n === 8 ? "8+" : n}
               </button>
@@ -143,7 +150,12 @@ export function SommelierQuiz({ onNavigate }: Props) {
                   setZeit(t);
                   setDone(true);
                 }}
-                className="rounded-2xl border border-waldgruen/15 bg-mehlcreme/40 py-4 font-display text-base text-waldgruen transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5"
+                aria-pressed={zeit === t}
+                className={`rounded-2xl border py-4 font-display text-base transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5 ${
+                  zeit === t
+                    ? "border-tonwarm bg-tonwarm/10 ring-1 ring-tonwarm/30 text-tonwarm-dark"
+                    : "border-waldgruen/15 bg-mehlcreme/40 text-waldgruen"
+                }`}
               >
                 {t}
               </button>
@@ -215,16 +227,23 @@ function Question({
 
 function OptionButton({
   onClick,
+  selected = false,
   children,
 }: {
   onClick: () => void;
+  selected?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="group rounded-2xl border border-waldgruen/15 bg-mehlcreme/40 px-5 py-4 text-left transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5"
+      aria-pressed={selected}
+      className={`group rounded-2xl border px-5 py-4 text-left transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5 ${
+        selected
+          ? "border-tonwarm bg-tonwarm/10 ring-1 ring-tonwarm/30"
+          : "border-waldgruen/15 bg-mehlcreme/40"
+      }`}
     >
       {children}
     </button>
