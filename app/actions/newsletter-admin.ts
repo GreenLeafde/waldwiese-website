@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { Resend } from "resend";
+import * as XLSX from "xlsx";
 import { requireAdmin } from "@/lib/admin-auth";
 import { CONTACT, SITE } from "@/lib/site";
 import {
@@ -22,6 +23,11 @@ export type AddContactState = {
 };
 
 export type SendState = {
+  status: "idle" | "ok" | "error";
+  message: string;
+};
+
+export type ImportState = {
   status: "idle" | "ok" | "error";
   message: string;
 };
@@ -85,6 +91,98 @@ export async function deleteContactAction(id: string) {
   await requireAdmin();
   await removeContact(id);
   refresh();
+}
+
+const MAX_IMPORT = 5000;
+
+/**
+ * Massen-Import aus Excel (.xlsx/.xls) oder CSV. Findet in jeder Zeile die
+ * E-Mail (egal in welcher Spalte) plus optional einen Namen (erste Nicht-Mail-
+ * Zelle). Kopfzeilen ohne E-Mail werden automatisch übersprungen.
+ */
+export async function importContactsAction(
+  _prev: ImportState,
+  formData: FormData,
+): Promise<ImportState> {
+  await requireAdmin();
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return { status: "error", message: "Bitte eine Excel- oder CSV-Datei auswählen." };
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    return { status: "error", message: "Datei ist zu groß (max. 5 MB)." };
+  }
+
+  let rows: unknown[][];
+  try {
+    const buf = Buffer.from(await file.arrayBuffer());
+    const wb = XLSX.read(buf, { type: "buffer" });
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    rows = XLSX.utils.sheet_to_json(sheet, {
+      header: 1,
+      blankrows: false,
+    }) as unknown[][];
+  } catch {
+    return {
+      status: "error",
+      message: "Datei konnte nicht gelesen werden. Ist es eine gültige Excel-/CSV-Datei?",
+    };
+  }
+
+  const EMAIL = /[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+/;
+  const seen = new Set<string>();
+  const entries: { email: string; name: string | null }[] = [];
+
+  for (const row of rows) {
+    if (!Array.isArray(row)) continue;
+    let email: string | null = null;
+    let name: string | null = null;
+    for (const cell of row) {
+      const s = String(cell ?? "").trim();
+      if (!s) continue;
+      const m = s.match(EMAIL);
+      if (!email && m) email = m[0].toLowerCase();
+      else if (!name && !EMAIL.test(s)) name = s.slice(0, 120);
+    }
+    if (email && !seen.has(email)) {
+      seen.add(email);
+      entries.push({ email, name });
+      if (entries.length >= MAX_IMPORT) break;
+    }
+  }
+
+  if (entries.length === 0) {
+    return {
+      status: "error",
+      message: "Keine E-Mail-Adressen in der Datei gefunden.",
+    };
+  }
+
+  let created = 0;
+  let updated = 0;
+  for (const e of entries) {
+    try {
+      const r = await upsertContact({
+        email: e.email,
+        name: e.name,
+        status: "subscribed",
+        source: "import",
+      });
+      if (r.created) created++;
+      else updated++;
+    } catch (err) {
+      console.error("[import] Kontakt fehlgeschlagen:", e.email, err);
+    }
+  }
+
+  refresh();
+  return {
+    status: "ok",
+    message: `${created} neu importiert${
+      updated ? `, ${updated} aktualisiert` : ""
+    } (${entries.length} E-Mail${entries.length === 1 ? "" : "s"} gefunden).`,
+  };
 }
 
 /** Hüllt den Inhalt in einen Rahmen mit Pflicht-Footer (Absender + Abmeldung). */

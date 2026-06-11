@@ -5,13 +5,16 @@ import { useRouter } from "next/navigation";
 import {
   addContactAction,
   deleteContactAction,
+  importContactsAction,
   renameContactAction,
   setContactStatusAction,
   type AddContactState,
+  type ImportState,
 } from "@/app/actions/newsletter-admin";
 import type { Contact, ContactStatus } from "@/lib/contacts";
 
 const ADD_INITIAL: AddContactState = { status: "idle", message: "" };
+const IMPORT_INITIAL: ImportState = { status: "idle", message: "" };
 
 const STATUS_LABEL: Record<ContactStatus, string> = {
   subscribed: "Angemeldet",
@@ -27,6 +30,10 @@ const STATUS_CLS: Record<ContactStatus, string> = {
 export function ContactsManager({ contacts }: { contacts: Contact[] }) {
   const router = useRouter();
   const [addState, addAction, adding] = useActionState(addContactAction, ADD_INITIAL);
+  const [importState, importAction, importing] = useActionState(
+    importContactsAction,
+    IMPORT_INITIAL,
+  );
   const [pending, startTransition] = useTransition();
 
   function act(fn: () => Promise<void>) {
@@ -77,6 +84,48 @@ export function ContactsManager({ contacts }: { contacts: Contact[] }) {
           {addState.message}
         </p>
       )}
+
+      {/* Massen-Import per Excel/CSV */}
+      <form
+        action={importAction}
+        className="mt-4 rounded-2xl border border-dashed border-waldgruen/25 bg-mehlcreme/30 px-5 py-4 max-w-2xl"
+      >
+        <p className="text-sm font-medium text-waldgruen">
+          Mehrere auf einmal: Excel oder CSV hochladen
+        </p>
+        <p className="mt-1 text-xs text-waldgruen/50 leading-relaxed">
+          Eine Spalte mit E-Mail-Adressen genügt (Name optional). Wir finden die
+          E-Mails automatisch. Bitte nur Kontakte importieren, die dem Newsletter
+          zugestimmt haben.
+        </p>
+        <div className="mt-3 flex flex-col sm:flex-row gap-3 sm:items-center">
+          <input
+            type="file"
+            name="file"
+            required
+            accept=".xlsx,.xls,.csv"
+            className="flex-1 text-sm text-waldgruen file:mr-3 file:rounded-full file:border-0 file:bg-waldgruen file:px-4 file:py-2 file:text-mehlcreme file:text-sm file:font-medium hover:file:bg-waldgruen-dark file:cursor-pointer"
+          />
+          <button
+            type="submit"
+            disabled={importing}
+            className="rounded-full bg-tonwarm hover:bg-tonwarm-dark text-white px-6 py-2.5 font-medium transition-colors disabled:opacity-60 whitespace-nowrap"
+          >
+            {importing ? "Importiere …" : "Importieren"}
+          </button>
+        </div>
+        {importState.status !== "idle" && (
+          <p
+            className={`mt-2 text-sm ${
+              importState.status === "ok"
+                ? "text-waldgruen/80"
+                : "text-tonwarm-dark"
+            }`}
+          >
+            {importState.message}
+          </p>
+        )}
+      </form>
 
       {/* Liste */}
       <div className="mt-6 overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-white">
