@@ -68,7 +68,7 @@ export async function subscribeToLaunchList(
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const from = (
     process.env.CONTACT_FROM_EMAIL ??
-    "Wald & Wiese <kontakt@restaurant-waldwiese.de>"
+    "Wald & Wiese <noreply@restaurant-waldwiese.de>"
   ).trim();
 
   if (!apiKey || !process.env.NEWSLETTER_SECRET?.trim()) {

@@ -65,7 +65,7 @@ export async function sendContactMessage(
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const from = (
     process.env.CONTACT_FROM_EMAIL ??
-    "Wald & Wiese <kontakt@restaurant-waldwiese.de>"
+    "Wald & Wiese <noreply@restaurant-waldwiese.de>"
   ).trim();
   const to = (process.env.CONTACT_TO_EMAIL ?? CONTACT.email).trim();
 

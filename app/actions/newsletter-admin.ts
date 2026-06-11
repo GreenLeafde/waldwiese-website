@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { Resend } from "resend";
 import * as XLSX from "xlsx";
 import { requireAdmin } from "@/lib/admin-auth";
-import { CONTACT, SITE } from "@/lib/site";
+import { COMPANY, CONTACT, SITE } from "@/lib/site";
 import {
   bulkUpsertContacts,
   listSubscribed,
@@ -237,16 +237,49 @@ export async function importContactsAction(
   };
 }
 
-/** Hüllt den Inhalt in einen Rahmen mit Pflicht-Footer (Absender + Abmeldung). */
+/** Hüllt den Inhalt in einen Rahmen mit professionellem Footer (Impressum +
+ *  Pflicht-Abmeldung). Inline-Styles für E-Mail-Kompatibilität. */
 function wrapHtml(inner: string, unsubUrl: string): string {
-  return `<div style="font-family:system-ui,-apple-system,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:0 auto">
-    ${inner}
-    <hr style="border:none;border-top:1px solid #e5e2da;margin:28px 0 16px" />
-    <p style="font-size:12px;color:#6b6960;margin:0">
-      Wald &amp; Wiese · ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city}<br />
-      Du erhältst diese E-Mail, weil du dich für unseren Newsletter angemeldet hast.
-      <a href="${unsubUrl}" style="color:#6b6960">Hier abmelden</a>.
-    </p>
+  const year = new Date().getFullYear();
+  const mailto = `mailto:${CONTACT.email}`;
+  return `<div style="font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:0 auto">
+    <div style="padding:4px 4px 8px">${inner}</div>
+
+    <div style="margin-top:36px;border-radius:16px;background:#2e3d2c;color:#f2ead8;padding:28px 30px 24px">
+      <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:1px;color:#f2ead8">
+        WALD &amp; WIESE
+      </div>
+      <div style="font-size:13px;color:#b9c2b2;margin-top:3px">
+        Frühstück mitten im Grünen · Sinzing bei Regensburg
+      </div>
+
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:20px;font-size:12px;color:#b9c2b2;line-height:1.8">
+        <tr><td>
+          <strong style="color:#f2ead8">${SITE.legalName}</strong><br />
+          Geschäftsführer: ${COMPANY.ceo}<br />
+          ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city} · ${CONTACT.country}<br />
+          Tel.: ${CONTACT.phone} · <a href="${mailto}" style="color:#f2ead8;text-decoration:none">${CONTACT.email}</a><br />
+          ${COMPANY.court}, ${COMPANY.register} · USt-IdNr.: ${COMPANY.vatId}
+        </td></tr>
+      </table>
+
+      <div style="margin-top:18px;font-size:12px">
+        <a href="${SITE.url}" style="color:#c97c5d;text-decoration:none">Website</a>
+        &nbsp;·&nbsp;
+        <a href="${SITE.url}/impressum" style="color:#c97c5d;text-decoration:none">Impressum</a>
+        &nbsp;·&nbsp;
+        <a href="${SITE.url}/datenschutz" style="color:#c97c5d;text-decoration:none">Datenschutz</a>
+        &nbsp;·&nbsp;
+        <a href="${CONTACT.instagram}" style="color:#c97c5d;text-decoration:none">Instagram</a>
+      </div>
+
+      <div style="margin-top:20px;border-top:1px solid rgba(242,234,216,0.16);padding-top:14px;font-size:11px;color:#9aa595;line-height:1.7">
+        Du erhältst diese E-Mail, weil du dich für den Newsletter von Wald &amp; Wiese
+        angemeldet hast. Wenn du keine Newsletter mehr möchtest, kannst du dich
+        <a href="${unsubUrl}" style="color:#f2ead8">hier jederzeit abmelden</a>.<br />
+        © ${year} ${SITE.legalName}. Alle Rechte vorbehalten.
+      </div>
+    </div>
   </div>`;
 }
 
@@ -266,7 +299,7 @@ export async function sendNewsletterAction(
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const from = (
     process.env.CONTACT_FROM_EMAIL ??
-    "Wald & Wiese <kontakt@restaurant-waldwiese.de>"
+    "Wald & Wiese <noreply@restaurant-waldwiese.de>"
   ).trim();
 
   if (!apiKey || !process.env.NEWSLETTER_SECRET?.trim()) {

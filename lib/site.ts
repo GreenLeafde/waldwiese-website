@@ -28,6 +28,14 @@ export const CONTACT = {
   instagramHandle: "@waldundwiese_restaurant",
 } as const;
 
+/** Rechtliche Firmenangaben (Impressum) — zentral für Footer/E-Mails. */
+export const COMPANY = {
+  ceo: "Sven Leber",
+  court: "Amtsgericht Regensburg",
+  register: "HRB 21989",
+  vatId: "DE459044362",
+} as const;
+
 /**
  * Aktuelle Öffnungszeiten — bis zum 06.07.2026 (vor Frühstücks-Launch).
  * Quelle: restaurant-waldwiese.de Stand 2026-05.
