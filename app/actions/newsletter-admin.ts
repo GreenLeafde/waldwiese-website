@@ -131,21 +131,72 @@ export async function importContactsAction(
   }
 
   const EMAIL = /[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+/;
+  const AFFIRM = /^(ja|yes|y|true|wahr|1|x|✓)$/i;
   const seen = new Set<string>();
   const entries: { email: string; name: string | null }[] = [];
+  let skippedNoConsent = 0;
 
-  for (const row of rows) {
+  // Kopfzeile + Spalten erkennen (E-Mail, Newsletter-/Einwilligungsspalte, Name).
+  const header = (Array.isArray(rows[0]) ? rows[0] : []).map((c) =>
+    String(c ?? "").trim().toLowerCase(),
+  );
+  const findIdx = (re: RegExp) => header.findIndex((h) => re.test(h));
+  const emailIdx = findIdx(/mail/);
+  const consentIdx = findIdx(/news|werb|einwillig|consent|marketing/);
+  const vornameIdx = findIdx(/vorname|first.?name/);
+  const nachnameIdx = findIdx(/nachname|last.?name|^name$/);
+
+  // Mit erkannter Kopfzeile diese überspringen, sonst alle Zeilen scannen.
+  const dataRows = emailIdx >= 0 ? rows.slice(1) : rows;
+
+  for (const row of dataRows) {
     if (!Array.isArray(row)) continue;
+
+    // E-Mail
     let email: string | null = null;
-    let name: string | null = null;
-    for (const cell of row) {
-      const s = String(cell ?? "").trim();
-      if (!s) continue;
-      const m = s.match(EMAIL);
-      if (!email && m) email = m[0].toLowerCase();
-      else if (!name && !EMAIL.test(s)) name = s.slice(0, 120);
+    if (emailIdx >= 0) {
+      const m = String(row[emailIdx] ?? "").match(EMAIL);
+      if (m) email = m[0].toLowerCase();
+    } else {
+      for (const cell of row) {
+        const m = String(cell ?? "").match(EMAIL);
+        if (m) {
+          email = m[0].toLowerCase();
+          break;
+        }
+      }
     }
-    if (email && !seen.has(email)) {
+    if (!email) continue;
+
+    // Einwilligung: nur eintragen, wenn die Newsletter-Spalte zustimmt.
+    if (consentIdx >= 0) {
+      const cv = String(row[consentIdx] ?? "").trim();
+      if (!AFFIRM.test(cv)) {
+        skippedNoConsent++;
+        continue;
+      }
+    }
+
+    // Name
+    let name: string | null = null;
+    if (vornameIdx >= 0 || nachnameIdx >= 0) {
+      name =
+        [row[vornameIdx], row[nachnameIdx]]
+          .map((x) => String(x ?? "").trim())
+          .filter(Boolean)
+          .join(" ")
+          .slice(0, 120) || null;
+    } else {
+      for (const cell of row) {
+        const s = String(cell ?? "").trim();
+        if (s && !EMAIL.test(s)) {
+          name = s.slice(0, 120);
+          break;
+        }
+      }
+    }
+
+    if (!seen.has(email)) {
       seen.add(email);
       entries.push({ email, name });
       if (entries.length >= MAX_IMPORT) break;
@@ -155,7 +206,10 @@ export async function importContactsAction(
   if (entries.length === 0) {
     return {
       status: "error",
-      message: "Keine E-Mail-Adressen in der Datei gefunden.",
+      message:
+        skippedNoConsent > 0
+          ? `Keine Kontakte importiert: alle ${skippedNoConsent} Einträge haben keine Newsletter-Zustimmung („Ja") in der Datei.`
+          : "Keine E-Mail-Adressen in der Datei gefunden.",
     };
   }
 
@@ -179,9 +233,11 @@ export async function importContactsAction(
   refresh();
   return {
     status: "ok",
-    message: `${created} neu importiert${
-      updated ? `, ${updated} aktualisiert` : ""
-    } (${entries.length} E-Mail${entries.length === 1 ? "" : "s"} gefunden).`,
+    message:
+      `${created} neu importiert${updated ? `, ${updated} aktualisiert` : ""}.` +
+      (skippedNoConsent > 0
+        ? ` ${skippedNoConsent} ohne Newsletter-Zustimmung übersprungen (DSGVO/§ 7 UWG).`
+        : ""),
   };
 }
 
