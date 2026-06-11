@@ -107,6 +107,54 @@ export async function upsertContact(input: {
   return { created: true };
 }
 
+/**
+ * Massen-Upsert (für Datei-Import). Schreibt in Blöcken via einem einzigen
+ * INSERT … ON CONFLICT pro Block — viel schneller als einzelne Round-Trips.
+ * Bei vorhandener E-Mail werden Status (und Name, falls neu gesetzt) aktualisiert.
+ * Gibt die Anzahl verarbeiteter Zeilen zurück.
+ */
+export async function bulkUpsertContacts(
+  entries: {
+    email: string;
+    name?: string | null;
+    status?: ContactStatus;
+    source?: string;
+  }[],
+): Promise<number> {
+  await ensureSchema();
+  const db = getDb();
+  const now = Date.now();
+  const CHUNK = 300;
+  let total = 0;
+
+  for (let i = 0; i < entries.length; i += CHUNK) {
+    const chunk = entries.slice(i, i + CHUNK);
+    if (chunk.length === 0) continue;
+    const values = chunk.map(() => "(?, ?, ?, ?, ?, ?)").join(", ");
+    const args: (string | number | null)[] = [];
+    for (const e of chunk) {
+      args.push(
+        randomUUID(),
+        e.email.trim().toLowerCase(),
+        e.name ?? null,
+        e.status ?? "subscribed",
+        e.source ?? null,
+        now,
+      );
+    }
+    await db.execute({
+      sql: `INSERT INTO contacts (id, email, name, status, source, created_at)
+            VALUES ${values}
+            ON CONFLICT(email) DO UPDATE SET
+              status = excluded.status,
+              name = COALESCE(excluded.name, contacts.name)`,
+      args,
+    });
+    total += chunk.length;
+  }
+  return total;
+}
+
 export async function updateContact(
   id: string,
   patch: { name?: string | null; status?: ContactStatus },

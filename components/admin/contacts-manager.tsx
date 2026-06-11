@@ -95,9 +95,10 @@ export function ContactsManager({ contacts }: { contacts: Contact[] }) {
         </p>
         <p className="mt-1 text-xs text-waldgruen/50 leading-relaxed">
           Eine Spalte mit E-Mail-Adressen genügt (Name optional). Hat die Datei
-          eine „Newsletter"-Spalte (Ja/Nein), importieren wir{" "}
-          <strong className="font-medium">nur die mit „Ja"</strong> — wer „Nein"
-          angegeben hat, wird automatisch übersprungen (DSGVO/§ 7 UWG).
+          eine „Newsletter"-Spalte (Ja/Nein), kommen alle rein — „Ja" als{" "}
+          <strong className="font-medium">angemeldet</strong>, „Nein" als{" "}
+          <strong className="font-medium">abgemeldet</strong>. Newsletter gehen
+          nur an Angemeldete (DSGVO/§ 7 UWG).
         </p>
         <div className="mt-3 flex flex-col sm:flex-row gap-3 sm:items-center">
           <input

@@ -7,6 +7,7 @@ import * as XLSX from "xlsx";
 import { requireAdmin } from "@/lib/admin-auth";
 import { CONTACT, SITE } from "@/lib/site";
 import {
+  bulkUpsertContacts,
   listSubscribed,
   removeContact,
   updateContact,
@@ -133,8 +134,11 @@ export async function importContactsAction(
   const EMAIL = /[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+/;
   const AFFIRM = /^(ja|yes|y|true|wahr|1|x|✓)$/i;
   const seen = new Set<string>();
-  const entries: { email: string; name: string | null }[] = [];
-  let skippedNoConsent = 0;
+  const entries: {
+    email: string;
+    name: string | null;
+    status: ContactStatus;
+  }[] = [];
 
   // Kopfzeile + Spalten erkennen (E-Mail, Newsletter-/Einwilligungsspalte, Name).
   const header = (Array.isArray(rows[0]) ? rows[0] : []).map((c) =>
@@ -166,15 +170,16 @@ export async function importContactsAction(
         }
       }
     }
-    if (!email) continue;
+    if (!email || seen.has(email)) continue;
 
-    // Einwilligung: nur eintragen, wenn die Newsletter-Spalte zustimmt.
+    // Status anhand der Newsletter-Spalte: „Ja" → angemeldet, sonst abgemeldet.
+    // Ohne solche Spalte: angemeldet (lose Liste). Abgemeldete erhalten KEINEN
+    // Newsletter (Versand geht nur an Angemeldete) — DSGVO/§ 7 UWG.
+    let status: ContactStatus = "subscribed";
     if (consentIdx >= 0) {
-      const cv = String(row[consentIdx] ?? "").trim();
-      if (!AFFIRM.test(cv)) {
-        skippedNoConsent++;
-        continue;
-      }
+      status = AFFIRM.test(String(row[consentIdx] ?? "").trim())
+        ? "subscribed"
+        : "unsubscribed";
     }
 
     // Name
@@ -196,48 +201,39 @@ export async function importContactsAction(
       }
     }
 
-    if (!seen.has(email)) {
-      seen.add(email);
-      entries.push({ email, name });
-      if (entries.length >= MAX_IMPORT) break;
-    }
+    seen.add(email);
+    entries.push({ email, name, status });
+    if (entries.length >= MAX_IMPORT) break;
   }
 
   if (entries.length === 0) {
     return {
       status: "error",
-      message:
-        skippedNoConsent > 0
-          ? `Keine Kontakte importiert: alle ${skippedNoConsent} Einträge haben keine Newsletter-Zustimmung („Ja") in der Datei.`
-          : "Keine E-Mail-Adressen in der Datei gefunden.",
+      message: "Keine E-Mail-Adressen in der Datei gefunden.",
     };
   }
 
-  let created = 0;
-  let updated = 0;
-  for (const e of entries) {
-    try {
-      const r = await upsertContact({
-        email: e.email,
-        name: e.name,
-        status: "subscribed",
-        source: "import",
-      });
-      if (r.created) created++;
-      else updated++;
-    } catch (err) {
-      console.error("[import] Kontakt fehlgeschlagen:", e.email, err);
-    }
+  const subbed = entries.filter((e) => e.status === "subscribed").length;
+  const unsubbed = entries.length - subbed;
+
+  try {
+    await bulkUpsertContacts(entries.map((e) => ({ ...e, source: "import" })));
+  } catch (err) {
+    console.error("[import] Bulk-Upsert fehlgeschlagen:", err);
+    return {
+      status: "error",
+      message: "Import fehlgeschlagen. Bitte später erneut versuchen.",
+    };
   }
 
   refresh();
   return {
     status: "ok",
     message:
-      `${created} neu importiert${updated ? `, ${updated} aktualisiert` : ""}.` +
-      (skippedNoConsent > 0
-        ? ` ${skippedNoConsent} ohne Newsletter-Zustimmung übersprungen (DSGVO/§ 7 UWG).`
-        : ""),
+      `${entries.length} Kontakte importiert` +
+      (consentIdx >= 0
+        ? ` (${subbed} angemeldet, ${unsubbed} abgemeldet — „Nein" bekommt keinen Newsletter).`
+        : "."),
   };
 }
 

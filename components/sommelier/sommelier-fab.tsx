@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useConsent } from "@/components/consent-provider";
 import { SommelierQuiz } from "./sommelier-quiz";
 
 /**
@@ -13,7 +12,6 @@ import { SommelierQuiz } from "./sommelier-quiz";
 export function SommelierFab() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { isOpen: consentOpen } = useConsent();
 
   useEffect(() => {
     if (!open) return;
@@ -33,7 +31,7 @@ export function SommelierFab() {
 
   return (
     <>
-      {!open && !consentOpen && (
+      {!open && (
         <button
           type="button"
           onClick={() => setOpen(true)}
