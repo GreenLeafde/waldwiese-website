@@ -237,50 +237,51 @@ export async function importContactsAction(
   };
 }
 
-/** Hüllt den Inhalt in einen Rahmen mit professionellem Footer (Impressum +
- *  Pflicht-Abmeldung). Inline-Styles für E-Mail-Kompatibilität. */
+/** Hüllt den Inhalt in eine E-Mail mit professionellem Footer-Band über die
+ *  ganze Breite (Impressum + Pflicht-Abmeldung). Tabellen-Layout + Inline-
+ *  Styles für maximale E-Mail-Kompatibilität. */
 function wrapHtml(inner: string, unsubUrl: string): string {
   const year = new Date().getFullYear();
   const mailto = `mailto:${CONTACT.email}`;
-  return `<div style="font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;line-height:1.6;max-width:600px;margin:0 auto">
-    <div style="padding:4px 4px 8px">${inner}</div>
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;padding:0;background:#f7f6f3">
+  <tr><td align="center" style="padding:0">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
+      <tr><td style="padding:28px 30px;font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;line-height:1.6">
+        ${inner}
+      </td></tr>
+    </table>
+  </td></tr>
 
-    <div style="margin-top:36px;border-radius:16px;background:#2e3d2c;color:#f2ead8;padding:28px 30px 24px">
-      <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:1px;color:#f2ead8">
-        WALD &amp; WIESE
-      </div>
-      <div style="font-size:13px;color:#b9c2b2;margin-top:3px">
-        Frühstück mitten im Grünen · Sinzing bei Regensburg
-      </div>
+  <tr><td align="center" style="background:#2e3d2c;padding:0">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
+      <tr><td style="padding:30px 30px 26px;font-family:Helvetica,Arial,sans-serif;color:#f2ead8">
+        <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:1px;color:#f2ead8">WALD &amp; WIESE</div>
+        <div style="font-size:13px;color:#b9c2b2;margin-top:3px">Frühstück mitten im Grünen · Sinzing bei Regensburg</div>
 
-      <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:20px;font-size:12px;color:#b9c2b2;line-height:1.8">
-        <tr><td>
+        <div style="margin-top:20px;font-size:12px;color:#b9c2b2;line-height:1.8">
           <strong style="color:#f2ead8">${SITE.legalName}</strong><br />
           Geschäftsführer: ${COMPANY.ceo}<br />
           ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city} · ${CONTACT.country}<br />
           Tel.: ${CONTACT.phone} · <a href="${mailto}" style="color:#f2ead8;text-decoration:none">${CONTACT.email}</a><br />
           ${COMPANY.court}, ${COMPANY.register} · USt-IdNr.: ${COMPANY.vatId}
-        </td></tr>
-      </table>
+        </div>
 
-      <div style="margin-top:18px;font-size:12px">
-        <a href="${SITE.url}" style="color:#c97c5d;text-decoration:none">Website</a>
-        &nbsp;·&nbsp;
-        <a href="${SITE.url}/impressum" style="color:#c97c5d;text-decoration:none">Impressum</a>
-        &nbsp;·&nbsp;
-        <a href="${SITE.url}/datenschutz" style="color:#c97c5d;text-decoration:none">Datenschutz</a>
-        &nbsp;·&nbsp;
-        <a href="${CONTACT.instagram}" style="color:#c97c5d;text-decoration:none">Instagram</a>
-      </div>
+        <div style="margin-top:18px;font-size:12px">
+          <a href="${SITE.url}" style="color:#c97c5d;text-decoration:none">Website</a> &nbsp;·&nbsp;
+          <a href="${SITE.url}/impressum" style="color:#c97c5d;text-decoration:none">Impressum</a> &nbsp;·&nbsp;
+          <a href="${SITE.url}/datenschutz" style="color:#c97c5d;text-decoration:none">Datenschutz</a> &nbsp;·&nbsp;
+          <a href="${CONTACT.instagram}" style="color:#c97c5d;text-decoration:none">Instagram</a>
+        </div>
 
-      <div style="margin-top:20px;border-top:1px solid rgba(242,234,216,0.16);padding-top:14px;font-size:11px;color:#9aa595;line-height:1.7">
-        Du erhältst diese E-Mail, weil du dich für den Newsletter von Wald &amp; Wiese
-        angemeldet hast. Wenn du keine Newsletter mehr möchtest, kannst du dich
-        <a href="${unsubUrl}" style="color:#f2ead8">hier jederzeit abmelden</a>.<br />
-        © ${year} ${SITE.legalName}. Alle Rechte vorbehalten.
-      </div>
-    </div>
-  </div>`;
+        <div style="margin-top:20px;border-top:1px solid rgba(242,234,216,0.16);padding-top:14px;font-size:11px;color:#9aa595;line-height:1.7">
+          Du erhältst diese E-Mail, weil du dich für den Newsletter von Wald &amp; Wiese angemeldet hast.
+          Wenn du keine Newsletter mehr möchtest, kannst du dich <a href="${unsubUrl}" style="color:#f2ead8">hier jederzeit abmelden</a>.<br />
+          © ${year} ${SITE.legalName}. Alle Rechte vorbehalten.
+        </div>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>`;
 }
 
 export async function sendNewsletterAction(

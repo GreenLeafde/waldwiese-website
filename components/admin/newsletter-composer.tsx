@@ -1,21 +1,31 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useMemo, useState } from "react";
 import {
   sendNewsletterAction,
   type SendState,
 } from "@/app/actions/newsletter-admin";
+import {
+  NEWSLETTER_TEMPLATES,
+  renderTemplate,
+} from "@/lib/newsletter-templates";
 
 const INITIAL: SendState = { status: "idle", message: "" };
 
-const SAMPLE = `<h1 style="font-family:Georgia,serif;color:#2e3d2c">Hallo zusammen,</h1>
-<p>hier kommt eine kurze Nachricht von Wald &amp; Wiese …</p>
-<p><a href="https://restaurant-waldwiese.de/reservieren" style="color:#c97c5d">Tisch reservieren →</a></p>`;
+const inputCls =
+  "w-full rounded-xl border border-waldgruen/20 bg-white px-4 py-2.5 text-waldgruen placeholder-waldgruen/35 outline-none transition focus:border-tonwarm focus:ring-2 focus:ring-tonwarm/20";
 
 export function NewsletterComposer({ recipientCount }: { recipientCount: number }) {
   const [state, formAction, pending] = useActionState(sendNewsletterAction, INITIAL);
-  const [html, setHtml] = useState("");
-  const [showPreview, setShowPreview] = useState(true);
+  const [templateId, setTemplateId] = useState(NEWSLETTER_TEMPLATES[0].id);
+  const [values, setValues] = useState<Record<string, string>>({});
+
+  const template =
+    NEWSLETTER_TEMPLATES.find((t) => t.id === templateId) ?? NEWSLETTER_TEMPLATES[0];
+  const html = useMemo(() => renderTemplate(templateId, values), [templateId, values]);
+
+  const set = (key: string, val: string) =>
+    setValues((v) => ({ ...v, [key]: val }));
 
   return (
     <section>
@@ -24,9 +34,31 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
       </h2>
       <p className="mt-2 text-sm text-waldgruen/55">
         Geht an <strong className="text-waldgruen">{recipientCount}</strong>{" "}
-        angemeldete{recipientCount === 1 ? "n" : ""} Empfänger. Absender &amp;
-        Abmeldelink werden automatisch angehängt.
+        angemeldete Empfänger. Wähl eine Vorlage und füll sie aus — Absender &amp;
+        Impressum-Footer kommen automatisch dazu.
       </p>
+
+      {/* Vorlagen-Auswahl */}
+      <div className="mt-5 flex flex-wrap gap-2">
+        {NEWSLETTER_TEMPLATES.map((t) => {
+          const active = t.id === templateId;
+          return (
+            <button
+              key={t.id}
+              type="button"
+              onClick={() => setTemplateId(t.id)}
+              className={`rounded-full px-4 py-1.5 text-sm transition-colors ${
+                active
+                  ? "bg-waldgruen text-mehlcreme"
+                  : "bg-white text-waldgruen/70 ring-1 ring-waldgruen/15 hover:text-tonwarm"
+              }`}
+            >
+              {t.name}
+            </button>
+          );
+        })}
+      </div>
+      <p className="mt-2 text-xs text-waldgruen/45">{template.description}</p>
 
       <form action={formAction} className="mt-5 grid lg:grid-cols-2 gap-6">
         <div className="space-y-4">
@@ -43,39 +75,46 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
               type="text"
               required
               placeholder="Was gibt's Neues bei Wald & Wiese?"
-              className="w-full rounded-xl border border-waldgruen/20 bg-white px-4 py-2.5 text-waldgruen outline-none transition focus:border-tonwarm focus:ring-2 focus:ring-tonwarm/20"
+              className={inputCls}
             />
           </div>
 
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label htmlFor="html" className="text-sm font-medium text-waldgruen">
-                Inhalt (HTML)
+          {/* Vorlagen-Felder */}
+          {template.fields.map((f) => (
+            <div key={f.key}>
+              <label className="block text-sm font-medium text-waldgruen mb-1.5">
+                {f.label}
               </label>
-              <button
-                type="button"
-                onClick={() => setHtml(SAMPLE)}
-                className="text-xs text-waldgruen/50 hover:text-tonwarm transition-colors"
-              >
-                Beispiel einfügen
-              </button>
+              {f.type === "textarea" || f.type === "html" ? (
+                <textarea
+                  rows={f.type === "html" ? 12 : 6}
+                  value={values[f.key] ?? ""}
+                  onChange={(e) => set(f.key, e.target.value)}
+                  placeholder={f.placeholder}
+                  className={`${inputCls} resize-y ${
+                    f.type === "html" ? "font-mono text-xs" : ""
+                  }`}
+                />
+              ) : (
+                <input
+                  type="text"
+                  value={values[f.key] ?? ""}
+                  onChange={(e) => set(f.key, e.target.value)}
+                  placeholder={f.placeholder}
+                  className={inputCls}
+                />
+              )}
+              {f.type === "image" && (
+                <p className="mt-1 text-xs text-waldgruen/40">
+                  Bild-Adresse einfügen (z. B. von eurer Website oder Instagram).
+                  Echte Datei-Uploads bauen wir bei Bedarf nach.
+                </p>
+              )}
             </div>
-            <textarea
-              id="html"
-              name="html"
-              required
-              rows={14}
-              value={html}
-              onChange={(e) => setHtml(e.target.value)}
-              placeholder="<h1>Überschrift</h1><p>Dein Text …</p>"
-              className="w-full rounded-xl border border-waldgruen/20 bg-white px-4 py-3 font-mono text-xs text-waldgruen outline-none transition focus:border-tonwarm focus:ring-2 focus:ring-tonwarm/20 resize-y"
-            />
-            <p className="mt-1.5 text-xs text-waldgruen/40">
-              Du kannst HTML verwenden (Überschriften, Links, Bilder per
-              &lt;img src=…&gt;). Inline-Styles funktionieren am
-              zuverlässigsten in E-Mail-Programmen.
-            </p>
-          </div>
+          ))}
+
+          {/* Zusammengebautes HTML für den Versand */}
+          <input type="hidden" name="html" value={html} />
 
           <label className="flex items-start gap-2.5 text-sm text-waldgruen/70">
             <input
@@ -113,27 +152,20 @@ export function NewsletterComposer({ recipientCount }: { recipientCount: number 
 
         {/* Vorschau */}
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-sm font-medium text-waldgruen">Vorschau</span>
-            <button
-              type="button"
-              onClick={() => setShowPreview((v) => !v)}
-              className="text-xs text-waldgruen/50 hover:text-tonwarm transition-colors"
-            >
-              {showPreview ? "ausblenden" : "anzeigen"}
-            </button>
+          <span className="text-sm font-medium text-waldgruen">Vorschau</span>
+          <div className="mt-1.5 rounded-xl ring-1 ring-waldgruen/10 bg-white p-5 min-h-[20rem] overflow-auto">
+            {html.trim() ? (
+              <div dangerouslySetInnerHTML={{ __html: html }} />
+            ) : (
+              <p className="text-sm text-waldgruen/35">
+                Füll links die Felder aus — hier siehst du live, wie der
+                Newsletter aussieht.
+              </p>
+            )}
           </div>
-          {showPreview && (
-            <div className="rounded-xl ring-1 ring-waldgruen/10 bg-white p-5 min-h-[20rem] overflow-auto">
-              {html.trim() ? (
-                <div dangerouslySetInnerHTML={{ __html: html }} />
-              ) : (
-                <p className="text-sm text-waldgruen/35">
-                  Hier erscheint die Live-Vorschau deines Inhalts.
-                </p>
-              )}
-            </div>
-          )}
+          <p className="mt-2 text-xs text-waldgruen/40">
+            Darunter wird automatisch das grüne Impressum-Footer-Band angehängt.
+          </p>
         </div>
       </form>
     </section>
