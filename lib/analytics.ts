@@ -58,7 +58,7 @@ function num(v: number | bigint | null | undefined): number {
 export async function eventCounts(sinceMs: number): Promise<Record<string, number>> {
   await ensureSchema();
   const res = await getDb().execute({
-    sql: "SELECT type, COUNT(*) AS c FROM events WHERE created_at >= ? GROUP BY type",
+    sql: "SELECT type, COUNT(*) AS c FROM events WHERE created_at >= ? AND (path IS NULL OR path NOT LIKE '/__%') GROUP BY type",
     args: [sinceMs],
   });
   const out: Record<string, number> = {};
@@ -76,7 +76,7 @@ export async function dailyPageviews(
   const res = await getDb().execute({
     sql: `SELECT date(created_at / 1000, 'unixepoch', 'localtime') AS day, COUNT(*) AS c
           FROM events
-          WHERE type = 'pageview' AND created_at >= ?
+          WHERE type = 'pageview' AND created_at >= ? AND path NOT LIKE '/__%'
           GROUP BY day ORDER BY day ASC`,
     args: [sinceMs],
   });
@@ -95,7 +95,7 @@ export async function topPaths(
   const res = await getDb().execute({
     sql: `SELECT COALESCE(path, '—') AS path, COUNT(*) AS c
           FROM events
-          WHERE type = 'pageview' AND created_at >= ?
+          WHERE type = 'pageview' AND created_at >= ? AND path NOT LIKE '/__%'
           GROUP BY path ORDER BY c DESC LIMIT ?`,
     args: [sinceMs, limit],
   });

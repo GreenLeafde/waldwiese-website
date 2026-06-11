@@ -140,13 +140,17 @@ export default function DatenschutzPage() {
               7. Reservierung über Lightspeed
             </h2>
             <p className="mt-3">
-              Für Tischreservierungen verlinken wir auf das externe
-              Reservierungssystem von Lightspeed. Wenn du auf den
-              Reservierungs-Button klickst, wirst du auf die Seite des Anbieters
-              weitergeleitet. Eine Datenübermittlung an Lightspeed findet erst
-              auf dessen Plattform statt; es gilt dann die Datenschutzerklärung
-              von Lightspeed. Auf unserer Website selbst werden durch den Link
-              keine Reservierungsdaten verarbeitet.
+              Für Tischreservierungen binden wir auf der Reservieren-Seite das
+              Reservierungs-Widget unseres Dienstleisters Lightspeed direkt ein
+              (als iframe). Das Widget wird erst geladen, nachdem du auf
+              „Reservierung laden" geklickt und damit eingewilligt hast (Art. 6
+              Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Beim Laden werden Daten an
+              Lightspeed sowie an Google (zum Schutz vor Missbrauch über Google
+              reCAPTCHA) übertragen; eine Übermittlung in die USA ist möglich und
+              über die EU-Standardvertragsklauseln abgesichert. Für die
+              eigentliche Reservierung gilt zusätzlich die Datenschutzerklärung
+              von Lightspeed. Ohne Einwilligung zeigen wir dir alternativ einen
+              Link, über den du das Reservierungsformular extern öffnen kannst.
             </p>
           </section>
 
@@ -165,7 +169,66 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              9. Deine Rechte
+              9. Reichweitenmessung (eigene, anonyme Statistik)
+            </h2>
+            <p className="mt-3">
+              Um zu verstehen, wie unsere Website genutzt wird, erfassen wir
+              anonyme Nutzungsstatistiken mit einer eigenen Lösung. Dabei werden
+              <strong className="font-medium">
+                {" "}
+                keine Cookies gesetzt, keine IP-Adressen und keine
+                personenbezogenen Daten gespeichert
+              </strong>
+              . Wir zählen ausschließlich anonyme Ereignisse (z. B.
+              Seitenaufrufe oder Klicks auf bestimmte Schaltflächen) ohne
+              Bezug zu einer Person. Die clientseitige Erfassung (etwa
+              Seitenaufrufe) erfolgt nur, wenn du der Kategorie „Statistik" im
+              Cookie-Banner zugestimmt hast (Art. 6 Abs. 1 lit. a DSGVO). Anonyme
+              Zähldaten zu bewussten Aktionen (z. B. ein abgesendetes Formular)
+              verarbeiten wir auf Grundlage unseres berechtigten Interesses an
+              einer bedarfsgerechten Gestaltung (Art. 6 Abs. 1 lit. f DSGVO). Es
+              findet keine Profilbildung statt.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-waldgruen">
+              10. Kontaktformular
+            </h2>
+            <p className="mt-3">
+              Wenn du uns über das Kontaktformular schreibst, verarbeiten wir die
+              von dir angegebenen Daten (Name, E-Mail-Adresse, optional
+              Telefonnummer und Betreff sowie deine Nachricht), um deine Anfrage
+              zu bearbeiten (Art. 6 Abs. 1 lit. b und lit. f DSGVO). Für den
+              Versand der E-Mail nutzen wir den Dienst Resend (Resend, Inc.,
+              USA); dabei werden deine Angaben an Resend übermittelt. Die
+              Übermittlung in die USA ist über die EU-Standardvertragsklauseln
+              abgesichert. Wir verwenden deine Angaben ausschließlich zur
+              Bearbeitung deiner Anfrage.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-waldgruen">
+              11. Newsletter
+            </h2>
+            <p className="mt-3">
+              Du kannst dich für unseren Newsletter (u. a. Benachrichtigung zum
+              Frühstücks-Start) anmelden. Wir verwenden das
+              Double-Opt-in-Verfahren: Nach deiner Anmeldung erhältst du eine
+              E-Mail mit einem Bestätigungslink; erst nach deiner Bestätigung
+              nehmen wir deine E-Mail-Adresse in den Verteiler auf (Art. 6 Abs. 1
+              lit. a DSGVO). Für Speicherung und Versand nutzen wir unsere
+              Datenbank sowie den Dienst Resend (USA, abgesichert über die
+              EU-Standardvertragsklauseln). Du kannst dich jederzeit über den
+              Abmeldelink am Ende jeder Newsletter-E-Mail wieder austragen; deine
+              Einwilligung gilt damit als für die Zukunft widerrufen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-waldgruen">
+              12. Deine Rechte
             </h2>
             <p className="mt-3">
               Dir stehen gegenüber uns folgende Rechte hinsichtlich deiner
@@ -182,7 +245,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              10. Beschwerderecht bei der Aufsichtsbehörde
+              13. Beschwerderecht bei der Aufsichtsbehörde
             </h2>
             <p className="mt-3">
               Dir steht ein Beschwerderecht bei einer
@@ -194,7 +257,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              11. SSL-/TLS-Verschlüsselung
+              14. SSL-/TLS-Verschlüsselung
             </h2>
             <p className="mt-3">
               Diese Website nutzt aus Sicherheitsgründen eine
