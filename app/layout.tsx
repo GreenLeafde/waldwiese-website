@@ -8,6 +8,7 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { SommelierFab } from "@/components/sommelier/sommelier-fab";
 import { TrackingScripts } from "@/components/tracking-scripts";
 import { Analytics } from "@/components/analytics";
+import { HideOnAdmin } from "@/components/hide-on-admin";
 import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
 import { CONTACT, GEO, GOOGLE_MAPS_URL, OPENING_HOURS, SITE } from "@/lib/site";
 import "./globals.css";
@@ -136,10 +137,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <ConsentProvider>
-          <SiteHeader />
+          <HideOnAdmin>
+            <SiteHeader />
+          </HideOnAdmin>
           <main className="flex-1">{children}</main>
-          <SiteFooter />
-          <SommelierFab />
+          <HideOnAdmin>
+            <SiteFooter />
+            <SommelierFab />
+          </HideOnAdmin>
           <CookieBanner />
           <TrackingScripts />
           <Analytics />
