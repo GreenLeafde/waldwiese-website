@@ -1,8 +1,23 @@
 import Link from "next/link";
 import { countByStatus } from "@/lib/contacts";
 import { cutoffMs, eventCounts } from "@/lib/analytics";
+import { dbReachable } from "@/lib/db";
+import { DbNotice } from "@/components/admin/db-notice";
 
 export default async function AdminHome() {
+  if (!(await dbReachable())) {
+    return (
+      <div>
+        <h1 className="text-3xl font-display font-normal text-waldgruen">
+          Übersicht
+        </h1>
+        <div className="mt-6">
+          <DbNotice />
+        </div>
+      </div>
+    );
+  }
+
   const [counts, events] = await Promise.all([
     countByStatus(),
     eventCounts(cutoffMs(7)),

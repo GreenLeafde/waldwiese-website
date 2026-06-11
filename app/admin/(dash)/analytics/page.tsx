@@ -6,6 +6,8 @@ import {
   topCtas,
   topPaths,
 } from "@/lib/analytics";
+import { dbReachable } from "@/lib/db";
+import { DbNotice } from "@/components/admin/db-notice";
 
 const RANGES = [
   { days: 1, label: "Heute" },
@@ -30,6 +32,19 @@ export default async function AnalyticsPage({
   const { range } = await searchParams;
   const days = RANGES.some((r) => String(r.days) === range) ? Number(range) : 7;
   const sinceMs = cutoffMs(days);
+
+  if (!(await dbReachable())) {
+    return (
+      <div>
+        <h1 className="text-3xl font-display font-normal text-waldgruen">
+          Auswertungen
+        </h1>
+        <div className="mt-6">
+          <DbNotice />
+        </div>
+      </div>
+    );
+  }
 
   const [counts, daily, paths, ctas] = await Promise.all([
     eventCounts(sinceMs),

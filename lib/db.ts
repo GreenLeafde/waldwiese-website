@@ -36,6 +36,20 @@ export function getDb(): Client {
   return _db;
 }
 
+/**
+ * Prüft, ob die DB erreichbar ist (z. B. ob TURSO auf Vercel konfiguriert ist).
+ * Wirft NICHT — gibt nur true/false zurück, damit Seiten freundlich degradieren.
+ */
+export async function dbReachable(): Promise<boolean> {
+  try {
+    await ensureSchema();
+    await getDb().execute("SELECT 1");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** Legt die Tabellen idempotent an. Wird vor jedem DB-Zugriff aufgerufen. */
 export async function ensureSchema(): Promise<void> {
   if (_schema) return _schema;
