@@ -520,9 +520,9 @@ export default function HomePage() {
             <span className="accent">Summer Edition.</span>
           </h2>
           <p className="mt-7 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-2">
-            Mehrgängiges Menü, dazwischen Tischzauberei von{" "}
+            À la carte aus der Sommerkarte, dazwischen Tischzauberei von{" "}
             {MAGIC_DINNER.magicianName} alias {MAGIC_DINNER.magicianStageName}.
-            Plätze begrenzt.
+            Max. 50 Plätze.
           </p>
           <div className="mt-10 reveal-3">
             <Link

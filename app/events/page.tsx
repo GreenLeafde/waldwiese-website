@@ -56,9 +56,9 @@ export default function EventsPage() {
               <span className="accent">Summer Edition.</span>
             </h2>
             <p className="mt-7 italic text-lg text-waldgruen/65 max-w-2xl leading-relaxed">
-              Mehrgängiges Menü, dazwischen Tischzauberei von{" "}
+              À la carte aus der Sommerkarte, dazwischen Tischzauberei von{" "}
               {MAGIC_DINNER.magicianStageName} ({MAGIC_DINNER.magicianName}).
-              Plätze sind begrenzt.
+              Max. 50 Plätze.
             </p>
             <p className="mt-8 inline-flex items-center gap-3 text-tonwarm font-medium">
               Programm & Tisch sichern <span aria-hidden>→</span>

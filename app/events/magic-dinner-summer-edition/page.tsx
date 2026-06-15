@@ -8,7 +8,7 @@ import { CONTACT, MAGIC_DINNER, RESERVATION_URL, SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: `Magic Dinner — Summer Edition · ${MAGIC_DINNER.dateShort}`,
-  description: `Mehrgängiges Menü mit Tischzauberei von ${MAGIC_DINNER.magicianName} alias ${MAGIC_DINNER.magicianStageName} — ${MAGIC_DINNER.dateLong} ab ${MAGIC_DINNER.startTime} im Wald & Wiese, Sinzing.`,
+  description: `À la carte aus der Sommerkarte plus Tischzauberei von ${MAGIC_DINNER.magicianName} alias ${MAGIC_DINNER.magicianStageName} — ${MAGIC_DINNER.dateLong} im Wald & Wiese, Sinzing. Kein Pflicht-Menü, Magie direkt am Tisch.`,
   alternates: { canonical: "/events/magic-dinner-summer-edition" },
   openGraph: {
     title: `Magic Dinner — Summer Edition · ${MAGIC_DINNER.dateShort}`,
@@ -19,24 +19,19 @@ export const metadata: Metadata = {
 
 const programItems = [
   {
-    time: "ab 17:00",
-    title: "Empfang",
-    desc: "Aperitif auf der Terrasse, sobald du da bist.",
+    time: "Vorab",
+    title: "Tisch reservieren",
+    desc: "Direkt über das Wald & Wiese — telefonisch, per Mail oder über das Online-Formular. Sag einfach dazu: für den Magic-Dinner-Abend am 11. Juli. Max. 50 Plätze, am besten früh reservieren.",
   },
   {
-    time: "ca. 17:30",
-    title: "Mehrgängiges Menü",
-    desc: "Aus der Wald & Wiese-Küche, abgestimmt auf den Abend.",
+    time: "Am Abend",
+    title: "Bestelle wie immer",
+    desc: "Das Wald & Wiese läuft ganz normal: à la carte aus der Sommerkarte — oder optional das Magic Menü mit Special Burger, Beilage & Getränk. Was genau dazugehört, erfährst du vor Ort. Kein Pflicht-Menü, keine festen Gänge.",
   },
   {
-    time: "zwischen den Gängen",
-    title: "Close-Up-Magie am Tisch",
-    desc: `${MAGIC_DINNER.magicianStageName} bewegt sich zwischen den Tischen — Karten, Münzen, kleine Wunder direkt vor dir.`,
-  },
-  {
-    time: "zum Abschluss",
-    title: "Dessert & Bühnen-Finale",
-    desc: "Süßes Finale und der letzte große Moment.",
+    time: "Zwischendurch",
+    title: `${MAGIC_DINNER.magicianStageName} besucht euren Tisch`,
+    desc: "Karten in euren Händen, eine Münze, die durch den Tisch fällt, eine Wahl, die niemand erklären kann. Kein Mikrofon, keine Bühne, kein Hetzen.",
   },
 ];
 
@@ -71,35 +66,32 @@ export default function MagicDinnerPage() {
               <span className="accent">Summer Edition.</span>
             </h1>
             <p className="mt-8 max-w-xl italic text-lg md:text-xl text-mehlcreme/80 leading-relaxed">
-              Ein Abend zwischen Küche und Magie. Mehrgängiges Menü aus der
-              Wald & Wiese-Küche, dazwischen Tischzauberei direkt vor dir.
+              Ein ganz normaler Abend im Wald & Wiese — du bestellst à la carte
+              aus der Sommerkarte, ganz wie immer. Nur dass zwischen den Gängen
+              die Magie direkt an deinen Tisch kommt.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4">
-              <a
-                href={MAGIC_DINNER.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-3 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-              >
-                Tisch sichern <span aria-hidden>→</span>
-              </a>
               <a
                 href={RESERVATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+              >
+                Tisch reservieren <span aria-hidden>→</span>
+              </a>
+              <a
+                href={`tel:${CONTACT.phoneRaw}`}
                 className="inline-flex items-center justify-center gap-3 border border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm text-mehlcreme px-7 py-3.5 rounded-full font-medium transition-colors"
               >
-                Über Lightspeed buchen
+                Anrufen · {CONTACT.phone}
               </a>
             </div>
             <p className="mt-5 text-sm text-mehlcreme/55">
-              oder telefonisch ·{" "}
-              <a
-                href={`tel:${CONTACT.phoneRaw}`}
-                className="text-mehlcreme/80 hover:text-tonwarm transition-colors"
-              >
-                {CONTACT.phone}
-              </a>
+              Reservierung läuft direkt über das Wald & Wiese. Stichwort:{" "}
+              <span className="text-mehlcreme/80">
+                Magic-Dinner-Abend am 11. Juli
+              </span>
+              .
             </p>
           </div>
           <div className="md:col-span-5 reveal">
@@ -198,9 +190,9 @@ export default function MagicDinnerPage() {
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-14 md:py-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
             { label: "Datum", value: MAGIC_DINNER.dateLong },
-            { label: "Beginn", value: MAGIC_DINNER.startTime },
+            { label: "Geöffnet ab", value: MAGIC_DINNER.startTime },
             { label: "Ort", value: "Terrasse & Innen" },
-            { label: "Plätze", value: "Begrenzt" },
+            { label: "Plätze", value: "Max. 50" },
           ].map((f) => (
             <div key={f.label}>
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
@@ -226,33 +218,14 @@ export default function MagicDinnerPage() {
               Wir freuen uns auf dich.
             </h2>
             <p className="mt-7 italic text-lg text-waldgruen/65 max-w-xl mx-auto leading-relaxed">
-              Sichere dir deinen Platz — direkt beim Magier oder über
-              Lightspeed. Plätze sind begrenzt.
+              Reservierung läuft direkt über das Wald & Wiese — telefonisch, per
+              Mail oder über das Online-Formular. Sag einfach dazu: für den
+              Magic-Dinner-Abend am 11. Juli. Max. 50 Plätze, am besten früh
+              reservieren.
             </p>
           </div>
 
           <div className="mt-12 grid sm:grid-cols-2 gap-4 reveal">
-            <a
-              href={MAGIC_DINNER.ticketUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
-                  magicel.de
-                </span>
-                <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                  Tisch sichern
-                </span>
-              </div>
-              <p className="mt-2 text-sm text-waldgruen/65">
-                Direkt beim Magier — Tisch fürs Magic Dinner reservieren.
-              </p>
-              <p className="mt-3 text-sm text-tonwarm">
-                Zum Formular <span aria-hidden>→</span>
-              </p>
-            </a>
             <a
               href={RESERVATION_URL}
               target="_blank"
@@ -261,26 +234,47 @@ export default function MagicDinnerPage() {
             >
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
-                  Lightspeed
+                  Online-Formular
                 </span>
                 <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                  Online-Buchung
+                  Reservieren
                 </span>
               </div>
               <p className="mt-2 text-sm text-waldgruen/65">
-                Tisch buchen, Datum {MAGIC_DINNER.dateShort} wählen.
+                Tisch online buchen, Datum {MAGIC_DINNER.dateShort} wählen.
               </p>
               <p className="mt-3 text-sm text-tonwarm">
-                Reservieren <span aria-hidden>→</span>
+                Zum Formular <span aria-hidden>→</span>
+              </p>
+            </a>
+            <a
+              href={`tel:${CONTACT.phoneRaw}`}
+              className="group block border border-waldgruen/15 hover:border-tonwarm p-6 transition-colors"
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="font-display text-xl text-waldgruen group-hover:text-tonwarm transition-colors">
+                  Telefonisch
+                </span>
+                <span className="text-[0.6rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                  Anrufen
+                </span>
+              </div>
+              <p className="mt-2 text-sm text-waldgruen/65">
+                {CONTACT.phone} — einfach den Magic-Dinner-Abend nennen.
+              </p>
+              <p className="mt-3 text-sm text-tonwarm">
+                Jetzt anrufen <span aria-hidden>→</span>
               </p>
             </a>
           </div>
           <p className="mt-6 text-center text-sm">
             <a
-              href={`tel:${CONTACT.phoneRaw}`}
+              href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(
+                "Reservierung Magic-Dinner-Abend am 11. Juli",
+              )}`}
               className="text-waldgruen/65 hover:text-tonwarm transition-colors"
             >
-              oder anrufen · {CONTACT.phone}
+              oder per Mail · {CONTACT.email}
             </a>
           </p>
           <LeafDivider tone="dark" className="mt-16 opacity-90" />
@@ -321,7 +315,7 @@ export default function MagicDinnerPage() {
               url: SITE.url,
             },
             description:
-              "Mehrgängiges Menü mit Close-Up-Magie am Tisch im Wald & Wiese, Sinzing.",
+              "À la carte aus der Sommerkarte mit Close-Up-Magie direkt am Tisch im Wald & Wiese, Sinzing. Kein Pflicht-Menü, keine festen Gänge.",
           }),
         }}
       />
