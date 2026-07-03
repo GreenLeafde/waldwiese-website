@@ -1,6 +1,5 @@
 "use server";
 
-import { headers } from "next/headers";
 import { Resend } from "resend";
 import { CONTACT, SITE } from "@/lib/site";
 import { signSubscriptionToken } from "@/lib/newsletter-token";
@@ -29,18 +28,25 @@ function str(formData: FormData, key: string): string {
   return typeof v === "string" ? v.trim() : "";
 }
 
-async function siteOrigin(): Promise<string> {
-  try {
-    const h = await headers();
-    const host = h.get("host");
-    if (host) {
-      const proto = host.startsWith("localhost") ? "http" : "https";
-      return `${proto}://${host}`;
-    }
-  } catch {
-    /* außerhalb eines Requests — Fallback unten */
-  }
-  return SITE.url;
+/**
+ * Basis-URL für E-Mail-Links: IMMER die echte Produktiv-Domain (nie der
+ * Request-Host) — sonst landen Bestätigungslinks auf localhost.
+ */
+const MAIL_BASE = (process.env.NEXT_PUBLIC_SITE_URL?.trim() || SITE.url).replace(
+  /\/+$/,
+  "",
+);
+
+/**
+ * Begrenzt eine Promise zeitlich — verhindert, dass die Anmeldung „ewig lädt",
+ * falls ein Netzwerk-/DB-Aufruf hängt. Bei Ablauf wird abgelehnt.
+ */
+function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout>;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error("timeout")), ms);
+  });
+  return Promise.race([p, timeout]).finally(() => clearTimeout(timer));
 }
 
 export async function subscribeToLaunchList(
@@ -83,10 +89,11 @@ export async function subscribeToLaunchList(
 
   try {
     const token = signSubscriptionToken(email);
-    const confirmUrl = `${await siteOrigin()}/newsletter/bestaetigen?token=${encodeURIComponent(token)}`;
+    const confirmUrl = `${MAIL_BASE}/newsletter/bestaetigen?token=${encodeURIComponent(token)}`;
     const resend = new Resend(apiKey);
 
-    const { error } = await resend.emails.send({
+    const { error } = await withTimeout(
+      resend.emails.send({
       from,
       to: email,
       subject: "Nur noch ein Klick — dein Frühstücks-Start bei Wald & Wiese",
@@ -113,7 +120,9 @@ export async function subscribeToLaunchList(
           <p style="margin:0;font-size:13px;color:#6b6960">Du hast dich nicht angemeldet? Dann ignorier diese Mail einfach — ohne Bestätigung passiert nichts.</p>
         </div>
       `,
-    });
+      }),
+      9000,
+    );
 
     if (error) {
       console.error("[newsletter] Resend-Fehler:", error);
@@ -123,7 +132,10 @@ export async function subscribeToLaunchList(
       };
     }
 
-    await recordEvent({ type: "newsletter_signup" }).catch(() => {});
+    // Analytics best-effort — darf die Anmeldung nie blockieren.
+    await withTimeout(recordEvent({ type: "newsletter_signup" }), 2500).catch(
+      () => {},
+    );
     return {
       status: "success",
       message:

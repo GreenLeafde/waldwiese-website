@@ -16,14 +16,21 @@ import {
   NEW_OPENING_HOURS,
   RESERVATION_URL,
   SITE,
+  hasBreakfastLaunched,
+  liveOpeningHours,
 } from "@/lib/site";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: `${SITE.name} · Frühstücksrestaurant in Sinzing bei Regensburg`,
-  description:
-    "Wald & Wiese — Frühstücksrestaurant in Sinzing bei Regensburg. Ab 6. Juli 2026 jeden Morgen frisch: Brot vom Bäcker, hausgemachte Aufstriche, Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.",
-  alternates: { canonical: "/" },
-};
+export function generateMetadata(): Metadata {
+  const launched = hasBreakfastLaunched();
+  return {
+    title: `${SITE.name} · Frühstücksrestaurant in Sinzing bei Regensburg`,
+    description: launched
+      ? "Wald & Wiese — Frühstücksrestaurant in Sinzing bei Regensburg. Jeden Morgen frisch: Brot vom Bäcker, hausgemachte Aufstriche, Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill."
+      : "Wald & Wiese — Frühstücksrestaurant in Sinzing bei Regensburg. Ab 6. Juli 2026 jeden Morgen frisch: Brot vom Bäcker, hausgemachte Aufstriche, Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.",
+    alternates: { canonical: "/" },
+  };
+}
 
 /* ----------------------------------------------------------------------------
  * Onepager-Startseite — Redesign nach der Brunch-Karte 2026.
@@ -133,12 +140,18 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-4 md:py-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm md:text-base">
           <span className="text-[0.7rem] md:text-xs tracking-[0.28em] uppercase text-white/75">
-            Demnächst
+            {hasBreakfastLaunched() ? "Neu" : "Demnächst"}
           </span>
           <span className="font-medium">
-            Frühstück mitten im Grünen — ab{" "}
-            <span className="italic">{BREAKFAST_LAUNCH.dateShort}</span> in
-            Sinzing.
+            {hasBreakfastLaunched() ? (
+              "Frühstück mitten im Grünen — jetzt jeden Morgen in Sinzing."
+            ) : (
+              <>
+                Frühstück mitten im Grünen — ab{" "}
+                <span className="italic">{BREAKFAST_LAUNCH.dateShort}</span> in
+                Sinzing.
+              </>
+            )}
           </span>
           <span aria-hidden className="text-white/80">
             →
@@ -239,24 +252,27 @@ export default function HomePage() {
           className="hidden sm:grid absolute z-10 top-24 right-6 md:right-12 lg:right-20 w-32 h-32 md:w-36 md:h-36"
         >
           <span className="block text-[0.5rem] tracking-[0.12em] uppercase text-mehlcreme/80">
-            Neu ab
+            {hasBreakfastLaunched() ? "Jetzt neu" : "Neu ab"}
           </span>
           <span className="block font-display text-sm md:text-base mt-1">
-            {BREAKFAST_LAUNCH.dateShort}
+            {hasBreakfastLaunched() ? "Frühstück" : BREAKFAST_LAUNCH.dateShort}
           </span>
         </StampBadge>
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
           <div className="max-w-xl reveal">
             <p className="eyebrow no-line text-tonwarm">
-              Bald · Frühstücksrestaurant in Sinzing
+              {hasBreakfastLaunched()
+                ? "Frühstücksrestaurant in Sinzing"
+                : "Bald · Frühstücksrestaurant in Sinzing"}
             </p>
             <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
               Frühstück,{" "}
               <span className="accent">mitten im Grünen.</span>
             </h2>
             <p className="mt-6 italic text-xl md:text-2xl text-mehlcreme/85">
-              Wir werden zum Frühstücksrestaurant — ab{" "}
-              {BREAKFAST_LAUNCH.dateShort} in Sinzing.
+              {hasBreakfastLaunched()
+                ? "Jetzt Frühstücksrestaurant — jeden Morgen ab 8 Uhr in Sinzing."
+                : `Wir werden zum Frühstücksrestaurant — ab ${BREAKFAST_LAUNCH.dateShort} in Sinzing.`}
             </p>
             <div className="mt-7 text-mehlcreme/80 leading-relaxed space-y-5">
               <p>
@@ -266,8 +282,9 @@ export default function HomePage() {
                 zuhause, nur eben früher aufgestanden.
               </p>
               <p>
-                Die ganze Karte verraten wir kurz vor dem Start. Sei vom ersten
-                Morgen an dabei.
+                {hasBreakfastLaunched()
+                  ? "Die ganze Frühstückskarte mit allen Preisen findest du auf unserer Frühstücks-Seite. Wir haben ab 8 Uhr für dich gedeckt."
+                  : "Die ganze Karte verraten wir kurz vor dem Start. Sei vom ersten Morgen an dabei."}
               </p>
             </div>
             <div className="mt-9 flex flex-wrap items-center gap-5">
@@ -275,7 +292,8 @@ export default function HomePage() {
                 href="/fruehstueck"
                 className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
               >
-                Mehr zum Frühstück <span aria-hidden>→</span>
+                {hasBreakfastLaunched() ? "Zur Frühstückskarte" : "Mehr zum Frühstück"}{" "}
+                <span aria-hidden>→</span>
               </Link>
               <a
                 href={CONTACT.instagram}
@@ -408,48 +426,78 @@ export default function HomePage() {
             </a>
           </div>
           <div className="mt-14 mx-auto max-w-2xl grid sm:grid-cols-2 gap-10 text-left text-sm reveal-2">
-            <div>
-              <p className="text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/55 font-medium">
-                Aktuell
-              </p>
-              <dl className="mt-3 divide-y divide-mehlcreme/15">
-                {CURRENT_OPENING_HOURS.map((slot) => (
-                  <div
-                    key={slot.days}
-                    className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
-                  >
-                    <dt className="font-medium text-mehlcreme">{slot.days}</dt>
-                    <dd className="text-right">{slot.hours}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-2 text-xs text-mehlcreme/45">Di & Mi Ruhetag.</p>
-            </div>
-            <div>
-              <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                Ab {BREAKFAST_LAUNCH.dateShort}
-              </p>
-              <dl className="mt-3 divide-y divide-mehlcreme/15">
-                {NEW_OPENING_HOURS.map((slot) => (
-                  <div
-                    key={slot.days}
-                    className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
-                  >
-                    <dt className="font-medium text-mehlcreme pt-0.5">
-                      {slot.days}
-                    </dt>
-                    <dd className="text-right">
-                      {slot.slots.map((s) => (
-                        <div key={s}>{s}</div>
-                      ))}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-2 text-xs text-mehlcreme/45">
-                Fr – So mit Frühstück & Abendservice.
-              </p>
-            </div>
+            {hasBreakfastLaunched() ? (
+              <div className="sm:col-span-2 text-center">
+                <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                  Öffnungszeiten
+                </p>
+                <dl className="mt-3 inline-block text-left divide-y divide-mehlcreme/15">
+                  {NEW_OPENING_HOURS.map((slot) => (
+                    <div
+                      key={slot.days}
+                      className="flex justify-between py-2.5 text-mehlcreme/80 gap-10"
+                    >
+                      <dt className="font-medium text-mehlcreme pt-0.5">
+                        {slot.days}
+                      </dt>
+                      <dd className="text-right">
+                        {slot.slots.map((s) => (
+                          <div key={s}>{s}</div>
+                        ))}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="mt-2 text-xs text-mehlcreme/45">
+                  Fr – So mit Frühstück & Abendservice · Di & Mi Ruhetag.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/55 font-medium">
+                    Aktuell
+                  </p>
+                  <dl className="mt-3 divide-y divide-mehlcreme/15">
+                    {CURRENT_OPENING_HOURS.map((slot) => (
+                      <div
+                        key={slot.days}
+                        className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
+                      >
+                        <dt className="font-medium text-mehlcreme">{slot.days}</dt>
+                        <dd className="text-right">{slot.hours}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="mt-2 text-xs text-mehlcreme/45">Di & Mi Ruhetag.</p>
+                </div>
+                <div>
+                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                    Ab {BREAKFAST_LAUNCH.dateShort}
+                  </p>
+                  <dl className="mt-3 divide-y divide-mehlcreme/15">
+                    {NEW_OPENING_HOURS.map((slot) => (
+                      <div
+                        key={slot.days}
+                        className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
+                      >
+                        <dt className="font-medium text-mehlcreme pt-0.5">
+                          {slot.days}
+                        </dt>
+                        <dd className="text-right">
+                          {slot.slots.map((s) => (
+                            <div key={s}>{s}</div>
+                          ))}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="mt-2 text-xs text-mehlcreme/45">
+                    Fr – So mit Frühstück & Abendservice.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -664,34 +712,39 @@ export default function HomePage() {
             <div>
               <p className="eyebrow no-line text-tonwarm">Öffnungszeiten</p>
               <dl className="mt-4 space-y-2 text-mehlcreme/90">
-                {CURRENT_OPENING_HOURS.map((slot) => (
-                  <div key={slot.days} className="flex justify-between gap-4">
+                {liveOpeningHours().map((slot) => (
+                  <div
+                    key={slot.days}
+                    className="flex justify-between gap-4 items-start"
+                  >
                     <dt>{slot.days}</dt>
-                    <dd>{slot.hours}</dd>
+                    <dd className="text-right">{slot.hours}</dd>
                   </div>
                 ))}
               </dl>
               <p className="mt-4 text-xs text-mehlcreme/55">Di & Mi Ruhetag.</p>
-              <div className="mt-6 pt-5 border-t border-mehlcreme/15">
-                <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                  Ab {BREAKFAST_LAUNCH.dateShort}
-                </p>
-                <dl className="mt-3 space-y-2 text-mehlcreme/80 text-[0.78rem]">
-                  {NEW_OPENING_HOURS.map((slot) => (
-                    <div
-                      key={slot.days}
-                      className="flex justify-between gap-4 items-start"
-                    >
-                      <dt>{slot.days}</dt>
-                      <dd className="text-right">
-                        {slot.slots.map((s) => (
-                          <div key={s}>{s}</div>
-                        ))}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
+              {!hasBreakfastLaunched() && (
+                <div className="mt-6 pt-5 border-t border-mehlcreme/15">
+                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                    Ab {BREAKFAST_LAUNCH.dateShort}
+                  </p>
+                  <dl className="mt-3 space-y-2 text-mehlcreme/80 text-[0.78rem]">
+                    {NEW_OPENING_HOURS.map((slot) => (
+                      <div
+                        key={slot.days}
+                        className="flex justify-between gap-4 items-start"
+                      >
+                        <dt>{slot.days}</dt>
+                        <dd className="text-right">
+                          {slot.slots.map((s) => (
+                            <div key={s}>{s}</div>
+                          ))}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/rezepte", priority: 0.7, changeFrequency: "weekly" },
     { path: "/galerie", priority: 0.6, changeFrequency: "monthly" },
     { path: "/kontakt", priority: 0.6, changeFrequency: "yearly" },
+    { path: "/karriere", priority: 0.75, changeFrequency: "monthly" },
     { path: "/reservieren", priority: 0.8, changeFrequency: "yearly" },
     // SEO-/Städte-Landingpages
     { path: "/fruehstueck-regensburg", priority: 0.85, changeFrequency: "monthly" },

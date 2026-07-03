@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /**
+   * Server Actions: Standard-Limit für den Request-Body liegt bei 1 MB. Für das
+   * Bewerbungsformular (Lebenslauf/Zeugnisse als Anhang) heben wir es an.
+   */
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "12mb",
+    },
+  },
+
   images: {
     /**
      * remotePatterns für externe Bildhosts. Aktuell liegen alle Bilder

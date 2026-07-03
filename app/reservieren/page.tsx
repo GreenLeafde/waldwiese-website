@@ -5,6 +5,7 @@ import {
   CONTACT,
   CURRENT_OPENING_HOURS,
   NEW_OPENING_HOURS,
+  hasBreakfastLaunched,
 } from "@/lib/site";
 
 export const metadata = {
@@ -110,26 +111,30 @@ export default function ReservierenPage() {
           </div>
 
           <div className="reveal space-y-10">
+            {!hasBreakfastLaunched() && (
+              <div>
+                <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                  Öffnungszeiten · Aktuell
+                </p>
+                <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
+                  {CURRENT_OPENING_HOURS.map((s) => (
+                    <div
+                      key={s.days}
+                      className="py-3 flex justify-between gap-4 text-waldgruen/70"
+                    >
+                      <dt className="font-medium text-waldgruen">{s.days}</dt>
+                      <dd>{s.hours}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="mt-2 text-xs text-waldgruen/45">Di & Mi Ruhetag.</p>
+              </div>
+            )}
             <div>
               <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                Öffnungszeiten · Aktuell
-              </p>
-              <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
-                {CURRENT_OPENING_HOURS.map((s) => (
-                  <div
-                    key={s.days}
-                    className="py-3 flex justify-between gap-4 text-waldgruen/70"
-                  >
-                    <dt className="font-medium text-waldgruen">{s.days}</dt>
-                    <dd>{s.hours}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-2 text-xs text-waldgruen/45">Di & Mi Ruhetag.</p>
-            </div>
-            <div>
-              <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                Ab {BREAKFAST_LAUNCH.dateShort}
+                {hasBreakfastLaunched()
+                  ? "Öffnungszeiten"
+                  : `Ab ${BREAKFAST_LAUNCH.dateShort}`}
               </p>
               <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
                 {NEW_OPENING_HOURS.map((s) => (

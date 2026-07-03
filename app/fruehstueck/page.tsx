@@ -1,14 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CategoryTabs } from "@/components/category-tabs";
 import { LeafDivider } from "@/components/leaf-divider";
+import { LeafMark } from "@/components/diet-leaf";
+import type { Metadata } from "next";
 import { IMG } from "@/lib/images";
-import { BREAKFAST_LAUNCH, CONTACT, RESERVATION_URL } from "@/lib/site";
+import { BREAKFAST_MENU, type BreakfastDish } from "@/lib/menu";
+import {
+  BREAKFAST_LAUNCH,
+  CONTACT,
+  RESERVATION_URL,
+  hasBreakfastLaunched,
+} from "@/lib/site";
 
-export const metadata = {
-  title: "Frühstücksrestaurant in Sinzing bei Regensburg — ab 06.07.2026",
-  description: `Frühstück bei Wald & Wiese — ab ${BREAKFAST_LAUNCH.dateLong} in Sinzing bei Regensburg. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Regional, hundefreundlich, vegan & vegetarisch. Jetzt vormerken.`,
-  alternates: { canonical: "/fruehstueck" },
-};
+/** Alle 5 Min. neu generieren → die Seite schaltet ohne neuen Deploy von
+ *  Coming-Soon auf die Karte, sobald der Launch-Zeitpunkt erreicht ist. */
+export const revalidate = 300;
+
+export function generateMetadata(): Metadata {
+  const launched = hasBreakfastLaunched();
+  return {
+    title: launched
+      ? "Frühstückskarte — Frühstücksrestaurant in Sinzing bei Regensburg"
+      : "Frühstücksrestaurant in Sinzing bei Regensburg — ab 06.07.2026",
+    description: launched
+      ? "Die Frühstückskarte von Wald & Wiese in Sinzing bei Regensburg: Frühstück, Brote, Bowls & Mittags. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Regional, hundefreundlich, vegan & vegetarisch. Jeden Morgen ab 8 Uhr."
+      : `Frühstück bei Wald & Wiese — ab ${BREAKFAST_LAUNCH.dateLong} in Sinzing bei Regensburg. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Regional, hundefreundlich, vegan & vegetarisch. Jetzt vormerken.`,
+    alternates: { canonical: "/fruehstueck" },
+  };
+}
 
 /** Was das Frühstück ausmacht — bewusst Konzept & Zutaten, noch keine konkreten
  *  Gerichte/Preise (Coming-Soon). Die Karte folgt kurz vor dem Start. */
@@ -73,7 +93,50 @@ const faqs: Array<{ q: string; a: string }> = [
   },
 ];
 
+type MenuTag = NonNullable<BreakfastDish["tags"]>[number];
+
+const TAG_LABEL: Record<MenuTag, string> = {
+  vegan: "Vegan",
+  vegetarisch: "Vegetarisch",
+  "vegan möglich": "Vegan möglich",
+  "vegetarisch möglich": "Vegetarisch möglich",
+};
+
+function Tag({ tag }: { tag: MenuTag }) {
+  const vegan = tag === "vegan" || tag === "vegan möglich";
+  return (
+    <span className="ml-3 inline-flex items-center gap-1 align-middle text-[0.6rem] tracking-[0.2em] uppercase text-waldgruen/70 font-body font-medium">
+      <LeafMark filled={vegan} className="w-3 h-3 shrink-0" />
+      {TAG_LABEL[tag]}
+    </span>
+  );
+}
+
+function Price({ price }: { price: BreakfastDish["price"] }) {
+  if (Array.isArray(price)) {
+    return (
+      <span className="font-display text-lg md:text-xl text-tonwarm whitespace-nowrap text-right leading-tight">
+        {price.map((p) => (
+          <span key={p} className="block">
+            {p}
+          </span>
+        ))}
+      </span>
+    );
+  }
+  return (
+    <span className="font-display text-lg md:text-xl text-tonwarm whitespace-nowrap">
+      {price}
+    </span>
+  );
+}
+
+/** Vor dem Launch: Coming-Soon. Ab 06.07. 00:00: die echte Frühstückskarte. */
 export default function FruehstueckPage() {
+  return hasBreakfastLaunched() ? <Speisekarte /> : <ComingSoon />;
+}
+
+function ComingSoon() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -322,6 +385,142 @@ export default function FruehstueckPage() {
               Eure Familie Leber
             </span>
           </p>
+        </div>
+      </section>
+    </>
+  );
+}
+
+/** Ab dem Launch (06.07.): die echte Frühstückskarte im Abendkarten-Layout. */
+function Speisekarte() {
+  return (
+    <>
+      {/* HEADER */}
+      <section className="bg-waldgruen text-mehlcreme">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
+          >
+            <span aria-hidden>←</span> Startseite
+          </Link>
+        </div>
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center">
+          <p className="eyebrow no-line justify-center">Frühstückskarte</p>
+          <h1 className="mt-7 text-5xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
+            Guten <span className="accent">Morgen.</span>
+          </h1>
+          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
+            Frühstück, Brote, Bowls und Mittags — regional, hausgemacht, mitten
+            im Grünen. Vegan, vegetarisch und herzhaft{" "}
+            <span className="text-tonwarm">gleichberechtigt</span>.
+          </p>
+          <div className="mt-10 flex flex-wrap justify-center items-center gap-5">
+            <a
+              href={RESERVATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+            >
+              Tisch reservieren <span aria-hidden>→</span>
+            </a>
+            <Link
+              href="/getraenke"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+            >
+              Getränkekarte
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* TABS */}
+      <CategoryTabs
+        tabs={BREAKFAST_MENU.map((c) => ({ slug: c.slug, title: c.title }))}
+        scrollOffset={150}
+      />
+
+      {/* MENÜ */}
+      <section className="bg-mehlcreme">
+        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-16 md:pt-24 pb-24 md:pb-32 space-y-20 md:space-y-28">
+          {BREAKFAST_MENU.map((cat) => (
+            <div key={cat.slug} id={cat.slug} className="reveal scroll-mt-[150px]">
+              {/* Kategorie-Header */}
+              <div className="mb-12">
+                <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+                  Karte · Kategorie
+                </p>
+                <h2 className="mt-3 text-4xl md:text-5xl font-display font-normal leading-tight tracking-tight text-waldgruen">
+                  {cat.title}
+                </h2>
+                {cat.hint && (
+                  <p className="mt-3 italic text-waldgruen/65">{cat.hint}</p>
+                )}
+              </div>
+
+              {/* Gerichte */}
+              <ul className="space-y-9">
+                {cat.items.map((dish) => (
+                  <li key={dish.name}>
+                    <div className="flex items-baseline gap-3">
+                      <h3 className="text-xl md:text-2xl font-display font-normal leading-tight tracking-tight text-waldgruen">
+                        {dish.name}
+                        {dish.tags?.map((t) => (
+                          <Tag key={t} tag={t} />
+                        ))}
+                      </h3>
+                      <span
+                        aria-hidden
+                        className="flex-1 border-b border-dotted border-waldgruen/20 translate-y-[-4px]"
+                      />
+                      <Price price={dish.price} />
+                    </div>
+                    {dish.desc && (
+                      <p className="mt-2 italic text-waldgruen/65 leading-relaxed max-w-2xl">
+                        {dish.desc}
+                      </p>
+                    )}
+                    {dish.options?.map((opt) => (
+                      <p key={opt.label} className="mt-1 text-sm text-tonwarm">
+                        + {opt.label}{" "}
+                        <span className="text-waldgruen/45">{opt.price}</span>
+                      </p>
+                    ))}
+                    {dish.hint && (
+                      <p className="mt-1.5 text-xs uppercase tracking-[0.18em] text-waldgruen/45">
+                        {dish.hint}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <p className="text-center text-sm italic text-waldgruen/45">
+            Alle Preise inkl. MwSt. · Über Allergene &amp; Zusatzstoffe
+            informiert dich gerne unser Serviceteam · Änderungen vorbehalten.
+          </p>
+          <LeafDivider tone="dark" className="mt-12 opacity-90" />
+        </div>
+      </section>
+
+      {/* SUB-CTA — Getränke */}
+      <section className="bg-waldgruen text-mehlcreme">
+        <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
+          <p className="eyebrow no-line justify-center">Was du dazu trinkst</p>
+          <h2 className="mt-7 text-3xl md:text-4xl font-display font-normal leading-tight tracking-tight text-mehlcreme">
+            Kaffee mit <span className="accent">Charakter.</span>
+          </h2>
+          <p className="mt-6 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed">
+            Filterkaffee, Latte, Matcha, hausgemachte Limonaden und mehr — auch
+            entkoffeiniert, mit Hafermilch oder laktosefrei.
+          </p>
+          <Link
+            href="/getraenke"
+            className="mt-9 inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+          >
+            Zur Getränkekarte <span aria-hidden>→</span>
+          </Link>
         </div>
       </section>
     </>

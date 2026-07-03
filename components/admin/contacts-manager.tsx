@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   addContactAction,
@@ -35,6 +35,37 @@ export function ContactsManager({ contacts }: { contacts: Contact[] }) {
     IMPORT_INITIAL,
   );
   const [pending, startTransition] = useTransition();
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | ContactStatus>("all");
+
+  const CAP = 300;
+  const counts = useMemo(() => {
+    const c = { subscribed: 0, unsubscribed: 0, pending: 0 };
+    for (const ct of contacts) c[ct.status]++;
+    return c;
+  }, [contacts]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return contacts.filter((c) => {
+      if (statusFilter !== "all" && c.status !== statusFilter) return false;
+      if (
+        q &&
+        !c.email.toLowerCase().includes(q) &&
+        !(c.name ?? "").toLowerCase().includes(q)
+      )
+        return false;
+      return true;
+    });
+  }, [contacts, query, statusFilter]);
+  const shown = filtered.slice(0, CAP);
+
+  const FILTERS: { key: "all" | ContactStatus; label: string; count: number }[] = [
+    { key: "all", label: "Alle", count: contacts.length },
+    { key: "subscribed", label: "Angemeldet", count: counts.subscribed },
+    { key: "unsubscribed", label: "Abgemeldet", count: counts.unsubscribed },
+    { key: "pending", label: "Ausstehend", count: counts.pending },
+  ];
 
   function act(fn: () => Promise<void>) {
     startTransition(async () => {
@@ -129,12 +160,60 @@ export function ContactsManager({ contacts }: { contacts: Contact[] }) {
         )}
       </form>
 
+      {/* Suche + Status-Filter */}
+      {contacts.length > 0 && (
+        <div className="mt-6 space-y-3">
+          <div className="flex flex-wrap gap-1.5">
+            {FILTERS.map((f) => {
+              const active = statusFilter === f.key;
+              return (
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => setStatusFilter(f.key)}
+                  className={`rounded-full px-3.5 py-1.5 text-sm transition-colors ${
+                    active
+                      ? "bg-waldgruen text-mehlcreme"
+                      : "bg-white text-waldgruen/70 ring-1 ring-waldgruen/15 hover:text-tonwarm"
+                  }`}
+                >
+                  {f.label}{" "}
+                  <span className={active ? "text-mehlcreme/70" : "text-waldgruen/40"}>
+                    {f.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="relative flex-1 max-w-md">
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Suchen — E-Mail oder Name …"
+                className="w-full rounded-full border border-waldgruen/20 bg-white px-5 py-2.5 text-sm text-waldgruen placeholder-waldgruen/35 outline-none transition focus:border-tonwarm focus:ring-2 focus:ring-tonwarm/20"
+              />
+            </div>
+            <span className="text-xs text-waldgruen/45 whitespace-nowrap">
+              {filtered.length} von {contacts.length}
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Liste */}
-      <div className="mt-6 overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-white">
+      <div className="mt-3 overflow-hidden rounded-2xl ring-1 ring-waldgruen/10 bg-white">
         {contacts.length === 0 ? (
           <p className="px-5 py-8 text-center text-waldgruen/50 text-sm">
             Noch keine Kontakte. Füge oben welche hinzu — oder sie kommen über
             die Newsletter-Anmeldung im Frühstücks-Sommelier rein.
+          </p>
+        ) : filtered.length === 0 ? (
+          <p className="px-5 py-8 text-center text-waldgruen/50 text-sm">
+            {query.trim()
+              ? `Keine Treffer für „${query.trim()}".`
+              : "Keine Kontakte mit diesem Status."}
           </p>
         ) : (
           <table className="w-full text-sm">
@@ -147,7 +226,7 @@ export function ContactsManager({ contacts }: { contacts: Contact[] }) {
               </tr>
             </thead>
             <tbody>
-              {contacts.map((c) => (
+              {shown.map((c) => (
                 <ContactRow
                   key={c.id}
                   contact={c}
@@ -163,6 +242,12 @@ export function ContactsManager({ contacts }: { contacts: Contact[] }) {
           </table>
         )}
       </div>
+      {filtered.length > CAP && (
+        <p className="mt-2 text-xs text-waldgruen/45">
+          Zeige die ersten {CAP} von {filtered.length} — verfeinere die Suche, um
+          mehr einzugrenzen.
+        </p>
+      )}
     </section>
   );
 }

@@ -88,7 +88,51 @@ export const BREAKFAST_LAUNCH = {
   date: "2026-07-06",
   dateShort: "06.07.2026",
   dateLong: "6. Juli 2026",
+  /** Exakter Launch-Zeitpunkt (00:00 MESZ) als ms — für die Datumsweiche. */
+  ts: Date.parse("2026-07-06T00:00:00+02:00"),
 };
+
+/**
+ * Zentrale Datumsweiche für den ganzen Auftritt: `true` ab dem Launch.
+ * Damit schalten Öffnungszeiten, Texte, Schema & SEO überall gleichzeitig von
+ * „bald / Coming-Soon" auf „echtes Frühstücksrestaurant" um. Datumsgesteuert →
+ * die getestete Version kann vorab deployed werden; die Seiten schalten dank
+ * ISR-`revalidate` ohne neuen Deploy am 06.07. 00:00 von selbst um.
+ */
+export function hasBreakfastLaunched(): boolean {
+  return Date.now() >= BREAKFAST_LAUNCH.ts;
+}
+
+/**
+ * Die aktuell GÜLTIGEN Öffnungszeiten (normalisiert: days/hours/isoSpec).
+ * Vor Launch = CURRENT (nur abends), ab Launch = NEW (Frühstück + abends).
+ */
+export function liveOpeningHours(): Array<{
+  days: string;
+  hours: string;
+  isoSpec: string;
+}> {
+  if (hasBreakfastLaunched()) {
+    return NEW_OPENING_HOURS.map((s) => ({
+      days: s.days,
+      hours: s.slots.join(" & "),
+      isoSpec: s.isoSpec,
+    }));
+  }
+  return CURRENT_OPENING_HOURS.map((s) => ({
+    days: s.days,
+    hours: s.hours,
+    isoSpec: s.isoSpec,
+  }));
+}
+
+/** Launch-abhängige Seiten-Beschreibung (Meta/OG). */
+export const SITE_DESCRIPTION_LIVE =
+  "Frühstücksrestaurant in Sinzing bei Regensburg — jeden Morgen frisch. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.";
+
+export function siteDescription(): string {
+  return hasBreakfastLaunched() ? SITE_DESCRIPTION_LIVE : SITE.description;
+}
 
 /**
  * Magic Dinner Summer Edition.
@@ -139,6 +183,7 @@ export const NAV_FULL: Array<{ label: string; href: string }> = [
   { label: "Events", href: "/events" },
   { label: "Rezepte", href: "/rezepte" },
   { label: "Über uns", href: "/ueber-uns" },
+  { label: "Karriere", href: "/karriere" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
@@ -173,6 +218,7 @@ export const FOOTER_NAV: Array<{
       { label: "Über uns", href: "/ueber-uns" },
       { label: "Rezepte", href: "/rezepte" },
       { label: "Galerie", href: "/galerie" },
+      { label: "Karriere & Jobs", href: "/karriere" },
       { label: "Kontakt & Anfahrt", href: "/kontakt" },
     ],
   },

@@ -119,7 +119,7 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       image: PHOTO("food-breakfast-spread.jpg"),
       kicker: "Bald · Frühstück in Sinzing bei Regensburg",
       title: "Frühstück, mitten im Grünen.",
-      body: "Es ist so weit: Ab dem 6. Juli 2026 starten wir jeden Morgen frisch ins Frühstück — Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter.\n\nKomm vorbei, bring den Hund mit, bleib so lange du magst.",
+      body: "Hallo {{vorname}},\n\nes ist so weit: Ab dem 6. Juli 2026 starten wir jeden Morgen frisch ins Frühstück — Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter.\n\nKomm vorbei, bring den Hund mit, bleib so lange du magst.",
       secret: "Die komplette Frühstückskarte verraten wir kurz vor dem Start.",
       buttonText: "Tisch sichern",
       buttonUrl: `${SITE.url}/reservieren`,
@@ -143,7 +143,7 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       { key: "body", label: "Text", type: "textarea" },
     ],
     sample: {
-      title: "Servus zusammen!",
+      title: "Servus {{vorname}}!",
       body: "Schön, dass du dabei bist. Wir melden uns, sobald es bei uns Neues gibt.\n\nBis bald, eure Familie Leber",
     },
     render: (v) => heading(v.title) + paras(v.body),
@@ -203,9 +203,13 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
   {
     id: "html",
     name: "HTML selbst",
-    description: "Für Profis: eigenes HTML schreiben.",
+    description:
+      "Volle Kontrolle: eigenes HTML — mit Bild-, Variablen- und Baustein-Einfügen.",
     fields: [{ key: "html", label: "HTML", type: "html", placeholder: "<h1>…</h1><p>…</p>" }],
-    sample: { html: "<h1>Eigenes HTML</h1><p>Volle Kontrolle über das Layout.</p>" },
+    sample: {
+      html: `<h1 style="font-family:Georgia,'Times New Roman',serif;font-weight:400;color:#2e3d2c;font-size:30px;line-height:1.2;margin:0 0 16px">Hallo {{vorname}}!</h1>
+<p style="margin:0 0 15px;font-size:16px;color:#3a3a36;line-height:1.7">Schreib hier deinen Text — oder bau mit den Knöpfen oben Bilder, Buttons und Bausteine ein. Kopfzeile, Footer und Personalisierung kommen automatisch dazu.</p>`,
+    },
     render: (v) => v.html ?? "",
   },
 ];

@@ -10,8 +10,22 @@ import { TrackingScripts } from "@/components/tracking-scripts";
 import { Analytics } from "@/components/analytics";
 import { HideOnAdmin } from "@/components/hide-on-admin";
 import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
-import { CONTACT, GEO, GOOGLE_MAPS_URL, OPENING_HOURS, SITE } from "@/lib/site";
+import {
+  CONTACT,
+  GEO,
+  GOOGLE_MAPS_URL,
+  SITE,
+  liveOpeningHours,
+  siteDescription,
+} from "@/lib/site";
 import "./globals.css";
+
+/**
+ * Site-weites ISR: alle Seiten werden regelmäßig neu generiert, damit die
+ * Datumsweiche (Coming-Soon → Frühstückskarte, Öffnungszeiten) am 06.07. 00:00
+ * OHNE neuen Deploy greift. Einzelne Seiten dürfen kürzer revalidieren.
+ */
+export const revalidate = 600;
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -26,13 +40,15 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export function generateMetadata(): Metadata {
+  const description = siteDescription();
+  return {
   metadataBase: new URL(SITE.url),
   title: {
     default: `${SITE.name} · ${SITE.tagline}`,
     template: `%s · ${SITE.name}`,
   },
-  description: SITE.description,
+  description,
   applicationName: SITE.name,
   authors: [{ name: SITE.legalName }],
   keywords: [
@@ -55,14 +71,15 @@ export const metadata: Metadata = {
     url: SITE.url,
     siteName: SITE.name,
     title: `${SITE.name} · ${SITE.tagline}`,
-    description: SITE.description,
+    description,
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} · ${SITE.tagline}`,
-    description: SITE.description,
+    description,
   },
-};
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#2e3d2c",
@@ -74,12 +91,13 @@ export const viewport: Viewport = {
  * Schema.org Restaurant — hilft Google das Restaurant korrekt zu indexieren
  * und in Rich Results (Öffnungszeiten, Adresse, Bewertungen) anzuzeigen.
  */
-const restaurantJsonLd = {
+function buildRestaurantJsonLd() {
+  return {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   name: SITE.name,
   url: SITE.url,
-  description: SITE.description,
+  description: siteDescription(),
   servesCuisine: ["Frühstück", "Regional", "Vegetarisch", "Vegan"],
   priceRange: "€€",
   telephone: CONTACT.phone,
@@ -92,7 +110,7 @@ const restaurantJsonLd = {
     addressRegion: CONTACT.region,
     addressCountry: "DE",
   },
-  openingHoursSpecification: OPENING_HOURS.map((slot) => ({
+  openingHoursSpecification: liveOpeningHours().map((slot) => ({
     "@type": "OpeningHoursSpecification",
     description: slot.isoSpec,
   })),
@@ -103,7 +121,8 @@ const restaurantJsonLd = {
   },
   hasMap: GOOGLE_MAPS_URL,
   sameAs: [CONTACT.instagram],
-};
+  };
+}
 
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -130,7 +149,9 @@ export default function RootLayout({
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildRestaurantJsonLd()),
+          }}
         />
         <script
           type="application/ld+json"

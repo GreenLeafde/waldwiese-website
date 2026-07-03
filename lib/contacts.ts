@@ -64,6 +64,47 @@ export async function countByStatus(): Promise<Record<ContactStatus, number>> {
   return out;
 }
 
+/** Angemeldete Kontakte, gruppiert nach Quelle (woher die Anmeldung kam). */
+export async function sourceCounts(): Promise<{ source: string; count: number }[]> {
+  await ensureSchema();
+  const res = await getDb().execute(
+    `SELECT COALESCE(NULLIF(source, ''), 'unbekannt') AS source, COUNT(*) AS c
+     FROM contacts WHERE status = 'subscribed'
+     GROUP BY source ORDER BY c DESC`,
+  );
+  return (res.rows as unknown as { source: string; c: number | bigint }[]).map((r) => ({
+    source: r.source,
+    count: Number(r.c),
+  }));
+}
+
+export type RecentSignup = {
+  email: string;
+  name: string | null;
+  source: string | null;
+  label: string;
+};
+
+/** Neueste angemeldete Kontakte (für „letzte Anmeldungen") mit Datum-Label. */
+export async function recentSubscribed(limit = 8): Promise<RecentSignup[]> {
+  await ensureSchema();
+  const res = await getDb().execute({
+    sql: `SELECT email, name, source,
+            strftime('%d.%m.%Y', created_at/1000, 'unixepoch', 'localtime') AS label
+          FROM contacts WHERE status = 'subscribed'
+          ORDER BY created_at DESC LIMIT ?`,
+    args: [limit],
+  });
+  return (
+    res.rows as unknown as {
+      email: string;
+      name: string | null;
+      source: string | null;
+      label: string;
+    }[]
+  ).map((r) => ({ email: r.email, name: r.name, source: r.source, label: r.label }));
+}
+
 export async function listSubscribed(): Promise<Contact[]> {
   await ensureSchema();
   const res = await getDb().execute(

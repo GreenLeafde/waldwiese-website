@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LeafDivider } from "@/components/leaf-divider";
-import { BREAKFAST_LAUNCH } from "@/lib/site";
+import { BREAKFAST_LAUNCH, hasBreakfastLaunched } from "@/lib/site";
 
 export const metadata = {
   title: "Speisekarte & Getränke",
@@ -73,7 +73,7 @@ export default function SpeisenPage() {
                       </h2>
                       {c.badge && (
                         <span className="bg-tonwarm text-white text-[0.6rem] tracking-[0.22em] uppercase px-3 py-1.5 rounded-full font-medium">
-                          {c.badge}
+                          {hasBreakfastLaunched() ? "Neu" : c.badge}
                         </span>
                       )}
                     </div>
