@@ -2,25 +2,73 @@
 
 import Script from "next/script";
 import { useConsent } from "./consent-provider";
-import { hasGtm, hasHotjar, TRACKING } from "@/lib/tracking";
+import {
+  hasAds,
+  hasAdsPageviewConversion,
+  hasGa,
+  hasGtm,
+  hasHotjar,
+  TRACKING,
+} from "@/lib/tracking";
 
 /**
  * Lädt die Tracking-Skripte ERST, wenn die passende Einwilligung vorliegt
  * UND eine gültige ID hinterlegt ist. Ohne ID (z. B. vor Konto-Anlage)
  * passiert nichts — die Consent-Logik läuft trotzdem.
  *
+ * - GA4 (direkt per gtag.js): nur bei Statistik. Nur wenn KEIN GTM-Container
+ *   gesetzt ist (läuft GA4 dort, würde es sonst doppelt zählen).
+ * - Google Ads (Conversion-Tracking): nur bei Marketing. Nur ohne GTM.
  * - GTM (Container für GA4 + Google Ads): bei Statistik ODER Marketing
  * - Hotjar: nur bei Statistik
+ *
+ * gtag() ist bereits global definiert (CONSENT_DEFAULT_SCRIPT im Layout),
+ * inkl. Consent Mode v2 Defaults (denied) — GA4/Ads respektieren das automatisch.
+ * gtag.js selbst wird nur EINMAL geladen; die einzelnen Produkte werden danach
+ * je nach Einwilligung per gtag('config', …) aktiviert.
  */
 export function TrackingScripts() {
   const { ready, consent } = useConsent();
   if (!ready) return null;
 
+  const loadGa = hasGa() && !hasGtm() && consent.statistics;
+  const loadAds = hasAds() && !hasGtm() && consent.marketing;
   const loadGtm = hasGtm() && (consent.statistics || consent.marketing);
   const loadHotjar = hasHotjar() && consent.statistics;
 
+  const gtagBootId = loadGa ? TRACKING.gaId : loadAds ? TRACKING.adsId : "";
+
   return (
     <>
+      {gtagBootId && (
+        <Script
+          id="gtag-loader"
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${gtagBootId}`}
+        />
+      )}
+      {loadGa && (
+        <Script
+          id="ga4-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `gtag('js', new Date());gtag('config', '${TRACKING.gaId}');`,
+          }}
+        />
+      )}
+      {loadAds && (
+        <Script
+          id="google-ads-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `gtag('js', new Date());gtag('config', '${TRACKING.adsId}');${
+              hasAdsPageviewConversion()
+                ? `gtag('event','conversion',{'send_to':'${TRACKING.adsPageviewConversion}','value':1.0,'currency':'EUR'});`
+                : ""
+            }`,
+          }}
+        />
+      )}
       {loadGtm && (
         <Script
           id="gtm-loader"

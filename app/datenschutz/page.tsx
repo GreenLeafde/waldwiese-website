@@ -108,19 +108,73 @@ export default function DatenschutzPage() {
               DSGVO, § 25 Abs. 1 TTDSG).
             </p>
             <p className="mt-3">
-              <strong className="font-medium">
-                Analyse- und Marketing-Tools (z. B. Google Analytics, Hotjar,
-                Google Ads) setzen wir derzeit nicht ein.
-              </strong>{" "}
-              Sollten wir solche Dienste künftig nutzen, geschieht das
-              ausschließlich nach deiner Einwilligung, und wir ergänzen diese
-              Erklärung vorher entsprechend.
+              Zur Reichweitenmessung setzen wir <strong className="font-medium">
+              Google Analytics 4</strong> und zur Erfolgsmessung unserer
+              Anzeigen <strong className="font-medium">Google Ads
+              (Conversion-Tracking)</strong> ein — beides beschrieben in
+              Abschnitt 6. Weitere Analyse-Tools (z. B. Hotjar) nutzen wir
+              derzeit nicht. Sollten wir solche Dienste künftig einsetzen,
+              geschieht das ausschließlich nach deiner Einwilligung, und wir
+              ergänzen diese Erklärung vorher entsprechend.
             </p>
           </section>
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              6. Google Maps
+              6. Google Analytics 4 &amp; Google Ads
+            </h2>
+            <p className="mt-3">
+              Um zu verstehen, wie unsere Website genutzt wird, verwenden wir
+              Google Analytics 4, einen Dienst der Google Ireland Limited,
+              Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics
+              verwendet Cookies und ähnliche Technologien, um Informationen über
+              deine Nutzung der Website (z. B. aufgerufene Seiten, Verweildauer,
+              ungefähre Herkunft anhand der gekürzten IP-Adresse, Geräte- und
+              Browsertyp) zu erheben und auszuwerten.
+            </p>
+            <p className="mt-3">
+              Google Analytics wird <strong className="font-medium">erst
+              geladen, nachdem du im Cookie-Banner der Kategorie „Statistik"
+              zugestimmt hast</strong>. Rechtsgrundlage ist deine Einwilligung
+              (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Über den Google
+              Consent Mode ist sichergestellt, dass ohne deine Zustimmung keine
+              Analyse-Cookies gesetzt und keine Daten an Google übertragen
+              werden.
+            </p>
+            <p className="mt-3">
+              Bei aktivierter Statistik-Einwilligung kann deine (gekürzte)
+              IP-Adresse an Server von Google, auch in den USA, übertragen
+              werden. Google LLC ist unter dem EU-US Data Privacy Framework
+              zertifiziert; ergänzend gelten die EU-Standardvertragsklauseln.
+              Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft
+              widerrufen, indem du deine Cookie-Einstellungen über das Banner
+              (Link im Footer) änderst.
+            </p>
+            <p className="mt-3">
+              Zur Messung des Erfolgs unserer Online-Anzeigen verwenden wir
+              außerdem Google Ads mit Conversion-Tracking, ebenfalls ein Dienst
+              der Google Ireland Limited. Damit erkennen wir, ob Nutzer nach dem
+              Klick auf eine unserer Anzeigen bestimmte Aktionen auf der Website
+              ausführen (z. B. einen Seitenaufruf). Dabei kann ein Cookie
+              gesetzt werden; wir erhalten von Google nur zusammengefasste,
+              nicht auf einzelne Personen zurückführbare Statistiken.
+            </p>
+            <p className="mt-3">
+              Google Ads wird <strong className="font-medium">erst geladen,
+              nachdem du im Cookie-Banner der Kategorie „Marketing" zugestimmt
+              hast</strong>. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs.
+              1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Ohne diese Zustimmung werden
+              über den Google Consent Mode keine Marketing-Cookies gesetzt und
+              keine Daten an Google Ads übertragen. Auch hier ist eine
+              Übermittlung in die USA möglich (EU-US Data Privacy Framework bzw.
+              EU-Standardvertragsklauseln), und du kannst deine Einwilligung
+              jederzeit über die Cookie-Einstellungen widerrufen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-waldgruen">
+              7. Google Maps
             </h2>
             <p className="mt-3">
               Zur Darstellung unserer Anfahrt binden wir auf der Kontaktseite
@@ -137,7 +191,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              7. Reservierung über Lightspeed
+              8. Reservierung über Lightspeed
             </h2>
             <p className="mt-3">
               Für Tischreservierungen binden wir auf der Reservieren-Seite das
@@ -156,7 +210,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              8. Externe Links (Instagram, WhatsApp)
+              9. Externe Links (Instagram, WhatsApp)
             </h2>
             <p className="mt-3">
               Wir verlinken auf unser Instagram-Profil und bieten eine
@@ -169,7 +223,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              9. Reichweitenmessung (eigene, anonyme Statistik)
+              10. Reichweitenmessung (eigene, anonyme Statistik)
             </h2>
             <p className="mt-3">
               Um zu verstehen, wie unsere Website genutzt wird, erfassen wir
@@ -179,10 +233,16 @@ export default function DatenschutzPage() {
                 keine Cookies gesetzt, keine IP-Adressen und keine
                 personenbezogenen Daten gespeichert
               </strong>
-              . Wir zählen ausschließlich anonyme Ereignisse (z. B.
-              Seitenaufrufe oder Klicks auf bestimmte Schaltflächen) ohne
-              Bezug zu einer Person. Die clientseitige Erfassung (etwa
-              Seitenaufrufe) erfolgt nur, wenn du der Kategorie „Statistik" im
+              . Wir zählen ausschließlich anonyme Ereignisse ohne Bezug zu
+              einer Person: Seitenaufrufe, Klicks auf bestimmte Schaltflächen,
+              die Verweildauer auf einer Seite, die Quell-Domain (von welcher
+              Website du kamst, z. B. „google.com" — ohne vollständige Adresse)
+              sowie eine grobe Herkunft (nur Ländercode, z. B. „DE"), die aus
+              der Verbindung abgeleitet wird, <strong className="font-medium">
+              ohne dass die IP-Adresse gespeichert wird</strong>. Diese Daten
+              lassen keinen Rückschluss auf einzelne Personen zu und werden
+              nicht zu Profilen zusammengeführt. Die clientseitige Erfassung
+              (etwa Seitenaufrufe) erfolgt nur, wenn du der Kategorie „Statistik" im
               Cookie-Banner zugestimmt hast (Art. 6 Abs. 1 lit. a DSGVO). Anonyme
               Zähldaten zu bewussten Aktionen (z. B. ein abgesendetes Formular)
               verarbeiten wir auf Grundlage unseres berechtigten Interesses an
@@ -193,7 +253,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              10. Kontaktformular
+              11. Kontaktformular
             </h2>
             <p className="mt-3">
               Wenn du uns über das Kontaktformular schreibst, verarbeiten wir die
@@ -210,7 +270,42 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              11. Newsletter
+              12. Bewerbungen (Karriere-Seite)
+            </h2>
+            <p className="mt-3">
+              Wenn du dich über das Bewerbungsformular auf unserer
+              Karriere-Seite bewirbst, verarbeiten wir die von dir angegebenen
+              Daten (Name, E-Mail-Adresse, Telefonnummer, ausgewählte Stelle,
+              Angaben zur Verfügbarkeit, deine Nachricht) sowie die von dir
+              optional hochgeladenen Bewerbungsunterlagen (z. B. Lebenslauf,
+              Zeugnisse). Diese Daten nutzen wir ausschließlich zur Durchführung
+              des Bewerbungsverfahrens und zur Entscheidung über eine
+              Begründung des Beschäftigungsverhältnisses. Rechtsgrundlage ist
+              Art. 6 Abs. 1 lit. b DSGVO i. V. m. § 26 Abs. 1 BDSG
+              (Anbahnung eines Beschäftigungsverhältnisses).
+            </p>
+            <p className="mt-3">
+              Für den Versand der Bewerbung nutzen wir den Dienst Resend
+              (Resend, Inc., USA); dabei werden deine Angaben und Anhänge an
+              Resend übermittelt. Die Übermittlung in die USA ist über die
+              EU-Standardvertragsklauseln abgesichert. Eine automatisierte
+              Entscheidungsfindung findet nicht statt.
+            </p>
+            <p className="mt-3">
+              Kommt es nicht zu einer Einstellung, löschen wir deine
+              Bewerbungsdaten spätestens sechs Monate nach Abschluss des
+              Verfahrens, sofern du keiner längeren Speicherung zugestimmt hast
+              und keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Im
+              Fall einer Einstellung werden die erforderlichen Daten in die
+              Personalakte übernommen. Du kannst deine Einwilligung jederzeit mit
+              Wirkung für die Zukunft widerrufen und die Löschung deiner
+              Bewerbungsdaten verlangen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-waldgruen">
+              13. Newsletter
             </h2>
             <p className="mt-3">
               Du kannst dich für unseren Newsletter (u. a. Benachrichtigung zum
@@ -228,7 +323,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              12. Deine Rechte
+              14. Deine Rechte
             </h2>
             <p className="mt-3">
               Dir stehen gegenüber uns folgende Rechte hinsichtlich deiner
@@ -245,7 +340,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              13. Beschwerderecht bei der Aufsichtsbehörde
+              15. Beschwerderecht bei der Aufsichtsbehörde
             </h2>
             <p className="mt-3">
               Dir steht ein Beschwerderecht bei einer
@@ -257,7 +352,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              14. SSL-/TLS-Verschlüsselung
+              16. SSL-/TLS-Verschlüsselung
             </h2>
             <p className="mt-3">
               Diese Website nutzt aus Sicherheitsgründen eine
