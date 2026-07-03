@@ -133,13 +133,15 @@ export default function DatenschutzPage() {
               Browsertyp) zu erheben und auszuwerten.
             </p>
             <p className="mt-3">
-              Google Analytics wird <strong className="font-medium">erst
-              geladen, nachdem du im Cookie-Banner der Kategorie „Statistik"
-              zugestimmt hast</strong>. Rechtsgrundlage ist deine Einwilligung
-              (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Über den Google
-              Consent Mode ist sichergestellt, dass ohne deine Zustimmung keine
-              Analyse-Cookies gesetzt und keine Daten an Google übertragen
-              werden.
+              Wir setzen den Google Consent Mode ein. Das Analytics-Tag wird
+              zwar bereits beim Seitenaufruf geladen, sendet <strong className="font-medium">
+              ohne deine Einwilligung jedoch nur anonyme, cookielose Signale</strong>:
+              Es werden keine Analyse-Cookies gesetzt und keine personenbezogenen
+              Daten (etwa deine vollständige IP-Adresse) zu Analysezwecken
+              verarbeitet. Eine Analyse deiner Nutzung — einschließlich Cookies —
+              erfolgt erst, nachdem du im Cookie-Banner der Kategorie „Statistik"
+              zugestimmt hast. Rechtsgrundlage dafür ist deine Einwilligung
+              (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG).
             </p>
             <p className="mt-3">
               Bei aktivierter Statistik-Einwilligung kann deine (gekürzte)
@@ -160,15 +162,17 @@ export default function DatenschutzPage() {
               nicht auf einzelne Personen zurückführbare Statistiken.
             </p>
             <p className="mt-3">
-              Google Ads wird <strong className="font-medium">erst geladen,
-              nachdem du im Cookie-Banner der Kategorie „Marketing" zugestimmt
-              hast</strong>. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs.
-              1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Ohne diese Zustimmung werden
-              über den Google Consent Mode keine Marketing-Cookies gesetzt und
-              keine Daten an Google Ads übertragen. Auch hier ist eine
-              Übermittlung in die USA möglich (EU-US Data Privacy Framework bzw.
-              EU-Standardvertragsklauseln), und du kannst deine Einwilligung
-              jederzeit über die Cookie-Einstellungen widerrufen.
+              Auch für Google Ads gilt der Google Consent Mode: Das Tag wird
+              geladen, <strong className="font-medium">ohne deine Einwilligung
+              werden aber keine Marketing-Cookies gesetzt</strong> und nur
+              anonyme, cookielose Signale (etwa zur Conversion-Modellierung)
+              übertragen. Marketing-Cookies und eine personenbezogene
+              Verarbeitung erfolgen erst, nachdem du im Cookie-Banner der
+              Kategorie „Marketing" zugestimmt hast (Rechtsgrundlage: deine
+              Einwilligung, Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG).
+              Eine Übermittlung in die USA ist möglich (EU-US Data Privacy
+              Framework bzw. EU-Standardvertragsklauseln); du kannst deine
+              Einwilligung jederzeit über die Cookie-Einstellungen widerrufen.
             </p>
           </section>
 

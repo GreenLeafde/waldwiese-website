@@ -5,28 +5,27 @@ import { useConsent } from "./consent-provider";
 import { hasAds, hasGa, hasGtm, hasHotjar, TRACKING } from "@/lib/tracking";
 
 /**
- * Lädt die Tracking-Skripte ERST, wenn die passende Einwilligung vorliegt
- * UND eine gültige ID hinterlegt ist. Ohne ID (z. B. vor Konto-Anlage)
- * passiert nichts — die Consent-Logik läuft trotzdem.
+ * Google Consent Mode "Advanced": Die Google-Tags (GA4, Ads, ggf. GTM) laden
+ * IMMER, sobald eine gültige ID hinterlegt ist — UNABHÄNGIG von der Einwilligung.
+ * Sie starten dank CONSENT_DEFAULT_SCRIPT (Layout) im Zustand "denied": cookielos,
+ * ohne personenbezogene Daten, nur anonyme Pings zur Conversion-Modellierung.
+ * Erst consentModeUpdate() (bei Zustimmung) kippt sie auf "granted" → dann erst
+ * Cookies + personenbezogene Erfassung.
  *
- * - GA4 (direkt per gtag.js): nur bei Statistik. Nur wenn KEIN GTM-Container
- *   gesetzt ist (läuft GA4 dort, würde es sonst doppelt zählen).
- * - Google Ads (Conversion-Tracking): nur bei Marketing. Nur ohne GTM.
- * - GTM (Container für GA4 + Google Ads): bei Statistik ODER Marketing
- * - Hotjar: nur bei Statistik
+ * - GA4 / Google Ads: laden immer (nur wenn KEIN GTM-Container gesetzt ist,
+ *   sonst liefe GA4/Ads dort → Doppelzählung).
+ * - GTM: lädt immer (Consent Mode wird im Container konfiguriert).
+ * - Hotjar: KENNT keinen Consent Mode → weiterhin nur bei Statistik-Einwilligung.
  *
- * gtag() ist bereits global definiert (CONSENT_DEFAULT_SCRIPT im Layout),
- * inkl. Consent Mode v2 Defaults (denied) — GA4/Ads respektieren das automatisch.
- * gtag.js selbst wird nur EINMAL geladen; die einzelnen Produkte werden danach
- * je nach Einwilligung per gtag('config', …) aktiviert.
+ * gtag.js wird nur EINMAL geladen; die Produkte danach per gtag('config', …).
  */
 export function TrackingScripts() {
   const { ready, consent } = useConsent();
   if (!ready) return null;
 
-  const loadGa = hasGa() && !hasGtm() && consent.statistics;
-  const loadAds = hasAds() && !hasGtm() && consent.marketing;
-  const loadGtm = hasGtm() && (consent.statistics || consent.marketing);
+  const loadGa = hasGa() && !hasGtm();
+  const loadAds = hasAds() && !hasGtm();
+  const loadGtm = hasGtm();
   const loadHotjar = hasHotjar() && consent.statistics;
 
   const gtagBootId = loadGa ? TRACKING.gaId : loadAds ? TRACKING.adsId : "";

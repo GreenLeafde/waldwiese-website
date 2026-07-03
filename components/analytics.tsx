@@ -7,15 +7,15 @@ import { hasReservationConversion, TRACKING } from "@/lib/tracking";
 import type { EventType } from "@/lib/analytics";
 
 /**
- * Feuert einen Google-Ads-Conversion für "Reservierung gestartet" — aber nur
- * mit Marketing-Einwilligung, geladenem gtag UND gültiger Conversion-Kennung.
- * Bewusst kein pauschaler Seitenaufruf-Conversion, sondern eine echte Aktion.
+ * Feuert einen Google-Ads-Conversion für "Reservierung gestartet".
+ * Consent Mode "Advanced": Der Event darf immer gesendet werden — bei fehlender
+ * Marketing-Einwilligung sorgt der Consent Mode (ad_storage=denied) dafür, dass
+ * der Ping cookielos/anonym ist und nur zur Modellierung dient. Gültige
+ * Conversion-Kennung + geladenes gtag sind Voraussetzung.
  */
 export function trackReservationConversion(): void {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
   if (!hasReservationConversion()) return;
-  const consent = readConsent();
-  if (!consent?.marketing) return;
   window.gtag("event", "conversion", {
     send_to: TRACKING.reservationConversion,
     value: 1.0,
