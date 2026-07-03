@@ -155,7 +155,7 @@ export default function DatenschutzPage() {
               außerdem Google Ads mit Conversion-Tracking, ebenfalls ein Dienst
               der Google Ireland Limited. Damit erkennen wir, ob Nutzer nach dem
               Klick auf eine unserer Anzeigen bestimmte Aktionen auf der Website
-              ausführen (z. B. einen Seitenaufruf). Dabei kann ein Cookie
+              ausführen (z. B. eine Reservierung starten). Dabei kann ein Cookie
               gesetzt werden; wir erhalten von Google nur zusammengefasste,
               nicht auf einzelne Personen zurückführbare Statistiken.
             </p>

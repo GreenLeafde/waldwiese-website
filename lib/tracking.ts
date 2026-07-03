@@ -13,8 +13,15 @@
 export const TRACKING = {
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? "",
   adsId: process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? "",
-  /** Conversion-Kennung im Format AW-XXXX/Label für den Seitenaufruf-Conversion. */
-  adsPageviewConversion: process.env.NEXT_PUBLIC_GOOGLE_ADS_PAGEVIEW_CONVERSION ?? "",
+  /**
+   * Conversion-Kennung (AW-XXXX/Label) für "Reservierung gestartet".
+   * Fällt auf die alte PAGEVIEW-Variable zurück, damit ein bereits gesetzter
+   * Vercel-Wert weiter greift (nicht umbenennen nötig).
+   */
+  reservationConversion:
+    process.env.NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_CONVERSION ??
+    process.env.NEXT_PUBLIC_GOOGLE_ADS_PAGEVIEW_CONVERSION ??
+    "",
   gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "",
   hotjarId: process.env.NEXT_PUBLIC_HOTJAR_ID ?? "",
 } as const;
@@ -30,8 +37,8 @@ export function hasAds(): boolean {
 }
 
 /** Conversion-Kennung im Format AW-XXXX/Label (ID + Conversion-Label). */
-export function hasAdsPageviewConversion(): boolean {
-  return /^AW-[A-Z0-9]+\/[A-Za-z0-9_-]+$/.test(TRACKING.adsPageviewConversion);
+export function hasReservationConversion(): boolean {
+  return /^AW-[A-Z0-9]+\/[A-Za-z0-9_-]+$/.test(TRACKING.reservationConversion);
 }
 
 /** GTM-Container-IDs haben das Format GTM-XXXXXX. */

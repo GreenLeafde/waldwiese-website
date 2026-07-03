@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useConsent } from "./consent-provider";
-import { track } from "./analytics";
+import { track, trackReservationConversion } from "./analytics";
 import { RESERVATION_URL } from "@/lib/site";
 
 /**
@@ -21,6 +21,9 @@ import { RESERVATION_URL } from "@/lib/site";
 export function ReservationWidget() {
   const { ready, consent, grant } = useConsent();
   const [loaded, setLoaded] = useState(false);
+  // Conversion "Reservierung gestartet" nur einmal pro Seitenaufruf feuern
+  // (das iframe-onLoad kann bei internen Schritten mehrfach auslösen).
+  const conversionFired = useRef(false);
 
   const fallback = (
     <a
@@ -57,6 +60,10 @@ export function ReservationWidget() {
             onLoad={() => {
               setLoaded(true);
               track("reservation_open");
+              if (!conversionFired.current) {
+                conversionFired.current = true;
+                trackReservationConversion();
+              }
             }}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
