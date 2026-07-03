@@ -24,12 +24,12 @@ export function trackReservationConversion(): void {
 }
 
 /**
- * Sendet ein anonymes Event — aber nur mit Statistik-Einwilligung.
- * Cookielos, ohne personenbezogene Daten (keine IP, kein Fingerprint).
+ * Sendet ein anonymes Event — aber nur, wenn die Statistik-Einwilligung
+ * vorliegt. Cookielos, ohne personenbezogene Daten.
  */
 export function track(
   type: EventType,
-  data?: { path?: string; label?: string; referrer?: string; duration?: number },
+  data?: { path?: string; label?: string },
 ): void {
   if (typeof window === "undefined") return;
   try {
@@ -40,8 +40,6 @@ export function track(
       type,
       path: data?.path ?? window.location.pathname,
       label: data?.label,
-      referrer: data?.referrer,
-      duration: data?.duration,
     });
 
     if (navigator.sendBeacon) {
@@ -62,46 +60,13 @@ export function track(
   }
 }
 
-// Externe Quell-Domain nur einmal pro Seitenladevorgang melden.
-let referrerSent = false;
-
-/** Seitenaufruf-Tracking + Verweildauer (anonym) bei jedem Routenwechsel. */
+/** Automatisches Seitenaufruf-Tracking bei jedem Routenwechsel. */
 export function Analytics() {
   const pathname = usePathname();
-
   useEffect(() => {
     // Das eigene Backend nicht mitzählen.
     if (pathname.startsWith("/admin")) return;
-
-    let referrer: string | undefined;
-    if (!referrerSent) {
-      referrerSent = true;
-      try {
-        const ref = document.referrer ? new URL(document.referrer).hostname : "";
-        if (ref && ref !== window.location.hostname) referrer = ref;
-      } catch {
-        /* ignore */
-      }
-    }
-    track("pageview", { path: pathname, referrer });
-
-    const start = Date.now();
-    let sent = false;
-    const sendTime = () => {
-      if (sent) return;
-      sent = true;
-      const dur = Math.round((Date.now() - start) / 1000);
-      if (dur > 0 && dur < 86400) {
-        track("page_time", { path: pathname, duration: dur });
-      }
-    };
-    window.addEventListener("pagehide", sendTime);
-
-    return () => {
-      window.removeEventListener("pagehide", sendTime);
-      sendTime();
-    };
+    track("pageview", { path: pathname });
   }, [pathname]);
-
   return null;
 }
