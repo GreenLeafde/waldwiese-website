@@ -2,14 +2,7 @@
 
 import Script from "next/script";
 import { useConsent } from "./consent-provider";
-import {
-  hasAds,
-  hasAdsPageviewConversion,
-  hasGa,
-  hasGtm,
-  hasHotjar,
-  TRACKING,
-} from "@/lib/tracking";
+import { hasAds, hasGa, hasGtm, hasHotjar, TRACKING } from "@/lib/tracking";
 
 /**
  * Lädt die Tracking-Skripte ERST, wenn die passende Einwilligung vorliegt
@@ -61,11 +54,12 @@ export function TrackingScripts() {
           id="google-ads-config"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `gtag('js', new Date());gtag('config', '${TRACKING.adsId}');${
-              hasAdsPageviewConversion()
-                ? `gtag('event','conversion',{'send_to':'${TRACKING.adsPageviewConversion}','value':1.0,'currency':'EUR'});`
-                : ""
-            }`,
+            // Nur den Ads-Tag laden/konfigurieren (ermöglicht Remarketing).
+            // Ein Conversion wird bewusst NICHT pauschal pro Seitenaufruf
+            // gefeuert — er soll gezielt bei einer echten Aktion (z. B.
+            // abgeschlossene Reservierung) ausgelöst werden, sobald dafür ein
+            // zuverlässiges Signal existiert.
+            __html: `gtag('js', new Date());gtag('config', '${TRACKING.adsId}');`,
           }}
         />
       )}
