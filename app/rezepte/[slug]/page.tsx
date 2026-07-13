@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
 import { StampBadge } from "@/components/stamp-badge";
 import { getRecipe, RECIPES } from "@/lib/recipes";
+import { SITE } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -19,9 +20,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const recipe = getRecipe(slug);
   if (!recipe) return {};
   return {
-    title: recipe.title,
+    title: `${recipe.title} — Rezept | Wald & Wiese`,
     description: recipe.teaser,
     alternates: { canonical: `/rezepte/${slug}` },
+    openGraph: {
+      title: recipe.title,
+      description: recipe.teaser,
+      url: `/rezepte/${slug}`,
+      type: "article",
+      ...(recipe.image ? { images: [{ url: recipe.image.src }] } : {}),
+    },
   };
 }
 
@@ -30,8 +38,66 @@ export default async function RezeptDetailPage({ params }: Props) {
   const recipe = getRecipe(slug);
   if (!recipe) notFound();
 
+  const hasSteps =
+    recipe.hasFullRecipe &&
+    !!recipe.ingredients?.length &&
+    !!recipe.steps?.length;
+
+  const recipeJsonLd = hasSteps
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Recipe",
+        name: recipe.title,
+        description: recipe.intro ?? recipe.teaser,
+        ...(recipe.image ? { image: [recipe.image.src] } : {}),
+        ...(recipe.publishedAt ? { datePublished: recipe.publishedAt } : {}),
+        author: recipe.author
+          ? { "@type": "Person", name: recipe.author.name }
+          : { "@type": "Organization", name: SITE.name },
+        publisher: { "@type": "Organization", name: SITE.name },
+        recipeCategory: recipe.category,
+        recipeCuisine: "Regional",
+        recipeIngredient: recipe.ingredients!.flatMap((g) => g.items),
+        recipeInstructions: recipe.steps!.map((s) => ({
+          "@type": "HowToStep",
+          name: s.title,
+          text: s.body,
+        })),
+      }
+    : null;
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite", item: SITE.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Rezepte",
+        item: `${SITE.url}/rezepte`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: recipe.title,
+        item: `${SITE.url}/rezepte/${slug}`,
+      },
+    ],
+  };
+
   return (
     <article>
+      {recipeJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(recipeJsonLd) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* HEADER — Waldgrün */}
       <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">

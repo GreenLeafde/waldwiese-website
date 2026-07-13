@@ -328,6 +328,313 @@ export const RECIPES: Recipe[] = [
       },
     ],
   },
+  {
+    slug: "hausgemachte-guacamole",
+    title: "Hausgemachte Guacamole",
+    teaser:
+      "Cremig, frisch, mit Limette — so wie sie bei uns aufs Avocado-Brot kommt. In 10 Minuten selbst gemacht.",
+    category: "Frühstück",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Unsere Guacamole machen wir frisch — sie landet auf „Morgenstund hat Avocado im Mund“ und als Dip zu den Pommes. So einfach geht sie zuhause; die genaue Würzung aus unserer Küche bleibt unser kleines Geheimnis, aber damit kommst du sehr nah ran.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "2 reife Avocados",
+          "½ rote Zwiebel, fein gewürfelt",
+          "1 kleine Tomate, entkernt und gewürfelt",
+          "Saft von 1 Limette",
+          "1 Knoblauchzehe, fein gerieben",
+          "einige Blätter Koriander (optional)",
+          "Salz, Pfeffer",
+          "1 Prise Chili (optional)",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Avocados zerdrücken",
+        body:
+          "Das Fruchtfleisch der Avocados in eine Schüssel geben und mit der Gabel grob zerdrücken — ruhig ein paar Stückchen lassen.",
+      },
+      {
+        title: "Limette zuerst",
+        body:
+          "Sofort den Limettensaft unterrühren. Das bringt Frische und hält die Guacamole schön grün.",
+      },
+      {
+        title: "Unterheben",
+        body:
+          "Zwiebel, Tomate, Knoblauch und nach Geschmack Koriander unterheben.",
+      },
+      {
+        title: "Abschmecken",
+        body:
+          "Mit Salz, Pfeffer und optional einer Prise Chili abschmecken. Am besten frisch servieren.",
+      },
+      {
+        title: "Aufbewahren",
+        body:
+          "Rest mit Frischhaltefolie direkt auf der Oberfläche abdecken — so bleibt sie länger grün.",
+      },
+    ],
+  },
+  {
+    slug: "french-toast",
+    title: "French Toast mit Schmandcreme",
+    teaser:
+      "Goldbraunes Brioche mit Schmandcreme, Apfelkompott und Pistazien — unser süßer Frühstücksliebling für zuhause.",
+    category: "Frühstück",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "„Da wird einem süß ums Herz“ heißt der French Toast auf unserer Brunch-Karte. So machst du die gemütliche Variante daheim — mit Schmandcreme, Apfelkompott und Pistazien.",
+    ingredients: [
+      {
+        title: "French Toast",
+        items: [
+          "4 Scheiben Brioche oder Toastbrot (gern etwas altbacken)",
+          "2 Eier",
+          "150 ml Milch",
+          "1 EL Zucker",
+          "1 Prise Zimt",
+          "Butter zum Braten",
+        ],
+      },
+      {
+        title: "Schmandcreme",
+        items: ["200 g Schmand", "1–2 EL Puderzucker", "1 TL Vanille"],
+      },
+      {
+        title: "Apfelkompott",
+        items: [
+          "2 Äpfel, gewürfelt",
+          "1 EL Zucker",
+          "1 Spritzer Zitrone",
+          "etwas Wasser",
+        ],
+      },
+      {
+        title: "Zum Servieren",
+        items: ["gehackte Pistazien", "Ahornsirup"],
+      },
+    ],
+    steps: [
+      {
+        title: "Kompott kochen",
+        body:
+          "Apfelwürfel mit Zucker, Zitrone und einem Schuss Wasser 8–10 Minuten weich köcheln lassen.",
+      },
+      {
+        title: "Creme rühren",
+        body:
+          "Schmand mit Puderzucker und Vanille glatt rühren, kühl stellen.",
+      },
+      {
+        title: "Eiermilch",
+        body: "Eier, Milch, Zucker und Zimt verquirlen.",
+      },
+      {
+        title: "Braten",
+        body:
+          "Die Brotscheiben kurz durch die Eiermilch ziehen und in Butter bei mittlerer Hitze goldbraun braten.",
+      },
+      {
+        title: "Anrichten",
+        body:
+          "Mit Schmandcreme, Apfelkompott und Pistazien anrichten, mit Ahornsirup beträufeln.",
+      },
+    ],
+  },
+  {
+    slug: "erdbeer-basilikum-limonade",
+    title: "Erdbeer-Basilikum-Limonade",
+    teaser:
+      "Fruchtig, mit einem Hauch Basilikum — eine unserer hausgemachten Sommerlimonaden von der Terrasse.",
+    category: "Drinks",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Neben der klassischen Zitronenlimo gibt es bei uns Sorten wie Erdbeer-Basilikum. Schnell gemacht und schmeckt nach Sommer im Grünen.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "250 g Erdbeeren",
+          "1 kleine Handvoll Basilikum",
+          "60–80 g Zucker",
+          "100 ml Wasser (für den Sirup)",
+          "Saft von ½ Zitrone",
+          "ca. 700 ml kaltes Wasser oder Sprudel",
+          "Eiswürfel",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Basilikum-Sirup",
+        body:
+          "Zucker mit 100 ml Wasser aufkochen, den Basilikum kurz mitziehen lassen, abkühlen und die Blätter wieder herausnehmen.",
+      },
+      {
+        title: "Erdbeeren pürieren",
+        body:
+          "Die Erdbeeren fein pürieren, für eine klare Limo optional durch ein Sieb streichen.",
+      },
+      {
+        title: "Mischen",
+        body:
+          "Erdbeerpüree, Sirup, Zitronensaft und das kalte Wasser bzw. den Sprudel verrühren.",
+      },
+      {
+        title: "Servieren",
+        body:
+          "Mit reichlich Eis, ein paar Erdbeerstücken und einem Basilikumblatt servieren.",
+      },
+    ],
+  },
+  {
+    slug: "balsamico-zwiebeln",
+    title: "Balsamico-Zwiebeln",
+    teaser:
+      "Süß-säuerlich eingekochte Zwiebeln — bei uns auf Burgern und Broten. Ein Vorrat, der vieles besser macht.",
+    category: "Hauptgang",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Unsere Balsamico-Zwiebeln geben Burgern wie der „mähenden Moni“ und unseren Broten den Kick. Einmal gemacht, halten sie im Glas eine Weile.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "3 große rote Zwiebeln, in Streifen",
+          "1 EL Öl oder Butter",
+          "1 EL Zucker oder Honig",
+          "3 EL Balsamico",
+          "1 Prise Salz",
+          "1 Zweig Thymian (optional)",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Schmoren",
+        body:
+          "Die Zwiebeln in Öl bei mittlerer Hitze 8–10 Minuten weich und glasig schmoren.",
+      },
+      {
+        title: "Karamellisieren",
+        body:
+          "Zucker bzw. Honig zugeben und kurz leicht karamellisieren lassen.",
+      },
+      {
+        title: "Ablöschen",
+        body:
+          "Mit Balsamico ablöschen und einköcheln lassen, bis es leicht sirupartig ist.",
+      },
+      {
+        title: "Abschmecken",
+        body:
+          "Mit Salz und optional Thymian abschmecken. Schmeckt lauwarm wie kalt — im Glas hält sich der Rest gekühlt einige Tage.",
+      },
+    ],
+  },
+  {
+    slug: "hausgemachte-burgersosse",
+    title: "Hausgemachte Burgersoße",
+    teaser:
+      "Die cremige Soße, die unsere Burger zusammenhält — würzig, leicht süß, in 5 Minuten gerührt.",
+    category: "Hauptgang",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Fast jeder unserer Burger — vom „klassischen Heinzi“ bis zur „gackernden Julia“ — bekommt unsere hausgemachte Burgersoße. Das ist eine unkomplizierte Version für zuhause.",
+    ingredients: [
+      {
+        title: "Zutaten",
+        items: [
+          "4 EL Mayonnaise",
+          "2 EL Ketchup",
+          "1 TL mittelscharfer Senf",
+          "1 Gewürzgurke, fein gehackt",
+          "1 TL Gurkenwasser",
+          "1 Prise Zucker",
+          "1 Prise Paprikapulver",
+          "Salz, Pfeffer",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Basis rühren",
+        body: "Mayonnaise, Ketchup und Senf glatt verrühren.",
+      },
+      {
+        title: "Würzen",
+        body:
+          "Gewürzgurke und Gurkenwasser unterheben, mit Zucker, Paprika, Salz und Pfeffer abschmecken.",
+      },
+      {
+        title: "Ziehen lassen",
+        body:
+          "15 Minuten ziehen lassen — dann rundet sich der Geschmack ab. Gekühlt hält sie einige Tage.",
+      },
+    ],
+  },
+  {
+    slug: "chia-fruehstuecksbowl",
+    title: "Chia-Frühstücksbowl",
+    teaser:
+      "Chia, Kokosmilch und Früchte — die Basis unserer „Schmusi“-Bowls, über Nacht angerührt.",
+    category: "Frühstück",
+    hasFullRecipe: true,
+    publishedAt: null,
+    intro:
+      "Unsere „Schmusi“-Bowls wie das Wiesenschmuserl starten mit Chia in Kokosmilch. So machst du die Basis zuhause und toppst sie ganz nach Lust.",
+    ingredients: [
+      {
+        title: "Basis",
+        items: [
+          "3 EL Chiasamen",
+          "200 ml Kokosmilch (Drink)",
+          "1 TL Ahornsirup oder Honig",
+          "½ Banane, zerdrückt",
+        ],
+      },
+      {
+        title: "Toppings",
+        items: [
+          "frische Beeren oder Mango",
+          "Kokosflocken",
+          "hausgemachtes Granola",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Anrühren",
+        body:
+          "Chiasamen mit Kokosmilch, Ahornsirup und der zerdrückten Banane verrühren.",
+      },
+      {
+        title: "Nachrühren",
+        body:
+          "5 Minuten warten und nochmal kräftig rühren — so gibt es keine Klümpchen.",
+      },
+      {
+        title: "Quellen lassen",
+        body:
+          "Über Nacht (oder mindestens 2 Stunden) im Kühlschrank quellen lassen.",
+      },
+      {
+        title: "Toppen",
+        body:
+          "Vor dem Servieren mit Früchten, Kokosflocken und Granola toppen.",
+      },
+    ],
+  },
 ];
 
 export function getRecipe(slug: string): Recipe | undefined {
