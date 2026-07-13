@@ -8,7 +8,7 @@
   "intro": "Du suchst Frühstück in Regensburg, hast aber Lust auf mehr als Stadttrubel? Bei Wald & Wiese in Sinzing frühstückst du nur wenige Minuten südwestlich der Stadt – im Grünen, in Ruhe und mit Zutaten aus der Region. Klein, fein und ehrlich: mehr Frühstückstisch als feines Restaurant.",
   "primaryCta": {
     "label": "Zum Frühstück",
-    "href": "/brunch"
+    "href": "/speisekarte"
   },
   "story": {
     "heading": "Frühstück Regensburg, nur einen Katzensprung weiter",
@@ -101,7 +101,7 @@
   "related": [
     {
       "label": "Frühstück",
-      "href": "/brunch",
+      "href": "/speisekarte",
       "blurb": "Alles über unser regionales Frühstück im Grünen – was auf den Tisch kommt und wie wir es machen."
     },
     {

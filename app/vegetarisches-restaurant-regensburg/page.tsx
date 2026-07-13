@@ -11,7 +11,7 @@ const content: LandingContent = {
   h1Accent: "Regensburg.",
   intro:
     "Vegetarisch ist bei uns kein Beiwerk: In Sinzing, wenige Minuten von Regensburg, stehen vegetarische und vegane Gerichte gleichberechtigt auf der Karte — von Bowls über Tempura-Gemüse bis zum Burger mit Ziegenkäse. Regional und ehrlich.",
-  primaryCta: { label: "Zur Speisekarte", href: "/abendessen" },
+  primaryCta: { label: "Zur Speisekarte", href: "/speisekarte" },
   split: {
     eyebrow: "Für alle am Tisch",
     heading: "Vegetarisch, vegan",

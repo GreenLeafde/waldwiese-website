@@ -8,7 +8,7 @@
   "intro": "Samstag und Sonntag ausschlafen und dann in Ruhe brunchen? Bei Wald & Wiese in Sinzing, nur wenige Minuten südwestlich von Regensburg, brunchst du das ganze Wochenende von 8 bis 14 Uhr – im Grünen, mit Zutaten aus der Region. Erst Frühstücke, Brote und Bowls, ab 11:30 Uhr Currywurst, Burger und Salate. Und wer abends nochmal kommt: Freitag bis Sonntag sind wir von 17 bis 22 Uhr zusätzlich da.",
   "primaryCta": {
     "label": "Zur Brunch-Karte",
-    "href": "/brunch"
+    "href": "/speisekarte"
   },
   "story": {
     "heading": "Dein Wochenende beginnt",
@@ -101,7 +101,7 @@
   "related": [
     {
       "label": "Brunch-Karte",
-      "href": "/brunch",
+      "href": "/speisekarte",
       "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
     },
     {
@@ -111,7 +111,7 @@
     },
     {
       "label": "Abendkarte",
-      "href": "/abendessen",
+      "href": "/speisekarte",
       "blurb": "Freitag bis Sonntag abends: Burger, Bowls und Gerichte vom Grill."
     }
   ],

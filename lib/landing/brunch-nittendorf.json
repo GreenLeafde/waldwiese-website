@@ -8,7 +8,7 @@
   "intro": "Du suchst einen Brunch in der Nähe von Nittendorf, der nicht nach Kette schmeckt? Wald & Wiese in Sinzing liegt nur eine kurze Fahrt entfernt, mitten im Grünen am Waldrand. Gebruncht wird bei uns täglich von 8 bis 14 Uhr – erst Frühstücke, Brote und Bowls, ab 11:30 Uhr kommen Currywurst, Burger und Salate dazu. Familiengeführt von der Familie Leber: klein, fein & ehrlich.",
   "primaryCta": {
     "label": "Zur Brunch-Karte",
-    "href": "/brunch"
+    "href": "/speisekarte"
   },
   "story": {
     "heading": "Aus Nittendorf schnell",
@@ -88,7 +88,7 @@
   "related": [
     {
       "label": "Brunch-Karte",
-      "href": "/brunch",
+      "href": "/speisekarte",
       "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
     },
     {

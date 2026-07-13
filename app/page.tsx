@@ -42,18 +42,22 @@ export function generateMetadata(): Metadata {
  *   - Serif nur für große Headings; Beschreibungen in kursivem Sans.
  * ------------------------------------------------------------------------- */
 
-/** Startseite zeigt nur die Kategorien + je ein konkretes Highlight — nicht
- *  die ganze Karte. Details & Preise stehen auf /abendessen. Keine Food-Stock-
+/** Startseite zeigt die drei Tageszeiten mit je einem Highlight — nicht die
+ *  ganze Karte. Details & Preise stehen auf /speisekarte. Keine Food-Stock-
  *  Bilder (echte Gericht-Fotos liegen noch nicht vor). */
 const menuCategories: Array<{ title: string; highlight: string }> = [
-  { title: "Beginner", highlight: "Rote Bete Carpaccio · Gemüse im Tempurateig" },
-  { title: "Burger", highlight: "Die mähende Moni · Der fetzige Sven · Heinzi" },
   {
-    title: "Schüssel voller Glück",
-    highlight: "Prinzessin auf der Kichererbse · Caesar",
+    title: "Frühstück · täglich 8–14 Uhr",
+    highlight: "Der gute alte Sepp · Avocado-Brot · „Schmusi“-Bowls",
   },
-  { title: "Vom Grill", highlight: "Steak, Spare Ribs & Teriyaki-Lachs" },
-  { title: "Finale", highlight: "Pistazientiramisu · Krachender Crumble" },
+  {
+    title: "Mittag · täglich ab 11:30 Uhr",
+    highlight: "Oma’s Currywurst · Heinzi-Burger · Sophia’s Garten",
+  },
+  {
+    title: "Abend · Fr–So 17–22 Uhr",
+    highlight: "Burger, Steak, Spare Ribs & süßes Finale",
+  },
 ];
 
 /** Wiegende Blatt-Ornamente in den seitlichen Freiräumen grüner Sektionen.
@@ -165,16 +169,17 @@ export default function HomePage() {
         <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-28">
           <div className="text-center reveal">
             <p className="eyebrow no-line justify-center text-tonwarm">
-              Heute Abend
+              Unsere Speisekarte
             </p>
             <h2 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
               Die Karte.
             </h2>
             <p className="mt-7 italic text-lg md:text-xl text-mehlcreme/75 max-w-xl mx-auto leading-relaxed">
-              Burger, Bowls, vom Grill und süßes Finale. Die ganze Karte mit
-              allen Gerichten und Preisen findest du{" "}
+              Ein Haus, drei Tageszeiten: Frühstück &amp; Mittag täglich,
+              Abend am Wochenende. Die ganze Speisekarte mit allen Gerichten
+              und Preisen findest du{" "}
               <Link
-                href="/abendessen"
+                href="/speisekarte"
                 className="not-italic underline decoration-tonwarm/50 decoration-2 underline-offset-[6px] hover:decoration-tonwarm hover:text-tonwarm transition-colors"
               >
                 hier
@@ -188,7 +193,7 @@ export default function HomePage() {
             {menuCategories.map((cat) => (
               <li key={cat.title}>
                 <Link
-                  href="/abendessen"
+                  href="/speisekarte"
                   className="group flex items-center justify-between gap-6 py-6 md:py-7 border-b border-mehlcreme/15"
                 >
                   <div>
@@ -212,7 +217,7 @@ export default function HomePage() {
 
           <div className="mt-12 md:mt-16 text-center reveal-2">
             <Link
-              href="/abendessen"
+              href="/speisekarte"
               className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
             >
               Komplette Karte ansehen <span aria-hidden>→</span>
@@ -286,7 +291,7 @@ export default function HomePage() {
             </div>
             <div className="mt-9 flex flex-wrap items-center gap-5">
               <Link
-                href="/brunch"
+                href="/speisekarte"
                 className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
               >
                 {hasBreakfastLaunched() ? "Zur Brunch-Karte" : "Mehr zum Frühstück"}{" "}

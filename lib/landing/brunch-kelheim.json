@@ -8,7 +8,7 @@
   "intro": "Wer aus Kelheim mal richtig in Ruhe brunchen will, macht den kurzen Ausflug ins Grüne wett: Wald & Wiese in Sinzing bei Regensburg liegt mitten in der Natur am Waldrand, an der Donau zwischen Kelheim und der Stadt. Gebruncht wird täglich von 8 bis 14 Uhr – Frühstücke, Brote und Bowls, ab 11:30 Uhr dazu der Mittagstisch. Familiengeführt, regional, klein, fein & ehrlich.",
   "primaryCta": {
     "label": "Zur Brunch-Karte",
-    "href": "/brunch"
+    "href": "/speisekarte"
   },
   "story": {
     "heading": "Ein Ausflug, der sich",
@@ -88,7 +88,7 @@
   "related": [
     {
       "label": "Brunch-Karte",
-      "href": "/brunch",
+      "href": "/speisekarte",
       "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
     },
     {

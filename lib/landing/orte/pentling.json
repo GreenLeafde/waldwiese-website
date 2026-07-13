@@ -6,7 +6,7 @@
   "h1Lead": "Dein Restaurant in der Nähe von",
   "h1Accent": "Pentling.",
   "intro": "Du suchst zum Essen gehen in Pentling einen Tisch ohne Großstadt-Trubel? Wald & Wiese in Sinzing liegt nur wenige Minuten von Pentling entfernt, mitten im Grünen am Waldrand. Abends gibt's Burger wie die mähende Moni oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Klein, fein & ehrlich, familiengeführt von der Familie Leber.",
-  "primaryCta": { "label": "Zur Speisekarte", "href": "/abendessen" },
+  "primaryCta": { "label": "Zur Speisekarte", "href": "/speisekarte" },
   "split": {
     "eyebrow": "Von Pentling raus ins Grüne",
     "heading": "Kurzer Weg von Pentling,",

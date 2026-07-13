@@ -8,7 +8,7 @@
   "intro": "Wald & Wiese ist das familiengeführte Restaurant in Sinzing — nur einen Katzensprung südwestlich von Regensburg, mitten im Grünen. Abends gibt's bei uns Burger, Bowls und Gerichte vom Grill, regional und saisonal gekocht. Klein, fein & ehrlich: mehr Frühstückstisch als feines Restaurant, dafür mit ganz viel Herz.",
   "primaryCta": {
     "label": "Zur Speisekarte",
-    "href": "/abendessen"
+    "href": "/speisekarte"
   },
   "story": {
     "heading": "Ein Restaurant, das die Familie Leber selbst",
@@ -102,7 +102,7 @@
   "related": [
     {
       "label": "Speisekarte Abend",
-      "href": "/abendessen",
+      "href": "/speisekarte",
       "blurb": "Burger, Bowls und alles vom Grill — mit Namen und Geschichte."
     },
     {

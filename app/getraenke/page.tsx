@@ -151,7 +151,7 @@ export default function GetraenkePage() {
             Jeden Sonntag hausgemachte Kuchen — frag uns einfach an der Theke.
           </p>
           <Link
-            href="/abendessen"
+            href="/speisekarte"
             className="mt-8 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
           >
             Zur Speisekarte <span aria-hidden>→</span>

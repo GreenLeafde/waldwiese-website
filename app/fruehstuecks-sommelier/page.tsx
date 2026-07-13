@@ -17,7 +17,7 @@ export default function SommelierPage() {
       <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
           <Link
-            href="/brunch"
+            href="/speisekarte"
             className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
           >
             <span aria-hidden>←</span> Frühstück

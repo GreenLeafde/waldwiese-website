@@ -87,7 +87,7 @@ export default function UeberUnsPage() {
               Frühstücksrestaurant — morgens im Grünen, regional und ehrlich,
               genau wie alles bei uns.{" "}
               <Link
-                href="/brunch"
+                href="/speisekarte"
                 className="text-tonwarm underline decoration-tonwarm/40 decoration-2 underline-offset-[5px] hover:decoration-tonwarm transition-colors"
               >
                 Mehr zum Frühstück

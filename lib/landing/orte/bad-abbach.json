@@ -6,7 +6,7 @@
   "h1Lead": "Dein Restaurant in der Nähe von",
   "h1Accent": "Bad Abbach.",
   "intro": "Du willst rund um Bad Abbach essen gehen und suchst mehr als die nächste Standardkarte? Wald & Wiese in Sinzing liegt nur wenige Minuten entfernt, mitten im Grünen am Waldrand. Abends gibt's bei uns Burger wie die mähende Moni oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Familiengeführt von der Familie Leber: klein, fein & ehrlich.",
-  "primaryCta": { "label": "Zur Abendkarte", "href": "/abendessen" },
+  "primaryCta": { "label": "Zur Abendkarte", "href": "/speisekarte" },
   "split": {
     "eyebrow": "Von Bad Abbach raus ins Grüne",
     "heading": "Ein kurzer Weg von Bad Abbach,",

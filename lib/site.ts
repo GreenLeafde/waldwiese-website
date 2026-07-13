@@ -148,15 +148,14 @@ export function siteDescription(): string {
  * im Mobile-Menü unter NAV_FULL erreichbar.
  */
 export const NAV: Array<{ label: string; href: string }> = [
-  { label: "Brunch", href: "/brunch" },
-  { label: "Abendkarte", href: "/abendessen" },
+  { label: "Speisekarte", href: "/speisekarte" },
   { label: "Getränke", href: "/getraenke" },
+  { label: "Reservieren", href: "/reservieren" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
 export const NAV_FULL: Array<{ label: string; href: string }> = [
-  { label: "Brunch", href: "/brunch" },
-  { label: "Abendkarte", href: "/abendessen" },
+  { label: "Speisekarte", href: "/speisekarte" },
   { label: "Getränke", href: "/getraenke" },
   { label: "Reservieren", href: "/reservieren" },
   { label: "Veranstaltungen", href: "/veranstaltungen" },
@@ -183,10 +182,10 @@ export const FOOTER_NAV: Array<{
   {
     title: "Essen & Trinken",
     links: [
-      { label: "Brunch", href: "/brunch" },
-      { label: "Abendkarte", href: "/abendessen" },
+      { label: "Speisekarte", href: "/speisekarte" },
+      { label: "Frühstück & Mittag", href: "/speisekarte#fruehstueck" },
+      { label: "Abend (Fr–So)", href: "/speisekarte#abend" },
       { label: "Getränke", href: "/getraenke" },
-      { label: "Speisen", href: "/speisen" },
     ],
   },
   {
