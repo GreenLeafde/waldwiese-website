@@ -257,15 +257,33 @@ export default async function RezeptDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* BACK — Waldgrün, fließt in den Footer */}
+      {/* KARTE-CTA + BACK — Waldgrün, fließt in den Footer */}
       <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
-          <Link
-            href="/rezepte"
-            className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-          >
-            <span aria-hidden>←</span> Andere Rezepte ansehen
-          </Link>
+          <p className="eyebrow no-line justify-center text-tonwarm">
+            Lieber genießen lassen?
+          </p>
+          <h2 className="mt-5 text-3xl md:text-4xl font-display font-normal leading-tight tracking-tight text-mehlcreme">
+            Bei uns frisch <span className="accent">auf der Karte.</span>
+          </h2>
+          <p className="mt-6 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed">
+            Hausgemacht bekommst du das alles bei uns in Sinzing — Brunch täglich
+            von 8–14 Uhr, abends (Fr – So) Burger, Bowls &amp; vom Grill.
+          </p>
+          <div className="mt-9 flex flex-wrap justify-center items-center gap-5">
+            <Link
+              href="/speisekarte"
+              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+            >
+              Zur Speisekarte <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/rezepte"
+              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+            >
+              <span aria-hidden>←</span> Andere Rezepte
+            </Link>
+          </div>
           <LeafDivider tone="light" className="mt-14 opacity-80" />
         </div>
       </section>

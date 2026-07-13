@@ -15,7 +15,6 @@ import {
   GEO,
   GOOGLE_MAPS_URL,
   SITE,
-  liveOpeningHours,
   siteDescription,
 } from "@/lib/site";
 import "./globals.css";
@@ -40,6 +39,12 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
+/** Standard-Vorschaubild fürs Teilen (OG/Twitter) — echtes Foto aus dem Haus. */
+const OG_IMAGE = {
+  url: "/photos/fruehstueck-avocado-toast.jpg",
+  alt: "Frühstück im Grünen bei Wald & Wiese in Sinzing bei Regensburg",
+};
+
 export function generateMetadata(): Metadata {
   const description = siteDescription();
   return {
@@ -52,13 +57,14 @@ export function generateMetadata(): Metadata {
   applicationName: SITE.name,
   authors: [{ name: SITE.legalName }],
   keywords: [
-    "Frühstücksrestaurant Regensburg",
-    "Frühstücksrestaurant Sinzing",
+    "Brunch Regensburg",
+    "Brunch Sinzing",
+    "Speisekarte Wald & Wiese",
     "Frühstück Sinzing",
     "Frühstück Regensburg",
     "Frühstücken gehen Regensburg",
-    "Brunch Regensburg",
-    "Brunch Sinzing",
+    "Mittagstisch Sinzing",
+    "Abendessen Regensburg",
     "veganes Frühstück Regensburg",
     "Restaurant Sinzing",
     "regional saisonal",
@@ -72,11 +78,13 @@ export function generateMetadata(): Metadata {
     siteName: SITE.name,
     title: `${SITE.name} · ${SITE.tagline}`,
     description,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} · ${SITE.tagline}`,
     description,
+    images: [OG_IMAGE.url],
   },
   };
 }
@@ -98,10 +106,18 @@ function buildRestaurantJsonLd() {
   name: SITE.name,
   url: SITE.url,
   description: siteDescription(),
-  servesCuisine: ["Frühstück", "Regional", "Vegetarisch", "Vegan"],
+  image: [
+    `${SITE.url}/photos/fruehstueck-avocado-toast.jpg`,
+    `${SITE.url}/photos/gebaeude-abend.jpg`,
+    `${SITE.url}/photos/terrasse-tische.jpg`,
+  ],
+  servesCuisine: ["Brunch", "Frühstück", "Regional", "Vegetarisch", "Vegan"],
   priceRange: "€€",
   telephone: CONTACT.phone,
   email: CONTACT.email,
+  acceptsReservations: "True",
+  menu: `${SITE.url}/speisekarte`,
+  hasMenu: `${SITE.url}/speisekarte`,
   address: {
     "@type": "PostalAddress",
     streetAddress: CONTACT.street,
@@ -110,10 +126,29 @@ function buildRestaurantJsonLd() {
     addressRegion: CONTACT.region,
     addressCountry: "DE",
   },
-  openingHoursSpecification: liveOpeningHours().map((slot) => ({
-    "@type": "OpeningHoursSpecification",
-    description: slot.isoSpec,
-  })),
+  // Strukturierte Öffnungszeiten (Brunch täglich 8–14, Abend Fr–So 17–22).
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "08:00",
+      closes: "14:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Friday", "Saturday", "Sunday"],
+      opens: "17:00",
+      closes: "22:00",
+    },
+  ],
   geo: {
     "@type": "GeoCoordinates",
     latitude: GEO.lat,

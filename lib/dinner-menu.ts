@@ -17,6 +17,8 @@ export type Dish = {
   tags?: Array<
     "vegan" | "vegetarisch" | "vegan möglich" | "vegetarisch möglich" | "empfehlung"
   >;
+  /** Slug eines passenden Rezepts (/rezepte/<slug>) zum Nachmachen. */
+  recipeSlug?: string;
 };
 
 export type DishCategory = {
@@ -211,7 +213,7 @@ export const DINNER_MENU: DishCategory[] = [
     slug: "dips-haus",
     title: "Dips · Hausgemacht",
     items: [
-      { name: "Aioli", price: "2,20 €" },
+      { name: "Aioli", price: "2,20 €", recipeSlug: "hausgemachte-aioli" },
       { name: "Zitronenmayo", price: "2,20 €" },
       { name: "Sriracha-Mayo", price: "2,20 €" },
       { name: "Guacamole", price: "2,80 €" },
@@ -256,6 +258,7 @@ export const DINNER_MENU: DishCategory[] = [
         desc: "schon über 1.500 Mal verkauft",
         price: "6,50 €",
         tags: ["vegetarisch", "empfehlung"],
+        recipeSlug: "pistazientiramisu",
       },
       { name: "Tiramisu-Duo", price: "9,90 €", tags: ["vegetarisch"] },
       {

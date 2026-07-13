@@ -23,6 +23,7 @@ type AnyDish = {
   price: string | string[];
   options?: Array<{ label: string; price: string }>;
   tags?: string[];
+  recipeSlug?: string;
 };
 
 const TAG_LABEL: Record<string, string> = {
@@ -102,6 +103,14 @@ function DishItem({ dish }: { dish: AnyDish }) {
         <p className="mt-1.5 text-xs uppercase tracking-[0.18em] text-waldgruen/45">
           {dish.hint}
         </p>
+      )}
+      {dish.recipeSlug && (
+        <Link
+          href={`/rezepte/${dish.recipeSlug}`}
+          className="mt-2 inline-flex items-center gap-1.5 text-sm text-tonwarm hover:text-tonwarm-dark underline decoration-tonwarm/40 underline-offset-2 transition-colors"
+        >
+          Rezept zum Nachmachen <span aria-hidden>→</span>
+        </Link>
       )}
     </li>
   );

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { RECIPES } from "@/lib/recipes";
+import { GUIDES } from "@/lib/guides";
 import { ORTE } from "@/lib/landing/orte";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -19,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/veranstaltungen", priority: 0.8, changeFrequency: "monthly" },
     { path: "/ueber-uns", priority: 0.7, changeFrequency: "monthly" },
     { path: "/rezepte", priority: 0.7, changeFrequency: "weekly" },
+    { path: "/ratgeber", priority: 0.7, changeFrequency: "weekly" },
     { path: "/galerie", priority: 0.6, changeFrequency: "monthly" },
     { path: "/kontakt", priority: 0.6, changeFrequency: "yearly" },
     { path: "/karriere", priority: 0.75, changeFrequency: "monthly" },
@@ -64,6 +66,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.5,
+    });
+  }
+
+  for (const g of GUIDES) {
+    entries.push({
+      url: `${base}/ratgeber/${g.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
     });
   }
 

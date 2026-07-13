@@ -22,6 +22,8 @@ export type BreakfastDish = {
   tags?: Array<
     "vegan" | "vegetarisch" | "vegan möglich" | "vegetarisch möglich"
   >;
+  /** Slug eines passenden Rezepts (/rezepte/<slug>) zum Nachmachen. */
+  recipeSlug?: string;
 };
 
 export type BreakfastCategory = {
@@ -76,6 +78,7 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
         price: "13,90 €",
         options: [{ label: "Optional Räucherlachs", price: "+3,50 €" }],
         tags: ["vegetarisch"],
+        recipeSlug: "hausgemachte-guacamole",
       },
       {
         name: "Aller Anfang ist grün",
@@ -99,6 +102,7 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
           "French Toast mit hausgemachter Schmandcreme, hausgemachtes Apfelkompott, Pistazien, Ahornsirup",
         price: "11,90 €",
         tags: ["vegetarisch"],
+        recipeSlug: "french-toast",
       },
     ],
   },
@@ -116,6 +120,7 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
         desc:
           "Spinat, Mango, Kokosmilch, Chiasamen, Bananen, Kokosflocken, hausgemachtes Granola",
         price: "8,90 €",
+        recipeSlug: "chia-fruehstuecksbowl",
       },
     ],
   },
