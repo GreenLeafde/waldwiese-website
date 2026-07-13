@@ -30,7 +30,7 @@ export type DishCategory = {
 };
 
 export const BURGER_CHOICES = {
-  buns: ["Brioche", "Laugenbun"],
+  buns: ["Brioche", "Körnerbun", "Laugenbun"],
   bunNote: "hausgemacht vom Bäcker",
   patties: ["Beef Patty (200 g)", "vegan (aus Erbsenprotein)"],
   extras: [

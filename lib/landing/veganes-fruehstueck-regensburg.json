@@ -1,14 +1,14 @@
 {
   "metaTitle": "Veganes Frühstück Regensburg – im Grünen",
-  "metaDescription": "Veganes Frühstück Regensburg: Bei Wald & Wiese in Sinzing steht Pflanzliches gleichberechtigt auf der Karte – regional, hausgemacht, im Grünen. Ab 6. Juli 2026.",
+  "metaDescription": "Veganes Frühstück Regensburg: Bei Wald & Wiese in Sinzing steht Pflanzliches gleichberechtigt auf der Karte – regional, hausgemacht, im Grünen, täglich ab 8 Uhr.",
   "breadcrumb": "Veganes Frühstück Regensburg",
   "eyebrow": "Vegan · Frühstück bei Regensburg",
   "h1Lead": "Veganes Frühstück bei",
   "h1Accent": "Regensburg.",
   "intro": "Pflanzlich frühstücken, ohne lange zu suchen oder extra nachzufragen: Veganes Frühstück bei Regensburg bekommst du bei Wald & Wiese in Sinzing – nur wenige Minuten südwestlich der Stadt. Pflanzliches steht bei uns fest auf der Karte, nicht als Sonderwunsch ganz unten. Regional, hausgemacht und im Grünen, drinnen wie auf der Terrasse.",
   "primaryCta": {
-    "label": "Zur Frühstückskarte",
-    "href": "/fruehstueck"
+    "label": "Zur Brunch-Karte",
+    "href": "/brunch"
   },
   "story": {
     "heading": "Vegan ist bei uns kein",
@@ -61,8 +61,8 @@
   },
   "stats": [
     {
-      "value": "ab 6. Juli 2026",
-      "label": "startet das Frühstück"
+      "value": "8 – 14 Uhr",
+      "label": "Frühstück & Brunch täglich"
     },
     {
       "value": "vegan & veg.",
@@ -80,7 +80,7 @@
     },
     {
       "question": "Ab wann kann ich bei euch vegan frühstücken?",
-      "answer": "Das Frühstück startet am 6. Juli 2026. Ab Launch haben wir vormittags geöffnet – unter der Woche und am Wochenende. Davor erreichst du uns abends. Die genauen Frühstückszeiten findest du dann auf der Frühstücksseite."
+      "answer": "Wir haben täglich vormittags geöffnet: Montag bis Sonntag von 8 bis 14 Uhr. Am Wochenende (Freitag bis Sonntag) sind wir zusätzlich abends von 17 bis 22 Uhr da. Die ganze Auswahl findest du auf der Brunch-Karte."
     },
     {
       "question": "Sind die veganen Sachen hausgemacht und regional?",
@@ -101,9 +101,9 @@
   ],
   "related": [
     {
-      "label": "Frühstück",
-      "href": "/fruehstueck",
-      "blurb": "Die ganze Frühstückskarte im Überblick – regional, hausgemacht, im Grünen."
+      "label": "Brunch-Karte",
+      "href": "/brunch",
+      "blurb": "Die ganze Brunch-Karte im Überblick – Frühstück, Brote, Bowls & Mittagstisch, regional & hausgemacht."
     },
     {
       "label": "Frühstück bei Regensburg",
@@ -117,9 +117,9 @@
     }
   ],
   "closing": {
-    "heading": "Vegan frühstücken ab",
-    "accent": "6. Juli 2026.",
-    "text": "Schreib uns, wenn du Fragen zur Karte hast – oder schau zum Start im Juli einfach vorbei. So findest du uns in Sinzing bei Regensburg.",
+    "heading": "Vegan frühstücken,",
+    "accent": "täglich ab 8 Uhr.",
+    "text": "Schreib uns, wenn du Fragen zur Karte hast – oder schau einfach vorbei. So findest du uns in Sinzing bei Regensburg.",
     "cta": {
       "label": "Anfahrt & Kontakt",
       "href": "/kontakt"

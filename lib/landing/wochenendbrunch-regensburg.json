@@ -1,0 +1,127 @@
+{
+  "metaTitle": "Wochenendbrunch Regensburg – Samstag & Sonntag im Grünen",
+  "metaDescription": "Wochenendbrunch bei Regensburg: bei Wald & Wiese in Sinzing brunchst du Samstag & Sonntag (und die ganze Woche) von 8–14 Uhr im Grünen. Frühstück, Brote, Bowls & Mittagstisch, dazu Kaffee mit Charakter.",
+  "breadcrumb": "Wochenendbrunch Regensburg",
+  "eyebrow": "Wochenendbrunch · bei Regensburg",
+  "h1Lead": "Wochenendbrunch –",
+  "h1Accent": "raus ins Grüne.",
+  "intro": "Samstag und Sonntag ausschlafen und dann in Ruhe brunchen? Bei Wald & Wiese in Sinzing, nur wenige Minuten südwestlich von Regensburg, brunchst du das ganze Wochenende von 8 bis 14 Uhr – im Grünen, mit Zutaten aus der Region. Erst Frühstücke, Brote und Bowls, ab 11:30 Uhr Currywurst, Burger und Salate. Und wer abends nochmal kommt: Freitag bis Sonntag sind wir von 17 bis 22 Uhr zusätzlich da.",
+  "primaryCta": {
+    "label": "Zur Brunch-Karte",
+    "href": "/brunch"
+  },
+  "story": {
+    "heading": "Dein Wochenende beginnt",
+    "accent": "im Grünen.",
+    "paragraphs": [
+      "Ein Wochenendbrunch in Regensburg geht in vielen Cafés – oft aber voll, laut und mit Blick auf die nächste Häuserwand. Bei uns fährst du ein paar Minuten raus und tauschst Stadttrubel gegen Terrasse, Vögel und Ruhe. Kein festes Zeitfenster, kein Buffet-Gedränge: Du kommst, wann du magst, und bleibst, so lange du magst.",
+      "Weil bei uns Frühstück und Mittag ineinander übergehen, passt der Brunch zu jedem Wochenend-Tempo. Der frühe Vogel startet um 8 mit Kaffee und Bowl, die Langschläfer treffen ab 11:30 Uhr auf den „klassischen Heinzi“, Oma’s Lieblingscurrywurst oder Sophia’s Garten. Dazwischen liegt alles, worauf du Lust hast.",
+      "Und ja, der Hund darf mit – drinnen wie auf der Terrasse. Familie Leber kocht und serviert persönlich, hausgemacht und regional. Genau das macht einen Wochenendbrunch bei uns aus."
+    ]
+  },
+  "features": {
+    "heading": "Warum dein Wochenendbrunch",
+    "accent": "zu uns gehört.",
+    "items": [
+      {
+        "title": "Samstag & Sonntag – und die ganze Woche",
+        "text": "Gebruncht wird bei uns täglich von 8 bis 14 Uhr, also auch am Wochenende. Kein einmaliges Zeitfenster, keine Voranmeldung nötig – setz dich hin und lass dir Zeit."
+      },
+      {
+        "title": "Frühstück, das in Mittag übergeht",
+        "text": "Ab 8 Uhr Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Burgern, Currywurst und Salat. Perfekt für Langschläfer und Frühaufsteher am selben Tisch."
+      },
+      {
+        "title": "Im Grünen statt im Trubel",
+        "text": "Terrasse und Blick ins Freie statt voller Innenstadt und Parkplatzsuche – und trotzdem nur ein Katzensprung von Regensburg."
+      },
+      {
+        "title": "Kaffee mit Charakter & hausgemachte Limos",
+        "text": "Filterkaffee, Latte, Cappuccino, Matcha oder Chai – auch entkoffeiniert, mit Hafermilch oder laktosefrei. Dazu hausgemachte Limonaden und frische Säfte."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Von der veganen „grünen Gretl“ bis zu den Schmusi-Bowls: pflanzliche und vegetarische Gerichte stehen selbstverständlich auf der Karte, nicht als Beilage am Rand."
+      },
+      {
+        "title": "Am Wochenende auch abends",
+        "text": "Freitag bis Sonntag sind wir zusätzlich von 17 bis 22 Uhr da – mit Burgern, Bowls und Gerichten vom Grill. So wird aus dem Brunchtag ein ganzer Genusstag."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "So läuft der Brunch",
+    "heading": "Kommen, wann du magst,",
+    "accent": "bleiben, so lang du magst.",
+    "paragraphs": [
+      "Bei uns brunchst du à la carte statt am Buffet: Du bestellst frisch, was dir schmeckt, und musst dich nicht durch aufgewärmte Bleche wühlen. Gerade am Wochenende ist das entspannter – niemand drängelt, niemand räumt dir den Teller weg.",
+      "Gerade samstags und sonntags und für die Terrasse lohnt sich eine Reservierung: Dann ist dein Platz im Grünen sicher, auch wenn spontan die halbe Nachbarschaft dieselbe Idee hat. Reservieren kannst du online oder telefonisch."
+    ]
+  },
+  "stats": [
+    {
+      "value": "Sa & So",
+      "label": "Wochenendbrunch 8–14 Uhr"
+    },
+    {
+      "value": "à la carte",
+      "label": "frisch bestellt statt Buffet"
+    },
+    {
+      "value": "Fr – So",
+      "label": "abends zusätzlich 17–22 Uhr"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wann ist bei euch Wochenendbrunch?",
+      "answer": "Samstag und Sonntag jeweils von 8 bis 14 Uhr – genau wie an allen anderen Tagen. Frühstücke, Brote und Bowls gibt es ab 8 Uhr, die Mittagsgerichte ab 11:30 Uhr."
+    },
+    {
+      "question": "Gibt es bei euch einen Sonntagsbrunch?",
+      "answer": "Ja. Auch am Sonntag brunchst du bei uns von 8 bis 14 Uhr, à la carte. Am Sonntagabend (17–22 Uhr) sind wir zusätzlich mit der Abendkarte für dich da."
+    },
+    {
+      "question": "Ist der Wochenendbrunch ein Buffet?",
+      "answer": "Nein, du brunchst à la carte – frisch bestellt, in Ruhe, ohne Buffet-Gedränge. So bekommst du genau das, worauf du Lust hast."
+    },
+    {
+      "question": "Muss ich für den Wochenendbrunch reservieren?",
+      "answer": "Nötig ist es nicht, aber gerade am Wochenende und für die Terrasse empfehlen wir eine Reservierung – online oder telefonisch. So ist dein Tisch im Grünen sicher."
+    },
+    {
+      "question": "Kann ich meinen Hund zum Wochenendbrunch mitbringen?",
+      "answer": "Sehr gern. Dein Hund ist drinnen wie auf der Terrasse willkommen. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+    },
+    {
+      "question": "Wo brunche ich am Wochenende bei Regensburg im Grünen?",
+      "answer": "Bei Wald & Wiese in Sinzing, Bruckdorfer Straße 42 – nur wenige Minuten südwestlich von Regensburg, mit Terrasse im Grünen und eigenem Parkplatz."
+    }
+  ],
+  "related": [
+    {
+      "label": "Brunch-Karte",
+      "href": "/brunch",
+      "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
+    },
+    {
+      "label": "Brunch Regensburg",
+      "href": "/brunch-regensburg",
+      "blurb": "Warum sich der Weg raus aus der Stadt ins Grüne lohnt – jeden Tag, nicht nur am Wochenende."
+    },
+    {
+      "label": "Abendkarte",
+      "href": "/abendessen",
+      "blurb": "Freitag bis Sonntag abends: Burger, Bowls und Gerichte vom Grill."
+    }
+  ],
+  "closing": {
+    "heading": "Wochenende? Ab",
+    "accent": "ins Grüne.",
+    "text": "Samstag, Sonntag oder mitten in der Woche – wenn du deinen Brunch im Regensburger Umland suchst, komm vorbei, bring den Hund mit und bleib so lange du magst. Hier findest du den Weg zu uns nach Sinzing.",
+    "cta": {
+      "label": "Anfahrt & Kontakt",
+      "href": "/kontakt"
+    }
+  }
+}

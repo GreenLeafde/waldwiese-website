@@ -1,6 +1,6 @@
 {
   "metaTitle": "Frühstück Regensburg – im Grünen in Sinzing frühstücken",
-  "metaDescription": "Frühstück bei Regensburg: bei Wald & Wiese in Sinzing frühstückst du im Grünen – regional, vegan & vegetarisch. Ab 6. Juli 2026. Jetzt Tisch sichern.",
+  "metaDescription": "Frühstück bei Regensburg: bei Wald & Wiese in Sinzing frühstückst du im Grünen – regional, vegan & vegetarisch, täglich ab 8 Uhr. Jetzt Tisch sichern.",
   "breadcrumb": "Frühstück Regensburg",
   "eyebrow": "Frühstück · bei Regensburg",
   "h1Lead": "Frühstück Regensburg –",
@@ -8,7 +8,7 @@
   "intro": "Du suchst Frühstück in Regensburg, hast aber Lust auf mehr als Stadttrubel? Bei Wald & Wiese in Sinzing frühstückst du nur wenige Minuten südwestlich der Stadt – im Grünen, in Ruhe und mit Zutaten aus der Region. Klein, fein und ehrlich: mehr Frühstückstisch als feines Restaurant.",
   "primaryCta": {
     "label": "Zum Frühstück",
-    "href": "/fruehstueck"
+    "href": "/brunch"
   },
   "story": {
     "heading": "Frühstück Regensburg, nur einen Katzensprung weiter",
@@ -54,14 +54,14 @@
     "heading": "Regional, ehrlich und",
     "accent": "ohne Schnickschnack.",
     "paragraphs": [
-      "Was die Gegend hergibt, kommt bei uns auf den Tisch: Brot vom Bäcker aus der Region, Obst von Sinzinger Höfen, Aufstriche und Granola machen wir selbst. Kein Buffet, kein Brunch-Bauchladen – sondern ein ehrliches Frühstück à la carte, das du schmeckst.",
+      "Was die Gegend hergibt, kommt bei uns auf den Tisch: Brot vom Bäcker aus der Region, Obst von Sinzinger Höfen, Aufstriche und Granola machen wir selbst. Kein Buffet, kein Gedränge – sondern ein ehrlicher Brunch à la carte, vom Frühstück bis zum Mittag.",
       "Wer abends kommt, findet bei uns Burger, Bowls und Gerichte vom Grill – jedes mit eigenem Namen und einer Geschichte dahinter, benannt nach Familie, Freunden und Tieren. Aber morgens dreht sich alles um eins: in Ruhe und gut frühstücken, kurz vor den Toren von Regensburg."
     ]
   },
   "stats": [
     {
-      "value": "ab 6. Juli 2026",
-      "label": "Frühstück startet"
+      "value": "8 – 14 Uhr",
+      "label": "Frühstück & Brunch täglich"
     },
     {
       "value": "ab 08 Uhr",
@@ -79,7 +79,7 @@
     },
     {
       "question": "Ab wann gibt es bei euch Frühstück?",
-      "answer": "Unser Frühstück startet am 6. Juli 2026. Davor sind wir abends für dich da. Ab dem Launch gibt es Frühstück täglich ab 8 Uhr."
+      "answer": "Jeden Tag ab 8 Uhr. Von 8 bis 14 Uhr gibt es Frühstück, Brote und Bowls; ab 11:30 Uhr kommen die Mittagsgerichte dazu."
     },
     {
       "question": "Gibt es veganes und vegetarisches Frühstück?",
@@ -90,8 +90,8 @@
       "answer": "Sehr gern. Dein Hund darf mit – drinnen wie auf der Terrasse. Wir sind ein hundefreundliches Haus; unser Abendgericht Heinzi ist sogar nach Hund Henry benannt."
     },
     {
-      "question": "Bietet ihr ein Frühstücksbuffet oder Brunch an?",
-      "answer": "Nein, bei uns gibt es Frühstück à la carte – frisch zubereitet, in Ruhe und ohne Buffet-Gedränge. Ein klassisches Brunch-Buffet haben wir bewusst nicht."
+      "question": "Gibt es bei euch ein Buffet – oder à la carte?",
+      "answer": "Bei uns brunchst du à la carte: frisch bestellt, in Ruhe, ohne Buffet-Gedränge. Von 8 bis 14 Uhr fließt das Frühstück in den Mittagstisch über – du entscheidest, wie spät dein Morgen wird."
     },
     {
       "question": "Muss ich zum Frühstück reservieren?",
@@ -101,7 +101,7 @@
   "related": [
     {
       "label": "Frühstück",
-      "href": "/fruehstueck",
+      "href": "/brunch",
       "blurb": "Alles über unser regionales Frühstück im Grünen – was auf den Tisch kommt und wie wir es machen."
     },
     {
@@ -116,8 +116,8 @@
     }
   ],
   "closing": {
-    "heading": "Frühstück ab",
-    "accent": "6. Juli 2026.",
+    "heading": "Frühstück täglich",
+    "accent": "ab 8 Uhr.",
     "text": "Raus aus Regensburg, rein ins Grüne: Wenn du dein Frühstück im Regensburger Umland suchst, komm vorbei, bring den Hund mit und bleib so lange du magst. Hier findest du den Weg zu uns nach Sinzing.",
     "cta": {
       "label": "Anfahrt & Kontakt",

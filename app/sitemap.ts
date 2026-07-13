@@ -27,6 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/reservieren", priority: 0.8, changeFrequency: "yearly" },
     // SEO-/Städte-Landingpages
     { path: "/brunch-regensburg", priority: 0.85, changeFrequency: "monthly" },
+    { path: "/brunch-sinzing", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/wochenendbrunch-regensburg", priority: 0.8, changeFrequency: "monthly" },
     { path: "/fruehstueck-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/fruehstueck-sinzing", priority: 0.8, changeFrequency: "monthly" },
     { path: "/veganes-fruehstueck-regensburg", priority: 0.8, changeFrequency: "monthly" },

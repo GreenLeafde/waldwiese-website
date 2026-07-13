@@ -132,7 +132,7 @@ export default function HomePage() {
 
       {/* 1b · Hinweis-Banner — schmaler Tonwarm-Akzent, kein Vollbild */}
       <a
-        href="#fruehstueck"
+        href="#brunch"
         className="block bg-tonwarm text-white hover:bg-tonwarm-dark transition-colors"
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-4 md:py-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm md:text-base">
@@ -141,7 +141,7 @@ export default function HomePage() {
           </span>
           <span className="font-medium">
             {hasBreakfastLaunched() ? (
-              "Frühstück mitten im Grünen — jetzt jeden Morgen in Sinzing."
+              "Brunch mitten im Grünen — täglich von 8 bis 14 Uhr in Sinzing."
             ) : (
               <>
                 Frühstück mitten im Grünen — ab{" "}
@@ -223,7 +223,7 @@ export default function HomePage() {
 
       {/* 3 · FRÜHSTÜCK — Vollbild-Foto (echtes Gästefoto) mit grünem Schleier */}
       <section
-        id="fruehstueck"
+        id="brunch"
         className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
       >
         <Image
@@ -252,35 +252,35 @@ export default function HomePage() {
             {hasBreakfastLaunched() ? "Jetzt neu" : "Neu ab"}
           </span>
           <span className="block font-display text-sm md:text-base mt-1">
-            {hasBreakfastLaunched() ? "Frühstück" : BREAKFAST_LAUNCH.dateShort}
+            {hasBreakfastLaunched() ? "Brunch" : BREAKFAST_LAUNCH.dateShort}
           </span>
         </StampBadge>
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
           <div className="max-w-xl reveal">
             <p className="eyebrow no-line text-tonwarm">
               {hasBreakfastLaunched()
-                ? "Frühstücksrestaurant in Sinzing"
+                ? "Brunch & Abendessen in Sinzing"
                 : "Bald · Frühstücksrestaurant in Sinzing"}
             </p>
             <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Frühstück,{" "}
+              Brunch,{" "}
               <span className="accent">mitten im Grünen.</span>
             </h2>
             <p className="mt-6 italic text-xl md:text-2xl text-mehlcreme/85">
               {hasBreakfastLaunched()
-                ? "Jetzt Frühstücksrestaurant — jeden Morgen ab 8 Uhr in Sinzing."
+                ? "Täglich Brunch von 8 bis 14 Uhr in Sinzing — Fr – So zusätzlich abends."
                 : `Wir werden zum Frühstücksrestaurant — ab ${BREAKFAST_LAUNCH.dateShort} in Sinzing.`}
             </p>
             <div className="mt-7 text-mehlcreme/80 leading-relaxed space-y-5">
               <p>
-                Brot vom Bäcker aus der Region, Obst aus Sinzing, hausgemachte
-                Aufstriche, Granola und Kaffee mit Charakter. Regional, herzhaft
-                oder süß — vegan und vegetarisch gleichberechtigt. Genau wie
-                zuhause, nur eben früher aufgestanden.
+                Frühstücke, Brote und Bowls ab 8 Uhr, ab 11:30 Uhr der
+                Mittagstisch mit Currywurst, Burgern und Salaten. Hausgemachte
+                Aufstriche, Granola und Kaffee mit Charakter — regional, herzhaft
+                oder süß, vegan und vegetarisch gleichberechtigt.
               </p>
               <p>
                 {hasBreakfastLaunched()
-                  ? "Die ganze Frühstückskarte mit allen Preisen findest du auf unserer Frühstücks-Seite. Wir haben ab 8 Uhr für dich gedeckt."
+                  ? "Die ganze Brunch-Karte mit allen Preisen findest du auf unserer Brunch-Seite. Wir haben täglich von 8 bis 14 Uhr für dich gedeckt."
                   : "Die ganze Karte verraten wir kurz vor dem Start. Sei vom ersten Morgen an dabei."}
               </p>
             </div>
@@ -289,7 +289,7 @@ export default function HomePage() {
                 href="/brunch"
                 className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
               >
-                {hasBreakfastLaunched() ? "Zur Frühstückskarte" : "Mehr zum Frühstück"}{" "}
+                {hasBreakfastLaunched() ? "Zur Brunch-Karte" : "Mehr zum Frühstück"}{" "}
                 <span aria-hidden>→</span>
               </Link>
               <a

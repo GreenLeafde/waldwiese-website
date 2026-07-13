@@ -204,6 +204,8 @@ export const FOOTER_NAV: Array<{
     title: "Brunch & Küche",
     links: [
       { label: "Brunch Regensburg", href: "/brunch-regensburg" },
+      { label: "Brunch Sinzing", href: "/brunch-sinzing" },
+      { label: "Wochenendbrunch Regensburg", href: "/wochenendbrunch-regensburg" },
       { label: "Frühstück Regensburg", href: "/fruehstueck-regensburg" },
       { label: "Frühstück Sinzing", href: "/fruehstueck-sinzing" },
       {
