@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SommelierQuiz } from "@/components/sommelier/sommelier-quiz";
 import { LeafDivider } from "@/components/leaf-divider";
-import { BREAKFAST_LAUNCH } from "@/lib/site";
 
 export const metadata = {
   title: "Frühstücks-Sommelier — deine Empfehlung & dein Tisch",
@@ -20,7 +19,7 @@ export default function SommelierPage() {
             href="/speisekarte"
             className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
           >
-            <span aria-hidden>←</span> Frühstück
+            <span aria-hidden>←</span> Speisekarte
           </Link>
         </div>
         <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center reveal">
@@ -45,8 +44,8 @@ export default function SommelierPage() {
             <SommelierQuiz />
           </div>
           <p className="mt-8 text-center text-xs text-waldgruen/45">
-            Die Frühstückskarte bleibt bis zum Start am {BREAKFAST_LAUNCH.dateShort}{" "}
-            geheim — abends empfehlen wir dir echte Gerichte von der Karte.
+            Alle Empfehlungen kommen direkt aus unserer Speisekarte — fürs
+            Frühstück wie für den Wochenend-Abend.
           </p>
           <LeafDivider tone="dark" className="mt-16 md:mt-20 opacity-90" />
         </div>

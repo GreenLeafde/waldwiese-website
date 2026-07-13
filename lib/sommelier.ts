@@ -3,14 +3,12 @@
  * eine Empfehlung + ein Tisch (Personenzahl & Uhrzeit). Regelbasiert, keine KI.
  *
  * WICHTIG:
- * - FRÜHSTÜCK bleibt GEHEIM (Coming-Soon): keine echten Gerichte/Namen/Preise.
- *   Das Ergebnis wird nur „verschwommen" angeteasert + Newsletter-Anmeldung,
- *   um es zum Start zu erfahren.
- * - ABENDS dürfen echte Empfehlungen genannt werden — sie kommen aus der
- *   öffentlichen Abend-/Getränkekarte (dinner-menu.ts / drinks.ts), damit
- *   Namen und Preise immer synchron bleiben.
+ * - Alle Empfehlungen (Frühstück wie Abend) kommen aus den ÖFFENTLICHEN Karten
+ *   (menu.ts / dinner-menu.ts / drinks.ts), damit Namen und Preise immer
+ *   synchron mit der Speisekarte bleiben. Nichts hart hier verdrahten.
  */
 
+import { BREAKFAST_MENU } from "./menu";
 import { DINNER_MENU } from "./dinner-menu";
 import { DRINK_CATEGORIES } from "./drinks";
 
@@ -61,6 +59,19 @@ function findDish(name: string): Pick | null {
   return null;
 }
 
+function findBreakfastDish(name: string): Pick | null {
+  for (const cat of BREAKFAST_MENU) {
+    const d = cat.items.find((i) => i.name === name);
+    if (d)
+      return {
+        name: d.name,
+        desc: d.desc ?? "",
+        price: Array.isArray(d.price) ? d.price[0] : d.price,
+      };
+  }
+  return null;
+}
+
 function findDrink(name: string): Pick | null {
   for (const cat of DRINK_CATEGORIES) {
     const d = cat.items.find((i) => i.name === name);
@@ -74,9 +85,30 @@ function findDrink(name: string): Pick | null {
   return null;
 }
 
-export type Empfehlung =
-  | { kind: "geheim" }
-  | { kind: "abend"; intro: string; dish: Pick | null; drink: Pick | null };
+export type Empfehlung = {
+  intro: string;
+  dish: Pick | null;
+  drink: Pick | null;
+};
+
+/** Echte Frühstücks-Empfehlungen (aus der öffentlichen Brunch-Karte). */
+const FRUEHSTUECK: Record<string, { intro: string; dishName: string; drinkName: string }> = {
+  suess: {
+    intro: "Wenn der Morgen süß sein darf:",
+    dishName: "Die süße Mizzi",
+    drinkName: "Chai Latte",
+  },
+  herzhaft: {
+    intro: "Herzhaft in den Tag starten:",
+    dishName: "Morgenstund hat Avocado im Mund",
+    drinkName: "Cappuccino",
+  },
+  beides: {
+    intro: "Von allem etwas — unser großes Frühstück zum Teilen:",
+    dishName: "Der gute alte Sepp",
+    drinkName: "Latte Macchiato",
+  },
+};
 
 /** Echte Abend-Empfehlungen (alle aus der öffentlichen Karte). */
 const ABEND: Record<string, { intro: string; dishName: string; drinkName: string }> = {
@@ -103,10 +135,16 @@ const ABEND: Record<string, { intro: string; dishName: string; drinkName: string
 };
 
 export function getEmpfehlung(anlass: Anlass, geschmack: string): Empfehlung {
-  if (anlass === "fruehstueck") return { kind: "geheim" };
+  if (anlass === "fruehstueck") {
+    const e = FRUEHSTUECK[geschmack] ?? FRUEHSTUECK.beides;
+    return {
+      intro: e.intro,
+      dish: findBreakfastDish(e.dishName),
+      drink: findDrink(e.drinkName),
+    };
+  }
   const e = ABEND[geschmack] ?? ABEND.herzhaft;
   return {
-    kind: "abend",
     intro: e.intro,
     dish: findDish(e.dishName),
     drink: findDrink(e.drinkName),

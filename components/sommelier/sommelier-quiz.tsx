@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { track } from "@/components/analytics";
-import { subscribeToLaunchList } from "@/app/actions/newsletter";
-import { NEWSLETTER_INITIAL_STATE } from "@/lib/newsletter";
 import {
   ANLASS_OPTIONS,
   GESCHMACK_OPTIONS,
@@ -286,18 +284,14 @@ function Result({
 
       {/* Empfehlung */}
       <p className="mt-7 text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-        {empf.kind === "geheim" ? "Dein Frühstücks-Match" : "Unsere Empfehlung"}
+        {anlass === "fruehstueck" ? "Dein Frühstücks-Match" : "Unsere Empfehlung"}
       </p>
 
-      {empf.kind === "geheim" ? (
-        <SecretRecommendation />
-      ) : (
-        <div className="mt-4">
-          <p className="italic text-waldgruen/70">{empf.intro}</p>
-          {empf.dish && <PickRow pick={empf.dish} kicker="Zum Essen" />}
-          {empf.drink && <PickRow pick={empf.drink} kicker="Dazu" />}
-        </div>
-      )}
+      <div className="mt-4">
+        <p className="italic text-waldgruen/70">{empf.intro}</p>
+        {empf.dish && <PickRow pick={empf.dish} kicker="Zum Essen" />}
+        {empf.drink && <PickRow pick={empf.drink} kicker="Dazu" />}
+      </div>
 
       {/* Tisch */}
       <div className="mt-8 rounded-2xl bg-waldgruen text-mehlcreme px-6 py-6">
@@ -355,99 +349,3 @@ function PickRow({ pick, kicker }: { pick: { name: string; desc: string; price: 
   );
 }
 
-/** Verschwommene „noch geheim"-Empfehlung fürs Frühstück + Newsletter-Anmeldung. */
-function SecretRecommendation() {
-  return (
-    <div className="mt-4">
-      <div className="relative overflow-hidden rounded-2xl bg-mehlcreme/50 px-6 py-7">
-        <div aria-hidden className="space-y-3 blur-[6px] select-none">
-          <div className="h-5 w-2/3 rounded bg-waldgruen/30" />
-          <div className="h-3 w-full rounded bg-waldgruen/15" />
-          <div className="h-3 w-5/6 rounded bg-waldgruen/15" />
-          <div className="h-3 w-1/2 rounded bg-waldgruen/15" />
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="rounded-full bg-waldgruen/90 text-mehlcreme text-xs tracking-[0.18em] uppercase px-4 py-1.5 font-medium">
-            Noch geheim
-          </span>
-        </div>
-      </div>
-      <p className="mt-5 text-waldgruen/70 leading-relaxed">
-        Unsere Frühstückskarte halten wir bis zum Start noch unter Verschluss.
-        Trag dich ein — dann bist du die/der Erste, die erfährt, was bei uns auf
-        den Tisch kommt.
-      </p>
-      <div className="mt-6">
-        <LaunchSignup />
-      </div>
-    </div>
-  );
-}
-
-function LaunchSignup() {
-  const [state, formAction, pending] = useActionState(
-    subscribeToLaunchList,
-    NEWSLETTER_INITIAL_STATE,
-  );
-
-  if (state.status === "success") {
-    return (
-      <div className="rounded-2xl bg-mehlcreme/60 px-5 py-5 text-center">
-        <p className="font-display text-xl text-waldgruen">Schau in dein Postfach</p>
-        <p className="mt-2 text-sm text-waldgruen/70 leading-relaxed">{state.message}</p>
-      </div>
-    );
-  }
-
-  return (
-    <form action={formAction} noValidate>
-      {/* Honeypot */}
-      <div
-        aria-hidden="true"
-        className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden"
-      >
-        <label htmlFor="nl-website">Bitte frei lassen</label>
-        <input id="nl-website" type="text" name="website" tabIndex={-1} autoComplete="off" />
-      </div>
-
-      <div className="flex flex-col sm:flex-row gap-3">
-        <input
-          type="email"
-          name="email"
-          required
-          autoComplete="email"
-          placeholder="du@beispiel.de"
-          aria-label="E-Mail-Adresse"
-          className="flex-1 rounded-full border border-waldgruen/20 bg-white px-5 py-3 text-waldgruen placeholder-waldgruen/35 outline-none transition focus:border-tonwarm focus:ring-2 focus:ring-tonwarm/20"
-        />
-        <button
-          type="submit"
-          disabled={pending}
-          className="inline-flex items-center justify-center gap-2 bg-waldgruen hover:bg-waldgruen-dark text-mehlcreme px-6 py-3 rounded-full font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed whitespace-nowrap"
-        >
-          {pending ? "Moment …" : "Verrat es mir"}
-        </button>
-      </div>
-
-      <label className="mt-3 flex items-start gap-2.5 text-left text-xs text-waldgruen/60 leading-relaxed">
-        <input type="checkbox" name="consent" className="mt-0.5 h-4 w-4 shrink-0 accent-tonwarm" />
-        <span>
-          Ich möchte zum Frühstücks-Start benachrichtigt werden und stimme der{" "}
-          <Link
-            href="/datenschutz"
-            className="underline decoration-waldgruen/30 underline-offset-2 hover:text-tonwarm"
-          >
-            Datenschutzerklärung
-          </Link>{" "}
-          zu. Abmeldung jederzeit möglich.
-        </span>
-      </label>
-
-      {state.status === "error" && (
-        <p role="alert" className="mt-3 text-sm text-tonwarm-dark">
-          {state.message}
-        </p>
-      )}
-    </form>
-  );
-}
