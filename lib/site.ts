@@ -7,9 +7,9 @@ export const SITE = {
   name: "Wald & Wiese",
   shortName: "Wald & Wiese",
   legalName: "Wald & Wiese UG (haftungsbeschränkt)",
-  tagline: "Frühstück mitten im Grünen.",
+  tagline: "Brunch & Abendessen mitten im Grünen.",
   description:
-    "Frühstücksrestaurant in Sinzing bei Regensburg — ab 6. Juli 2026 jeden Morgen frisch. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.",
+    "Brunch & Abendessen in Sinzing bei Regensburg. Täglich Brunch von 8–14 Uhr: Frühstück, Brote, Bowls & Mittagstisch. Freitag bis Sonntag abends Burger, Bowls & vom Grill. Familiengeführt, regional, hundefreundlich, vegan & vegetarisch.",
   url: "https://restaurant-waldwiese.de",
   locale: "de_DE",
 } as const;
@@ -128,31 +128,11 @@ export function liveOpeningHours(): Array<{
 
 /** Launch-abhängige Seiten-Beschreibung (Meta/OG). */
 export const SITE_DESCRIPTION_LIVE =
-  "Frühstücksrestaurant in Sinzing bei Regensburg — jeden Morgen frisch. Brot vom Bäcker, Obst aus Sinzing, hausgemachte Aufstriche, Granola und Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.";
+  "Brunch & Abendessen in Sinzing bei Regensburg. Täglich Brunch von 8–14 Uhr: Frühstück, Brote, Bowls & Mittagstisch — hausgemacht, regional, mit Kaffee mit Charakter. Freitag bis Sonntag abends Burger, Bowls & vom Grill. Familiengeführt, hundefreundlich, vegan & vegetarisch.";
 
 export function siteDescription(): string {
   return hasBreakfastLaunched() ? SITE_DESCRIPTION_LIVE : SITE.description;
 }
-
-/**
- * Magic Dinner Summer Edition.
- * Quelle: magicel.de — Emilian Leber (Sohn der Familie Leber) ist Magicel.
- * Buchung über das Ticket-/Tisch-Formular auf magicel.de (ticketUrl) oder
- * über Lightspeed (RESERVATION_URL) bzw. telefonisch.
- */
-export const MAGIC_DINNER = {
-  date: "2026-07-11",
-  dateShort: "11.07.2026",
-  dateLong: "11. Juli 2026",
-  startTime: "17:00 Uhr",
-  location: "Wald & Wiese · Terrasse & Innenbereich",
-  magicianName: "Emilian Leber",
-  magicianStageName: "Magicel",
-  magicianUrl: "https://www.magicel.de/tickets/magic-dinner-summer-edition",
-  /** Tisch-sichern-Formular auf magicel.de (Sprungmarke direkt zur Reservierung). */
-  ticketUrl:
-    "https://www.magicel.de/tickets/magic-dinner-summer-edition#reservieren",
-};
 
 /**
  * Hauptnavigation — gleiche Reihenfolge in Header und Footer.
@@ -168,19 +148,18 @@ export const MAGIC_DINNER = {
  * im Mobile-Menü unter NAV_FULL erreichbar.
  */
 export const NAV: Array<{ label: string; href: string }> = [
-  { label: "Frühstück", href: "/fruehstueck" },
+  { label: "Brunch", href: "/brunch" },
   { label: "Abendkarte", href: "/abendessen" },
   { label: "Getränke", href: "/getraenke" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
 export const NAV_FULL: Array<{ label: string; href: string }> = [
-  { label: "Frühstück", href: "/fruehstueck" },
+  { label: "Brunch", href: "/brunch" },
   { label: "Abendkarte", href: "/abendessen" },
   { label: "Getränke", href: "/getraenke" },
   { label: "Reservieren", href: "/reservieren" },
   { label: "Veranstaltungen", href: "/veranstaltungen" },
-  { label: "Events", href: "/events" },
   { label: "Rezepte", href: "/rezepte" },
   { label: "Über uns", href: "/ueber-uns" },
   { label: "Karriere", href: "/karriere" },
@@ -204,8 +183,8 @@ export const FOOTER_NAV: Array<{
   {
     title: "Essen & Trinken",
     links: [
-      { label: "Frühstück", href: "/fruehstueck" },
-      { label: "Speisekarte", href: "/abendessen" },
+      { label: "Brunch", href: "/brunch" },
+      { label: "Abendkarte", href: "/abendessen" },
       { label: "Getränke", href: "/getraenke" },
       { label: "Speisen", href: "/speisen" },
     ],
@@ -213,7 +192,6 @@ export const FOOTER_NAV: Array<{
   {
     title: "Entdecken",
     links: [
-      { label: "Events", href: "/events" },
       { label: "Veranstaltungen", href: "/veranstaltungen" },
       { label: "Über uns", href: "/ueber-uns" },
       { label: "Rezepte", href: "/rezepte" },
@@ -223,8 +201,9 @@ export const FOOTER_NAV: Array<{
     ],
   },
   {
-    title: "Frühstück & Küche",
+    title: "Brunch & Küche",
     links: [
+      { label: "Brunch Regensburg", href: "/brunch-regensburg" },
       { label: "Frühstück Regensburg", href: "/fruehstueck-regensburg" },
       { label: "Frühstück Sinzing", href: "/fruehstueck-sinzing" },
       {

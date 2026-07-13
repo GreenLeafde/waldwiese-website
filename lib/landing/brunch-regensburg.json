@@ -1,0 +1,127 @@
+{
+  "metaTitle": "Brunch Regensburg – im Grünen in Sinzing brunchen",
+  "metaDescription": "Brunch bei Regensburg: bei Wald & Wiese in Sinzing brunchst du täglich von 8–14 Uhr im Grünen – Frühstück, Brote, Bowls & ab 11:30 Uhr Mittagstisch. Regional, vegan & vegetarisch, hundefreundlich.",
+  "breadcrumb": "Brunch Regensburg",
+  "eyebrow": "Brunch · bei Regensburg",
+  "h1Lead": "Brunch Regensburg –",
+  "h1Accent": "raus ins Grüne.",
+  "intro": "Du suchst Brunch in Regensburg, hast aber Lust auf mehr als Stadttrubel? Bei Wald & Wiese in Sinzing brunchst du nur wenige Minuten südwestlich der Stadt – im Grünen, in Ruhe und mit Zutaten aus der Region. Von 8 bis 14 Uhr fließt bei uns Frühstück in Mittag über: erst Brote, Bowls und Frühstücke, ab 11:30 Uhr kommen Currywurst, Burger und Salate dazu.",
+  "primaryCta": {
+    "label": "Zur Brunch-Karte",
+    "href": "/brunch"
+  },
+  "story": {
+    "heading": "Brunch Regensburg, nur einen Katzensprung weiter",
+    "accent": "im Grünen.",
+    "paragraphs": [
+      "Brunchen in Regensburg geht an vielen Ecken. Manchmal willst du aber genau das nicht: keine volle Innenstadt, keine Parkplatzsuche, kein Lärm vom Nebentisch. Sondern den ersten Kaffee in Ruhe, Vögel statt Verkehr im Hintergrund und einen Vormittag, der nicht drängt. Genau dafür fährst du raus aus der Stadt zu uns nach Sinzing.",
+      "Das Schöne am Brunch: Du musst dich nicht entscheiden. Wer früh da ist, startet mit dem „guten alten Sepp“, einer Bowl oder Avocado-Brot. Wer’s später mag, greift ab 11:30 Uhr zu Oma’s Lieblingscurrywurst, zum „klassischen Heinzi“ oder zu Sophia’s Garten. Alles frisch, vieles hausgemacht.",
+      "Familie Leber führt den Laden persönlich, und das merkst du am Tisch: Hier ist niemand eine Nummer. Drinnen am gemütlichen Tisch oder draußen auf der Terrasse im Grünen – bring ruhig den Hund mit und bleib so lange du magst."
+    ]
+  },
+  "features": {
+    "heading": "Warum du zum Brunchen aus Regensburg",
+    "accent": "rausfährst.",
+    "items": [
+      {
+        "title": "Frühstück & Mittag in einem",
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr dazu der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird."
+      },
+      {
+        "title": "Im Grünen statt im Trubel",
+        "text": "Brunch auf der Terrasse, umgeben von Grün – und trotzdem nur ein Katzensprung von Regensburg. Kein Gedränge, kein Großstadtlärm, nur dein Vormittag und der Blick ins Freie."
+      },
+      {
+        "title": "Regional & hausgemacht",
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Wir holen das Gute aus der Nachbarschaft, statt es weit anzukarren."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Von der veganen „grünen Gretl“ bis zu den Schmusi-Bowls: pflanzliche und vegetarische Gerichte stehen bei uns selbstverständlich auf der Karte – nicht als Beilage am Rand."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Hund darf mit – drinnen wie auf der Terrasse, ganz ohne schräge Blicke. Sogar eines unserer Gerichte, der „Heinzi“, ist nach unserem Hund Henry benannt."
+      },
+      {
+        "title": "Kaffee mit Charakter",
+        "text": "Filterkaffee, Latte, Cappuccino, Matcha oder Chai – auch entkoffeiniert, mit Hafermilch oder laktosefrei. Dazu hausgemachte Limonaden und frische Säfte."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "Aus der Region, auf den Teller",
+    "heading": "Brunch, ehrlich und",
+    "accent": "ohne Schnickschnack.",
+    "paragraphs": [
+      "Bei uns gibt es keinen Brunch vom Fließband-Buffet, sondern à la carte: Du bestellst, was du magst, frisch zubereitet. Frühstücke tragen bei uns Namen – vom „guten alten Sepp“ bis zum kleinen Hansi für Kinder – und die Mittagsgerichte ebenso.",
+      "Wer freitags bis sonntags abends kommt, findet bei uns zusätzlich Burger, Bowls und Gerichte vom Grill. Aber vormittags dreht sich alles um eins: in Ruhe und gut brunchen, kurz vor den Toren von Regensburg."
+    ]
+  },
+  "stats": [
+    {
+      "value": "8 – 14 Uhr",
+      "label": "Brunch täglich (Mittagstisch ab 11:30)"
+    },
+    {
+      "value": "à la carte",
+      "label": "frisch bestellt statt Buffet"
+    },
+    {
+      "value": "wenige Minuten",
+      "label": "südwestlich von Regensburg"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Brunch Regensburg im Grünen – wo geht das?",
+      "answer": "Bei Wald & Wiese in Sinzing, nur wenige Minuten südwestlich von Regensburg. Du brunchst hier im Grünen – drinnen am Tisch oder draußen auf der Terrasse. Adresse: Bruckdorfer Straße 42, 93161 Sinzing."
+    },
+    {
+      "question": "Wann gibt es bei euch Brunch?",
+      "answer": "Täglich von 8 bis 14 Uhr. Die Frühstücke, Brote und Bowls gibt es ab 8 Uhr, die Mittagsgerichte ab 11:30 Uhr bis 14 Uhr."
+    },
+    {
+      "question": "Gibt es einen Brunch als Buffet?",
+      "answer": "Nein, bei uns brunchst du à la carte – frisch zubereitet, in Ruhe und ohne Buffet-Gedränge. Du bestellst genau das, worauf du Lust hast."
+    },
+    {
+      "question": "Gibt es veganen und vegetarischen Brunch?",
+      "answer": "Ja. Vegane und vegetarische Gerichte stehen bei uns gleichberechtigt auf der Karte – von der veganen „grünen Gretl“ über die Schmusi-Bowls bis zu vegetarischen Broten."
+    },
+    {
+      "question": "Ist mein Hund beim Brunch willkommen?",
+      "answer": "Sehr gern. Dein Hund darf mit – drinnen wie auf der Terrasse. Wir sind ein hundefreundliches Haus; unser Gericht Heinzi ist sogar nach Hund Henry benannt."
+    },
+    {
+      "question": "Muss ich zum Brunch reservieren?",
+      "answer": "Spontan vorbeikommen geht, aber gerade am Wochenende empfehlen wir eine Reservierung – über unser Online-System oder telefonisch. So ist dein Tisch im Grünen sicher."
+    }
+  ],
+  "related": [
+    {
+      "label": "Brunch-Karte",
+      "href": "/brunch",
+      "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
+    },
+    {
+      "label": "Frühstück Regensburg",
+      "href": "/fruehstueck-regensburg",
+      "blurb": "Nur auf den ersten Kaffee und ein Frühstück im Grünen aus? Hier entlang."
+    },
+    {
+      "label": "Abendkarte",
+      "href": "/abendessen",
+      "blurb": "Freitag bis Sonntag abends: Burger, Bowls und Gerichte vom Grill."
+    }
+  ],
+  "closing": {
+    "heading": "Brunch täglich von",
+    "accent": "8 bis 14 Uhr.",
+    "text": "Raus aus Regensburg, rein ins Grüne: Wenn du deinen Brunch im Regensburger Umland suchst, komm vorbei, bring den Hund mit und bleib so lange du magst. Hier findest du den Weg zu uns nach Sinzing.",
+    "cta": {
+      "label": "Anfahrt & Kontakt",
+      "href": "/kontakt"
+    }
+  }
+}

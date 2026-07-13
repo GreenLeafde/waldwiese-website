@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LeafDivider } from "@/components/leaf-divider";
 import { IMG } from "@/lib/images";
-import { BREAKFAST_LAUNCH, MAGIC_DINNER } from "@/lib/site";
+import { BREAKFAST_LAUNCH } from "@/lib/site";
 
 export const metadata = {
   title: "Über uns — Familie Leber",
@@ -87,7 +87,7 @@ export default function UeberUnsPage() {
               Frühstücksrestaurant — morgens im Grünen, regional und ehrlich,
               genau wie alles bei uns.{" "}
               <Link
-                href="/fruehstueck"
+                href="/brunch"
                 className="text-tonwarm underline decoration-tonwarm/40 decoration-2 underline-offset-[5px] hover:decoration-tonwarm transition-colors"
               >
                 Mehr zum Frühstück
@@ -170,17 +170,10 @@ export default function UeberUnsPage() {
             </h2>
             <p className="mt-8 text-mehlcreme/80 leading-relaxed max-w-lg">
               Emilian Leber, Bühnenname Magicel. Auftrittsmagier für
-              Hochzeiten, Firmenfeiern und Events. Beim Magic Dinner wandert
-              er zwischen den Tischen und sorgt für Momente, von denen am Tag
-              danach noch geredet wird.
+              Hochzeiten, Firmenfeiern und Events — und wenn er bei uns
+              vorbeischaut, wandert er auch schon mal zwischen den Tischen und
+              sorgt für Momente, von denen am Tag danach noch geredet wird.
             </p>
-            <Link
-              href="/events/magic-dinner-summer-edition"
-              className="mt-10 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Magic Dinner · {MAGIC_DINNER.dateShort}{" "}
-              <span aria-hidden>→</span>
-            </Link>
           </div>
         </div>
       </section>

@@ -32,7 +32,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/tiramisu-rezept", destination: "/rezepte/pistazientiramisu", permanent: true },
-      { source: "/magic-dinner-summer-edition", destination: "/events/magic-dinner-summer-edition", permanent: true },
+      // Konzept-Umstellung 2026-07: Frühstück ist jetzt Teil des Brunch.
+      { source: "/fruehstueck", destination: "/brunch", permanent: true },
+      // Magic Dinner / Events beendet → auf die Veranstaltungs-Seite umleiten.
+      { source: "/magic-dinner-summer-edition", destination: "/veranstaltungen", permanent: true },
+      { source: "/events/magic-dinner-summer-edition", destination: "/veranstaltungen", permanent: true },
+      { source: "/events", destination: "/veranstaltungen", permanent: true },
       { source: "/speisen-getraenke", destination: "/abendessen", permanent: true },
       { source: "/restaurant-regensburg", destination: "/abendessen-regensburg", permanent: true },
       { source: "/datenschutzerklaerung", destination: "/datenschutz", permanent: true },

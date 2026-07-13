@@ -7,8 +7,7 @@
  * Optik (Preis rechts, Veggie-Blatt, Optionen in Warmton) greift.
  *
  * Falls jemand etwas ändert (Preise, Gerichte) → HIER anpassen, nicht im JSX.
- * NOCH OFFEN: Kategorie „Extras" (Aufstriche/Rührei/Spiegelei/… — Preisspalte
- * im PDF nicht eindeutig; Screenshot beim User angefragt).
+ * Vollständig aus der Brunch-Karte 2026 übernommen (inkl. Extras), 2026-07-13.
  */
 
 export type BreakfastDish = {
@@ -118,6 +117,30 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
           "Spinat, Mango, Kokosmilch, Chiasamen, Bananen, Kokosflocken, hausgemachtes Granola",
         price: "8,90 €",
       },
+    ],
+  },
+  {
+    slug: "extras",
+    title: "Extras",
+    items: [
+      {
+        name: "Aufstriche",
+        desc: "Frischkäse, hausgemachter mediterraner Tomaten-Karotten-Aufstrich, Paprikahummus, Nutella, hausgemachte Marmelade",
+        price: "je 2,90 €",
+        options: [{ label: "Pistaziencreme", price: "+0,50 €" }],
+      },
+      {
+        name: "Rührei",
+        desc: "drei Eier mit Schnittlauch, Butter, Baguette",
+        price: "6,90 €",
+        tags: ["vegetarisch"],
+      },
+      { name: "Spiegelei", price: "2,10 €", tags: ["vegetarisch"] },
+      { name: "Brotkorb", price: "2,50 €", tags: ["vegan"] },
+      { name: "Croissant", price: "2,20 €", tags: ["vegetarisch"] },
+      { name: "Räucherlachs", price: "4,90 €" },
+      { name: "Speck", price: "2,10 €" },
+      { name: "Butter / Margarine", price: "1,50 €" },
     ],
   },
   {

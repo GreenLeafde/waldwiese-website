@@ -13,13 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
   }> = [
     { path: "/", priority: 1.0, changeFrequency: "weekly" },
-    { path: "/fruehstueck", priority: 0.95, changeFrequency: "weekly" },
+    { path: "/brunch", priority: 0.95, changeFrequency: "weekly" },
     { path: "/fruehstuecks-sommelier", priority: 0.7, changeFrequency: "monthly" },
     { path: "/abendessen", priority: 0.9, changeFrequency: "weekly" },
     { path: "/getraenke", priority: 0.85, changeFrequency: "weekly" },
     { path: "/speisen", priority: 0.7, changeFrequency: "monthly" },
     { path: "/veranstaltungen", priority: 0.8, changeFrequency: "monthly" },
-    { path: "/events", priority: 0.7, changeFrequency: "weekly" },
     { path: "/ueber-uns", priority: 0.7, changeFrequency: "monthly" },
     { path: "/rezepte", priority: 0.7, changeFrequency: "weekly" },
     { path: "/galerie", priority: 0.6, changeFrequency: "monthly" },
@@ -27,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/karriere", priority: 0.75, changeFrequency: "monthly" },
     { path: "/reservieren", priority: 0.8, changeFrequency: "yearly" },
     // SEO-/Städte-Landingpages
+    { path: "/brunch-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/fruehstueck-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/fruehstueck-sinzing", priority: 0.8, changeFrequency: "monthly" },
     { path: "/veganes-fruehstueck-regensburg", priority: 0.8, changeFrequency: "monthly" },

@@ -12,7 +12,6 @@ import {
   BREAKFAST_LAUNCH,
   CONTACT,
   CURRENT_OPENING_HOURS,
-  MAGIC_DINNER,
   NEW_OPENING_HOURS,
   RESERVATION_URL,
   SITE,
@@ -22,12 +21,10 @@ import {
 import type { Metadata } from "next";
 
 export function generateMetadata(): Metadata {
-  const launched = hasBreakfastLaunched();
   return {
-    title: `${SITE.name} · Frühstücksrestaurant in Sinzing bei Regensburg`,
-    description: launched
-      ? "Wald & Wiese — Frühstücksrestaurant in Sinzing bei Regensburg. Jeden Morgen frisch: Brot vom Bäcker, hausgemachte Aufstriche, Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill."
-      : "Wald & Wiese — Frühstücksrestaurant in Sinzing bei Regensburg. Ab 6. Juli 2026 jeden Morgen frisch: Brot vom Bäcker, hausgemachte Aufstriche, Kaffee mit Charakter. Familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & vom Grill.",
+    title: `${SITE.name} · Brunch & Abendessen in Sinzing bei Regensburg`,
+    description:
+      "Wald & Wiese — Brunch & Abendessen in Sinzing bei Regensburg. Täglich Brunch 8–14 Uhr: Frühstück, Brote, Bowls & Mittagstisch, hausgemacht mit Kaffee mit Charakter. Fr–So abends Burger, Bowls & vom Grill. Familiengeführt, regional, hundefreundlich, vegan & vegetarisch.",
     alternates: { canonical: "/" },
   };
 }
@@ -289,7 +286,7 @@ export default function HomePage() {
             </div>
             <div className="mt-9 flex flex-wrap items-center gap-5">
               <Link
-                href="/fruehstueck"
+                href="/brunch"
                 className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
               >
                 {hasBreakfastLaunched() ? "Zur Frühstückskarte" : "Mehr zum Frühstück"}{" "}
@@ -546,44 +543,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8 · EVENTS — Magic Dinner, dunkles Grün, mittig, mit Datum-Stempel */}
-      <section
-        id="events"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <SideLeaves flip />
-        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
-          <div className="flex justify-center reveal">
-            <StampBadge tone="light" rotate={-6} className="w-32 h-32 md:w-36 md:h-36">
-              <span className="block text-[0.5rem] tracking-[0.12em] uppercase text-mehlcreme/80">
-                Save the date
-              </span>
-              <span className="block font-display text-sm md:text-base mt-1">
-                {MAGIC_DINNER.dateShort}
-              </span>
-            </StampBadge>
-          </div>
-          <h2 className="mt-8 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.1] tracking-tight text-mehlcreme reveal-1">
-            Magic Dinner —{" "}
-            <span className="accent">Summer Edition.</span>
-          </h2>
-          <p className="mt-7 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-2">
-            À la carte aus der Sommerkarte, dazwischen Tischzauberei von{" "}
-            {MAGIC_DINNER.magicianName} alias {MAGIC_DINNER.magicianStageName}.
-            Max. 50 Plätze.
-          </p>
-          <div className="mt-10 reveal-3">
-            <Link
-              href="/events/magic-dinner-summer-edition"
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Programm &amp; Tisch sichern <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 9 · VERANSTALTUNGEN — Vollbild-Foto (echte Terrasse) + grüner Schleier */}
+      {/* 8 · VERANSTALTUNGEN — Vollbild-Foto (echte Terrasse) + grüner Schleier */}
       <section
         id="veranstaltungen"
         className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"

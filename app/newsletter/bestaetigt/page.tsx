@@ -58,7 +58,7 @@ export default async function NewsletterBestaetigtPage({
             </p>
             <div className="mt-10 flex flex-wrap justify-center gap-5">
               <Link
-                href="/fruehstueck"
+                href="/brunch"
                 className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
               >
                 Zur Frühstücksseite <span aria-hidden>→</span>

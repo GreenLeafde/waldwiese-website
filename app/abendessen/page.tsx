@@ -104,7 +104,7 @@ export default function AbendessenPage() {
 
       {/* FRÜHSTÜCK-HINWEIS — schmaler Tonwarm-Banner, Coming-Soon-Cross-Link */}
       <Link
-        href="/fruehstueck"
+        href="/brunch"
         className="block bg-tonwarm text-white hover:bg-tonwarm-dark transition-colors"
       >
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm md:text-base">

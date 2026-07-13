@@ -25,7 +25,7 @@ const cards = [
   {
     title: "Frühstück",
     text: "Mitten im Grünen, ehrlich gekocht, regional.",
-    href: "/fruehstueck" as const,
+    href: "/brunch" as const,
     cta: "Reinschauen",
     badge: `ab ${BREAKFAST_LAUNCH.dateShort}`,
   },
