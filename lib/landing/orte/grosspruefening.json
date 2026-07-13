@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Großprüfening – Wald & Wiese in Sinzing",
-  "metaDescription": "Essen gehen in der Nähe von Großprüfening: Wald & Wiese in Sinzing — familiengeführt, im Grünen, hundefreundlich. Abends Burger & Bowls, ab Juli Frühstück.",
+  "metaDescription": "Essen gehen in der Nähe von Großprüfening: Wald & Wiese in Sinzing — familiengeführt, im Grünen, hundefreundlich. Abends Burger & Bowls, täglich Brunch.",
   "breadcrumb": "Restaurant Großprüfening",
   "eyebrow": "Restaurant · nahe Großprüfening",
   "h1Lead": "Dein Restaurant in der Nähe von",
@@ -42,8 +42,8 @@
       "label": "von Großprüfening ins Grüne"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     },
     {
       "value": "100 %",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Komm aus Großprüfening",
     "accent": "vorbei.",
-    "text": "Ob abends ein Tisch oder ab Juli das Frühstück im Grünen — der kurze Weg aus Großprüfening lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — der kurze Weg aus Großprüfening lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

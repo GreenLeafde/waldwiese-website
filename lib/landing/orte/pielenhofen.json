@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant nahe Pielenhofen | Wald & Wiese",
-  "metaDescription": "Restaurant in der Nähe von Pielenhofen: Wald & Wiese in Sinzing — familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli Frühstück.",
+  "metaDescription": "Restaurant in der Nähe von Pielenhofen: Wald & Wiese in Sinzing — familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, täglich Brunch.",
   "breadcrumb": "Restaurant Pielenhofen",
   "eyebrow": "Restaurant · nahe Pielenhofen",
   "h1Lead": "Dein Restaurant nahe",
@@ -42,8 +42,8 @@
       "label": "von Pielenhofen"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     },
     {
       "value": "Hund willkommen",
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was kommt bei euch am Abend auf den Tisch?",
-      "answer": "Burger, Bowls und Gerichte vom Grill wie Steak, Spare Ribs oder Teriyaki-Lachs — vegetarisch und vegan gleichberechtigt dabei. Ab dem 6. Juli 2026 gibt's morgens zusätzlich Frühstück im Grünen."
+      "answer": "Burger, Bowls und Gerichte vom Grill wie Steak, Spare Ribs oder Teriyaki-Lachs — vegetarisch und vegan gleichberechtigt dabei. Morgens gibt's zusätzlich Brunch — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Kann ich meinen Hund mitbringen?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Aus Pielenhofen",
     "accent": "schnell bei uns.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

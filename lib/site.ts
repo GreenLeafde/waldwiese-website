@@ -205,6 +205,8 @@ export const FOOTER_NAV: Array<{
     links: [
       { label: "Brunch Regensburg", href: "/brunch-regensburg" },
       { label: "Brunch Sinzing", href: "/brunch-sinzing" },
+      { label: "Brunch Nittendorf", href: "/brunch-nittendorf" },
+      { label: "Brunch Kelheim", href: "/brunch-kelheim" },
       { label: "Wochenendbrunch Regensburg", href: "/wochenendbrunch-regensburg" },
       { label: "Frühstück Regensburg", href: "/fruehstueck-regensburg" },
       { label: "Frühstück Sinzing", href: "/fruehstueck-sinzing" },

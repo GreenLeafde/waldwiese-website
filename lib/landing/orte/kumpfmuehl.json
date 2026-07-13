@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Kumpfmühl – raus ins Grüne | Wald & Wiese",
-  "metaDescription": "Essen gehen in der Nähe von Kumpfmühl: Wald & Wiese in Sinzing – familiengeführt, hundefreundlich, im Grünen. Abends Burger, Bowls & Grill, ab Juli Frühstück.",
+  "metaDescription": "Essen gehen in der Nähe von Kumpfmühl: Wald & Wiese in Sinzing – familiengeführt, hundefreundlich, im Grünen. Abends Burger, Bowls & Grill, täglich Brunch.",
   "breadcrumb": "Restaurant Kumpfmühl",
   "eyebrow": "Restaurant · in der Nähe von Kumpfmühl",
   "h1Lead": "Dein Restaurant in der Nähe von",
@@ -42,8 +42,8 @@
       "label": "von Kumpfmühl ins Grüne"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     },
     {
       "value": "familiengeführt",
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was kommt abends bei euch auf den Tisch?",
-      "answer": "Burger mit Namen wie Dorfbazi oder gackernde Julia, Bowls und Gerichte vom Grill – etwa Steak, Spare Ribs oder Teriyaki-Lachs. Alles regional, mit vegetarischen und veganen Optionen. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+      "answer": "Burger mit Namen wie Dorfbazi oder gackernde Julia, Bowls und Gerichte vom Grill – etwa Steak, Spare Ribs oder Teriyaki-Lachs. Alles regional, mit vegetarischen und veganen Optionen. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Kann ich meinen Hund mitbringen?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Aus Kumpfmühl",
     "accent": "schnell bei uns.",
-    "text": "Ob abends ein Tisch oder ab Juli das Frühstück im Grünen – der kurze Weg aus Kumpfmühl lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen – der kurze Weg aus Kumpfmühl lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

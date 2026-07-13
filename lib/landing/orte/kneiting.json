@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Kneiting – im Grünen | Wald & Wiese",
-  "metaDescription": "Essen gehen nahe Kneiting? Wald & Wiese in Sinzing bei Regensburg: familiengeführt, hundefreundlich, abends Burger & Bowls, ab Juli Frühstück. Tisch sichern.",
+  "metaDescription": "Essen gehen nahe Kneiting? Wald & Wiese in Sinzing bei Regensburg: familiengeführt, hundefreundlich, abends Burger & Bowls, täglich Brunch. Tisch sichern.",
   "breadcrumb": "Restaurant nahe Kneiting",
   "eyebrow": "Restaurant · nahe Kneiting",
   "h1Lead": "Dein Restaurant in der Nähe von",
@@ -46,8 +46,8 @@
       "label": "drinnen wie auf der Terrasse"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     }
   ],
   "faq": [
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was gibt es bei euch zu essen?",
-      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — etwa Steak, Spare Ribs oder Teriyaki-Lachs, dazu vegetarische und vegane Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück dazu."
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — etwa Steak, Spare Ribs oder Teriyaki-Lachs, dazu vegetarische und vegane Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Darf ich meinen Hund mitbringen?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Komm vorbei und",
     "accent": "bleib.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — aus Kneiting ist es nur ein kurzer Weg zu uns. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — aus Kneiting ist es nur ein kurzer Weg zu uns. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Königswiesen – raus ins Grüne | Wald & Wiese",
-  "metaDescription": "Restaurant in der Nähe von Königswiesen: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli auch Frühstück.",
+  "metaDescription": "Restaurant in der Nähe von Königswiesen: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, täglich Brunch.",
   "breadcrumb": "Restaurant Königswiesen",
   "eyebrow": "Restaurant · wenige Minuten von Königswiesen",
   "h1Lead": "Dein Restaurant in der Nähe von",
@@ -35,13 +35,13 @@
   },
   "stats": [
     { "value": "wenige Minuten", "label": "von Königswiesen ins Grüne" },
-    { "value": "ab 6. Juli 2026", "label": "auch Frühstück im Grünen" },
+    { "value": "täglich 8–14 Uhr", "label": "Brunch im Grünen" },
     { "value": "Hund willkommen", "label": "drinnen wie auf der Terrasse" }
   ],
   "faq": [
     {
       "question": "Was gibt es bei Wald & Wiese auf der Karte?",
-      "answer": "Abends Burger mit Namen wie den fetzigen Sven oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Steak, Spare Ribs, Teriyaki-Lachs. Fleisch, vegetarisch und vegan gleichberechtigt. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+      "answer": "Abends Burger mit Namen wie den fetzigen Sven oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Steak, Spare Ribs, Teriyaki-Lachs. Fleisch, vegetarisch und vegan gleichberechtigt. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Gibt es ein Restaurant in der Nähe von Königswiesen?",
@@ -59,7 +59,7 @@
   "closing": {
     "heading": "Aus Königswiesen",
     "accent": "schnell im Grünen.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder komm einfach spontan nach Sinzing rüber.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder komm einfach spontan nach Sinzing rüber.",
     "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
   }
 }

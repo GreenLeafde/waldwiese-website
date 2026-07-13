@@ -42,8 +42,8 @@
       "label": "von Undorf entfernt, im Grünen"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "zusätzlich Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     },
     {
       "value": "Hund willkommen",
@@ -65,13 +65,13 @@
     },
     {
       "question": "Kann ich bei euch auch frühstücken?",
-      "answer": "Ab dem 6. Juli 2026 ja. Dann startet unser Frühstück im Grünen — regional, mit veganen und vegetarischen Optionen. Davor sind wir abends für dich da."
+      "answer": "Ja, täglich von 8 bis 14 Uhr gibt es bei uns Brunch im Grünen — regional, mit veganen und vegetarischen Optionen. Am Wochenende (Fr–So) sind wir zusätzlich abends von 17 bis 22 Uhr da."
     }
   ],
   "closing": {
     "heading": "Komm aus Undorf vorbei und",
     "accent": "bleib.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — der Weg aus Undorf zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — der Weg aus Undorf zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

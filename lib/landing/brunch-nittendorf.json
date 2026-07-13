@@ -1,0 +1,114 @@
+{
+  "metaTitle": "Brunch Nittendorf – im Grünen bei Sinzing brunchen",
+  "metaDescription": "Brunch bei Nittendorf: Wald & Wiese in Sinzing liegt nur eine kurze Fahrt entfernt. Täglich 8–14 Uhr Frühstück, Brote, Bowls & ab 11:30 Uhr Mittagstisch – regional, hausgemacht, vegan & vegetarisch, Hund willkommen.",
+  "breadcrumb": "Brunch Nittendorf",
+  "eyebrow": "Brunch · bei Nittendorf",
+  "h1Lead": "Brunch bei Nittendorf –",
+  "h1Accent": "raus ins Grüne.",
+  "intro": "Du suchst einen Brunch in der Nähe von Nittendorf, der nicht nach Kette schmeckt? Wald & Wiese in Sinzing liegt nur eine kurze Fahrt entfernt, mitten im Grünen am Waldrand. Gebruncht wird bei uns täglich von 8 bis 14 Uhr – erst Frühstücke, Brote und Bowls, ab 11:30 Uhr kommen Currywurst, Burger und Salate dazu. Familiengeführt von der Familie Leber: klein, fein & ehrlich.",
+  "primaryCta": {
+    "label": "Zur Brunch-Karte",
+    "href": "/brunch"
+  },
+  "story": {
+    "heading": "Aus Nittendorf schnell",
+    "accent": "im Grünen.",
+    "paragraphs": [
+      "Von Nittendorf aus bist du in kurzer Zeit bei uns in Sinzing – nah genug für den spontanen Sonntag, weit genug raus, um wirklich anzukommen. Statt Innenstadt und Parkplatzsuche gibt es bei uns Terrasse, Waldrand und Ruhe. Du findest uns an der Bruckdorfer Straße 42 in 93161 Sinzing.",
+      "Das Schöne am Brunch: Du musst dich nicht festlegen. Der frühe Vogel startet um 8 mit Kaffee, Bowl oder dem „guten alten Sepp“. Wer’s später mag, greift ab 11:30 Uhr zum „klassischen Heinzi“, zu Oma’s Lieblingscurrywurst oder zu Sophia’s Garten. Alles frisch, vieles hausgemacht.",
+      "Bei uns kocht und serviert Familie Leber persönlich. Das merkst du am Ton, am Service und daran, dass wir uns über jeden Stammgast ehrlich freuen. Bring ruhig den Hund mit – drinnen wie auf der Terrasse ist er willkommen."
+    ]
+  },
+  "features": {
+    "heading": "Warum du aus Nittendorf",
+    "accent": "zu uns brunchst.",
+    "items": [
+      {
+        "title": "Frühstück & Mittag in einem",
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird."
+      },
+      {
+        "title": "Nur eine kurze Fahrt",
+        "text": "Von Nittendorf aus bist du zügig bei uns in Sinzing – ideal für den entspannten Wochenend-Brunch, ohne lange Anfahrt. Eigener Parkplatz direkt am Haus."
+      },
+      {
+        "title": "Regional & hausgemacht",
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Von der veganen „grünen Gretl“ bis zu den Schmusi-Bowls steht Pflanzliches gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Hund darf mit – drinnen wie auf der Terrasse. Unser Hund Henry hat es sogar auf die Karte geschafft: Das Gericht Heinzi ist nach ihm benannt."
+      },
+      {
+        "title": "Am Wochenende auch abends",
+        "text": "Freitag bis Sonntag sind wir zusätzlich von 17 bis 22 Uhr da – mit Burgern, Bowls und Gerichten vom Grill. So wird aus dem Brunchtag ein ganzer Genusstag."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "So läuft der Brunch",
+    "heading": "À la carte statt",
+    "accent": "Buffet-Gedränge.",
+    "paragraphs": [
+      "Bei uns brunchst du à la carte: Du bestellst frisch, was dir schmeckt, statt dich durch aufgewärmte Bleche zu wühlen. Frühstücke und Mittagsgerichte tragen bei uns eigene Namen – vom „guten alten Sepp“ bis zum kleinen Hansi für Kinder.",
+      "Gerade am Wochenende und für die Terrasse lohnt sich eine Reservierung – dann ist dein Platz im Grünen sicher. Reservieren kannst du online oder telefonisch; spontan reinschauen geht natürlich auch."
+    ]
+  },
+  "stats": [
+    { "value": "8 – 14 Uhr", "label": "Brunch täglich (Mittagstisch ab 11:30)" },
+    { "value": "kurze Fahrt", "label": "von Nittendorf nach Sinzing" },
+    { "value": "Fr – So", "label": "abends zusätzlich 17–22 Uhr" }
+  ],
+  "faq": [
+    {
+      "question": "Wo kann ich in der Nähe von Nittendorf brunchen?",
+      "answer": "Bei Wald & Wiese in Sinzing, Bruckdorfer Straße 42 – nur eine kurze Fahrt von Nittendorf entfernt, mitten im Grünen am Waldrand, mit Terrasse und eigenem Parkplatz."
+    },
+    {
+      "question": "Wann gibt es bei euch Brunch?",
+      "answer": "Täglich von 8 bis 14 Uhr. Frühstücke, Brote und Bowls gibt es ab 8 Uhr, die Mittagsgerichte ab 11:30 Uhr bis 14 Uhr."
+    },
+    {
+      "question": "Ist der Brunch ein Buffet?",
+      "answer": "Nein, du brunchst à la carte – frisch bestellt, in Ruhe, ohne Buffet-Gedränge. So bekommst du genau das, worauf du Lust hast."
+    },
+    {
+      "question": "Gibt es veganen und vegetarischen Brunch?",
+      "answer": "Ja. Vegane und vegetarische Gerichte stehen bei uns gleichberechtigt auf der Karte – mit hausgemachten Aufstrichen, eigenem Granola und Obst aus der Region."
+    },
+    {
+      "question": "Darf ich meinen Hund mitbringen?",
+      "answer": "Sehr gern. Dein Hund ist drinnen wie auf der Terrasse willkommen. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+    }
+  ],
+  "related": [
+    {
+      "label": "Brunch-Karte",
+      "href": "/brunch",
+      "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
+    },
+    {
+      "label": "Restaurant Nittendorf",
+      "href": "/restaurant-nittendorf",
+      "blurb": "Wer wir sind und was abends auf den Tisch kommt – nur eine kurze Fahrt entfernt."
+    },
+    {
+      "label": "Kontakt & Anfahrt",
+      "href": "/kontakt",
+      "blurb": "So findest du uns in der Bruckdorfer Straße 42 in Sinzing."
+    }
+  ],
+  "closing": {
+    "heading": "Aus Nittendorf ab",
+    "accent": "ins Grüne.",
+    "text": "Ob spontan am Sonntag oder mitten in der Woche – wenn du deinen Brunch nahe Nittendorf im Grünen suchst, komm vorbei, bring den Hund mit und bleib so lange du magst. Hier findest du den Weg zu uns nach Sinzing.",
+    "cta": {
+      "label": "Anfahrt & Kontakt",
+      "href": "/kontakt"
+    }
+  }
+}

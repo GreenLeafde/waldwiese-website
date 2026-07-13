@@ -35,7 +35,7 @@
   },
   "stats": [
     { "value": "wenige Minuten", "label": "von Bad Abbach entfernt" },
-    { "value": "ab 6. Juli 2026", "label": "zusätzlich Frühstück im Grünen" },
+    { "value": "täglich 8–14 Uhr", "label": "Brunch im Grünen" },
     { "value": "Hund willkommen", "label": "drinnen wie auf der Terrasse" }
   ],
   "faq": [
@@ -53,13 +53,13 @@
     },
     {
       "question": "Bietet ihr auch Frühstück an?",
-      "answer": "Ab dem 6. Juli 2026 ja. Dann startet unser Frühstück im Grünen – regional, mit veganen und vegetarischen Optionen. Davor sind wir abends für dich da."
+      "answer": "Ja, täglich von 8 bis 14 Uhr gibt es bei uns Brunch im Grünen – regional, mit veganen und vegetarischen Optionen. Am Wochenende (Fr–So) sind wir zusätzlich abends von 17 bis 22 Uhr da."
     }
   ],
   "closing": {
     "heading": "Aus Bad Abbach",
     "accent": "schnell bei uns.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – der Weg aus Bad Abbach zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen – der Weg aus Bad Abbach zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
   }
 }

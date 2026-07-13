@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Etterzhausen – Wald & Wiese in Sinzing",
-  "metaDescription": "Restaurant in der Nähe von Etterzhausen: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli Frühstück.",
+  "metaDescription": "Restaurant in der Nähe von Etterzhausen: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, täglich Brunch.",
   "breadcrumb": "Restaurant Etterzhausen",
   "eyebrow": "Restaurant · nahe Etterzhausen",
   "h1Lead": "Dein Restaurant in der Nähe von",
@@ -24,7 +24,7 @@
     "items": [
       {
         "title": "Gleich um die Ecke",
-        "text": "Von Etterzhausen bist du in wenigen Minuten da – ideal für den Abend zum Essen gehen oder bald das Frühstück auf der Terrasse."
+        "text": "Von Etterzhausen bist du in wenigen Minuten da – ideal für den Abend zum Essen gehen oder der Brunch auf der Terrasse."
       },
       {
         "title": "Gerichte mit Geschichte",
@@ -46,8 +46,8 @@
       "label": "gleichberechtigt auf der Karte"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     }
   ],
   "faq": [
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was kommt bei euch auf den Tisch?",
-      "answer": "Abends Burger, Bowls und Gerichte vom Grill wie Steak, Spare Ribs oder Teriyaki-Lachs – Fleisch, vegetarisch und vegan gleichberechtigt. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+      "answer": "Abends Burger, Bowls und Gerichte vom Grill wie Steak, Spare Ribs oder Teriyaki-Lachs – Fleisch, vegetarisch und vegan gleichberechtigt. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Darf mein Hund mit?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Aus Etterzhausen",
     "accent": "schnell da.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – reservier dir in wenigen Klicks einen Platz oder schau einfach spontan vorbei. Wir freuen uns auf dich.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen – reservier dir in wenigen Klicks einen Platz oder schau einfach spontan vorbei. Wir freuen uns auf dich.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

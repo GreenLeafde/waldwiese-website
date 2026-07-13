@@ -46,8 +46,8 @@
       "label": "drinnen wie auf der Terrasse"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     }
   ],
   "faq": [
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Komm von Riegling",
     "accent": "vorbei.",
-    "text": "Ob abends ein Tisch oder ab Juli das Frühstück im Grünen — der kurze Weg von Riegling lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — der kurze Weg von Riegling lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

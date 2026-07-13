@@ -1,0 +1,114 @@
+{
+  "metaTitle": "Brunch Kelheim – Ausflug ins Grüne nach Sinzing",
+  "metaDescription": "Brunch aus Kelheim? Wald & Wiese in Sinzing bei Regensburg ist den Ausflug wert: täglich 8–14 Uhr Frühstück, Brote, Bowls & ab 11:30 Uhr Mittagstisch – regional, hausgemacht, im Grünen, vegan & vegetarisch, Hund willkommen.",
+  "breadcrumb": "Brunch Kelheim",
+  "eyebrow": "Brunch · Ausflug ab Kelheim",
+  "h1Lead": "Brunch bei Kelheim –",
+  "h1Accent": "den Ausflug wert.",
+  "intro": "Wer aus Kelheim mal richtig in Ruhe brunchen will, macht den kurzen Ausflug ins Grüne wett: Wald & Wiese in Sinzing bei Regensburg liegt mitten in der Natur am Waldrand, an der Donau zwischen Kelheim und der Stadt. Gebruncht wird täglich von 8 bis 14 Uhr – Frühstücke, Brote und Bowls, ab 11:30 Uhr dazu der Mittagstisch. Familiengeführt, regional, klein, fein & ehrlich.",
+  "primaryCta": {
+    "label": "Zur Brunch-Karte",
+    "href": "/brunch"
+  },
+  "story": {
+    "heading": "Ein Ausflug, der sich",
+    "accent": "lohnt.",
+    "paragraphs": [
+      "Zwischen Kelheim und Regensburg liegt viel Grün – und mittendrin wir. Sinzing ist der perfekte Zwischenstopp für alle, die das Donautal mögen: raus aus dem Alltag, rein in einen langen, ruhigen Vormittag. Du findest uns an der Bruckdorfer Straße 42 in 93161 Sinzing, mit Terrasse und eigenem Parkplatz.",
+      "Weil Frühstück und Mittag bei uns ineinander übergehen, passt der Brunch zu jedem Tempo. Der frühe Vogel startet um 8 mit Kaffee und Bowl, die Langschläfer treffen ab 11:30 Uhr auf den „klassischen Heinzi“, Oma’s Lieblingscurrywurst oder Sophia’s Garten. Alles frisch, vieles hausgemacht.",
+      "Bei uns kocht und serviert Familie Leber persönlich. Bring ruhig den Hund mit – drinnen wie auf der Terrasse ist er willkommen. Und wer den Tag ausklingen lassen will: Freitag bis Sonntag sind wir zusätzlich abends da."
+    ]
+  },
+  "features": {
+    "heading": "Warum der Weg aus Kelheim",
+    "accent": "sich lohnt.",
+    "items": [
+      {
+        "title": "Frühstück & Mittag in einem",
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Ideal für einen ganzen Ausflugsvormittag."
+      },
+      {
+        "title": "Mitten im Grünen an der Donau",
+        "text": "Terrasse, Waldrand und Blick ins Freie statt Innenstadt-Trubel – ein Ort, an dem sich der Ausflug ab Kelheim wirklich anfühlt wie Ausflug."
+      },
+      {
+        "title": "Regional & hausgemacht",
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Von der veganen „grünen Gretl“ bis zu den Schmusi-Bowls steht Pflanzliches gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
+      },
+      {
+        "title": "Hund herzlich willkommen",
+        "text": "Dein Hund darf mit – drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+      },
+      {
+        "title": "Am Wochenende auch abends",
+        "text": "Freitag bis Sonntag sind wir zusätzlich von 17 bis 22 Uhr da – mit Burgern, Bowls und Gerichten vom Grill. Perfekt, um den Ausflugstag ausklingen zu lassen."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "So läuft der Brunch",
+    "heading": "À la carte statt",
+    "accent": "Buffet-Gedränge.",
+    "paragraphs": [
+      "Bei uns brunchst du à la carte: Du bestellst frisch, was dir schmeckt, statt dich durch aufgewärmte Bleche zu wühlen. Frühstücke und Mittagsgerichte tragen bei uns eigene Namen – vom „guten alten Sepp“ bis zum kleinen Hansi für Kinder.",
+      "Für den Ausflug ab Kelheim lohnt sich – gerade am Wochenende und für die Terrasse – eine Reservierung. Dann ist dein Platz im Grünen sicher. Reservieren kannst du online oder telefonisch."
+    ]
+  },
+  "stats": [
+    { "value": "8 – 14 Uhr", "label": "Brunch täglich (Mittagstisch ab 11:30)" },
+    { "value": "Ausflug", "label": "ins Grüne bei Sinzing" },
+    { "value": "Fr – So", "label": "abends zusätzlich 17–22 Uhr" }
+  ],
+  "faq": [
+    {
+      "question": "Lohnt sich der Weg aus Kelheim zum Brunch?",
+      "answer": "Für alle, die das Donautal und Ruhe im Grünen mögen: ja. Wald & Wiese liegt in Sinzing bei Regensburg, an der Bruckdorfer Straße 42, mit Terrasse und eigenem Parkplatz – ein ruhiger Ausflug raus aus dem Alltag."
+    },
+    {
+      "question": "Wann gibt es bei euch Brunch?",
+      "answer": "Täglich von 8 bis 14 Uhr. Frühstücke, Brote und Bowls gibt es ab 8 Uhr, die Mittagsgerichte ab 11:30 Uhr bis 14 Uhr."
+    },
+    {
+      "question": "Ist der Brunch ein Buffet?",
+      "answer": "Nein, du brunchst à la carte – frisch bestellt, in Ruhe, ohne Buffet-Gedränge. So bekommst du genau das, worauf du Lust hast."
+    },
+    {
+      "question": "Gibt es veganen und vegetarischen Brunch?",
+      "answer": "Ja. Vegane und vegetarische Gerichte stehen bei uns gleichberechtigt auf der Karte – mit hausgemachten Aufstrichen, eigenem Granola und Obst aus der Region."
+    },
+    {
+      "question": "Muss ich reservieren?",
+      "answer": "Nötig ist es nicht, aber gerade am Wochenende und für die Terrasse empfehlen wir eine Reservierung – online oder telefonisch. So ist dein Tisch im Grünen sicher."
+    }
+  ],
+  "related": [
+    {
+      "label": "Brunch-Karte",
+      "href": "/brunch",
+      "blurb": "Die ganze Brunch-Karte: Frühstück, Brote, Bowls, Extras & Mittagstisch – mit allen Preisen."
+    },
+    {
+      "label": "Wochenendbrunch Regensburg",
+      "href": "/wochenendbrunch-regensburg",
+      "blurb": "Samstag & Sonntag im Grünen brunchen – der ideale Ausflug fürs Wochenende."
+    },
+    {
+      "label": "Kontakt & Anfahrt",
+      "href": "/kontakt",
+      "blurb": "So findest du uns in der Bruckdorfer Straße 42 in Sinzing."
+    }
+  ],
+  "closing": {
+    "heading": "Ab Kelheim ins",
+    "accent": "Grüne.",
+    "text": "Ob am Wochenende oder mitten in der Woche – wenn du für deinen Brunch einen ruhigen Ort im Grünen suchst, ist der Ausflug aus Kelheim nach Sinzing es wert. Komm vorbei, bring den Hund mit und bleib so lange du magst.",
+    "cta": {
+      "label": "Anfahrt & Kontakt",
+      "href": "/kontakt"
+    }
+  }
+}

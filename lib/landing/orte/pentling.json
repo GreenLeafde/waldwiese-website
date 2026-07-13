@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Pentling – essen im Grünen | Wald & Wiese",
-  "metaDescription": "Restaurant in der Nähe von Pentling: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli auch Frühstück.",
+  "metaDescription": "Restaurant in der Nähe von Pentling: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, täglich Brunch.",
   "breadcrumb": "Restaurant Pentling",
   "eyebrow": "Restaurant · in der Nähe von Pentling",
   "h1Lead": "Dein Restaurant in der Nähe von",
@@ -35,7 +35,7 @@
   },
   "stats": [
     { "value": "wenige Minuten", "label": "von Pentling entfernt" },
-    { "value": "ab 6. Juli 2026", "label": "auch Frühstück im Grünen" },
+    { "value": "täglich 8–14 Uhr", "label": "Brunch im Grünen" },
     { "value": "familiengeführt", "label": "Familie Leber kocht & serviert" }
   ],
   "faq": [
@@ -45,7 +45,7 @@
     },
     {
       "question": "Was gibt es bei euch zu essen?",
-      "answer": "Abends Burger mit Namen wie mähende Moni oder Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan. Ab 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+      "answer": "Abends Burger mit Namen wie mähende Moni oder Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Kann ich meinen Hund mitbringen?",
@@ -59,7 +59,7 @@
   "closing": {
     "heading": "Aus Pentling",
     "accent": "schnell bei uns.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
     "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
   }
 }

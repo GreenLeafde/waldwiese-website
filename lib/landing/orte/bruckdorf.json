@@ -15,7 +15,7 @@
     "heading": "Ein kurzer Weg von Bruckdorf, mitten ins",
     "accent": "Grüne.",
     "paragraphs": [
-      "Von Bruckdorf bist du in wenigen Minuten bei uns an der Bruckdorfer Straße 42 in Sinzing — raus aus dem Alltag, rein ins Grüne am Waldrand. Reservieren kannst du online über unser System oder ganz klassisch per Telefon. Und damit du Bescheid weißt: Wir sind ein Restaurant, kein Brunch-Buffet — abends à la carte, ab Juli zusätzlich Frühstück, alles frisch und in Ruhe serviert."
+      "Von Bruckdorf bist du in wenigen Minuten bei uns an der Bruckdorfer Straße 42 in Sinzing — raus aus dem Alltag, rein ins Grüne am Waldrand. Reservieren kannst du online über unser System oder ganz klassisch per Telefon. Und damit du Bescheid weißt: Wir sind ein Restaurant, kein Selbstbedienungs-Buffet — abends à la carte, tagsüber Brunch, alles frisch und in Ruhe serviert."
     ]
   },
   "features": {
@@ -46,8 +46,8 @@
       "label": "drinnen wie auf der Terrasse"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     }
   ],
   "faq": [
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was gibt es bei euch zu essen?",
-      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — etwa Steak, Spare Ribs oder Teriyaki-Lachs, dazu vegetarische und vegane Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück dazu."
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — etwa Steak, Spare Ribs oder Teriyaki-Lachs, dazu vegetarische und vegane Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Ist mein Hund im Restaurant willkommen?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Komm vorbei und",
     "accent": "bleib.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — von Bruckdorf ist es nur ein kurzer Weg zu uns. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — von Bruckdorf ist es nur ein kurzer Weg zu uns. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

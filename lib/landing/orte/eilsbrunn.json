@@ -46,8 +46,8 @@
       "label": "drinnen wie auf der Terrasse"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     }
   ],
   "faq": [
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was gibt es bei Wald & Wiese zu essen?",
-      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional und mit vegetarischen wie veganen Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück im Grünen dazu."
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional und mit vegetarischen wie veganen Optionen. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Darf ich meinen Hund mitbringen?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Komm vorbei und",
     "accent": "bleib.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — von Eilsbrunn bist du in wenigen Minuten bei uns. Reservier in ein paar Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — von Eilsbrunn bist du in wenigen Minuten bei uns. Reservier in ein paar Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"

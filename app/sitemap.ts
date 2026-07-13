@@ -28,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // SEO-/Städte-Landingpages
     { path: "/brunch-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/brunch-sinzing", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/brunch-nittendorf", priority: 0.75, changeFrequency: "monthly" },
+    { path: "/brunch-kelheim", priority: 0.75, changeFrequency: "monthly" },
     { path: "/wochenendbrunch-regensburg", priority: 0.8, changeFrequency: "monthly" },
     { path: "/fruehstueck-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/fruehstueck-sinzing", priority: 0.8, changeFrequency: "monthly" },

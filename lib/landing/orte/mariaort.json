@@ -1,6 +1,6 @@
 {
   "metaTitle": "Restaurant Mariaort in der Nähe | Wald & Wiese",
-  "metaDescription": "Essen gehen nahe Mariaort: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, ab Juli Frühstück. Tisch sichern.",
+  "metaDescription": "Essen gehen nahe Mariaort: Wald & Wiese in Sinzing – familiengeführt, regional, hundefreundlich. Abends Burger, Bowls & Grill, täglich Brunch. Tisch sichern.",
   "breadcrumb": "Restaurant Mariaort",
   "eyebrow": "Restaurant · nahe Mariaort",
   "h1Lead": "Dein Restaurant ganz in der Nähe von",
@@ -42,8 +42,8 @@
       "label": "wenige Minuten von Mariaort"
     },
     {
-      "value": "ab 6. Juli 2026",
-      "label": "auch Frühstück im Grünen"
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
     },
     {
       "value": "100 %",
@@ -57,7 +57,7 @@
     },
     {
       "question": "Was gibt es bei euch zu essen?",
-      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional, saisonal und mit vegetarischen wie veganen Optionen gleichberechtigt auf der Karte. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Ab dem 6. Juli 2026 kommt morgens das Frühstück dazu."
+      "answer": "Abends servieren wir Burger, Bowls und Gerichte vom Grill — regional, saisonal und mit vegetarischen wie veganen Optionen gleichberechtigt auf der Karte. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte. Morgens kommt zusätzlich der Brunch dazu — täglich von 8 bis 14 Uhr."
     },
     {
       "question": "Darf ich meinen Hund mitbringen?",
@@ -71,7 +71,7 @@
   "closing": {
     "heading": "Komm aus Mariaort vorbei und",
     "accent": "bleib.",
-    "text": "Ob abends ein Tisch oder bald das Frühstück im Grünen — der kurze Weg aus Mariaort lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
+    "text": "Ob abends ein Tisch oder der Brunch im Grünen — der kurze Weg aus Mariaort lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
     "cta": {
       "label": "Tisch reservieren",
       "href": "/reservieren"
