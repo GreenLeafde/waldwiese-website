@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/fruehstueck-sinzing", priority: 0.8, changeFrequency: "monthly" },
     { path: "/veganes-fruehstueck-regensburg", priority: 0.8, changeFrequency: "monthly" },
     { path: "/hochzeitslocation-regensburg", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/weihnachtsfeier", priority: 0.85, changeFrequency: "monthly" },
     { path: "/restaurant-sinzing", priority: 0.8, changeFrequency: "monthly" },
     {
       path: "/hundefreundliches-restaurant-regensburg",

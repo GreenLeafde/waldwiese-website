@@ -159,6 +159,73 @@ export const GUIDES: Guide[] = [
     cta: { label: "Tisch reservieren", href: "/reservieren" },
     publishedAt: "2026-07-13",
   },
+  {
+    slug: "weihnachtsfeier-planen",
+    title: "Warum es sich lohnt, die Weihnachtsfeier jetzt schon zu planen",
+    metaTitle:
+      "Weihnachtsfeier planen: Warum der Spätsommer der richtige Zeitpunkt ist | Wald & Wiese",
+    metaDescription:
+      "Der beste Zeitpunkt für die Weihnachtsfeier-Planung liegt im Spätsommer. Wir erklären, warum — und worauf es bei der Wahl der Location bei Regensburg ankommt.",
+    kicker: "Ratgeber · Feiern",
+    teaser:
+      "Weihnachten fühlt sich weit weg an, wenn draußen die Sonne scheint. Trotzdem entscheidet sich jetzt, wo ihr feiert — und warum frühe Planung entspannter ist.",
+    intro:
+      "Weihnachten fühlt sich weit weg an, wenn draußen dreißig Grad sind und man abends noch im Garten sitzt. Und doch entscheidet sich genau jetzt, wo die Weihnachtsfeier stattfindet. Wer bis in den Herbst wartet, hat bei den guten Terminen kaum noch eine Wahl. Wir schreiben das nicht, um Druck zu machen, sondern aus Erfahrung: Bei uns sind die beliebten Advent-Termine oft schon im Spätsommer vergeben.",
+    sections: [
+      {
+        heading: "Warum August und September der richtige Zeitpunkt sind",
+        body: [
+          "Die Weihnachtsfeier-Saison ist kürzer, als man denkt. Interessant sind für die meisten Firmen die drei, vier Wochenenden im Advent — und die verteilen sich auf wenige Häuser in der Region. Rechnerisch geht das schnell nicht mehr auf.",
+          "Wer früh plant, hat gleich mehrere Vorteile: Die beliebten Wochenenden am 1., 2. und 3. Advent sind zuerst weg. Im Spätsommer haben Restaurants noch Ruhe für ein gutes Gespräch. Und die Menü-Planung — Zutaten, Wein, Sonderwünsche, Unverträglichkeiten — braucht ohnehin etwas Vorlauf.",
+          "Die Kehrseite kennt jeder, der schon einmal spät dran war: Wer erst im November bucht, nimmt oft das, was übrig ist — einen Dienstag statt des Freitags, ein Ausweichlokal statt der Wunsch-Location. Wer im Sommer plant, wählt aus. Wer im Herbst plant, nimmt, was übrig ist.",
+        ],
+      },
+      {
+        heading: "Worauf es bei der Wahl der Location ankommt",
+        body: [
+          "Ob eine Weihnachtsfeier gelingt, hängt weniger vom großen Programm ab als von ein paar handfesten Dingen. Größe und Flexibilität zum Beispiel: Kann der Ort mit zwölf Leuten genauso wie mit dreißig? Kleine Runden brauchen einen Rahmen, in dem sie nicht verloren wirken, größere genug Platz.",
+          "Dann die Küche: Entsteht das Essen im Haus oder kommt es aus dem Karton? Fragt ruhig nach, wie viel selbst gekocht wird und woher die Zutaten stammen. Vegetarische und vegane Optionen sind heute keine Sonderlocke mehr, sondern eine Standard-Erwartung — eine gute Location hat dafür vollwertige Gerichte.",
+          "Und schließlich die Kleinigkeiten, die am Abend viel ausmachen: Gibt es Parkplätze? Passt die Stimmung zum Team? Wie schnell und klar antwortet die Location auf Nachfragen? Wer schon bei der Anfrage verlässlich ist, ist es meist auch am Abend selbst.",
+        ],
+      },
+      {
+        heading: "Familiengeführt oder Kettenlokal?",
+        body: [
+          "Beide Modelle haben ihre Berechtigung, und es kommt auf die Runde an. In einem Familienbetrieb sprecht ihr mit den Menschen, die am Abend auch selbst am Herd stehen. Absprachen laufen direkt, kleine Häuser können flexibler auf Wünsche eingehen, und die Betreuung ist persönlich.",
+          "Kettenlokale bieten dafür standardisierte Abläufe und größere Kapazitäten. Für kleine bis mittlere Runden ist ein Familienbetrieb aus unserer Sicht meist die stimmigere Wahl — nicht besser, sondern näher dran.",
+        ],
+      },
+      {
+        heading: "So plant ihr eure Weihnachtsfeier bei Wald & Wiese",
+        body: [
+          "Damit das nicht graue Theorie bleibt, kurz zu uns: Wald & Wiese ist ein familiengeführtes Restaurant in Sinzing, rund zehn Minuten von Regensburg-Süd, direkt am Waldrand mit Parkplätzen am Haus. Die Küche ist komplett hausgemacht und regional, vegetarisch und vegan gleichberechtigt. Für den Aperitif gibt es die Terrasse im Grünen — im Winter mit Heizstrahlern, wenn das Wetter mitspielt.",
+          "Zur Wahl stehen drei Menü-Wege: klassisch mit drei Gängen, festlich mit vier Gängen und Aperitif, oder ein Buffet für größere Runden. Mehr Details findet ihr auf unserer Seite zur Weihnachtsfeier.",
+          "Eine Anfrage ist schnell gemacht und unverbindlich: über die Weihnachtsfeier-Seite, per Mail an info@restaurant-waldwiese.de oder telefonisch bei Sven Leber unter 0160 4265772. Wir melden uns in der Regel innerhalb von 24 Stunden mit einem persönlichen Vorschlag zurück.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Wann sollte man die Weihnachtsfeier buchen?",
+        a: "Für die Wochenenden im Advent lohnt sich eine frühe Anfrage — schon im Spätsommer, also August oder September. Die beliebten Termine sind erfahrungsgemäß zuerst vergeben.",
+      },
+      {
+        q: "Worauf sollte man bei der Location achten?",
+        a: "Auf Größe und Flexibilität, hausgemachte statt zugekaufte Küche, vollwertige vegetarische und vegane Optionen, Erreichbarkeit und Parkplätze — und darauf, wie klar und schnell die Location auf Anfragen antwortet.",
+      },
+      {
+        q: "Lohnt sich für eine kleine Feier ein Familienbetrieb?",
+        a: "Für kleine bis mittlere Runden meist ja. Ihr plant direkt mit den Menschen, die kochen und servieren, Absprachen sind kurz und die Betreuung ist persönlich.",
+      },
+    ],
+    related: [
+      { label: "Weihnachtsfeier bei Wald & Wiese", href: "/weihnachtsfeier" },
+      { label: "Veranstaltungen", href: "/veranstaltungen" },
+      { label: "Über uns", href: "/ueber-uns" },
+    ],
+    cta: { label: "Weihnachtsfeier anfragen", href: "/weihnachtsfeier" },
+    publishedAt: "2026-07-27",
+  },
 ];
 
 export function getGuide(slug: string): Guide | undefined {
