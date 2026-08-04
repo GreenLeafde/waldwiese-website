@@ -49,6 +49,18 @@ export function staffConfigured(): boolean {
   return Boolean(env("NATURLICH_API_URL") && env("NATURLICH_PARTNER_KEY"));
 }
 
+/**
+ * Sagt, WAS fehlt — sonst sucht man bei "nicht verbunden" im Dunkeln.
+ * Gibt nie einen Wert aus, nur den Namen der fehlenden Einstellung.
+ */
+export function verbindungsProblem(): string | null {
+  const fehlt: string[] = [];
+  if (!env("NATURLICH_API_URL")) fehlt.push("NATURLICH_API_URL");
+  if (!env("NATURLICH_PARTNER_KEY")) fehlt.push("NATURLICH_PARTNER_KEY");
+  if (fehlt.length === 0) return null;
+  return `Es fehlt noch ${fehlt.join(" und ")} in den Einstellungen dieses Projekts (Production).`;
+}
+
 function endpoint(query = ""): string {
   const base = env("NATURLICH_API_URL").replace(/\/+$/, "");
   return `${base}/api/partner/zeiten${query}`;

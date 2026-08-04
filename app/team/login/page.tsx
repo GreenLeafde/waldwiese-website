@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { currentStaff } from "@/lib/staff-auth";
-import { listLoginNames, staffConfigured } from "@/lib/staff-db";
+import { listLoginNames, staffConfigured, verbindungsProblem } from "@/lib/staff-db";
 import { TeamLoginForm } from "@/components/team/team-login-form";
 
 export const dynamic = "force-dynamic";
@@ -22,7 +22,7 @@ export default async function TeamLoginPage() {
       ladeFehler = "Die Zeiterfassung ist gerade nicht erreichbar.";
     }
   } else {
-    ladeFehler = "Der Team-Bereich ist noch nicht verbunden.";
+    ladeFehler = `Der Team-Bereich ist noch nicht verbunden. ${verbindungsProblem() ?? ""}`.trim();
   }
 
   return (
