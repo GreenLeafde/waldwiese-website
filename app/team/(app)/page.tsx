@@ -1,13 +1,21 @@
 import { requireStaff } from "@/lib/staff-auth";
-import { openSession, sessionsInRange, staffConfigured } from "@/lib/staff-db";
+import {
+  bereichLabel,
+  getShifts,
+  openSession,
+  sessionsInRange,
+  staffConfigured,
+} from "@/lib/staff-db";
 import {
   berlinDay,
   buildDays,
   fmtDayLabel,
   fmtDuration,
+  fmtWeekdayLong,
   monthBounds,
   sessionMs,
   sumMs,
+  toIsoDate,
 } from "@/lib/work-time";
 import { ClockCard } from "@/components/team/clock-card";
 import { PinChange } from "@/components/team/pin-change";
@@ -33,14 +41,25 @@ export default async function TeamPage() {
   const now = new Date();
   const month = monthBounds(now);
 
+  // Naechste zwei Wochen — so weit ist der Plan im Restaurant relevant.
+  const heuteIso = toIsoDate(now);
+  const bisIso = toIsoDate(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 14));
+
   let running: Awaited<ReturnType<typeof openSession>> = null;
   let sessions: Awaited<ReturnType<typeof sessionsInRange>> = [];
+  let meineSchichten: Awaited<ReturnType<typeof getShifts>> = [];
   let loadError = "";
   try {
-    [running, sessions] = await Promise.all([
+    const [r, s, alleSchichten] = await Promise.all([
       openSession(staff.id),
       sessionsInRange(month.from, month.to, staff.id),
+      getShifts(heuteIso, bisIso),
     ]);
+    running = r;
+    sessions = s;
+    meineSchichten = alleSchichten
+      .filter((x) => x.user_id === staff.id)
+      .sort((a, b) => (a.date < b.date ? -1 : 1));
   } catch (e) {
     loadError = e instanceof Error ? e.message : "Zeiten konnten nicht geladen werden.";
   }
@@ -70,6 +89,30 @@ export default async function TeamPage() {
       )}
 
       <ClockCard startedAt={running?.started_at ?? null} todayMs={todayMs} />
+
+      <section className="rounded-2xl bg-white p-6 shadow-sm">
+        <h2 className="font-display text-xl text-waldgruen">Nächste Schichten</h2>
+        {meineSchichten.length === 0 ? (
+          <p className="mt-3 text-sm text-waldgruen/60">
+            Für die nächsten zwei Wochen ist noch nichts eingeteilt.
+          </p>
+        ) : (
+          <ul className="mt-4 divide-y divide-waldgruen/10">
+            {meineSchichten.map((s) => (
+              <li key={s.id} className="py-3 flex items-baseline justify-between gap-4">
+                <div>
+                  <p className="text-waldgruen">{fmtWeekdayLong(s.date.slice(0, 10))}</p>
+                  {s.notes && <p className="mt-0.5 text-xs text-waldgruen/50">{s.notes}</p>}
+                </div>
+                <span className="text-sm text-waldgruen">
+                  {bereichLabel(s.shift_type)}
+                  {s.start_time && ` · ${s.start_time}–${s.end_time}`}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <section className="rounded-2xl bg-white p-6 shadow-sm">
         <div className="flex items-baseline justify-between gap-4">

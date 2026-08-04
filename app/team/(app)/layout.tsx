@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireStaff } from "@/lib/staff-auth";
+import { istLeitung, requireStaff } from "@/lib/staff-auth";
 import { teamLogoutAction } from "@/app/actions/team";
 
 export const metadata = {
@@ -12,12 +12,16 @@ const NAV = [
   { label: "Verfügbarkeit", href: "/team/verfuegbarkeit" },
 ];
 
+/** Planung sieht nur, wer planen darf. */
+const NAV_LEITUNG = [{ label: "Schichtplan", href: "/team/plan" }];
+
 export default async function TeamLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const staff = await requireStaff();
+  const nav = istLeitung(staff) ? [...NAV, ...NAV_LEITUNG] : NAV;
 
   return (
     <div className="min-h-svh bg-stone-soft">
@@ -29,7 +33,7 @@ export default async function TeamLayout({
               <span className="text-tonwarm"> · Team</span>
             </Link>
             <nav className="hidden sm:flex items-center gap-5 text-sm">
-              {NAV.map((n) => (
+              {nav.map((n) => (
                 <Link
                   key={n.href}
                   href={n.href}
@@ -54,7 +58,7 @@ export default async function TeamLayout({
         </div>
         {/* Mobile-Nav — das Team ist fast immer am Handy. */}
         <nav className="sm:hidden border-t border-mehlcreme/10 px-5 py-2 flex gap-5 text-sm">
-          {NAV.map((n) => (
+          {nav.map((n) => (
             <Link
               key={n.href}
               href={n.href}

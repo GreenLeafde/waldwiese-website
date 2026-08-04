@@ -79,3 +79,11 @@ export async function requireStaff(): Promise<StaffSession> {
   if (!staff) redirect("/team/login");
   return staff;
 }
+
+/**
+ * Darf diese Person planen? Massgeblich ist die Rolle aus der
+ * Mitarbeiter-Verwaltung des Hotel-Systems — dort wird sie vergeben.
+ */
+export function istLeitung(staff: StaffSession | null): boolean {
+  return staff?.role === "admin";
+}

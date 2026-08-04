@@ -15,13 +15,17 @@ import {
   STAFF_COOKIE,
   STAFF_COOKIE_MAX_AGE,
   createStaffToken,
+  istLeitung,
   requireStaff,
 } from "@/lib/staff-auth";
 import {
+  BEREICHE,
   changePin,
   CodeFalsch,
+  deleteShift,
   LoginGesperrt,
   saveAvailability,
+  saveShift,
   saveWeekTarget,
   startSession,
   staffConfigured,
@@ -118,6 +122,53 @@ export async function clockAction(
 
   revalidatePath("/team");
   return { error: "" };
+}
+
+export type ShiftState = { error: string; saved: boolean };
+
+/**
+ * Schicht planen oder entfernen. Nur die Leitung — geprueft wird hier UND
+ * im Hotel-System, damit ein Fehler an einer Stelle nicht reicht.
+ */
+export async function saveShiftAction(
+  _prev: ShiftState,
+  formData: FormData,
+): Promise<ShiftState> {
+  const staff = await requireStaff();
+  if (!istLeitung(staff)) return { error: "Planen darf nur die Leitung.", saved: false };
+
+  const shiftId = String(formData.get("shiftId") ?? "").trim();
+  const loeschen = String(formData.get("loeschen") ?? "") === "1";
+
+  try {
+    if (loeschen) {
+      if (!shiftId) return { error: "Diese Schicht gibt es nicht mehr.", saved: false };
+      await deleteShift(staff.id, shiftId);
+    } else {
+      const type = String(formData.get("type") ?? "service");
+      const mitZeit = BEREICHE.find((b) => b.value === type)?.mitZeit ?? true;
+      const start = String(formData.get("start") ?? "").trim();
+      const end = String(formData.get("end") ?? "").trim();
+      if (mitZeit && (!start || !end)) {
+        return { error: "Bitte Von- und Bis-Zeit angeben.", saved: false };
+      }
+      await saveShift(staff.id, {
+        id: shiftId || undefined,
+        staffId: String(formData.get("staffId") ?? ""),
+        date: String(formData.get("date") ?? ""),
+        start,
+        end,
+        type,
+        notes: String(formData.get("notes") ?? ""),
+      });
+    }
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : "Speichern hat nicht geklappt.", saved: false };
+  }
+
+  revalidatePath("/team/plan");
+  revalidatePath("/team");
+  return { error: "", saved: true };
 }
 
 export type PinState = { error: string; saved: boolean };

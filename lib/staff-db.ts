@@ -144,6 +144,67 @@ export async function stopSession(userId: string, notes?: string): Promise<WorkS
   return session ?? null;
 }
 
+// ─── Schichten ────────────────────────────────────────────────────────────
+
+export type Shift = {
+  id: string;
+  user_id: string | null;
+  user_name: string;
+  date: string;
+  start_time: string | null;
+  end_time: string | null;
+  /** 'kueche' | 'service' | 'theke' | 'spuele' | 'frei' | 'urlaub' | 'krank' */
+  shift_type: string;
+  notes: string | null;
+};
+
+export const BEREICHE: { value: string; label: string; mitZeit: boolean }[] = [
+  { value: "service", label: "Service", mitZeit: true },
+  { value: "kueche", label: "Küche", mitZeit: true },
+  { value: "theke", label: "Theke", mitZeit: true },
+  { value: "spuele", label: "Spüle", mitZeit: true },
+  { value: "frei", label: "Frei", mitZeit: false },
+  { value: "urlaub", label: "Urlaub", mitZeit: false },
+  { value: "krank", label: "Krank", mitZeit: false },
+];
+
+export const bereichLabel = (v: string) =>
+  BEREICHE.find((b) => b.value === v)?.label ?? v;
+
+/** Geplante Schichten eines Zeitraums (Datumsgrenzen inklusive). */
+export async function getShifts(fromDate: string, toDate: string): Promise<Shift[]> {
+  const { shifts } = await call<{ shifts: Shift[] }>(
+    endpoint(`?resource=shifts&from=${fromDate}&to=${toDate}`),
+  );
+  return shifts || [];
+}
+
+/** Schicht anlegen oder aendern (nur Leitung — wird drueben nochmal geprueft). */
+export async function saveShift(
+  leitungId: string,
+  shift: {
+    id?: string;
+    staffId: string;
+    date: string;
+    start?: string;
+    end?: string;
+    type: string;
+    notes?: string;
+  },
+): Promise<void> {
+  await call(endpoint(), {
+    method: "POST",
+    body: JSON.stringify({ action: "save-shift", userId: leitungId, shift }),
+  });
+}
+
+export async function deleteShift(leitungId: string, shiftId: string): Promise<void> {
+  await call(endpoint(), {
+    method: "POST",
+    body: JSON.stringify({ action: "delete-shift", userId: leitungId, shiftId }),
+  });
+}
+
 export class CodeFalsch extends Error {}
 
 /**
