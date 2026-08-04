@@ -10,6 +10,7 @@ import {
   sumMs,
 } from "@/lib/work-time";
 import { ClockCard } from "@/components/team/clock-card";
+import { PinChange } from "@/components/team/pin-change";
 
 export const dynamic = "force-dynamic";
 
@@ -103,6 +104,8 @@ export default async function TeamPage() {
           Stimmt etwas nicht? Melde dich bei der Betriebsleitung – Korrekturen laufen dort.
         </p>
       </section>
+
+      <PinChange />
     </div>
   );
 }

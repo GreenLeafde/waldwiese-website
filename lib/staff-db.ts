@@ -144,6 +144,30 @@ export async function stopSession(userId: string, notes?: string): Promise<WorkS
   return session ?? null;
 }
 
+export class CodeFalsch extends Error {}
+
+/**
+ * Eigenen Code aendern. Der bisherige Code wird drueben geprueft — hier liegt
+ * kein Code und kein Verfahren.
+ */
+export async function changePin(
+  userId: string,
+  currentPin: string,
+  newPin: string,
+): Promise<void> {
+  try {
+    await call(endpoint(), {
+      method: "POST",
+      body: JSON.stringify({ action: "set-pin", userId, currentPin, pin: newPin }),
+    });
+  } catch (e) {
+    const status = (e as { status?: number }).status;
+    if (status === 401) throw new CodeFalsch();
+    if (status === 429) throw new LoginGesperrt();
+    throw e;
+  }
+}
+
 // ─── Verfuegbarkeit ───────────────────────────────────────────────────────
 
 /** Angabe fuer einen Tag — das digitale Gegenstueck zum Papier-Zettel. */

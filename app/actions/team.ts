@@ -18,6 +18,8 @@ import {
   requireStaff,
 } from "@/lib/staff-auth";
 import {
+  changePin,
+  CodeFalsch,
   LoginGesperrt,
   saveAvailability,
   saveWeekTarget,
@@ -116,6 +118,36 @@ export async function clockAction(
 
   revalidatePath("/team");
   return { error: "" };
+}
+
+export type PinState = { error: string; saved: boolean };
+
+/** Eigenen Code aendern (bisheriger Code wird geprueft). */
+export async function changePinAction(
+  _prev: PinState,
+  formData: FormData,
+): Promise<PinState> {
+  const staff = await requireStaff();
+  const alt = String(formData.get("alt") ?? "").trim();
+  const neu = String(formData.get("neu") ?? "").trim();
+  const neu2 = String(formData.get("neu2") ?? "").trim();
+
+  if (!alt || !neu) return { error: "Bitte beide Felder ausfüllen.", saved: false };
+  if (neu !== neu2) return { error: "Die beiden neuen Codes sind nicht gleich.", saved: false };
+  if (!/^\d{4,8}$/.test(neu)) return { error: "Der neue Code muss 4 bis 8 Ziffern haben.", saved: false };
+  if (/^(\d)\1+$/.test(neu)) return { error: "Bitte keinen Code aus lauter gleichen Ziffern.", saved: false };
+
+  try {
+    await changePin(staff.id, alt, neu);
+  } catch (e) {
+    if (e instanceof CodeFalsch) return { error: "Der bisherige Code stimmt nicht.", saved: false };
+    if (e instanceof LoginGesperrt) {
+      return { error: "Zu viele Versuche. Bitte in ein paar Minuten noch einmal.", saved: false };
+    }
+    return { error: "Ändern hat nicht geklappt. Bitte später noch einmal.", saved: false };
+  }
+
+  return { error: "", saved: true };
 }
 
 export type AvailabilityState = { error: string; saved: boolean };
