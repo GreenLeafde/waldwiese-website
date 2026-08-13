@@ -47,6 +47,12 @@ const nextConfig: NextConfig = {
       { source: "/datenschutzerklaerung", destination: "/datenschutz", permanent: true },
       { source: "/cookie-richtlinie", destination: "/datenschutz", permanent: true },
       { source: "/3d-flip-book/speisekarte", destination: "/speisekarte", permanent: true },
+      // Der gedruckte Werbeflyer verlinkt noch die alte WordPress-PDF
+      // (/wp-content/uploads/2026/01/Speisekarte-WW.pdf). Die Datei existiert
+      // nicht mehr → auf die Speisekarten-Seite umleiten. Die :jahr/:monat-Regel
+      // fängt zusätzlich alle anderen Upload-Ordner ab, falls die PDF früher
+      // unter einem anderen Datum verlinkt wurde.
+      { source: "/wp-content/uploads/:jahr/:monat/Speisekarte-WW.pdf", destination: "/speisekarte", permanent: true },
     ];
   },
 };
