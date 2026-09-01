@@ -3,6 +3,8 @@ import { logoutAction } from "@/app/actions/admin";
 
 const NAV = [
   { label: "Übersicht", href: "/admin" },
+  { label: "Aufgaben", href: "/admin/aufgaben" },
+  { label: "Zeiten", href: "/admin/zeiten" },
   { label: "Auswertungen", href: "/admin/analytics" },
   { label: "Newsletter", href: "/admin/newsletter" },
   { label: "Versand", href: "/admin/versand" },

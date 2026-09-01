@@ -8,7 +8,7 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { SommelierFab } from "@/components/sommelier/sommelier-fab";
 import { TrackingScripts } from "@/components/tracking-scripts";
 import { Analytics } from "@/components/analytics";
-import { HideOnAdmin } from "@/components/hide-on-admin";
+import { HideOnInternal } from "@/components/hide-on-internal";
 import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
 import {
   CONTACT,
@@ -193,17 +193,21 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <ConsentProvider>
-          <HideOnAdmin>
+          <HideOnInternal>
             <SiteHeader />
-          </HideOnAdmin>
+          </HideOnInternal>
           <main className="flex-1">{children}</main>
-          <HideOnAdmin>
+          <HideOnInternal>
             <SiteFooter />
             <SommelierFab />
-          </HideOnAdmin>
-          <CookieBanner />
-          <TrackingScripts />
-          <Analytics />
+            {/* Cookie-Banner und Messung gehören nur auf die öffentliche
+                Website: Ein Küchen-Tablet soll keinen Consent-Dialog zeigen,
+                und die eigenen Arbeitsseiten haben in der Besucherstatistik
+                nichts verloren. */}
+            <CookieBanner />
+            <TrackingScripts />
+            <Analytics />
+          </HideOnInternal>
         </ConsentProvider>
       </body>
     </html>

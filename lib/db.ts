@@ -110,6 +110,72 @@ export async function ensureSchema(): Promise<void> {
           reason     TEXT,
           created_at INTEGER NOT NULL
         )`,
+
+        // ─── Schichtaufgaben ────────────────────────────────────────────
+        // Vorlagen. Wiederkehrende Aufgaben werden NICHT vorab je Tag
+        // erzeugt — für ein Datum werden die passenden Vorlagen gelesen und
+        // mit `erledigungen` verglichen. Kein naechtlicher Job noetig.
+        `CREATE TABLE IF NOT EXISTS aufgaben (
+          id           TEXT PRIMARY KEY,
+          titel        TEXT NOT NULL,
+          beschreibung TEXT,
+          bereich      TEXT,
+          nachweis     TEXT NOT NULL DEFAULT 'keiner',
+          rhythmus     TEXT NOT NULL DEFAULT 'woechentlich',
+          datum        TEXT,
+          sortierung   INTEGER NOT NULL DEFAULT 0,
+          aktiv        INTEGER NOT NULL DEFAULT 1,
+          created_at   INTEGER NOT NULL
+        )`,
+        // Auf welchen der zehn Schichten eine Vorlage liegt. Eigene Tabelle
+        // statt Liste in einer Spalte, damit "was faellt heute an?" eine
+        // normale Abfrage bleibt.
+        `CREATE TABLE IF NOT EXISTS aufgabe_schichten (
+          aufgabe_id TEXT NOT NULL,
+          wochentag  INTEGER NOT NULL,
+          schicht    TEXT NOT NULL,
+          PRIMARY KEY (aufgabe_id, wochentag, schicht)
+        )`,
+        `CREATE INDEX IF NOT EXISTS idx_asch_tag ON aufgabe_schichten (wochentag, schicht)`,
+        `CREATE TABLE IF NOT EXISTS erledigungen (
+          id             TEXT PRIMARY KEY,
+          aufgabe_id     TEXT NOT NULL,
+          titel_snapshot TEXT NOT NULL,
+          datum          TEXT NOT NULL,
+          schicht        TEXT NOT NULL,
+          erledigt_von   TEXT,
+          erledigt_am    INTEGER NOT NULL,
+          nachweis_url   TEXT
+        )`,
+        // Verhindert doppeltes Abhaken — auch wenn zwei Tablets im selben
+        // Moment senden.
+        `CREATE UNIQUE INDEX IF NOT EXISTS idx_erl_einmalig
+           ON erledigungen (aufgabe_id, datum, schicht)`,
+        `CREATE INDEX IF NOT EXISTS idx_erl_datum ON erledigungen (datum, schicht)`,
+        // Kommentare haengen an der Vorlage, nicht am einzelnen Tag: ein
+        // Hinweis ("Thermometer haengt jetzt links") gilt auch naechste Woche.
+        `CREATE TABLE IF NOT EXISTS aufgaben_kommentare (
+          id         TEXT PRIMARY KEY,
+          aufgabe_id TEXT NOT NULL,
+          autor      TEXT,
+          inhalt     TEXT NOT NULL,
+          created_at INTEGER NOT NULL
+        )`,
+        `CREATE INDEX IF NOT EXISTS idx_akom_aufgabe ON aufgaben_kommentare (aufgabe_id, created_at)`,
+        // Fotos und Unterschriften. Bewusst hier und nicht in einem eigenen
+        // Dateispeicher: Mit Aufbewahrungsfrist bleiben es wenige hundert
+        // verkleinerte Bilder, und es kommt kein weiterer Dienst dazu, der
+        // eingerichtet und bezahlt werden muss. Die Bilder werden nie
+        // mitgelesen, wenn nur die Aufgabenliste gebraucht wird.
+        `CREATE TABLE IF NOT EXISTS nachweise (
+          id         TEXT PRIMARY KEY,
+          art        TEXT NOT NULL,
+          typ        TEXT NOT NULL,
+          daten      BLOB NOT NULL,
+          groesse    INTEGER NOT NULL,
+          created_at INTEGER NOT NULL
+        )`,
+        `CREATE INDEX IF NOT EXISTS idx_nachweise_zeit ON nachweise (created_at)`,
       ],
       "write",
     );
