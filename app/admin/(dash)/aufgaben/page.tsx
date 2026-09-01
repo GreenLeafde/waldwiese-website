@@ -26,7 +26,15 @@ export const metadata = {
 function Ueberschrift() {
   return (
     <div>
-      <h1 className="text-3xl font-display font-normal text-waldgruen">Aufgaben</h1>
+      <div className="flex flex-wrap items-center gap-3">
+        <h1 className="text-3xl font-display font-normal text-waldgruen">Aufgaben</h1>
+        <Link
+          href="/admin/aufgaben/verlauf"
+          className="text-sm text-waldgruen/50 underline underline-offset-2 hover:text-waldgruen"
+        >
+          Verlauf ansehen
+        </Link>
+      </div>
       <p className="mt-2 max-w-2xl text-waldgruen/55">
         Was in welcher Schicht zu tun ist. Das Team sieht beim Schichtbeginn genau die
         Punkte, die hier auf der jeweiligen Schicht liegen.

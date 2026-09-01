@@ -3,11 +3,13 @@
 import { revalidatePath } from "next/cache";
 import {
   erledige,
+  getAufgabe,
   nimmZurueck,
   schreibeKommentar,
   aufgabenFuerSchicht,
   type Tagesaufgabe,
 } from "@/lib/aufgaben";
+import { MAX_BYTES, speichereNachweis, typErlaubt } from "@/lib/nachweise";
 import {
   aktuelleSchicht,
   berlinDatum,
@@ -78,6 +80,68 @@ export async function hakeAbAction(formData: FormData): Promise<void> {
     await erledige(id, datum, schicht, name);
   }
   revalidatePath("/schicht");
+}
+
+/**
+ * Abhaken mit Nachweis — Foto oder Unterschrift.
+ *
+ * Bewusst ein eigener Weg: Bei diesen Aufgaben darf nicht ohne Bild abgehakt
+ * werden, sonst waere die Nachweispflicht mit einer Wischbewegung umgangen.
+ */
+export async function hakeMitNachweisAction(
+  _prev: SchichtState,
+  formData: FormData,
+): Promise<SchichtState> {
+  const id = String(formData.get("aufgabeId") ?? "").trim();
+  const datum = String(formData.get("datum") ?? "").trim();
+  const schicht = schichtAus(formData.get("schicht"));
+  const name = nameAus(formData);
+
+  if (!id || !schicht || !datumErlaubt(datum)) {
+    return { status: "error", message: "Angaben unvollständig." };
+  }
+  if (!name || !(await istEingestempelt(name))) {
+    return { status: "error", message: "Nur wer eingestempelt ist, kann abhaken." };
+  }
+
+  // Was verlangt die Aufgabe wirklich? Nicht dem Formular glauben.
+  const aufgabe = await getAufgabe(id);
+  if (!aufgabe) return { status: "error", message: "Aufgabe nicht gefunden." };
+  if (aufgabe.nachweis === "keiner") {
+    return { status: "error", message: "Diese Aufgabe braucht keinen Nachweis." };
+  }
+
+  const datei = formData.get("nachweis");
+  if (!(datei instanceof File) || datei.size === 0) {
+    return {
+      status: "error",
+      message:
+        aufgabe.nachweis === "foto"
+          ? "Es fehlt noch das Foto."
+          : "Es fehlt noch die Unterschrift.",
+    };
+  }
+  if (datei.size > MAX_BYTES) {
+    return { status: "error", message: "Das Bild ist zu groß." };
+  }
+  if (!typErlaubt(datei.type)) {
+    return { status: "error", message: "Dieses Dateiformat geht nicht." };
+  }
+
+  try {
+    const daten = new Uint8Array(await datei.arrayBuffer());
+    const pfad = await speichereNachweis(aufgabe.nachweis, datei.type, daten);
+    await erledige(id, datum, schicht, name, pfad);
+  } catch (e) {
+    return {
+      status: "error",
+      message:
+        e instanceof Error ? `Nicht gespeichert: ${e.message}` : "Nicht gespeichert.",
+    };
+  }
+
+  revalidatePath("/schicht");
+  return { status: "ok", message: "Erledigt und festgehalten." };
 }
 
 // ─── Schicht starten und beenden ────────────────────────────────────────────

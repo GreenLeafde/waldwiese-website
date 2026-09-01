@@ -20,7 +20,9 @@ import { randomUUID } from "node:crypto";
 import { getDb, ensureSchema } from "./db";
 import {
   BERLIN_TZ,
+  hatSpaetschicht,
   istGueltigerSlot,
+  tagDanach,
   wochentagVonDatum,
   type Nachweis,
   type Rhythmus,
@@ -290,6 +292,104 @@ export async function nimmZurueck(
           WHERE aufgabe_id = ? AND datum = ? AND schicht = ?`,
     args: [aufgabeId, datum, schicht],
   });
+}
+
+// ─── Verlauf fuers Backend ──────────────────────────────────────────────────
+
+export type VerlaufSchicht = {
+  datum: string;
+  schicht: Schicht;
+  erledigt: {
+    titel: string;
+    von: string | null;
+    um: string;
+    nachweisUrl: string | null;
+    nachweis: Nachweis;
+  }[];
+  offen: string[];
+};
+
+/**
+ * Was in den letzten Tagen erledigt wurde — und was liegen blieb.
+ *
+ * Auch hier gibt es keine vorab erzeugte Tagesliste: Fuer jede Schicht des
+ * Zeitraums werden die Vorlagen mit den Erledigungen verglichen. Der Titel
+ * kommt aus der Erledigung (`titel_snapshot`), damit der Rueckblick lesbar
+ * bleibt, wenn eine Vorlage spaeter umbenannt wurde.
+ */
+export async function verlauf(vonDatum: string, bisDatum: string): Promise<VerlaufSchicht[]> {
+  await ensureSchema();
+
+  const res = await getDb().execute({
+    sql: `SELECT e.aufgabe_id, e.titel_snapshot, e.datum, e.schicht,
+                 e.erledigt_von, e.erledigt_am, e.nachweis_url, a.nachweis
+          FROM erledigungen e
+          LEFT JOIN aufgaben a ON a.id = e.aufgabe_id
+          WHERE e.datum >= ? AND e.datum <= ?
+          ORDER BY e.datum DESC, e.schicht, e.erledigt_am`,
+    args: [vonDatum, bisDatum],
+  });
+
+  const proSchicht = new Map<string, VerlaufSchicht>();
+  const schluessel = (d: string, s: string) => `${d}|${s}`;
+
+  for (const r of res.rows as unknown as {
+    titel_snapshot: string;
+    datum: string;
+    schicht: string;
+    erledigt_von: string | null;
+    erledigt_am: number | bigint;
+    nachweis_url: string | null;
+    nachweis: string | null;
+  }[]) {
+    const k = schluessel(r.datum, r.schicht);
+    const eintrag = proSchicht.get(k) ?? {
+      datum: r.datum,
+      schicht: r.schicht as Schicht,
+      erledigt: [],
+      offen: [],
+    };
+    eintrag.erledigt.push({
+      titel: r.titel_snapshot,
+      von: r.erledigt_von,
+      um: new Date(Number(r.erledigt_am)).toLocaleTimeString("de-DE", {
+        timeZone: BERLIN_TZ,
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      nachweisUrl: r.nachweis_url,
+      nachweis: (r.nachweis as Nachweis) ?? "keiner",
+    });
+    proSchicht.set(k, eintrag);
+  }
+
+  // Was in diesen Schichten offen blieb — nur fuer Tage, an denen ueberhaupt
+  // etwas passiert ist, plus alle Schichten des Zeitraums.
+  const tage: string[] = [];
+  for (let d = vonDatum; d <= bisDatum; d = tagDanach(d)) tage.push(d);
+
+  const ergebnis: VerlaufSchicht[] = [];
+  for (const datum of tage) {
+    const wt = wochentagVonDatum(datum);
+    if (!wt) continue;
+    for (const s of ["frueh", "spaet"] as Schicht[]) {
+      if (s === "spaet" && !hatSpaetschicht(wt)) continue;
+      const geplant = await aufgabenFuerSchicht(datum, s);
+      if (geplant.length === 0) continue;
+
+      const vorhanden = proSchicht.get(schluessel(datum, s));
+      ergebnis.push({
+        datum,
+        schicht: s,
+        erledigt: vorhanden?.erledigt ?? [],
+        offen: geplant.filter((a) => !a.erledigt).map((a) => a.titel),
+      });
+    }
+  }
+
+  return ergebnis.sort((a, b) =>
+    a.datum === b.datum ? a.schicht.localeCompare(b.schicht) : b.datum.localeCompare(a.datum),
+  );
 }
 
 // ─── Kommentare ─────────────────────────────────────────────────────────────

@@ -16,6 +16,7 @@ import {
 } from "@/app/actions/schicht";
 import type { Kommentar, Tagesaufgabe } from "@/lib/aufgaben";
 import { NACHWEIS_LABEL, SCHICHT_ZEIT, type Schicht } from "@/lib/schichten";
+import { NachweisDialog } from "@/components/schicht/nachweis-dialog";
 
 /** Ab hier rastet die Karte ein — knapp die halbe Breite fuehlt sich richtig an. */
 const SCHWELLE = 0.4;
@@ -53,6 +54,7 @@ function Haken({ className = "" }: { className?: string }) {
 export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Props) {
   const [stand, setStand] = useState(aufgaben);
   const [detail, setDetail] = useState<Tagesaufgabe | null>(null);
+  const [nachweis, setNachweis] = useState<Tagesaufgabe | null>(null);
   const [rueckgaengig, setRueckgaengig] = useState<Tagesaufgabe | null>(null);
   const [, startTransition] = useTransition();
   const name = ich;
@@ -113,7 +115,16 @@ export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Prop
     [datum, schicht, name, abgleichen],
   );
 
+  /**
+   * Abhaken. Verlangt die Aufgabe ein Foto oder eine Unterschrift, wird nicht
+   * abgehakt, sondern der Nachweis geöffnet — sonst wäre die Nachweispflicht
+   * mit einer Wischbewegung umgangen.
+   */
   function erledigen(aufgabe: Tagesaufgabe) {
+    if (aufgabe.nachweis !== "keiner") {
+      setNachweis(aufgabe);
+      return;
+    }
     setzen(aufgabe, true);
     setRueckgaengig(aufgabe);
     setTimeout(
@@ -181,6 +192,21 @@ export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Prop
             Rückgängig
           </button>
         </div>
+      )}
+
+      {nachweis && (
+        <NachweisDialog
+          aufgabe={nachweis}
+          datum={datum}
+          schicht={schicht}
+          ich={name}
+          onSchliessen={() => setNachweis(null)}
+          onFertig={() => {
+            setNachweis(null);
+            setDetail(null);
+            abgleichen();
+          }}
+        />
       )}
 
       {detail && (
@@ -253,7 +279,12 @@ function Karte({
         Math.abs(dxRoh) > Math.abs(dyRoh) * 2 ? "quer" : "hoch";
       if (richtungKlar.current === "quer") {
         setZieht(true);
-        el.current?.setPointerCapture(e.pointerId);
+        try {
+          el.current?.setPointerCapture(e.pointerId);
+        } catch {
+          // Der Zeiger kann schon weg sein — dann wischt es eben ohne Fang
+          // weiter, statt den Handler mit einem Fehler abzubrechen.
+        }
       }
     }
     if (richtungKlar.current !== "quer") return;
@@ -305,7 +336,11 @@ function Karte({
           style={{ color: `rgba(74,107,63,${0.35 + anteil * 0.65})` }}
         >
           <Haken className="h-4 w-4" />
-          Erledigt
+          {aufgabe.nachweis === "foto"
+            ? "Foto"
+            : aufgabe.nachweis === "unterschrift"
+              ? "Unterschrift"
+              : "Erledigt"}
         </span>
       )}
 
@@ -447,10 +482,27 @@ function Detail({
           </p>
         )}
 
-        {aufgabe.nachweis !== "keiner" && (
+        {/* Der Nachweis, wenn es schon einen gibt */}
+        {aufgabe.erledigt && aufgabe.nachweisUrl && (
+          <a
+            href={aufgabe.nachweisUrl}
+            target="_blank"
+            rel="noopener"
+            className="mt-4 block overflow-hidden rounded-2xl ring-1 ring-waldgruen/10"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={aufgabe.nachweisUrl}
+              alt={`${NACHWEIS_LABEL[aufgabe.nachweis]} zu „${aufgabe.titel}"`}
+              className="max-h-56 w-full bg-white object-contain"
+            />
+          </a>
+        )}
+
+        {aufgabe.nachweis !== "keiner" && !aufgabe.erledigt && (
           <p className="mt-4 rounded-xl bg-tonwarm/8 px-4 py-3 text-sm text-tonwarm-dark">
-            {NACHWEIS_LABEL[aufgabe.nachweis]} wird noch nicht abgefragt — das kommt mit
-            dem nächsten Ausbauschritt.
+            Zum Abhaken wird {aufgabe.nachweis === "foto" ? "ein Foto" : "eine Unterschrift"}{" "}
+            gebraucht.
           </p>
         )}
 
@@ -478,7 +530,11 @@ function Detail({
               }}
               className="w-full rounded-full bg-tonwarm px-6 py-3 font-medium text-white transition-colors hover:bg-tonwarm-dark"
             >
-              Als erledigt markieren
+              {aufgabe.nachweis === "foto"
+                ? "Foto aufnehmen"
+                : aufgabe.nachweis === "unterschrift"
+                  ? "Unterschreiben"
+                  : "Als erledigt markieren"}
             </button>
           )}
         </div>
