@@ -279,8 +279,9 @@ export function AufgabeForm({ werte }: { werte?: AufgabeFormWerte }) {
         </div>
         {nachweis !== "keiner" && (
           <p className="text-xs text-waldgruen/45">
-            Wird noch nicht abgefragt — das kommt mit dem nächsten Schritt. Die Angabe
-            kannst du trotzdem schon setzen.
+            {nachweis === "foto"
+              ? "Beim Abhaken öffnet sich die Kamera. Ohne Foto lässt sich die Aufgabe nicht erledigen — auch nicht durch Wischen."
+              : "Beim Abhaken erscheint ein Feld zum Unterschreiben. Ohne Unterschrift lässt sich die Aufgabe nicht erledigen — auch nicht durch Wischen."}
           </p>
         )}
       </div>
