@@ -266,6 +266,118 @@ async function leseOffenRoh(): Promise<Record<string, { start?: string; date?: s
   return roh && typeof roh === "object" ? roh : {};
 }
 
+// ─── Mitarbeiter pflegen ────────────────────────────────────────────────────
+
+/**
+ * Dieselbe Farbreihe wie in der alten App — die Farben stehen mit im
+ * Datensatz und tauchen dort in der Auswertung wieder auf.
+ */
+const FARBEN = [
+  "#e74c3c", "#3498db", "#27ae60", "#e67e22", "#8e44ad",
+  "#16a085", "#d35400", "#2c3e50", "#c0392b", "#2980b9",
+];
+
+export type MitarbeiterEingabe = {
+  name: string;
+  nr: number;
+  lohnart: string;
+};
+
+/**
+ * Legt eine Person an. Die Personalnummer wird mitgegeben statt
+ * hochgezaehlt: Sie kommt aus der Lohnbuchhaltung, und die alte App konnte
+ * sie nach dem Anlegen nicht mehr aendern.
+ */
+export async function legeMitarbeiterAn(daten: MitarbeiterEingabe): Promise<void> {
+  const alle = await holeMitarbeiter();
+  if (alle.some((m) => m.name.toLowerCase() === daten.name.toLowerCase())) {
+    throw new Error("Diesen Namen gibt es schon.");
+  }
+  if (alle.some((m) => m.nr === daten.nr)) {
+    throw new Error(`Die Nummer ${daten.nr} ist schon vergeben.`);
+  }
+
+  const neu: Mitarbeiter = {
+    id: Date.now(),
+    nr: daten.nr,
+    name: daten.name,
+    lohnart: daten.lohnart,
+    color: FARBEN[alle.length % FARBEN.length],
+  };
+  await schreibe("zt-config", [...alle, neu]);
+}
+
+/**
+ * Aendert Name, Nummer oder Lohnart.
+ *
+ * Achtung beim Namen: Er ist in `zt-open` und `zt-entries` der Schluessel.
+ * Wird er geaendert, ziehen die bestehenden Zeitbuchungen mit um — sonst
+ * verloere die Person ihre bisherigen Stunden.
+ */
+export async function aendereMitarbeiter(
+  id: number,
+  daten: MitarbeiterEingabe,
+): Promise<void> {
+  const alle = await holeMitarbeiter();
+  const person = alle.find((m) => m.id === id);
+  if (!person) throw new Error("Diese Person gibt es nicht mehr.");
+
+  if (alle.some((m) => m.id !== id && m.name.toLowerCase() === daten.name.toLowerCase())) {
+    throw new Error("Diesen Namen gibt es schon.");
+  }
+  if (alle.some((m) => m.id !== id && m.nr === daten.nr)) {
+    throw new Error(`Die Nummer ${daten.nr} ist schon vergeben.`);
+  }
+
+  const alterName = person.name;
+  await schreibe(
+    "zt-config",
+    alle.map((m) => (m.id === id ? { ...m, ...daten } : m)),
+  );
+
+  if (alterName !== daten.name) {
+    const eintraege = await holeEintraege();
+    await schreibe(
+      "zt-entries",
+      eintraege.map((e) => (e.name === alterName ? { ...e, name: daten.name } : e)),
+    );
+
+    const offen = await leseOffenRoh();
+    if (offen[alterName]) {
+      const { [alterName]: laufend, ...rest } = offen;
+      await schreibe("zt-open", { ...rest, [daten.name]: laufend });
+    }
+  }
+}
+
+/**
+ * Entfernt eine Person aus der Liste. Die bereits erfassten Zeiten bleiben
+ * stehen — sie gehoeren in die Abrechnung, auch wenn jemand nicht mehr da ist.
+ */
+export async function entferneMitarbeiter(id: number): Promise<void> {
+  const alle = await holeMitarbeiter();
+  const person = alle.find((m) => m.id === id);
+  if (!person) return;
+
+  await schreibe(
+    "zt-config",
+    alle.filter((m) => m.id !== id),
+  );
+
+  // Eine laufende Stempelung waere sonst nicht mehr zu beenden.
+  const offen = await leseOffenRoh();
+  if (offen[person.name]) {
+    const rest = { ...offen };
+    delete rest[person.name];
+    await schreibe("zt-open", rest);
+  }
+}
+
+/** Naechste freie Personalnummer als Vorschlag. */
+export function naechsteNummer(alle: Mitarbeiter[]): number {
+  return alle.reduce((max, m) => Math.max(max, m.nr), 0) + 1;
+}
+
 /** Minuten zwischen zwei "HH:MM" — nie negativ, wie in der alten App. */
 export function minutenZwischen(a: string, b: string): number {
   if (!a || !b) return 0;
