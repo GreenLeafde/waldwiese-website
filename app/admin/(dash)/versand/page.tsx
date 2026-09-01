@@ -27,14 +27,26 @@ export default async function VersandPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-display font-normal text-waldgruen">
-          Gesendete Newsletter
-        </h1>
-        <p className="mt-2 text-waldgruen/55 text-sm">
-          Jede versendete Kampagne mit Öffnungen, Klicks und Abmeldungen. Klick
-          auf eine Kampagne für die Vorschau und Details.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-display font-normal text-waldgruen">
+            Gesendete Newsletter
+          </h1>
+          <p className="mt-2 text-waldgruen/55 text-sm">
+            Jede versendete Kampagne mit Öffnungen, Klicks und Abmeldungen.
+            Klick auf eine Kampagne für die Vorschau, Details und den
+            HTML-Download.
+          </p>
+        </div>
+        {items.length > 0 && (
+          <a
+            href="/api/admin/versand/html"
+            download
+            className="shrink-0 rounded-full bg-waldgruen hover:bg-waldgruen-dark text-mehlcreme px-5 py-2 text-sm font-medium transition-colors"
+          >
+            Alle HTML-Codes exportieren
+          </a>
+        )}
       </div>
 
       {items.length === 0 ? (
