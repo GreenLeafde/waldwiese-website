@@ -29,6 +29,15 @@ export const runtime = "nodejs";
 // Genug Luft für viele 100er-Batches; Vercel Pro erlaubt bis 300 s.
 export const maxDuration = 300;
 
+/**
+ * Sicherung gegen Alt-Einträge: Kampagnen, die länger als das hier überfällig
+ * sind, werden NICHT mehr verschickt — nur der Termin wird abgeräumt. Sonst
+ * würde eine alte Zeile (etwa aus der Zeit vor diesem Cron, oder nach einem
+ * DB-Restore) plötzlich einen längst erledigten Newsletter rausblasen. Wer sie
+ * doch noch senden will, nimmt „Weiter senden" unter /admin/versand.
+ */
+const UEBERFAELLIG_MS = 6 * 60 * 60 * 1000;
+
 function authorized(request: NextRequest): boolean {
   const secret = process.env.CRON_SECRET?.trim();
   if (secret) {
@@ -50,9 +59,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "mailer not configured" }, { status: 500 });
   }
 
-  let due: string[];
+  const now = Date.now();
+  let due: { id: string; scheduledAt: number }[];
   try {
-    due = await listDueScheduled(Date.now());
+    due = await listDueScheduled(now);
   } catch (err) {
     console.error("[cron] Fällige Kampagnen konnten nicht gelesen werden:", err);
     return NextResponse.json({ error: "db unreachable" }, { status: 500 });
@@ -60,8 +70,18 @@ export async function GET(request: NextRequest) {
 
   const results: { id: string; sent: number; failed: number; note?: string }[] = [];
 
-  for (const id of due) {
+  for (const { id, scheduledAt } of due) {
     try {
+      // Zu lange überfällig → nur den Termin abräumen, nichts verschicken.
+      if (now - scheduledAt > UEBERFAELLIG_MS) {
+        await claimScheduled(id);
+        console.warn(
+          `[cron] Kampagne ${id} war ${Math.round((now - scheduledAt) / 3600000)} h überfällig — nicht verschickt, Termin abgeräumt.`,
+        );
+        results.push({ id, sent: 0, failed: 0, note: "zu lange überfällig" });
+        continue;
+      }
+
       // Erst exklusiv annehmen (scheduled_at → NULL), dann senden. Überlappt
       // sich ein zweiter Cron-Lauf, geht er hier leer aus statt doppelt zu
       // verschicken. Bleibt dabei etwas liegen (z. B. Tageslimit), holt es der

@@ -125,18 +125,22 @@ export async function getSentEmails(newsletterId: string): Promise<Set<string>> 
 }
 
 /**
- * IDs geplanter Kampagnen, deren Sendezeitpunkt erreicht ist
- * (`scheduled_at <= now`). Für den Cron-Versand.
+ * Geplante Kampagnen, deren Sendezeitpunkt erreicht ist (`scheduled_at <= now`),
+ * mit ihrem Termin. Für den Cron-Versand.
  */
-export async function listDueScheduled(nowMs: number): Promise<string[]> {
+export async function listDueScheduled(
+  nowMs: number,
+): Promise<{ id: string; scheduledAt: number }[]> {
   await ensureSchema();
   const res = await getDb().execute({
-    sql: `SELECT id FROM newsletters
+    sql: `SELECT id, scheduled_at FROM newsletters
           WHERE scheduled_at IS NOT NULL AND scheduled_at <= ?
           ORDER BY scheduled_at ASC`,
     args: [nowMs],
   });
-  return (res.rows as unknown as { id: string }[]).map((r) => String(r.id));
+  return (res.rows as unknown as { id: string; scheduled_at: number | bigint }[]).map(
+    (r) => ({ id: String(r.id), scheduledAt: num(r.scheduled_at) }),
+  );
 }
 
 /**
