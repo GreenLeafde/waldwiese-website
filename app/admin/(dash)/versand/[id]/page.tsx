@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNewsletter, getNewsletterStats } from "@/lib/newsletters";
-import { wrapEmail, type HeaderStyle } from "@/lib/newsletter-shell";
+import {
+  emailDocument,
+  wrapEmail,
+  type HeaderStyle,
+} from "@/lib/newsletter-shell";
 import { dbReachable } from "@/lib/db";
 import { SITE } from "@/lib/site";
 import { DbNotice } from "@/components/admin/db-notice";
+import { NewsletterPreview } from "@/components/admin/newsletter-preview";
 
 export const metadata = {
   title: "Newsletter-Auswertung",
@@ -50,6 +55,13 @@ export default async function VersandDetailPage({
       : false,
     bare: newsletter.bare,
   });
+
+  // Genau das Dokument, das verschickt wurde — inklusive <html>/<head>, damit
+  // der kopierte Code anderswo direkt funktioniert.
+  const fullHtml = emailDocument(
+    previewHtml,
+    newsletter.bare ? { bg: "#2e3d2c" } : undefined,
+  );
 
   const cards = [
     { value: String(newsletter.recipientCount), label: "Empfänger", sub: "" },
@@ -151,18 +163,13 @@ export default async function VersandDetailPage({
           </section>
         )}
 
-        {/* Vorschau */}
-        <section>
-          <h2 className="text-sm tracking-[0.18em] uppercase text-waldgruen/45 font-medium">
-            Vorschau
-          </h2>
-          <div className="mt-4 rounded-2xl ring-1 ring-waldgruen/10 bg-[#f7f6f3] p-3 max-h-[34rem] overflow-auto">
-            <div
-              className="mx-auto max-w-[600px]"
-              dangerouslySetInnerHTML={{ __html: previewHtml }}
-            />
-          </div>
-        </section>
+        {/* Vorschau — gerendert oder als HTML-Code zum Kopieren */}
+        <NewsletterPreview
+          previewHtml={previewHtml}
+          fullHtml={fullHtml}
+          innerHtml={newsletter.html}
+          bare={newsletter.bare}
+        />
       </div>
     </div>
   );
