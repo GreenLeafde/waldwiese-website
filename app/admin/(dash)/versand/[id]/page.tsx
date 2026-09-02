@@ -153,9 +153,33 @@ export default async function VersandDetailPage({
 
         {/* Vorschau */}
         <section>
-          <h2 className="text-sm tracking-[0.18em] uppercase text-waldgruen/45 font-medium">
-            Vorschau
-          </h2>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h2 className="text-sm tracking-[0.18em] uppercase text-waldgruen/45 font-medium">
+              Vorschau
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href={`/api/admin/versand/${id}/html`}
+                download
+                className="rounded-full bg-waldgruen hover:bg-waldgruen-dark text-mehlcreme px-4 py-1.5 text-xs font-medium transition-colors"
+              >
+                HTML herunterladen
+              </a>
+              <a
+                href={`/api/admin/versand/${id}/html?variante=inhalt`}
+                download
+                className="rounded-full ring-1 ring-waldgruen/20 hover:bg-mehlcreme/40 text-waldgruen/70 px-4 py-1.5 text-xs font-medium transition-colors"
+              >
+                Nur Inhalt
+              </a>
+            </div>
+          </div>
+          <p className="mt-2 text-xs text-waldgruen/40 leading-relaxed">
+            „HTML herunterladen" liefert die komplette Mail (Kopf, Inhalt,
+            Impressum) als Datei — ohne Klick-Umleitung und Zähl-Pixel. „Nur
+            Inhalt" ist der unveränderte Editor-Inhalt inklusive
+            {"{{vorname}}"}-Platzhalter, ideal zum Wiederverwenden.
+          </p>
           <div className="mt-4 rounded-2xl ring-1 ring-waldgruen/10 bg-[#f7f6f3] p-3 max-h-[34rem] overflow-auto">
             <div
               className="mx-auto max-w-[600px]"
