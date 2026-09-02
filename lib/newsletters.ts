@@ -124,6 +124,35 @@ export async function getSentEmails(newsletterId: string): Promise<Set<string>> 
   );
 }
 
+/**
+ * IDs geplanter Kampagnen, deren Sendezeitpunkt erreicht ist
+ * (`scheduled_at <= now`). Für den Cron-Versand.
+ */
+export async function listDueScheduled(nowMs: number): Promise<string[]> {
+  await ensureSchema();
+  const res = await getDb().execute({
+    sql: `SELECT id FROM newsletters
+          WHERE scheduled_at IS NOT NULL AND scheduled_at <= ?
+          ORDER BY scheduled_at ASC`,
+    args: [nowMs],
+  });
+  return (res.rows as unknown as { id: string }[]).map((r) => String(r.id));
+}
+
+/**
+ * Nimmt eine geplante Kampagne exklusiv an (`scheduled_at` → NULL) und meldet,
+ * ob das geklappt hat. Atomar: läuft ein zweiter Cron-Durchgang parallel, geht
+ * er hier leer aus und verschickt nicht ein zweites Mal.
+ */
+export async function claimScheduled(id: string): Promise<boolean> {
+  await ensureSchema();
+  const res = await getDb().execute({
+    sql: "UPDATE newsletters SET scheduled_at = NULL WHERE id = ? AND scheduled_at IS NOT NULL",
+    args: [id],
+  });
+  return num(res.rowsAffected) > 0;
+}
+
 /** Zählt einen Treffer (Öffnung/Klick/Abmeldung) für eine Kampagne. */
 export async function recordNewsletterHit(input: {
   newsletterId: string;

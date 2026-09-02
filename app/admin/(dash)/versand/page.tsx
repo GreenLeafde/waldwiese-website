@@ -70,7 +70,7 @@ export default async function VersandPage() {
                       <p className="mt-0.5 text-xs text-waldgruen/45">
                         {n.name ? `${n.subject} · ` : ""}
                         {n.scheduledAt != null
-                          ? `Resend liefert automatisch am ${n.scheduledAtLabel} · ${n.recipientCount} Empfänger eingeplant`
+                          ? `Geht automatisch am ${n.scheduledAtLabel} raus · ${n.recipientCount} Empfänger eingeplant`
                           : `${n.sentAtLabel} · ${n.sentCount} / ${n.recipientCount} gesendet`}
                       </p>
                     </div>
@@ -85,9 +85,22 @@ export default async function VersandPage() {
                 {open > 0 && (
                   <div className="border-t border-waldgruen/10 bg-mehlcreme/20 px-5 py-3 flex flex-wrap items-center justify-between gap-3">
                     <span className="text-xs text-waldgruen/60">
-                      <strong className="text-waldgruen">{open}</strong> haben
-                      ihn noch nicht — weitersenden geht ohne Duplikate (jeder
-                      bekommt ihn nur einmal).
+                      {n.scheduledAt != null ? (
+                        <>
+                          Geht am{" "}
+                          <strong className="text-waldgruen">
+                            {n.scheduledAtLabel}
+                          </strong>{" "}
+                          von allein raus — du musst nichts tun. Soll er früher
+                          weg, schick ihn hier jetzt schon los.
+                        </>
+                      ) : (
+                        <>
+                          <strong className="text-waldgruen">{open}</strong>{" "}
+                          haben ihn noch nicht — weitersenden geht ohne
+                          Duplikate (jeder bekommt ihn nur einmal).
+                        </>
+                      )}
                     </span>
                     <ResumeButton newsletterId={n.id} />
                   </div>

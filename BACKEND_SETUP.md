@@ -60,8 +60,22 @@ Im Vercel-Dashboard → Project → **Settings → Environment Variables** setze
 | `ADMIN_SESSION_SECRET` | Signatur Login-Session |
 | `TURSO_DATABASE_URL` | Datenbank |
 | `TURSO_AUTH_TOKEN` | Datenbank-Token |
+| `CRON_SECRET` | Schützt den Cron für den geplanten Newsletter-Versand (optional, aber empfohlen) |
 
 Danach neu deployen.
+
+### Geplanter Newsletter-Versand (Cron)
+
+`vercel.json` richtet einen Cron-Job ein, der alle 5 Minuten
+`/api/cron/send-scheduled` aufruft. Der schickt Newsletter raus, die im
+Composer unter „Wann senden?" auf einen Zeitpunkt gelegt wurden — dafür muss
+kein Rechner laufen.
+
+`CRON_SECRET` (langer Zufallswert, z. B. `openssl rand -base64 32`) setzen:
+Vercel schickt ihn dann automatisch als `Authorization: Bearer …` mit, und die
+Route lässt nur noch diese Aufrufe durch. Ohne die Variable funktioniert der
+geplante Versand trotzdem — dann wird nur am Vercel-Cron-Header erkannt, dass
+der Aufruf von Vercel kommt.
 
 ## 4. Bedienung
 
@@ -73,6 +87,10 @@ Danach neu deployen.
     automatisch hier.
   - **Newsletter schreiben**: Betreff + HTML, Live-Vorschau, Bestätigungshaken,
     senden an alle Angemeldeten. Absender-Footer + Abmeldelink kommen automatisch dazu.
+  - **Wann senden?**: leer = sofort. Mit Zeitpunkt wird die Kampagne nur
+    eingeplant und geht dann per Cron automatisch raus — an alle, die bis dahin
+    angemeldet sind. Unter `/admin/versand` steht sie als „⏰ geplant"; von dort
+    lässt sie sich auch vorzeitig losschicken.
 
 ## Auswertungen (`/admin/analytics`)
 

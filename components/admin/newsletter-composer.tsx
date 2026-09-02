@@ -627,7 +627,7 @@ export function NewsletterComposer({
           <input type="hidden" name="fallbackName" value={fallbackName} />
           <input type="hidden" name="scheduledAt" value={scheduledIso} />
 
-          {/* Sendezeitpunkt — leer = sofort. Gesetzt = Resend plant den Versand. */}
+          {/* Sendezeitpunkt — leer = sofort. Gesetzt = der Cron schickt ihn dann. */}
           <div className="rounded-2xl ring-1 ring-waldgruen/15 bg-white/70 p-4">
             <label
               htmlFor="scheduledLocal"
@@ -636,9 +636,9 @@ export function NewsletterComposer({
               Wann senden?
             </label>
             <p className="mt-0.5 mb-3 text-xs text-waldgruen/45">
-              Leer lassen = sofort. Oder einen Zeitpunkt wählen — dann verschickt
-              Resend den Newsletter automatisch dann (auch wenn dein Rechner aus
-              ist).
+              Leer lassen = sofort. Oder einen Zeitpunkt wählen — dann geht der
+              Newsletter automatisch dann raus (auch wenn dein Rechner aus ist).
+              Er bekommt alle, die bis dahin angemeldet sind.
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <input
