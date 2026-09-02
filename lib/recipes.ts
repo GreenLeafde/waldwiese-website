@@ -330,6 +330,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "hausgemachte-guacamole",
+    image: {
+      src: "https://images.unsplash.com/photo-1680992071073-cb1696ba8d3e?auto=format&fit=crop&w=1400&q=72",
+      alt: "Schüssel Guacamole mit Tortilla-Chips",
+    },
     title: "Hausgemachte Guacamole",
     teaser:
       "Cremig, frisch, mit Limette — so wie sie bei uns aufs Avocado-Brot kommt. In 10 Minuten selbst gemacht.",
@@ -383,6 +387,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "french-toast",
+    image: {
+      src: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=1400&q=72",
+      alt: "French Toast mit Banane und Blaubeeren",
+    },
     title: "French Toast mit Schmandcreme",
     teaser:
       "Goldbraunes Brioche mit Schmandcreme, Apfelkompott und Pistazien — unser süßer Frühstücksliebling für zuhause.",
@@ -450,6 +458,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "erdbeer-basilikum-limonade",
+    image: {
+      src: "https://images.unsplash.com/photo-1560508180-03f285f67ded?auto=format&fit=crop&w=1400&q=72",
+      alt: "Glas Erdbeer-Limonade mit Kräutern und Eis",
+    },
     title: "Erdbeer-Basilikum-Limonade",
     teaser:
       "Fruchtig, mit einem Hauch Basilikum — eine unserer hausgemachten Sommerlimonaden von der Terrasse.",
@@ -497,6 +509,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "balsamico-zwiebeln",
+    image: {
+      src: "https://images.unsplash.com/photo-1695089027936-465ca9835017?auto=format&fit=crop&w=1400&q=72",
+      alt: "Schüssel mit dunkel geschmorten Zwiebeln",
+    },
     title: "Balsamico-Zwiebeln",
     teaser:
       "Süß-säuerlich eingekochte Zwiebeln — bei uns auf Burgern und Broten. Ein Vorrat, der vieles besser macht.",
@@ -543,6 +559,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "hausgemachte-burgersosse",
+    image: {
+      src: "https://images.unsplash.com/photo-1734989435134-7e4885259231?auto=format&fit=crop&w=1400&q=72",
+      alt: "Kleine Schüsseln mit hausgemachten Saucen",
+    },
     title: "Hausgemachte Burgersoße",
     teaser:
       "Die cremige Soße, die unsere Burger zusammenhält — würzig, leicht süß, in 5 Minuten gerührt.",
@@ -585,6 +605,10 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "chia-fruehstuecksbowl",
+    image: {
+      src: "https://images.unsplash.com/photo-1651256785597-4efe48fd71f9?auto=format&fit=crop&w=1400&q=72",
+      alt: "Chia-Pudding im Glas mit frischen Beeren",
+    },
     title: "Chia-Frühstücksbowl",
     teaser:
       "Chia, Kokosmilch und Früchte — die Basis unserer „Schmusi“-Bowls, über Nacht angerührt.",
