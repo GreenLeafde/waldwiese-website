@@ -204,6 +204,17 @@ function Rahmen({
             {datumLang(tagDanach(datum)).split(",")[0]} →
           </Link>
         </nav>
+
+        {/* Pflichtinformation nach Art. 13 DSGVO — muss dort erreichbar sein,
+            wo die Daten erhoben werden. */}
+        <p className="mt-10 text-center text-xs text-waldgruen/40">
+          <Link
+            href="/schicht/datenschutz"
+            className="underline underline-offset-2 hover:text-waldgruen"
+          >
+            Was hier gespeichert wird
+          </Link>
+        </p>
       </main>
     </div>
   );
