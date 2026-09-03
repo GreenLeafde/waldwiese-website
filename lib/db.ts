@@ -176,6 +176,14 @@ export async function ensureSchema(): Promise<void> {
           created_at INTEGER NOT NULL
         )`,
         `CREATE INDEX IF NOT EXISTS idx_nachweise_zeit ON nachweise (created_at)`,
+        // Protokoll der monatlichen Stunden-Mail. Der Monat ist der
+        // Primaerschluessel — damit kann dieselbe Monatsmail nicht zweimal
+        // rausgehen, auch wenn der Cron doppelt ausgeloest wird.
+        `CREATE TABLE IF NOT EXISTS stunden_mails (
+          monat       TEXT PRIMARY KEY,
+          empfaenger  TEXT NOT NULL,
+          gesendet_am INTEGER NOT NULL
+        )`,
       ],
       "write",
     );

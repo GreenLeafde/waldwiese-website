@@ -7,6 +7,13 @@ import {
   type Zeitraum,
 } from "@/lib/zeiten";
 import { ZeitraumWahl } from "@/components/admin/zeitraum-wahl";
+import { StundenMailKarte } from "@/components/admin/stunden-mail-karte";
+import {
+  alsMonatsname,
+  mailKonfiguriert,
+  schonGesendet,
+  stundenEmpfaenger,
+} from "@/lib/stunden-mail";
 import { EintragLoeschen } from "@/components/admin/eintrag-loeschen";
 
 export const dynamic = "force-dynamic";
@@ -98,6 +105,26 @@ export default async function ZeitenPage({
   }
 
   const leer = auswertung.eintraege.length === 0;
+
+  // Die Monatsmail bezieht sich immer auf den laufenden Monat — unabhaengig
+  // davon, welchen Zeitraum man sich hier gerade ansieht.
+  const monatFuerMail = dieserMonat();
+  const mailRaus = await schonGesendet(monatFuerMail).catch(() => false);
+  const mailStand =
+    art === "monat" && wert === monatFuerMail
+      ? { anzahl: auswertung.eintraege.length, gesamt: auswertung.gesamt }
+      : await (async () => {
+          try {
+            const { eintraege, mitarbeiter } = await ladeZeiten();
+            const m = werteAus(eintraege, mitarbeiter, {
+              art: "monat",
+              wert: monatFuerMail,
+            });
+            return { anzahl: m.eintraege.length, gesamt: m.gesamt };
+          } catch {
+            return { anzahl: 0, gesamt: "0:00" };
+          }
+        })();
 
   return (
     <div className="space-y-8">
@@ -212,6 +239,16 @@ export default async function ZeitenPage({
           </table>
         </div>
       )}
+
+      <StundenMailKarte
+        monat={monatFuerMail}
+        monatName={alsMonatsname(monatFuerMail)}
+        empfaenger={stundenEmpfaenger()}
+        schonGesendet={mailRaus}
+        konfiguriert={mailKonfiguriert()}
+        anzahlEintraege={mailStand.anzahl}
+        gesamt={mailStand.gesamt}
+      />
 
       <p className="text-xs text-waldgruen/40">
         Dieselben Daten wie in der bisherigen App —{" "}

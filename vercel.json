@@ -4,6 +4,10 @@
     {
       "path": "/api/cron/send-scheduled",
       "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cron/stunden",
+      "schedule": "0 6 25 * *"
     }
   ]
 }
