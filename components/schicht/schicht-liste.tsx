@@ -15,7 +15,7 @@ import {
   type SchichtState,
 } from "@/app/actions/schicht";
 import type { Kommentar, Tagesaufgabe } from "@/lib/aufgaben";
-import { NACHWEIS_LABEL, SCHICHT_ZEIT, type Schicht } from "@/lib/schichten";
+import { NACHWEIS_LABEL, SCHICHT_KURZ, SCHICHT_ZEIT, type Schicht } from "@/lib/schichten";
 import { NachweisDialog } from "@/components/schicht/nachweis-dialog";
 
 /** Ab hier rastet die Karte ein — knapp die halbe Breite fuehlt sich richtig an. */
@@ -29,10 +29,21 @@ type Props = {
   datum: string;
   schicht: Schicht;
   aufgaben: Tagesaufgabe[];
+  /** Was aus früheren Schichten offen blieb und mitgenommen wird. */
+  uebertrag: Tagesaufgabe[];
   kommentare: Record<string, Kommentar[]>;
   /** Wer gerade abhakt — kommt aus der Stempelung, nicht aus einem Textfeld. */
   ich: string;
 };
+
+/** "Montag früh" — woher ein Nachzügler stammt. */
+function herkunft({ datum, schicht }: { datum: string; schicht: Schicht }): string {
+  const [y, m, d] = datum.split("-").map(Number);
+  const tag = new Date(y, (m || 1) - 1, d || 1).toLocaleDateString("de-DE", {
+    weekday: "long",
+  });
+  return `${tag} ${SCHICHT_KURZ[schicht]}`;
+}
 
 function Haken({ className = "" }: { className?: string }) {
   return (
@@ -51,8 +62,16 @@ function Haken({ className = "" }: { className?: string }) {
   );
 }
 
-export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Props) {
+export function SchichtListe({
+  datum,
+  schicht,
+  aufgaben,
+  uebertrag,
+  kommentare,
+  ich,
+}: Props) {
   const [stand, setStand] = useState(aufgaben);
+  const [nachzuegler, setNachzuegler] = useState(uebertrag);
   const [detail, setDetail] = useState<Tagesaufgabe | null>(null);
   const [nachweis, setNachweis] = useState<Tagesaufgabe | null>(null);
   const [rueckgaengig, setRueckgaengig] = useState<Tagesaufgabe | null>(null);
@@ -61,11 +80,13 @@ export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Prop
 
   // Frische Serverdaten uebernehmen (nach revalidate oder Schichtwechsel).
   useEffect(() => setStand(aufgaben), [aufgaben]);
+  useEffect(() => setNachzuegler(uebertrag), [uebertrag]);
 
   const abgleichen = useCallback(async () => {
     try {
       const frisch = await holeStandAction(datum, schicht);
-      if (frisch.length > 0) setStand(frisch);
+      if (frisch.aufgaben.length > 0) setStand(frisch.aufgaben);
+      setNachzuegler(frisch.uebertrag);
     } catch {
       /* offline — beim naechsten Mal wieder */
     }
@@ -78,29 +99,29 @@ export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Prop
 
   const setzen = useCallback(
     (aufgabe: Tagesaufgabe, erledigt: boolean) => {
+      const jetzt = erledigt
+        ? new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })
+        : "";
+      const aktualisiert = (a: Tagesaufgabe) =>
+        a.id === aufgabe.id
+          ? { ...a, erledigt, erledigtVon: erledigt ? name || null : null, erledigtUm: jetzt }
+          : a;
+
       // Sofort anzeigen — im Betrieb wartet niemand auf den Server.
-      setStand((alt) =>
-        alt.map((a) =>
-          a.id === aufgabe.id
-            ? {
-                ...a,
-                erledigt,
-                erledigtVon: erledigt ? name || null : null,
-                erledigtUm: erledigt
-                  ? new Date().toLocaleTimeString("de-DE", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })
-                  : "",
-              }
-            : a,
-        ),
-      );
+      if (aufgabe.uebertragVon) {
+        setNachzuegler((alt) => alt.map(aktualisiert));
+      } else {
+        setStand((alt) => alt.map(aktualisiert));
+      }
+
+      // Nachzuegler werden dort gebucht, wo sie herkommen — sonst bliebe die
+      // alte Schicht im Verlauf fuer immer unvollstaendig.
+      const ziel = aufgabe.uebertragVon ?? { datum, schicht };
 
       const fd = new FormData();
       fd.set("aufgabeId", aufgabe.id);
-      fd.set("datum", datum);
-      fd.set("schicht", schicht);
+      fd.set("datum", ziel.datum);
+      fd.set("schicht", ziel.schicht);
       if (name) fd.set("name", name);
       if (!erledigt) fd.set("zurueck", "1");
 
@@ -174,6 +195,30 @@ export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Prop
         </ul>
       )}
 
+      {/* Aus früheren Schichten mitgenommen */}
+      {nachzuegler.length > 0 && (
+        <section className="mt-7">
+          <h3 className="text-xs font-medium uppercase tracking-[0.12em] text-waldgruen/45">
+            Noch offen von vorher
+          </h3>
+          <p className="mb-2.5 mt-1 text-xs text-waldgruen/45">
+            Wenn es sich ausgeht — sonst gebt es weiter.
+          </p>
+          <ul className="space-y-2.5">
+            {nachzuegler.map((aufgabe) => (
+              <Karte
+                key={`u-${aufgabe.id}`}
+                aufgabe={aufgabe}
+                anzahlKommentare={kommentare[aufgabe.id]?.length ?? 0}
+                onErledigen={() => erledigen(aufgabe)}
+                onZurueck={() => setzen(aufgabe, false)}
+                onOeffnen={() => setDetail(aufgabe)}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Rueckgaengig — versehentliches Wischen passiert staendig */}
       {rueckgaengig && (
         <div
@@ -211,7 +256,11 @@ export function SchichtListe({ datum, schicht, aufgaben, kommentare, ich }: Prop
 
       {detail && (
         <Detail
-          aufgabe={stand.find((a) => a.id === detail.id) ?? detail}
+          aufgabe={
+            stand.find((a) => a.id === detail.id) ??
+            nachzuegler.find((a) => a.id === detail.id) ??
+            detail
+          }
           kommentare={kommentare[detail.id] ?? []}
           name={name}
           onSchliessen={() => setDetail(null)}
@@ -385,13 +434,22 @@ function Karte({
                 {aufgabe.erledigtUm}
               </span>
             )}
+            {aufgabe.uebertragVon && !aufgabe.erledigt && (
+              <span className="text-tonwarm-dark">
+                von {herkunft(aufgabe.uebertragVon)}
+              </span>
+            )}
             {aufgabe.bereich && !aufgabe.erledigt && <span>{aufgabe.bereich}</span>}
             {anzahlKommentare > 0 && (
               <span>
                 {anzahlKommentare} {anzahlKommentare === 1 ? "Kommentar" : "Kommentare"}
               </span>
             )}
-            {aufgabe.einmalig && <span className="text-tonwarm-dark">heute einmalig</span>}
+            {/* Bei Nachzüglern sagt die Herkunft schon alles — "heute einmalig"
+                waere dort schlicht falsch. */}
+            {aufgabe.einmalig && !aufgabe.uebertragVon && (
+              <span className="text-tonwarm-dark">heute einmalig</span>
+            )}
           </div>
         </div>
 

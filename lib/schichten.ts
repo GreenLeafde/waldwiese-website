@@ -182,6 +182,36 @@ export function aktuelleSchicht(jetzt: Date): { datum: string; schicht: Schicht 
   return { datum: heute, schicht: "frueh" };
 }
 
+/**
+ * Die Schichten vor einer bestimmten Schicht, neueste zuerst.
+ *
+ * Wird gebraucht, um Liegengebliebenes mitzunehmen. `tage` begrenzt, wie weit
+ * zurueckgeschaut wird — ohne Grenze schleppte die Liste irgendwann Altlasten
+ * aus Wochen mit, und niemand haekelt mehr etwas ab.
+ */
+export function vorherigeSchichten(
+  datum: string,
+  schicht: Schicht,
+  tage: number,
+): { datum: string; schicht: Schicht }[] {
+  const liste: { datum: string; schicht: Schicht }[] = [];
+
+  // Beim selben Tag kommt die Fruehschicht vor der Spaetschicht.
+  if (schicht === "spaet") liste.push({ datum, schicht: "frueh" });
+
+  let d = datum;
+  for (let i = 0; i < tage; i++) {
+    d = tagDavor(d);
+    const tag = wochentagVonDatum(d);
+    if (!tag) continue;
+    if (hatSpaetschicht(tag)) liste.push({ datum: d, schicht: "spaet" });
+    liste.push({ datum: d, schicht: "frueh" });
+  }
+
+  // Neueste zuerst: die zuletzt vergangene Schicht steht oben.
+  return liste;
+}
+
 /** "Freitag, 5. September" */
 export function datumLang(datum: string): string {
   const [y, m, d] = datum.split("-").map(Number);

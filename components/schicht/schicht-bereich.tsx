@@ -14,6 +14,7 @@ type Props = {
   datum: string;
   schicht: Schicht;
   aufgaben: Tagesaufgabe[];
+  uebertrag: Tagesaufgabe[];
   kommentare: Record<string, Kommentar[]>;
   mitarbeiter: string[];
   imDienst: DienstPerson[];
@@ -25,6 +26,7 @@ export function SchichtBereich({
   datum,
   schicht,
   aufgaben,
+  uebertrag,
   kommentare,
   mitarbeiter,
   imDienst,
@@ -101,6 +103,7 @@ export function SchichtBereich({
             datum={datum}
             schicht={schicht}
             aufgaben={aufgaben}
+            uebertrag={uebertrag}
             kommentare={kommentare}
             ich={ich}
           />

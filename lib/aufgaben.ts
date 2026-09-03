@@ -23,6 +23,7 @@ import {
   hatSpaetschicht,
   istGueltigerSlot,
   tagDanach,
+  vorherigeSchichten,
   wochentagVonDatum,
   type Nachweis,
   type Rhythmus,
@@ -181,7 +182,20 @@ export type Tagesaufgabe = {
   /** "HH:MM" in Berliner Zeit, leer solange offen. */
   erledigtUm: string;
   nachweisUrl: string | null;
+  /**
+   * Gesetzt, wenn die Aufgabe aus einer frueheren Schicht stammt und dort
+   * offen blieb. Abgehakt wird sie dann auch dort — sonst bliebe die alte
+   * Schicht im Verlauf fuer immer unvollstaendig.
+   */
+  uebertragVon?: { datum: string; schicht: Schicht };
 };
+
+/**
+ * Wie weit zurueck Liegengebliebenes mitgenommen wird.
+ * Drei Tage decken ein Wochenende ab. Laenger waere unehrlich: Was so lange
+ * liegt, braucht eine Entscheidung und nicht noch einen Eintrag in der Liste.
+ */
+export const UEBERTRAG_TAGE = 3;
 
 type TagesRow = {
   id: string;
@@ -242,6 +256,41 @@ export async function aufgabenFuerSchicht(
       : "",
     nachweisUrl: r.nachweis_url,
   }));
+}
+
+/**
+ * Was aus frueheren Schichten offen geblieben ist und mitgenommen wird.
+ *
+ * Zwei Regeln halten die Liste brauchbar:
+ *
+ * 1. Was heute ohnehin wieder ansteht, taucht NICHT zusaetzlich auf. "Toiletten
+ *    putzen" steht jeden Tag drin — gestern liegengeblieben heisst also nicht,
+ *    dass es heute doppelt dasteht. Uebrig bleiben die Aufgaben, die es heute
+ *    sonst gar nicht gaebe: einmalige und solche, die nur an bestimmten Tagen
+ *    anfallen.
+ * 2. Jede Aufgabe nur einmal, und zwar mit ihrem aeltesten offenen Vorkommen —
+ *    sonst erschiene dieselbe Sache dreimal, wenn sie drei Schichten lag.
+ */
+export async function offeneUebertraege(
+  datum: string,
+  schicht: Schicht,
+): Promise<Tagesaufgabe[]> {
+  const heutige = await aufgabenFuerSchicht(datum, schicht);
+  const heuteSchonDrin = new Set(heutige.map((a) => a.id));
+
+  const gefunden = new Map<string, Tagesaufgabe>();
+
+  for (const vorher of vorherigeSchichten(datum, schicht, UEBERTRAG_TAGE)) {
+    const damals = await aufgabenFuerSchicht(vorher.datum, vorher.schicht);
+    for (const a of damals) {
+      if (a.erledigt) continue;
+      if (heuteSchonDrin.has(a.id)) continue;
+      // Spaeter gefundene sind aelter — die gewinnen.
+      gefunden.set(a.id, { ...a, uebertragVon: vorher });
+    }
+  }
+
+  return [...gefunden.values()];
 }
 
 /**

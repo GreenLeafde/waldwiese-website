@@ -7,6 +7,8 @@ import {
   nimmZurueck,
   schreibeKommentar,
   aufgabenFuerSchicht,
+  offeneUebertraege,
+  UEBERTRAG_TAGE,
   type Tagesaufgabe,
 } from "@/lib/aufgaben";
 import { MAX_BYTES, speichereNachweis, typErlaubt } from "@/lib/nachweise";
@@ -39,15 +41,26 @@ export type SchichtState = { status: "idle" | "ok" | "error"; message: string };
 const DATUM_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 /**
- * Erlaubt ist gestern bis morgen. Das deckt die Nachtschicht und das
- * Nachtragen am Folgetag ab — aber niemand kann quer durch den Kalender
- * Haken setzen.
+ * Erlaubt ist der Uebertragszeitraum plus morgen.
+ *
+ * Liegengebliebenes wird bis zu {@link UEBERTRAG_TAGE} Tage mitgenommen und
+ * dort abgehakt, wo es herkommt — also muss auch so weit zurueck gebucht
+ * werden duerfen. Nach vorn bleibt es bei einem Tag (Nachtschicht). Quer durch
+ * den Kalender kann trotzdem niemand Haken setzen.
  */
 function datumErlaubt(datum: string): boolean {
   if (!DATUM_RE.test(datum)) return false;
   if (!wochentagVonDatum(datum)) return false;
+
   const heute = berlinDatum(new Date());
-  return datum === heute || datum === tagDavor(heute) || datum === tagDanach(heute);
+  if (datum === tagDanach(heute)) return true;
+
+  let d = heute;
+  for (let i = 0; i <= UEBERTRAG_TAGE; i++) {
+    if (datum === d) return true;
+    d = tagDavor(d);
+  }
+  return false;
 }
 
 function schichtAus(wert: FormDataEntryValue | null): Schicht | null {
@@ -245,11 +258,15 @@ export async function kommentiereAction(
 export async function holeStandAction(
   datum: string,
   schicht: Schicht,
-): Promise<Tagesaufgabe[]> {
-  if (!datumErlaubt(datum)) return [];
+): Promise<{ aufgaben: Tagesaufgabe[]; uebertrag: Tagesaufgabe[] }> {
   const s = schichtAus(schicht);
-  if (!s) return [];
-  return aufgabenFuerSchicht(datum, s);
+  if (!datumErlaubt(datum) || !s) return { aufgaben: [], uebertrag: [] };
+
+  const [aufgaben, uebertrag] = await Promise.all([
+    aufgabenFuerSchicht(datum, s),
+    offeneUebertraege(datum, s),
+  ]);
+  return { aufgaben, uebertrag };
 }
 
 /** Welche Schicht laeuft jetzt — vom Server, damit die Tablet-Uhr egal ist. */

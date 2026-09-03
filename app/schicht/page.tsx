@@ -1,5 +1,10 @@
 import Link from "next/link";
-import { aufgabenFuerSchicht, kommentareZuMehreren, type Kommentar } from "@/lib/aufgaben";
+import {
+  aufgabenFuerSchicht,
+  kommentareZuMehreren,
+  offeneUebertraege,
+  type Kommentar,
+} from "@/lib/aufgaben";
 import { dbReachable } from "@/lib/db";
 import {
   SCHICHT_ZEIT,
@@ -107,12 +112,15 @@ export default async function SchichtPage({
     );
   }
 
-  const [aufgaben, mitarbeiter, imDienst] = await Promise.all([
+  const [aufgaben, uebertrag, mitarbeiter, imDienst] = await Promise.all([
     aufgabenFuerSchicht(gewaehltesDatum, schicht),
+    offeneUebertraege(gewaehltesDatum, schicht),
     holeMitarbeiter(),
     holeEingestempelte(),
   ]);
-  const kommentarMap = await kommentareZuMehreren(aufgaben.map((a) => a.id));
+  const kommentarMap = await kommentareZuMehreren(
+    [...aufgaben, ...uebertrag].map((a) => a.id),
+  );
 
   // Map laesst sich nicht an eine Client-Komponente uebergeben.
   const kommentare: Record<string, Kommentar[]> = {};
@@ -125,6 +133,7 @@ export default async function SchichtPage({
         datum={gewaehltesDatum}
         schicht={schicht}
         aufgaben={aufgaben}
+        uebertrag={uebertrag}
         kommentare={kommentare}
         mitarbeiter={mitarbeiter.map((m) => m.name)}
         imDienst={imDienst}
