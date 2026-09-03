@@ -327,7 +327,63 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              14. Deine Rechte
+              14. Arbeitszeit und Schichtaufgaben (nur Beschäftigte)
+            </h2>
+            <p className="mt-3">
+              Dieser Abschnitt betrifft ausschließlich unsere Mitarbeiterinnen und
+              Mitarbeiter, nicht die Besucher dieser Website. Unter{" "}
+              <code className="rounded bg-waldgruen/8 px-1.5 py-0.5 text-sm">
+                /schicht
+              </code>{" "}
+              erfassen wir Arbeitszeiten und die in einer Schicht erledigten
+              Aufgaben.
+            </p>
+            <p className="mt-3">
+              <strong className="font-medium">Verarbeitet werden:</strong> Name und
+              Personalnummer, Beginn und Ende der Schicht, sowie zu jeder erledigten
+              Aufgabe der Name der Person und der Zeitpunkt. Bei einzelnen Aufgaben
+              kommt ein Nachweis hinzu — ein Foto oder eine Unterschrift. Fotos
+              sollen ausschließlich den Zustand einer Sache belegen (etwa eine
+              Temperaturanzeige oder eine gereinigte Fläche); Aufnahmen von Personen
+              sind dafür nicht vorgesehen. Freiwillige Kommentare zu einer Aufgabe
+              werden mit dem Namen der schreibenden Person gespeichert.
+            </p>
+            <p className="mt-3">
+              <strong className="font-medium">Zweck und Rechtsgrundlage:</strong> Die
+              Zeiterfassung dient der Durchführung des Beschäftigungsverhältnisses
+              einschließlich der Lohnabrechnung (§ 26 Abs. 1 BDSG, Art. 6 Abs. 1
+              lit. b DSGVO) und der Erfüllung unserer gesetzlichen
+              Aufzeichnungspflichten (Art. 6 Abs. 1 lit. c DSGVO, § 16 Abs. 2
+              ArbZG). Die Aufgabenliste und ihre Nachweise dienen dem geordneten
+              Betriebsablauf und der Dokumentation durchgeführter Hygiene- und
+              Kontrollschritte (Art. 6 Abs. 1 lit. f DSGVO). Eine Leistungs- oder
+              Verhaltenskontrolle einzelner Beschäftigter ist damit nicht bezweckt.
+            </p>
+            <p className="mt-3">
+              <strong className="font-medium">Speicherdauer:</strong> Fotos werden
+              nach 90 Tagen automatisch gelöscht, Unterschriften nach zwei Jahren.
+              Aufzeichnungen der Arbeitszeit bewahren wir mindestens zwei Jahre auf
+              (§ 16 Abs. 2 ArbZG) und darüber hinaus, soweit handels- und
+              steuerrechtliche Aufbewahrungsfristen dies erfordern.
+            </p>
+            <p className="mt-3">
+              <strong className="font-medium">Empfänger:</strong> Die Daten liegen
+              auf unserer Website-Infrastruktur (siehe Abschnitt 3) sowie in einer
+              Datenbank unseres Dienstleisters Supabase. Für die Lohnabrechnung
+              werden Arbeitszeiten an die mit der Abrechnung betraute Stelle
+              weitergegeben. Eine darüber hinausgehende Weitergabe findet nicht
+              statt.
+            </p>
+            <p className="mt-3">
+              Die unter Abschnitt 15 genannten Rechte — insbesondere Auskunft,
+              Berichtigung und Löschung — gelten selbstverständlich auch hier. Wende
+              dich dafür an die im Impressum genannte Adresse.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-xl text-waldgruen">
+              15. Deine Rechte
             </h2>
             <p className="mt-3">
               Dir stehen gegenüber uns folgende Rechte hinsichtlich deiner
@@ -344,7 +400,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              15. Beschwerderecht bei der Aufsichtsbehörde
+              16. Beschwerderecht bei der Aufsichtsbehörde
             </h2>
             <p className="mt-3">
               Dir steht ein Beschwerderecht bei einer
@@ -356,7 +412,7 @@ export default function DatenschutzPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">
-              16. SSL-/TLS-Verschlüsselung
+              17. SSL-/TLS-Verschlüsselung
             </h2>
             <p className="mt-3">
               Diese Website nutzt aus Sicherheitsgründen eine
