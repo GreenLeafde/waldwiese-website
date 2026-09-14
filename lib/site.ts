@@ -159,6 +159,7 @@ export const NAV_FULL: Array<{ label: string; href: string }> = [
   { label: "Getränke", href: "/getraenke" },
   { label: "Reservieren", href: "/reservieren" },
   { label: "Veranstaltungen", href: "/veranstaltungen" },
+  { label: "Feiern & Feste", href: "/feiern" },
   { label: "Rezepte", href: "/rezepte" },
   { label: "Ratgeber", href: "/ratgeber" },
   { label: "Über uns", href: "/ueber-uns" },
@@ -193,6 +194,7 @@ export const FOOTER_NAV: Array<{
     title: "Entdecken",
     links: [
       { label: "Veranstaltungen", href: "/veranstaltungen" },
+      { label: "Feiern & Feste", href: "/feiern" },
       { label: "Über uns", href: "/ueber-uns" },
       { label: "Rezepte", href: "/rezepte" },
       { label: "Ratgeber", href: "/ratgeber" },

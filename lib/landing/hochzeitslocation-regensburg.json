@@ -8,7 +8,7 @@
   "intro": "Klein, fein und ehrlich heiraten: Wald & Wiese in Sinzing ist eine familiengeführte Hochzeitslocation nur wenige Minuten südwestlich von Regensburg – mitten im Grünen. Rund 50 Gäste finden im Innenraum Platz, noch einmal bis zu 50 auf der Terrasse. Regionale Küche, persönlicher Service, kein Schickimicki und kein anonymer Festsaal.",
   "primaryCta": {
     "label": "Veranstaltungen ansehen",
-    "href": "/veranstaltungen"
+    "href": "/feiern"
   },
   "story": {
     "heading": "Heiraten in Sinzing,",
@@ -102,7 +102,7 @@
   "related": [
     {
       "label": "Veranstaltungen",
-      "href": "/veranstaltungen",
+      "href": "/feiern",
       "blurb": "Hochzeit, Geburtstag oder Firmenfeier – wie wir eure Feier planen."
     },
     {
@@ -122,7 +122,7 @@
     "text": "Datum, ungefähre Gästezahl, eure Vorstellungen – schreibt uns kurz, und wir melden uns mit Vorschlägen für Menü, Bereiche und Ablauf zurück. Ganz unverbindlich.",
     "cta": {
       "label": "Anfrage starten",
-      "href": "/veranstaltungen"
+      "href": "/feiern"
     }
   }
 }

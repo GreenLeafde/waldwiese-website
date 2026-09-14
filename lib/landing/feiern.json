@@ -1,14 +1,14 @@
 {
-  "metaTitle": "Feiern & Veranstaltungen bei Regensburg | Sinzing",
+  "metaTitle": "Feiern & Feste bei Regensburg — Location in Sinzing | Wald & Wiese",
   "metaDescription": "Feiern & Veranstaltungen bei Regensburg: familiengeführte Location in Sinzing für Geburtstag, Firmenfeier & Hochzeit. Regional, persönlich, auf Anfrage.",
-  "breadcrumb": "Feiern & Veranstaltungen",
+  "breadcrumb": "Feiern & Feste",
   "eyebrow": "Feiern · bei Regensburg",
   "h1Lead": "Dein Anlass, unsere",
   "h1Accent": "kleine Bühne.",
   "intro": "Du suchst einen Ort für Feiern & Veranstaltungen bei Regensburg, der sich nicht anfühlt wie eine gemietete Halle? Wald & Wiese ist ein familiengeführtes Restaurant in Sinzing, nur wenige Minuten südwestlich von Regensburg, mitten im Grünen. Geburtstag, Taufe, Firmenfeier oder Hochzeit — wir planen deine Feier persönlich mit dir, regional gekocht und ehrlich, ohne Schickimicki.",
   "primaryCta": {
     "label": "Anfrage starten",
-    "href": "/veranstaltungen"
+    "href": "/kontakt"
   },
   "story": {
     "heading": "Klein, fein und",
@@ -101,6 +101,11 @@
   ],
   "related": [
     {
+      "label": "Veranstaltungen & Tickets",
+      "href": "/veranstaltungen",
+      "blurb": "Krimidinner & Co. — die öffentlichen Termine bei uns im Haus, mit Tickets beim Veranstalter."
+    },
+    {
       "label": "Hochzeitslocation bei Regensburg",
       "href": "/hochzeitslocation-regensburg",
       "blurb": "Du heiratest? Hier erfährst du alles zur Hochzeit im Grünen bei der Familie Leber."
@@ -122,7 +127,7 @@
     "text": "Anlass, ungefähres Datum und wie viele ihr seid — schreib uns kurz, und wir melden uns mit Vorschlägen zurück. Persönlich, regional und ganz nach deiner Vorstellung.",
     "cta": {
       "label": "Anfrage starten",
-      "href": "/veranstaltungen"
+      "href": "/kontakt"
     }
   }
 }

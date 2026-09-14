@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SITE } from "@/lib/site";
 import { RECIPES } from "@/lib/recipes";
 import { GUIDES } from "@/lib/guides";
+import { EVENTS } from "@/lib/events";
 import { ORTE } from "@/lib/landing/orte";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -17,7 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/speisekarte", priority: 0.95, changeFrequency: "weekly" },
     { path: "/fruehstuecks-sommelier", priority: 0.7, changeFrequency: "monthly" },
     { path: "/getraenke", priority: 0.85, changeFrequency: "weekly" },
-    { path: "/veranstaltungen", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/veranstaltungen", priority: 0.8, changeFrequency: "weekly" },
+    { path: "/feiern", priority: 0.8, changeFrequency: "monthly" },
     { path: "/ueber-uns", priority: 0.7, changeFrequency: "monthly" },
     { path: "/rezepte", priority: 0.7, changeFrequency: "weekly" },
     { path: "/ratgeber", priority: 0.7, changeFrequency: "weekly" },
@@ -76,6 +78,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.6,
+    });
+  }
+
+  // Veranstaltungs-Detailseiten — kommende Termine höher priorisiert
+  for (const e of EVENTS) {
+    const upcoming = new Date(e.startsAt).getTime() >= now.getTime();
+    entries.push({
+      url: `${base}/veranstaltungen/${e.slug}`,
+      lastModified: now,
+      changeFrequency: upcoming ? "weekly" : "yearly",
+      priority: upcoming ? 0.75 : 0.3,
     });
   }
 

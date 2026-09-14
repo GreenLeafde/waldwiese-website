@@ -220,7 +220,7 @@ export const GUIDES: Guide[] = [
     ],
     related: [
       { label: "Weihnachtsfeier bei Wald & Wiese", href: "/weihnachtsfeier" },
-      { label: "Veranstaltungen", href: "/veranstaltungen" },
+      { label: "Feiern & Feste", href: "/feiern" },
       { label: "Über uns", href: "/ueber-uns" },
     ],
     cta: { label: "Weihnachtsfeier anfragen", href: "/weihnachtsfeier" },

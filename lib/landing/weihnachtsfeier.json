@@ -8,7 +8,7 @@
   "intro": "Eine Weihnachtsfeier soll sich nach Ankommen anfühlen, nicht nach Programm. Wald & Wiese ist ein familiengeführtes Restaurant in Sinzing, wenige Minuten südwestlich von Regensburg – am Waldrand, mit hausgemachter, regionaler Küche. Ob Firma, Team oder Familie: Bei uns bekommt euer Abend Zeit. Die beliebten Advent-Wochenenden sind allerdings früh vergeben – fragt also besser früh an.",
   "primaryCta": {
     "label": "Anfrage starten",
-    "href": "/veranstaltungen"
+    "href": "/feiern"
   },
   "story": {
     "heading": "Feiern in Sinzing,",
@@ -105,7 +105,7 @@
     },
     {
       "label": "Veranstaltungen",
-      "href": "/veranstaltungen",
+      "href": "/feiern",
       "blurb": "Firmenfeier, Geburtstag oder Hochzeit – wie wir eure Feier planen."
     },
     {
@@ -120,7 +120,7 @@
     "text": "Schreibt uns kurz: gewünschtes Datum, ungefähre Personenzahl und was euch vorschwebt. Wir melden uns in der Regel innerhalb von 24 Stunden mit einem persönlichen Vorschlag zurück – ganz unverbindlich.",
     "cta": {
       "label": "Anfrage starten",
-      "href": "/veranstaltungen"
+      "href": "/feiern"
     }
   }
 }
