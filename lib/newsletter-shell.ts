@@ -154,20 +154,45 @@ export function personalizeText(text: string, v: MailVars): string {
 
 /* ------------------------------- Tracking ------------------------------- */
 
-/** Leitet alle Inhalts-Links über den Klick-Zähler um (für Klick-Tracking). */
+/**
+ * Schreibt jeden absoluten Link im Inhalt auf die Klick-Zähl-Route um.
+ *
+ * `sign` (nur server-seitig, aus `lib/newsletter-token.ts`) hängt eine
+ * Signatur an, damit `/api/n/c` auch fremde Ziele (Ticket-Shop …) ansteuert.
+ * Ohne Signatur leitet die Route nur auf die eigene Domain bzw. bekannte
+ * Partner-Hosts weiter.
+ */
 export function trackContentLinks(
   html: string,
   base: string,
   campaignId: string,
+  sign?: (url: string) => string,
 ): string {
   return (html ?? "").replace(
     /href="(https?:\/\/[^"]+)"/g,
-    (_m, url: string) =>
+    (_m, raw: string) => {
+      // Im HTML steht das Ziel HTML-kodiert (`&amp;`) — vor dem URL-Kodieren
+      // zurückwandeln, sonst landet `&amp;` wörtlich in der Ziel-URL.
+      const url = decodeEntities(raw);
+      const s = sign ? `&amp;s=${encodeURIComponent(sign(url))}` : "";
       // &amp; statt rohem & — valides HTML, kein Mail-Client verliert das Ziel.
-      `href="${base}/api/n/c?c=${encodeURIComponent(
+      return `href="${base}/api/n/c?c=${encodeURIComponent(
         campaignId,
-      )}&amp;u=${encodeURIComponent(url)}"`,
+      )}&amp;u=${encodeURIComponent(url)}${s}"`;
+    },
   );
+}
+
+/** Die paar Entities, die in einer URL realistisch vorkommen. */
+export function decodeEntities(s: string): string {
+  return (s ?? "")
+    .replace(/&amp;/g, "&")
+    .replace(/&#38;/g, "&")
+    .replace(/&#x26;/gi, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
 }
 
 /** Unsichtbares Zähl-Pixel, das beim Öffnen der Mail geladen wird. */

@@ -66,6 +66,23 @@ export function verifySubscriptionToken(token: string): { email: string } | null
   return verify(token, "sub", SUB_MAX_AGE_MS);
 }
 
+/**
+ * Signatur für ein Klick-Ziel im Newsletter (`/api/n/c?u=…&s=…`). Damit darf
+ * die Weiterleitung auch auf fremde Domains gehen (Ticket-Shop, Google …),
+ * ohne zum Open-Redirect zu werden: nur Ziele, die der Versand selbst
+ * signiert hat, werden angesteuert.
+ */
+export function signClickTarget(url: string): string {
+  return hmac(`click:${url}`);
+}
+
+export function verifyClickTarget(url: string, sig: string): boolean {
+  if (!sig) return false;
+  const want = Buffer.from(signClickTarget(url));
+  const got = Buffer.from(sig);
+  return want.length === got.length && timingSafeEqual(want, got);
+}
+
 export function signUnsubscribeToken(email: string): string {
   return sign(email, "unsub");
 }

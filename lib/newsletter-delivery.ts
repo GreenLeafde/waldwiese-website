@@ -21,7 +21,7 @@ import {
 import { getSentEmails, recordSends } from "@/lib/newsletters";
 import { getSuppressedEmails } from "@/lib/suppressions";
 import { listSubscribed } from "@/lib/contacts";
-import { signUnsubscribeToken } from "@/lib/newsletter-token";
+import { signClickTarget, signUnsubscribeToken } from "@/lib/newsletter-token";
 
 /**
  * Basis-URL für alle Links in E-Mails: IMMER die echte Produktiv-Domain —
@@ -81,7 +81,7 @@ export async function deliverCampaign(
   const base = MAIL_BASE;
   const resend = new Resend(apiKey);
   const trackedInner = campaignId
-    ? trackContentLinks(content.html, base, campaignId) +
+    ? trackContentLinks(content.html, base, campaignId, signClickTarget) +
       trackingPixel(base, campaignId)
     : content.html;
 
