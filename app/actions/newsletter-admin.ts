@@ -35,6 +35,7 @@ import {
   type ContactStatus,
 } from "@/lib/contacts";
 import { signUnsubscribeToken } from "@/lib/newsletter-token";
+import { analyzeContentSize, contentSizeNotice } from "@/lib/newsletter-size";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -331,6 +332,10 @@ export async function sendNewsletterAction(
   if (subject.length < 2) return { status: "error", message: "Bitte einen Betreff angeben." };
   if (html.trim().length < 10)
     return { status: "error", message: "Der Inhalt ist noch zu kurz." };
+  const size = analyzeContentSize(html);
+  if (size.tooLarge) {
+    return { status: "error", message: contentSizeNotice(size)?.text ?? "Der Inhalt ist zu groß." };
+  }
 
   const mailer = mailerConfig();
 
@@ -501,6 +506,10 @@ export async function sendTestNewsletterAction(
   }
   if (html.trim().length < 10) {
     return { status: "error", message: "Der Inhalt ist noch zu kurz für einen Test." };
+  }
+  const size = analyzeContentSize(html);
+  if (size.tooLarge) {
+    return { status: "error", message: contentSizeNotice(size)?.text ?? "Der Inhalt ist zu groß." };
   }
 
   const mailer = mailerConfig();

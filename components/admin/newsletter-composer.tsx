@@ -11,6 +11,7 @@ import {
   NEWSLETTER_TEMPLATES,
   renderTemplate,
 } from "@/lib/newsletter-templates";
+import { analyzeContentSize, contentSizeNotice } from "@/lib/newsletter-size";
 import {
   HEADER_DEFAULTS,
   HEADER_STYLES,
@@ -330,6 +331,12 @@ export function NewsletterComposer({
   // Eigenes HTML füllt die ganze Breite (randlos, kein 600px-Rahmen).
   const bare = templateId === "html";
   const inner = useMemo(() => renderTemplate(templateId, values), [templateId, values]);
+  // Größe des Inhalts prüfen, BEVOR er zum Server geht: Vercel lehnt Bodies
+  // über 4,5 MB mit 413 ab (Browser zeigt nur „Seite konnte nicht geladen
+  // werden"). Typische Ursache: als Base64 eingebettete Bilder.
+  const sizeInfo = useMemo(() => analyzeContentSize(inner), [inner]);
+  const sizeNotice = contentSizeNotice(sizeInfo);
+  const tooLarge = sizeInfo.tooLarge;
   // Volle Vorschau = exakt die Mail, die rausgeht (Header + Inhalt + Footer),
   // Platzhalter mit Beispiel-Daten gefüllt, damit man die Personalisierung sieht.
   const preview = useMemo(() => {
@@ -671,6 +678,20 @@ export function NewsletterComposer({
             )}
           </div>
 
+          {sizeNotice && (
+            <p
+              role="alert"
+              className={`rounded-2xl p-4 text-sm ring-1 ${
+                sizeNotice.level === "error"
+                  ? "bg-tonwarm/10 ring-tonwarm/40 text-tonwarm-dark"
+                  : "bg-white/70 ring-waldgruen/15 text-waldgruen/70"
+              }`}
+            >
+              {sizeNotice.level === "error" ? "⚠️ " : "Hinweis: "}
+              {sizeNotice.text}
+            </p>
+          )}
+
           <label className="flex items-start gap-2.5 text-sm text-waldgruen/70">
             <input
               type="checkbox"
@@ -688,7 +709,7 @@ export function NewsletterComposer({
           <div className="flex items-center gap-4">
             <button
               type="submit"
-              disabled={pending || recipientCount === 0}
+              disabled={pending || recipientCount === 0 || tooLarge}
               className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3 rounded-full font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {pending
@@ -767,7 +788,7 @@ export function NewsletterComposer({
           />
           <button
             type="submit"
-            disabled={testPending}
+            disabled={testPending || tooLarge}
             className="rounded-full border border-waldgruen/30 text-waldgruen hover:border-tonwarm hover:text-tonwarm px-6 py-2.5 font-medium transition-colors disabled:opacity-60 whitespace-nowrap"
           >
             {testPending ? "Sende Test …" : "Test senden"}
