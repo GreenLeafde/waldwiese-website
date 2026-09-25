@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { timingSafeEqual } from "node:crypto";
+import { cronAuthorized } from "@/lib/cron-auth";
 import { monatVon, sendeStundenMail } from "@/lib/stunden-mail";
 
 /**
@@ -11,9 +11,7 @@ import { monatVon, sendeStundenMail } from "@/lib/stunden-mail";
  * bleibt /admin/zeiten die vollständige Quelle, wenn zum Monatsende
  * nachgerechnet wird.
  *
- * Absicherung wie beim Newsletter-Cron: Vercel schickt
- * `Authorization: Bearer $CRON_SECRET`, sobald die Variable gesetzt ist. Ist
- * sie es nicht, lassen wir nur Vercels eigenen Aufruf durch (`x-vercel-cron`).
+ * Absicherung wie beim Newsletter-Cron: siehe `lib/cron-auth.ts`.
  *
  * Doppelter Versand ist ausgeschlossen: Der Monat wird protokolliert, ein
  * zweiter Aufruf im selben Monat verschickt nichts mehr.
@@ -22,18 +20,8 @@ import { monatVon, sendeStundenMail } from "@/lib/stunden-mail";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-function authorized(request: NextRequest): boolean {
-  const secret = process.env.CRON_SECRET?.trim();
-  if (secret) {
-    const got = Buffer.from(request.headers.get("authorization") ?? "");
-    const want = Buffer.from(`Bearer ${secret}`);
-    return got.length === want.length && timingSafeEqual(got, want);
-  }
-  return request.headers.get("x-vercel-cron") != null;
-}
-
 export async function GET(request: NextRequest) {
-  if (!authorized(request)) {
+  if (!cronAuthorized(request, "cron/stunden")) {
     return new NextResponse("unauthorized", { status: 401 });
   }
 

@@ -7,6 +7,14 @@ import { NewsletterComposer } from "@/components/admin/newsletter-composer";
 import { SuppressionManager } from "@/components/admin/suppression-manager";
 import { DbNotice } from "@/components/admin/db-notice";
 
+/**
+ * Zeitlimit für diese Seite UND die von hier aufgerufenen Server-Actions
+ * (Newsletter-Versand). Der Versand läuft per `after()` nach der Antwort
+ * weiter — bis zu diesem Limit. Vercel-Standard wäre je nach Plan deutlich
+ * kürzer; siehe app/actions/newsletter-admin.ts.
+ */
+export const maxDuration = 300;
+
 export default async function NewsletterAdminPage() {
   if (!(await dbReachable())) {
     return (

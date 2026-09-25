@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { Resend } from "resend";
 import * as XLSX from "xlsx";
 import { requireAdmin } from "@/lib/admin-auth";
@@ -17,6 +18,8 @@ import {
   deliverCampaign,
   mailerConfig,
   resolveRecipients,
+  type DeliverContent,
+  type Recipient,
 } from "@/lib/newsletter-delivery";
 import {
   claimScheduled,
@@ -66,6 +69,43 @@ function parseHeader(formData: FormData) {
 function refresh() {
   revalidatePath("/admin/newsletter");
   revalidatePath("/admin");
+}
+
+/**
+ * Auslieferung NACH der Antwort an den Browser (per `after()` eingeplant).
+ *
+ * Grund: Der Versand schickt die Liste in 100er-Blöcken an Resend und braucht
+ * bei vielen Empfängern deutlich länger, als ein Browser-Request auf Vercel
+ * warten darf. Vorher lief das komplett innerhalb der Server-Action — bei
+ * großen Listen brach Vercel den Request mit einer Fehlerseite ab, obwohl der
+ * Versand teilweise längst lief. Jetzt bekommt der Admin sofort eine Antwort,
+ * der Versand läuft weiter; Fortschritt steht unter „Versand", Liegengebliebenes
+ * holt „Weiter senden" ohne Duplikate nach.
+ */
+async function deliverInBackground(
+  campaignId: string | null,
+  content: DeliverContent,
+  recipients: Recipient[],
+  apiKey: string,
+  from: string,
+) {
+  try {
+    const { sent, failed } = await deliverCampaign(
+      campaignId,
+      content,
+      recipients,
+      apiKey,
+      from,
+    );
+    console.log(
+      `[newsletter] Versand ${campaignId ?? "ohne Kampagne"} fertig: ${sent} gesendet, ${failed} offen.`,
+    );
+  } catch (err) {
+    console.error(
+      `[newsletter] Versand ${campaignId ?? "ohne Kampagne"} abgebrochen:`,
+      err,
+    );
+  }
 }
 
 export async function addContactAction(
@@ -348,24 +388,22 @@ export async function sendNewsletterAction(
     };
   }
 
-  const { sent, failed } = await deliverCampaign(
-    campaignId,
-    { subject, html, header, showHeader, bare, fallbackName },
-    recipients,
-    apiKey,
-    from,
+  after(() =>
+    deliverInBackground(
+      campaignId,
+      { subject, html, header, showHeader, bare, fallbackName },
+      recipients,
+      apiKey,
+      from,
+    ),
   );
-
-  if (sent === 0) {
-    return { status: "error", message: "Versand fehlgeschlagen. Bitte später erneut." };
-  }
   revalidatePath("/admin/versand");
 
   return {
     status: "ok",
-    message: failed
-      ? `${sent} gesendet, ${failed} fehlgeschlagen (oft das Tageslimit). Unter „Versand" → „Weiter senden" gehen die Restlichen raus — keiner doppelt.`
-      : `Newsletter an ${sent} Empfänger gesendet. Auswertung unter „Versand".`,
+    message:
+      `✓ Versand an ${recipients.length} Empfänger läuft. Das dauert je nach Listengröße ein paar Minuten — ` +
+      `du kannst die Seite verlassen. Fortschritt unter „Versand"; bleibt dort etwas offen (z. B. Tageslimit), einfach „Weiter senden".`,
   };
 }
 
@@ -403,45 +441,41 @@ export async function resumeNewsletterAction(
     };
   }
 
-  const { sent, failed } = await deliverCampaign(
-    id,
-    {
-      subject: nl.subject,
-      html: nl.html,
-      header: {
-        title: nl.headerTitle ?? undefined,
-        tagline: nl.headerTagline ?? undefined,
-        style: (nl.headerStyle as HeaderStyle | null) ?? undefined,
-      },
-      showHeader: nl.showHeader,
-      bare: nl.bare,
-      fallbackName: "du",
-    },
-    remaining,
-    apiKey,
-    from,
-  );
-
-  // Von Hand losgeschickt → einen noch offenen Sendetermin abräumen, damit der
-  // Cron dieselbe Kampagne nicht ein zweites Mal anfasst.
-  if (sent > 0 && nl.scheduledAt != null) {
+  // Von Hand losgeschickt → einen noch offenen Sendetermin VORHER abräumen,
+  // damit der Cron dieselbe Kampagne nicht parallel ein zweites Mal anfasst.
+  if (nl.scheduledAt != null) {
     await claimScheduled(id).catch((err) =>
       console.error("[newsletter] Sendetermin konnte nicht geleert werden:", err),
     );
   }
 
+  after(() =>
+    deliverInBackground(
+      id,
+      {
+        subject: nl.subject,
+        html: nl.html,
+        header: {
+          title: nl.headerTitle ?? undefined,
+          tagline: nl.headerTagline ?? undefined,
+          style: (nl.headerStyle as HeaderStyle | null) ?? undefined,
+        },
+        showHeader: nl.showHeader,
+        bare: nl.bare,
+        fallbackName: "du",
+      },
+      remaining,
+      apiKey,
+      from,
+    ),
+  );
+
   revalidatePath("/admin/versand");
-  if (sent === 0) {
-    return {
-      status: "error",
-      message: `Gerade nichts gesendet (${remaining.length} offen) — vermutlich Tageslimit erreicht. Später nochmal „Weiter senden".`,
-    };
-  }
   return {
     status: "ok",
-    message: failed
-      ? `${sent} weitere gesendet, ${failed} noch offen (Tageslimit?). Später nochmal „Weiter senden" — keiner doppelt.`
-      : `${sent} weitere gesendet. Diese Kampagne ist jetzt vollständig raus.`,
+    message:
+      `✓ Versand an die restlichen ${remaining.length} läuft. Fortschritt unter „Versand" — ` +
+      `bleibt etwas offen (Tageslimit?), später nochmal „Weiter senden", keiner doppelt.`,
   };
 }
 

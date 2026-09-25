@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { timingSafeEqual } from "node:crypto";
+import { cronAuthorized } from "@/lib/cron-auth";
 import {
   claimScheduled,
   getNewsletter,
@@ -18,11 +18,9 @@ import { type HeaderStyle } from "@/lib/newsletter-shell";
  * liefert jede fällige Kampagne per Resend-Batch aus — unabhängig davon, ob
  * gerade jemand am Rechner sitzt.
  *
- * Absicherung: Vercel schickt `Authorization: Bearer $CRON_SECRET` mit, sobald
- * die Environment-Variable CRON_SECRET gesetzt ist. Ist sie das (noch) nicht,
- * lassen wir nur Vercels eigenen Cron-Aufruf durch (`x-vercel-cron`), damit der
- * geplante Versand auch ohne zusätzliche Konfiguration läuft. Ein fremder
- * Aufruf könnte ohnehin nur anstoßen, was ohnehin fällig ist — nie früher.
+ * Absicherung: siehe `lib/cron-auth.ts` (CRON_SECRET bzw. Vercels eigener
+ * Cron-User-Agent). Ein fremder Aufruf könnte ohnehin nur anstoßen, was
+ * ohnehin fällig ist — nie früher.
  */
 
 export const runtime = "nodejs";
@@ -38,18 +36,8 @@ export const maxDuration = 300;
  */
 const UEBERFAELLIG_MS = 6 * 60 * 60 * 1000;
 
-function authorized(request: NextRequest): boolean {
-  const secret = process.env.CRON_SECRET?.trim();
-  if (secret) {
-    const got = Buffer.from(request.headers.get("authorization") ?? "");
-    const want = Buffer.from(`Bearer ${secret}`);
-    return got.length === want.length && timingSafeEqual(got, want);
-  }
-  return request.headers.get("x-vercel-cron") != null;
-}
-
 export async function GET(request: NextRequest) {
-  if (!authorized(request)) {
+  if (!cronAuthorized(request, "cron/send-scheduled")) {
     return new NextResponse("unauthorized", { status: 401 });
   }
 

@@ -66,6 +66,10 @@ export async function resolveRecipients(
  * Baut die personalisierten Mails und verschickt sie in 100er-Blöcken über
  * Resend. Erfolgreiche Blöcke werden pro Kampagne protokolliert
  * (`recordSends`) → Grundlage für den Duplikat-Schutz beim Weitersenden.
+ *
+ * Läuft bei großen Listen länger als ein Browser-Request warten darf — die
+ * Admin-Actions rufen das deshalb per `after()` NACH der Antwort auf, der Cron
+ * direkt (er hat 300 s).
  */
 export async function deliverCampaign(
   campaignId: string | null,
@@ -81,7 +85,7 @@ export async function deliverCampaign(
       trackingPixel(base, campaignId)
     : content.html;
 
-  const items = recipients.map((c) => {
+  const buildItem = (c: Recipient) => {
     const vars = mailVars(c.name, c.email, content.fallbackName);
     const unsubUrl =
       `${base}/api/newsletter/abmelden?token=${encodeURIComponent(
@@ -105,13 +109,14 @@ export async function deliverCampaign(
         },
       },
     };
-  });
+  };
 
   let sent = 0;
   let failed = 0;
 
-  for (let i = 0; i < items.length; i += 100) {
-    const chunk = items.slice(i, i + 100);
+  // Mails erst je 100er-Block bauen (nicht alle auf einmal im Speicher halten).
+  for (let i = 0; i < recipients.length; i += 100) {
+    const chunk = recipients.slice(i, i + 100).map(buildItem);
     try {
       const { error } = await resend.batch.send(chunk.map((e) => e.msg));
       if (error) {
@@ -119,6 +124,9 @@ export async function deliverCampaign(
         console.error("[newsletter] batch-Fehler:", error);
       } else {
         sent += chunk.length;
+        console.log(
+          `[newsletter] ${campaignId ?? "ohne Kampagne"}: ${sent}/${recipients.length} gesendet`,
+        );
         if (campaignId) {
           await recordSends(
             campaignId,
