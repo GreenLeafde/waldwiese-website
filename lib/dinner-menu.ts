@@ -1,6 +1,6 @@
 /**
- * Abend-Speisekarte — übernommen aus der aktuellen Speisekarte-WW.pdf
- * Stand 2026-05-21.
+ * Abend-Speisekarte — übernommen aus „Finale Speisekarte Abendessen.pdf“
+ * (neue Abendkarte ab 02.10.2026), Stand 2026-09-28.
  *
  * Hinweis: Hier stehen die VERIFIZIERTEN Inhalte aus der PDF. Falls jemand
  * etwas ändert (Preise, neue Gerichte, gestrichene Gerichte) → bitte hier
@@ -32,9 +32,9 @@ export type DishCategory = {
 };
 
 export const BURGER_CHOICES = {
-  buns: ["Brioche", "Körnerbun", "Laugenbun"],
-  bunNote: "hausgemacht vom Bäcker",
-  patties: ["Beef Patty (200 g)", "vegan (aus Erbsenprotein)"],
+  buns: ["Brioche", "Laugenbun"],
+  bunNote: "Buns vom Bäcker",
+  patties: ["Beef-Patty (180 g)", "vegan (aus Erbsenprotein)"],
   extras: [
     { label: "Cheddar", price: "+1,50 €" },
     { label: "veganer Käse", price: "+1,50 €" },
@@ -61,11 +61,11 @@ export const DINNER_MENU: DishCategory[] = [
         name: "Gemüse im Tempurateig",
         desc: "mit hausgemachtem Teriyaki- und WALD&WIESE Dip",
         price: "10,90 €",
-        tags: ["vegetarisch"],
+        tags: ["vegan"],
       },
       {
         name: "Suppe des Monats",
-        desc: "Tagesaktuell — frag uns einfach an der Theke",
+        desc: "jeden Monat eine neue Suppe",
         price: "6,50 €",
       },
     ],
@@ -77,7 +77,7 @@ export const DINNER_MENU: DishCategory[] = [
     items: [
       {
         name: "Die gackernde Julia",
-        desc: "knuspriges Chicken Patty · Sweet-Chilli-Soße · Salat · Mayo",
+        desc: "knuspriges Chicken-Patty · Sweet-Chili · Salat · Mayo",
         price: "12,90 €",
       },
       {
@@ -97,14 +97,14 @@ export const DINNER_MENU: DishCategory[] = [
       {
         name: "Der fetzige Sven",
         desc:
-          "Pulled Pork oder Jackfruit (vegan) · Cheddar · BBQ-Soße · Coleslaw oder Spitzkohlsalat (vegan)",
+          "Pulled Pork oder Jackfruit · Cheddar · BBQ · Coleslaw oder Spitzkohl",
         price: "17,50 €",
         tags: ["vegan möglich"],
       },
       {
         name: "Dorfbazi",
         desc:
-          "Fleischpatty · Trüffelmayo · Rösti · Cheddar · Tomate · Salat · Zwiebeln · Spiegelei · Speck",
+          "Beef-Patty · Trüffelmayo · Rösti · Cheddar · Tomate · Salat · Zwiebeln · Spiegelei · Speck",
         price: "19,50 €",
       },
     ],
@@ -126,7 +126,7 @@ export const DINNER_MENU: DishCategory[] = [
         desc:
           "Spinat · Avocado · Granatapfelkerne · würzige Kartoffelspalten · geröstete Kichererbsen · Limetten-Dressing — wahlweise mit Hähnchen oder Falafel",
         price: "16,90 €",
-        tags: ["vegan", "empfehlung"],
+        tags: ["vegan möglich", "empfehlung"],
       },
       {
         name: "Der Fischer und seine Schüssel",
@@ -162,7 +162,6 @@ export const DINNER_MENU: DishCategory[] = [
         name: "Teriyaki-Lachs",
         desc: "gebratener Knoblauch-Spinat · würzige Kartoffelspalten · Sesam",
         price: "23,90 €",
-        tags: ["empfehlung"],
       },
     ],
   },
@@ -237,7 +236,7 @@ export const DINNER_MENU: DishCategory[] = [
       {
         name: "Ich bin nicht satt und mag kein Blatt",
         desc:
-          "Brioche Bun · 100 g Patty (Beef oder Chicken) · Tomate · Salat · Essiggurke · Ketchup · Pommes · Ketchup oder Mayo",
+          "Brioche Bun · Beef-Patty · Tomate · Salat · Pommes",
         price: "9,50 €",
       },
       {
@@ -268,11 +267,12 @@ export const DINNER_MENU: DishCategory[] = [
         tags: ["vegan möglich"],
       },
       {
-        name: "Sternstunden-Finale",
+        name: "Sternstundenfinale",
         desc:
-          "Jeden Monat ein neues Finale. Pro verkauftem Dessert spenden wir 1 € an Sternstunden e. V. und unterstützen damit Menschen in Not.",
+          "Jeden Monat ein neues Dessert. Je Sternstundenfinale spenden wir 1 € an Sternstunden e. V. für Kinder in Not.",
         price: "7,90 €",
       },
+      { name: "Espresso dazu?", price: "2,80 €" },
     ],
   },
 ];
