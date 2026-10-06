@@ -200,6 +200,7 @@ export const FOOTER_NAV: Array<{
       { label: "Ratgeber", href: "/ratgeber" },
       { label: "Galerie", href: "/galerie" },
       { label: "Karriere & Jobs", href: "/karriere" },
+      { label: "Partner & Empfehlungen", href: "/partner" },
       { label: "Kontakt & Anfahrt", href: "/kontakt" },
     ],
   },

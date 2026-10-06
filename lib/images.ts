@@ -223,6 +223,21 @@ export const IMG = {
     height: 1200,
   },
 
+  // Partner-Fotos — von den Websites der Partner (mit deren Einverständnis),
+  // siehe /partner.
+  partnerMagicel: {
+    src: "/photos/partner-magicel.webp",
+    alt: "Emilian Leber zeigt Close-Up-Zauberei für zwei Gäste bei einer Feier",
+    width: 1200,
+    height: 674,
+  },
+  partnerUdoZahlauer: {
+    src: "/photos/partner-udo-zahlauer.webp",
+    alt: "Dudelsackspieler Udo Zahlauer in Highland-Tracht mit Weste und Krawatte",
+    width: 600,
+    height: 600,
+  },
+
   // Alias-Kompatibilität für ältere Verwendungen
   dessert: {
     src: "/photos/scene-warm.png",
