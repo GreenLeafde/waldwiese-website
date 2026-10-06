@@ -380,7 +380,7 @@ export default function SpeisekartePage() {
               Alle Burger kommen mit deiner Wunsch-Kombi —{" "}
               <span className="text-tonwarm">{BURGER_CHOICES.bunNote}</span>.
             </p>
-            <div className="grid sm:grid-cols-3 gap-10 text-sm">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 text-sm">
               <div>
                 <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium mb-3">
                   Buns
@@ -398,6 +398,19 @@ export default function SpeisekartePage() {
                 <ul className="space-y-1.5 text-mehlcreme font-display">
                   {BURGER_CHOICES.patties.map((p) => (
                     <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium mb-3">
+                  Dazu
+                </p>
+                <ul className="space-y-1.5 text-mehlcreme font-display">
+                  {BURGER_CHOICES.sides.map((s) => (
+                    <li key={s.label} className="flex justify-between gap-3">
+                      <span>{s.label}</span>
+                      <span className="text-mehlcreme/55">{s.price}</span>
+                    </li>
                   ))}
                 </ul>
               </div>

@@ -42,13 +42,13 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
       {
         name: "Der gute alte Sepp",
         desc:
-          "Butter, Schinken, geräucherter Schinken und Salami, Käse, hausgemachte Marmelade, Frischkäse, Rührei mit zwei Eiern, Naturjoghurt mit hausgemachtem Granola, frisches Obst und Gemüse, Brotkorb, Orangensaft — nur für dich oder zu zweit",
-        price: ["17,90 €", "29,90 €"],
+          "Butter, Käse und Wurst, Tomate-Mozzarella, hausgemachte Marmelade, Rührei, Naturjoghurt mit hausgemachtem Granola, frisches Obst und Gemüse, Brotkorb — nur für dich oder zu zweit",
+        price: ["17,90 €", "32,90 €"],
       },
       {
         name: "Die grüne Gretl",
         desc:
-          "vegane Butter, pflanzlicher Käse, Sojajoghurt mit hausgemachtem Granola, hausgemachte Aufstriche (Marmelade, Tomatenaufstrich, Paprikahummus), hausgemachte Antipasti, hausgemachtes Bananenbrot, frisches Obst und Gemüse, Brotkorb, Orangensaft",
+          "Butter, Käse, Joghurt mit hausgemachtem Granola, hausgemachte Aufstriche (Marmelade, Tomatenaufstrich, Paprikahummus), hausgemachte Antipasti, hausgemachtes Bananenbrot, frisches Obst und Gemüse, Brotkorb",
         price: "17,90 €",
         tags: ["vegan"],
       },
@@ -61,9 +61,9 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
       },
       {
         name: "Der kleine Hansi",
-        desc: "Butter, Nutella, Fruchtzwerg, frisches Obst, Croissant",
+        desc: "Croissant, Butter, Nutella, Fruchtzwerg, frisches Obst",
         price: "6,90 €",
-        hint: "Für Kinder bis 12 Jahren",
+        hint: "Für Kinder bis 12 Jahre",
       },
     ],
   },
@@ -75,8 +75,8 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
         name: "Morgenstund hat Avocado im Mund",
         desc:
           "geröstetes Brot, hausgemachte Guacamole, Spiegelei, Rucola, hausgemachte Zitronenmayo, Sprossen, hausgemachte Teriyakisoße, Sesam, selbst eingelegte Zwiebeln",
-        price: "13,90 €",
-        options: [{ label: "Optional Räucherlachs", price: "+3,50 €" }],
+        price: "14,90 €",
+        options: [{ label: "Räucherlachs dazu", price: "+3,00 €" }],
         tags: ["vegetarisch"],
         recipeSlug: "hausgemachte-guacamole",
       },
@@ -89,12 +89,6 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
           { label: "wahlweise Burrata oder veganer Schafskäse", price: "inklusive" },
         ],
         tags: ["vegan möglich"],
-      },
-      {
-        name: "Wer das Pesto nicht ehrt, …",
-        desc:
-          "geröstetes Brot, italienischer Schinken, Parmesan, sonnengetrocknete Tomaten, Rucola, hausgemachte Balsamicozwiebeln, hausgemachtes Zitronenöl, hausgemachter Walnusspesto-Frischkäse-Aufstrich, selbst eingelegte mixed Pickles",
-        price: "17,90 €",
       },
       {
         name: "Da wird einem süß ums Herz",
@@ -113,13 +107,15 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
       {
         name: "Beerenherzerl",
         desc: "rote Beeren, Kokosmilch, Chiasamen, Bananen, Kokosflocken",
-        price: "8,20 €",
+        price: "9,90 €",
+        tags: ["vegan"],
       },
       {
         name: "Wiesenschmuserl",
         desc:
           "Spinat, Mango, Kokosmilch, Chiasamen, Bananen, Kokosflocken, hausgemachtes Granola",
-        price: "8,90 €",
+        price: "9,90 €",
+        tags: ["vegan"],
         recipeSlug: "chia-fruehstuecksbowl",
       },
     ],
@@ -145,38 +141,39 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
       { name: "Croissant", price: "2,20 €", tags: ["vegetarisch"] },
       { name: "Räucherlachs", price: "4,90 €" },
       { name: "Speck", price: "2,10 €" },
-      { name: "Butter / Margarine", price: "1,50 €" },
+      { name: "Butter", price: "1,50 €", tags: ["vegan möglich"] },
+      { name: "Orangensaft", desc: "0,2 l", price: "2,90 €" },
     ],
   },
   {
     slug: "mittags",
     title: "Mittags",
-    hint: "ab 11:30 – 14:00 Uhr",
+    hint: "ab 11:30 bis 14 Uhr",
     items: [
       {
-        name: "Oma’s Lieblingscurrywurst",
-        desc: "mit Pommes und hausgemachter Soße",
+        name: "Omas Lieblingscurrywurst",
+        desc: "mit Pommes und unserer hausgemachten Soße",
         price: "12,90 €",
       },
       {
         name: "Der klassische Heinzi",
         desc:
-          "Brioche Bun mit hausgemachter Burgersoße, Beef oder veganes Patty, Salat, Tomate, Essiggurke, Pommes, Ketchup oder Mayo",
-        price: "13,90 €",
+          "Brioche Bun mit hausgemachter Burgersoße, Beef- oder veganes Patty, Salat, Tomate, Essiggurke, Pommes, Ketchup oder Mayo",
+        price: "14,90 €",
         tags: ["vegan möglich"],
       },
       {
         name: "Die gackernde Julia",
         desc:
-          "Brioche Bun mit Mayonnaise, crunchy Chicken-Patty, Salat, Sweet-Chili-Soße, Pommes, Ketchup oder Mayo",
-        price: "13,50 €",
+          "Brioche Bun mit Mayonnaise, knuspriges Chicken-Patty, Salat, Sweet-Chili-Soße, Pommes, Ketchup oder Mayo",
+        price: "13,90 €",
       },
       {
-        name: "Sophia’s Garten",
+        name: "Sophias Garten",
         desc:
-          "gemischter Salat mit frischen Tomaten und Gurken, Paprika, rote Zwiebeln, Hausdressing, Baguette — wahlweise mit Käse/Schinken oder Falafel",
-        price: "11,90 €",
-        tags: ["vegetarisch"],
+          "gemischter Salat mit frischen Tomaten und Gurken, Paprika, rote Zwiebeln, Hausdressing, Baguette — wahlweise mit Käse und Schinken oder Falafel",
+        price: "12,90 €",
+        tags: ["vegan möglich"],
       },
     ],
   },

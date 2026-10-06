@@ -35,6 +35,13 @@ export const BURGER_CHOICES = {
   buns: ["Brioche", "Laugenbun"],
   bunNote: "Buns vom Bäcker",
   patties: ["Beef-Patty (180 g)", "vegan (aus Erbsenprotein)"],
+  /** Burger kommen ohne Beilage — die wird dazubestellt. */
+  sides: [
+    { label: "Pommes", price: "+4,50 €" },
+    { label: "Süßkartoffelpommes", price: "+5,50 €" },
+    { label: "Würzige Kartoffelspalten", price: "+5,90 €" },
+    { label: "Beilagensalat", price: "+4,50 €" },
+  ],
   extras: [
     { label: "Cheddar", price: "+1,50 €" },
     { label: "veganer Käse", price: "+1,50 €" },
