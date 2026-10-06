@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
-import { CONTACT, NAV, NAV_FULL, RESERVATION_URL } from "@/lib/site";
+import { CONTACT, NAV_GROUPS, RESERVATION_URL } from "@/lib/site";
 
 /** WhatsApp-Deeplink aus der Nummer (nur Ziffern). */
 const WHATSAPP_URL = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, "")}`;
@@ -20,6 +20,23 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
       <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.86-7.01zM12.04 20.13h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.06s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z" />
+    </svg>
+  );
+}
+
+function ChevronIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 12 12"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M2.5 4.5 6 8l3.5-3.5" />
     </svg>
   );
 }
@@ -44,6 +61,8 @@ function InstagramIcon({ className = "" }: { className?: string }) {
  */
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  /** Label der aufgeklappten Desktop-Gruppe, sonst null. */
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -107,17 +126,74 @@ export function SiteHeader() {
 
             <nav
               aria-label="Hauptnavigation"
-              className="hidden lg:flex items-center gap-9 text-[0.78rem] tracking-[0.18em] uppercase text-waldgruen/80 justify-self-center"
+              className="hidden lg:block justify-self-center"
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setOpenGroup(null);
+              }}
             >
-              {NAV.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="hover:text-tonwarm transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              <ul className="flex items-center gap-7 text-[0.78rem] tracking-[0.18em] uppercase text-waldgruen/80">
+                {NAV_GROUPS.map((group) => {
+                  const open = openGroup === group.label;
+                  return (
+                    <li
+                      key={group.href}
+                      className="relative"
+                      onMouseEnter={() => setOpenGroup(group.label)}
+                      onMouseLeave={() => setOpenGroup(null)}
+                      // Tastatur: öffnen sobald der Fokus in die Gruppe
+                      // kommt, schließen sobald er sie wieder verlässt.
+                      onFocus={() => setOpenGroup(group.label)}
+                      onBlur={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                          setOpenGroup((g) => (g === group.label ? null : g));
+                        }
+                      }}
+                    >
+                      <Link
+                        href={group.href}
+                        aria-expanded={group.items ? open : undefined}
+                        className={`inline-flex items-center gap-1.5 py-5 transition-colors hover:text-tonwarm ${
+                          open ? "text-tonwarm" : ""
+                        }`}
+                      >
+                        {group.label}
+                        {group.items && (
+                          <ChevronIcon
+                            className={`h-3 w-3 opacity-50 transition-transform ${
+                              open ? "rotate-180" : ""
+                            }`}
+                          />
+                        )}
+                      </Link>
+
+                      {group.items && open && (
+                        <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1">
+                          <ul className="anim-fade-up min-w-[17rem] rounded-sm border border-waldgruen/15 bg-mehlcreme py-2 shadow-xl shadow-waldgruen/10">
+                            {group.items.map((item) => (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  onClick={() => setOpenGroup(null)}
+                                  className="block px-5 py-2.5 transition-colors hover:bg-waldgruen/5"
+                                >
+                                  <span className="block text-waldgruen">
+                                    {item.label}
+                                  </span>
+                                  {item.desc && (
+                                    <span className="mt-0.5 block font-body text-[0.68rem] normal-case tracking-normal text-waldgruen/50">
+                                      {item.desc}
+                                    </span>
+                                  )}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             </nav>
 
             <a
@@ -192,24 +268,39 @@ export function SiteHeader() {
             aria-label="Hauptnavigation mobil"
             className="flex-1 flex flex-col justify-center px-7"
           >
-            <ul className="space-y-1">
-              {NAV_FULL.map((item, i) => (
+            {/* Mobil keine Klapp-Mechanik: die Gruppen stehen offen da,
+                das spart einen Tipp pro Ebene. */}
+            <ul className="space-y-5">
+              {NAV_GROUPS.map((group, i) => (
                 <li
-                  key={item.href}
-                  className={`overflow-hidden ${
-                    mobileOpen ? "anim-fade-up" : "opacity-0"
-                  }`}
+                  key={group.href}
+                  className={mobileOpen ? "anim-fade-up" : "opacity-0"}
                   style={{
-                    animationDelay: mobileOpen ? `${100 + i * 60}ms` : "0ms",
+                    animationDelay: mobileOpen ? `${100 + i * 70}ms` : "0ms",
                   }}
                 >
                   <Link
-                    href={item.href}
+                    href={group.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block font-display text-4xl md:text-5xl py-2 text-mehlcreme hover:text-tonwarm transition-colors leading-tight"
+                    className="block font-display text-3xl leading-tight text-mehlcreme transition-colors hover:text-tonwarm"
                   >
-                    {item.label}
+                    {group.label}
                   </Link>
+                  {group.items && (
+                    <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 border-l border-mehlcreme/20 pl-4">
+                      {group.items.map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="text-[0.95rem] text-mehlcreme/65 transition-colors hover:text-tonwarm"
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>

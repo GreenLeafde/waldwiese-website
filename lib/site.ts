@@ -135,36 +135,89 @@ export function siteDescription(): string {
 }
 
 /**
- * Hauptnavigation — gleiche Reihenfolge in Header und Footer.
+ * Hauptnavigation mit Untermenüs (Desktop-Dropdowns, mobil aufgeklappte
+ * Gruppen). Vorher hingen fast alle Seiten nur im Footer — hier stehen
+ * jetzt die, die Gäste wirklich suchen.
+ *
+ * Jede Gruppe ist selbst anklickbar: `href` ist die Übersichtsseite,
+ * `items` sind die Sprünge darunter.
  */
-/**
- * Aktuelles Setup: Startseite ist ein Onepager. Alle Navigationspunkte
- * verlinken auf Section-IDs auf der Startseite. Sobald eigenständige
- * Unterseiten gebaut werden, hier die `href` auf die Route umstellen.
- */
-/**
- * Schlanke Desktop-Nav — vier wichtigste Unterseiten.
- * Alle übrigen Routen (Frühstück, Veranstaltungen, Events, Rezepte) bleiben
- * im Mobile-Menü unter NAV_FULL erreichbar.
- */
-export const NAV: Array<{ label: string; href: string }> = [
-  { label: "Speisekarte", href: "/speisekarte" },
-  { label: "Getränke", href: "/getraenke" },
-  { label: "Reservieren", href: "/reservieren" },
-  { label: "Kontakt", href: "/kontakt" },
-];
+export type NavGroup = {
+  label: string;
+  href: string;
+  items?: Array<{ label: string; href: string; desc?: string }>;
+};
 
-export const NAV_FULL: Array<{ label: string; href: string }> = [
-  { label: "Speisekarte", href: "/speisekarte" },
-  { label: "Getränke", href: "/getraenke" },
-  { label: "Reservieren", href: "/reservieren" },
-  { label: "Veranstaltungen", href: "/veranstaltungen" },
-  { label: "Feiern & Feste", href: "/feiern" },
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    label: "Karte",
+    href: "/speisekarte",
+    items: [
+      {
+        label: "Speisekarte",
+        href: "/speisekarte",
+        desc: "Frühstück, Mittag & Abend",
+      },
+      {
+        label: "Frühstück & Mittag",
+        href: "/speisekarte#fruehstueck",
+        desc: "täglich 8 – 14 Uhr",
+      },
+      {
+        label: "Abendkarte",
+        href: "/speisekarte#abend",
+        desc: "Fr – So 17 – 22 Uhr",
+      },
+      {
+        label: "Getränke",
+        href: "/getraenke",
+        desc: "Kaffee, Limonaden, Wein, Bar",
+      },
+    ],
+  },
+  {
+    label: "Feiern",
+    href: "/feiern",
+    items: [
+      {
+        label: "Feiern & Feste",
+        href: "/feiern",
+        desc: "Geburtstag, Firmenfeier, Taufe",
+      },
+      {
+        label: "Veranstaltungen",
+        href: "/veranstaltungen",
+        desc: "was bei uns ansteht",
+      },
+      {
+        label: "Weihnachtsfeier",
+        href: "/weihnachtsfeier",
+        desc: "für Firmen und Freundeskreise",
+      },
+      {
+        label: "Hochzeit",
+        href: "/hochzeitslocation-regensburg",
+        desc: "heiraten im Grünen",
+      },
+    ],
+  },
+  {
+    label: "Entdecken",
+    href: "/ueber-uns",
+    items: [
+      { label: "Über uns", href: "/ueber-uns", desc: "Familie Leber" },
+      { label: "Galerie", href: "/galerie", desc: "Haus, Terrasse, Teller" },
+      { label: "Rezepte", href: "/rezepte", desc: "zum Nachmachen" },
+      { label: "Ratgeber", href: "/ratgeber", desc: "zum Nachlesen" },
+      {
+        label: "Partner",
+        href: "/partner",
+        desc: "wen wir weiterempfehlen",
+      },
+      { label: "Karriere", href: "/karriere", desc: "offene Stellen" },
+    ],
+  },
   { label: "Gutscheine", href: "/gutscheine" },
-  { label: "Rezepte", href: "/rezepte" },
-  { label: "Ratgeber", href: "/ratgeber" },
-  { label: "Über uns", href: "/ueber-uns" },
-  { label: "Karriere", href: "/karriere" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
