@@ -451,7 +451,7 @@ export default function HomePage() {
                   ))}
                 </dl>
                 <p className="mt-2 text-xs text-mehlcreme/45">
-                  Fr – So mit Frühstück & Abendservice · Di & Mi Ruhetag.
+                  Fr – So mit Frühstück & Abendservice.
                 </p>
               </div>
             ) : (
@@ -471,7 +471,6 @@ export default function HomePage() {
                       </div>
                     ))}
                   </dl>
-                  <p className="mt-2 text-xs text-mehlcreme/45">Di & Mi Ruhetag.</p>
                 </div>
                 <div>
                   <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
@@ -548,45 +547,43 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8 · VERANSTALTUNGEN — Vollbild-Foto (echte Terrasse) + grüner Schleier */}
+      {/* 8 · VERANSTALTUNGEN — grün mit gerahmtem Terrassenfoto.
+       * Bewusst KEIN Vollbild-Foto: sonst stoßen zwei randlose Fotos (Hund,
+       * Terrasse) direkt aufeinander und die Naht sieht nach Bildfehler aus. */}
       <section
         id="veranstaltungen"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
+        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
       >
-        <Image
-          src={IMG.terrasseTische.src}
-          alt={IMG.terrasseTische.alt}
-          fill
-          sizes="100vw"
-          className="object-cover parallax"
-          style={{ objectPosition: "center 50%" }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/92 via-waldgruen-dark/70 to-waldgruen-dark/30"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
-        />
+        <SideVine side="left" />
         <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
-          <div className="max-w-xl reveal">
-            <p className="eyebrow no-line text-tonwarm">Veranstaltungen</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Wenn der Anlass{" "}
-              <span className="accent">groß ist.</span>
-            </h2>
-            <p className="mt-8 text-mehlcreme/85 leading-relaxed">
-              Hochzeit, Geburtstag, Firmenfeier oder einfach ein Abend mit
-              vielen Menschen, die du magst. Wir planen mit dir — ehrlich
-              gekocht, mit viel Liebe und ohne Schickimicki.
-            </p>
-            <a
-              href={`mailto:${CONTACT.email}?subject=Anfrage%20Veranstaltung`}
-              className="mt-9 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Anfrage schicken <span aria-hidden>→</span>
-            </a>
+          <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
+            <div className="md:col-span-7 reveal-1">
+              <p className="eyebrow no-line text-tonwarm">Veranstaltungen</p>
+              <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
+                Wenn der Anlass{" "}
+                <span className="accent">groß ist.</span>
+              </h2>
+              <p className="mt-8 max-w-xl text-mehlcreme/85 leading-relaxed">
+                Hochzeit, Geburtstag, Firmenfeier oder einfach ein Abend mit
+                vielen Menschen, die du magst. Wir planen mit dir — ehrlich
+                gekocht, mit viel Liebe und ohne Schickimicki.
+              </p>
+              <a
+                href={`mailto:${CONTACT.email}?subject=Anfrage%20Veranstaltung`}
+                className="mt-9 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+              >
+                Anfrage schicken <span aria-hidden>→</span>
+              </a>
+            </div>
+            <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal-scale">
+              <Image
+                src={IMG.terrasseTische.src}
+                alt={IMG.terrasseTische.alt}
+                fill
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -687,7 +684,6 @@ export default function HomePage() {
                   </div>
                 ))}
               </dl>
-              <p className="mt-4 text-xs text-mehlcreme/55">Di & Mi Ruhetag.</p>
               {!hasBreakfastLaunched() && (
                 <div className="mt-6 pt-5 border-t border-mehlcreme/15">
                   <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">

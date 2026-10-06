@@ -142,7 +142,6 @@ export default function KontaktPage() {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-2 text-xs text-waldgruen/45">Di & Mi Ruhetag.</p>
               </div>
             )}
 
@@ -170,9 +169,7 @@ export default function KontaktPage() {
                 ))}
               </dl>
               <p className="mt-2 text-xs text-waldgruen/45">
-                {hasBreakfastLaunched()
-                  ? "Fr – So mit Frühstück & Abendservice · Di & Mi Ruhetag."
-                  : "Fr – So mit Frühstück & Abendservice."}
+                Fr – So mit Frühstück &amp; Abendservice.
               </p>
             </div>
 

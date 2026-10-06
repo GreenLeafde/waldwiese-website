@@ -127,7 +127,6 @@ export default function ReservierenPage() {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-2 text-xs text-waldgruen/45">Di & Mi Ruhetag.</p>
               </div>
             )}
             <div>
