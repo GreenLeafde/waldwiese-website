@@ -89,6 +89,7 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
           { label: "wahlweise Burrata oder veganer Schafskäse", price: "inklusive" },
         ],
         tags: ["vegan möglich"],
+        recipeSlug: "mediterraner-karotten-tomaten-hummus",
       },
       {
         name: "Da wird einem süß ums Herz",

@@ -659,6 +659,146 @@ export const RECIPES: Recipe[] = [
       },
     ],
   },
+  {
+    slug: "karibischer-pfirsich-limonade",
+    image: {
+      src: "https://images.unsplash.com/photo-1587223962930-cb7f31384c19?auto=format&fit=crop&w=1400&q=72",
+      alt: "Glas Pfirsichlimonade mit Eis und Limette",
+    },
+    title: "Karibischer Pfirsich",
+    teaser:
+      "Die Neue unter unseren hausgemachten Limonaden — Pfirsich, Limette und eine Spur Ingwer. Schmeckt nach Terrasse.",
+    category: "Drinks",
+    hasFullRecipe: true,
+    publishedAt: "2026-10-06",
+    intro:
+      "Fünf hausgemachte Limonaden stehen bei uns auf dem Aufsteller am Tisch, und der Karibische Pfirsich ist der jüngste Zugang. Wie bei allen Rezepten hier gilt: Unsere Küchenversion bleibt ein kleines Geheimnis, aber diese Variante für Zuhause kommt nah dran — weniger süß als gekaufte Limonade, dafür mit echtem Fruchtanteil.",
+    ingredients: [
+      {
+        title: "Für den Sirup",
+        items: [
+          "3 reife Pfirsiche (oder 300 g Pfirsichspalten aus der Dose, abgetropft)",
+          "70–90 g Zucker",
+          "120 ml Wasser",
+          "2 dünne Scheiben frischer Ingwer",
+          "1 Streifen unbehandelte Limettenschale",
+        ],
+      },
+      {
+        title: "Zum Aufgießen",
+        items: [
+          "Saft von 1 Limette",
+          "ca. 700 ml kaltes Sprudelwasser",
+          "Eiswürfel",
+        ],
+      },
+      {
+        title: "Optional zum Garnieren",
+        items: ["Limettenscheiben", "ein paar Minzblätter", "Pfirsichspalten"],
+      },
+    ],
+    steps: [
+      {
+        title: "Pfirsiche vorbereiten",
+        body:
+          "Die Pfirsiche entsteinen und grob würfeln. Wenn du es ganz klar magst, häute sie vorher kurz in heißem Wasser — nötig ist das aber nicht.",
+      },
+      {
+        title: "Sirup kochen",
+        body:
+          "Zucker, Wasser, Ingwer und Limettenschale aufkochen. Die Pfirsichwürfel dazugeben und fünf bis acht Minuten leise köcheln lassen, bis sie weich sind.",
+      },
+      {
+        title: "Ziehen lassen und pürieren",
+        body:
+          "Den Topf vom Herd nehmen und alles abkühlen lassen. Ingwer und Limettenschale herausfischen, den Rest fein pürieren. Für eine klare Limonade durch ein feines Sieb streichen.",
+      },
+      {
+        title: "Mischen",
+        body:
+          "Das Püree mit dem Limettensaft verrühren und mit kaltem Sprudelwasser aufgießen. Abschmecken: Der Sirup sollte deutlich schmeckbar sein, aber nicht kleben.",
+      },
+      {
+        title: "Servieren",
+        body:
+          "Viel Eis ins Glas, Limonade drauf, mit Limette und Minze garnieren. Der Sirup hält im Kühlschrank gut eine Woche — so hast du die Limo jederzeit in zwei Minuten fertig.",
+      },
+    ],
+  },
+  {
+    slug: "mediterraner-karotten-tomaten-hummus",
+    image: {
+      src: "https://images.unsplash.com/photo-1637949385162-e45f0be69b43?auto=format&fit=crop&w=1400&q=72",
+      alt: "Schale Hummus mit Olivenöl und Kichererbsen",
+    },
+    title: "Mediterraner Karotten-Tomaten-Hummus",
+    teaser:
+      "Unser Aufstrich von der Frühstückskarte — auf dem Brot „Aller Anfang ist grün“ und im Aufstrich-Körbchen.",
+    category: "Frühstück",
+    hasFullRecipe: true,
+    publishedAt: "2026-10-06",
+    intro:
+      "Dieser Hummus steht bei uns gleich doppelt auf der Karte: als Aufstrich zum Frühstück und auf dem Brot „Aller Anfang ist grün“. Die gerösteten Karotten machen ihn süßer und runder als klassischen Hummus, die getrockneten Tomaten geben die Tiefe. Auch hier gilt: Das Original aus unserer Küche bleibt unser Geheimnis, diese Version für Zuhause kommt aber nah dran.",
+    ingredients: [
+      {
+        title: "Zum Rösten",
+        items: [
+          "300 g Karotten, geschält und in Stücke geschnitten",
+          "2 EL Olivenöl",
+          "1 TL gemahlener Kreuzkümmel",
+          "½ TL geräuchertes Paprikapulver",
+          "Salz",
+        ],
+      },
+      {
+        title: "Für den Hummus",
+        items: [
+          "250 g gekochte Kichererbsen (1 Glas, abgetropft)",
+          "60 g getrocknete Tomaten in Öl, abgetropft",
+          "2 EL Tahin",
+          "1 kleine Knoblauchzehe",
+          "Saft von ½ Zitrone",
+          "3–5 EL kaltes Wasser",
+          "Salz, Pfeffer",
+        ],
+      },
+      {
+        title: "Zum Anrichten",
+        items: [
+          "Olivenöl",
+          "ein paar geröstete Kichererbsen",
+          "frische Petersilie oder Basilikum",
+        ],
+      },
+    ],
+    steps: [
+      {
+        title: "Karotten rösten",
+        body:
+          "Backofen auf 200 Grad Ober-/Unterhitze vorheizen. Die Karotten mit Olivenöl, Kreuzkümmel, Paprikapulver und Salz mischen und auf einem Blech 25 bis 30 Minuten rösten, bis sie weich sind und an den Rändern Farbe bekommen. Das Rösten ist der Schritt, der den Unterschied macht — gekochte Karotten schmecken deutlich flacher.",
+      },
+      {
+        title: "Abkühlen lassen",
+        body:
+          "Die Karotten kurz auskühlen lassen. Heiß püriert wird der Hummus sonst dünn und verliert an Aroma.",
+      },
+      {
+        title: "Pürieren",
+        body:
+          "Karotten, Kichererbsen, getrocknete Tomaten, Tahin, Knoblauch und Zitronensaft in den Mixer geben und fein pürieren. Nach und nach kaltes Wasser zugeben, bis die Konsistenz cremig und streichfähig ist.",
+      },
+      {
+        title: "Abschmecken",
+        body:
+          "Mit Salz, Pfeffer und noch etwas Zitrone abschmecken. Der Hummus darf ruhig kräftig gewürzt sein — auf dem Brot verliert sich sonst zu viel.",
+      },
+      {
+        title: "Anrichten",
+        body:
+          "In eine Schale füllen, eine Mulde hineindrücken, Olivenöl darübergeben und mit gerösteten Kichererbsen und Kräutern bestreuen. Hält im Kühlschrank drei bis vier Tage.",
+      },
+    ],
+  },
 ];
 
 export function getRecipe(slug: string): Recipe | undefined {

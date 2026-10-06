@@ -226,6 +226,145 @@ export const GUIDES: Guide[] = [
     cta: { label: "Weihnachtsfeier anfragen", href: "/weihnachtsfeier" },
     publishedAt: "2026-07-27",
   },
+  {
+    slug: "alkoholfrei-anstossen-regensburg",
+    title: "Alkoholfrei anstoßen — ohne Kompromiss im Glas",
+    metaTitle:
+      "Alkoholfreie Cocktails & Spritz bei Regensburg | Wald & Wiese Sinzing",
+    metaDescription:
+      "Alkoholfrei anstoßen in Sinzing bei Regensburg: Gin Tonic, Moscow Mule, Mojito, Aperol Spritz und Hugo gibt es bei uns auch ohne Alkohol — dazu hausgemachte Limonaden und alkoholfreies Bio-Bier.",
+    kicker: "Ratgeber · Trinken",
+    teaser:
+      "Wer nicht trinkt, bekommt Cola. So war das lange. Was heute alkoholfrei im Glas möglich ist — und was bei uns auf der Karte steht.",
+    intro:
+      "Am Tisch sitzt fast immer jemand, der nichts trinkt: weil er fährt, weil sie schwanger ist, weil morgen früh der Wecker klingelt oder einfach, weil keine Lust. Früher hieß das Cola oder Apfelschorle. Inzwischen geht deutlich mehr — und zwar ohne dass es nach Verzicht schmeckt.",
+    sections: [
+      {
+        heading: "Warum alkoholfrei nicht mehr der Notnagel ist",
+        body: [
+          "Der entscheidende Unterschied liegt in den Grundstoffen. Statt den Alkohol einfach wegzulassen, gibt es heute alkoholfreie Destillate, Aperitifs und Sekte, die eigenständig gebaut sind — mit Botanicals, Bitterstoffen und Säure. Genau die Dinge also, die einen Drink interessant machen.",
+          "Das ändert die Logik: Ein guter alkoholfreier Drink ist kein reduzierter Cocktail, sondern ein eigenes Rezept. Bitterkeit und Säure müssen die Rolle übernehmen, die sonst der Alkohol spielt — sonst wird es schnell nur süß.",
+        ],
+      },
+      {
+        heading: "Was bei uns alkoholfrei im Glas landet",
+        body: [
+          "Unsere Cocktails und Spritz stehen auf dem Aufsteller am Tisch — und bei den meisten steht gleich die alkoholfreie Variante daneben. Gin Tonic und Munich Mule bauen wir mit Wonderleaf statt Gin, der Moscow Mule kommt mit Ginger Beer und Limette, der Mojito mit Ginger Ale.",
+          "Beim Spritz läuft es über alkoholfreien Sekt: Aperol Spritz wird zum Orange Spritz mit Sekt 0,0 und Soda, der Campari Spritz bekommt Monin Bitter, der Limoncello Spritz Pallini Limonzero. Auch den Hugo gibt es mit Sekt 0,0.",
+          "Die alkoholfreien Varianten kosten je nach Drink 6,90 bis 9,50 Euro — teils günstiger als das Original, teils gleich teuer, weil die alkoholfreien Grundstoffe ihren Preis haben.",
+        ],
+      },
+      {
+        heading: "Jenseits der Cocktailkarte",
+        body: [
+          "Unsere Limonaden machen wir selbst — Erdbeer-Basilikum, Granatapfel-Rosmarin, Grapefruit-Hibiskus, Gurke-Basilikum und Karibischer Pfirsich, je 0,5 Liter eiskalt für 5,90 Euro. Sie sind weniger süß als gekaufte Limonade und vertragen sich deshalb auch gut zum Essen.",
+          "Beim Bier setzen wir auf das Neumarkter Lammsbräu in Bio-Qualität, und zwar auch alkoholfrei: Helles, Dunkles Weizen und Radler. Wer einfach Wasser will, bekommt Bio-Kristallwasser medium oder still.",
+        ],
+      },
+      {
+        heading: "Ein Gedanke zum Gastgeben",
+        body: [
+          "Wenn du eine Feier planst, lohnt es sich, die alkoholfreie Auswahl genauso ernst zu nehmen wie die Weinkarte. Ein Tisch, auf dem alle etwas Schönes im Glas haben, fühlt sich anders an als einer, auf dem zwei Leute Mineralwasser trinken.",
+          "Für größere Runden stimmen wir das gerne vorher mit euch ab — schreibt uns einfach.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Gibt es bei Wald & Wiese alkoholfreie Cocktails?",
+        a: "Ja. Gin Tonic und Munich Mule gibt es mit Wonderleaf statt Gin, den Moscow Mule mit Ginger Beer und Limette, den Mojito mit Ginger Ale. Die alkoholfreien Varianten kosten 7,90 bis 9,50 Euro.",
+      },
+      {
+        q: "Gibt es Spritz auch ohne Alkohol?",
+        a: "Ja. Aperol Spritz, Campari Spritz, Limoncello Spritz und Hugo gibt es mit alkoholfreiem Sekt 0,0 — je nach Drink für 6,90 bis 8,50 Euro.",
+      },
+      {
+        q: "Was kostet eine hausgemachte Limonade?",
+        a: "5,90 Euro für 0,5 Liter. Zur Auswahl stehen Erdbeer-Basilikum, Granatapfel-Rosmarin, Grapefruit-Hibiskus, Gurke-Basilikum und Karibischer Pfirsich.",
+      },
+      {
+        q: "Habt ihr alkoholfreies Bier?",
+        a: "Ja, vom Neumarkter Lammsbräu in Bio-Qualität: Helles und Dunkles Weizen (0,5 l, 4,90 Euro) sowie Dunkles und Natur Radler (0,33 l, 3,90 Euro).",
+      },
+    ],
+    related: [
+      { label: "Zur Getränkekarte", href: "/getraenke" },
+      { label: "Feiern & Feste", href: "/feiern" },
+      { label: "Zur Speisekarte", href: "/speisekarte" },
+    ],
+    cta: { label: "Tisch reservieren", href: "/reservieren" },
+    publishedAt: "2026-10-06",
+  },
+  {
+    slug: "was-kostet-brunch-regensburg",
+    title: "Was kostet Brunch? Ein ehrlicher Blick auf die Rechnung",
+    metaTitle:
+      "Was kostet Brunch in Regensburg? Preise im Überblick | Wald & Wiese",
+    metaDescription:
+      "Was kostet Brunch bei Regensburg wirklich? Unsere aktuellen Preise: Frühstücke ab 11,90 €, Bowls 9,90 €, Mittagsgerichte ab 12,90 €, Kaffee ab 2,80 € — und warum à la carte oft günstiger ist als ein Buffet.",
+    kicker: "Ratgeber · Gut zu wissen",
+    teaser:
+      "Brunch-Buffets starten oft bei 30 Euro pro Person. Warum à la carte meistens anders rechnet — mit unseren echten Preisen als Beispiel.",
+    intro:
+      "„Was kostet das denn ungefähr?“ ist eine völlig berechtigte Frage, die aber selten jemand stellt, bevor er sich hinsetzt. Dabei ist der Unterschied zwischen Buffet und à la carte erheblich — und zwar in beide Richtungen. Hier rechnen wir es offen durch, mit unseren Preisen.",
+    sections: [
+      {
+        heading: "Buffet oder à la carte — zwei verschiedene Rechnungen",
+        body: [
+          "Beim Brunch-Buffet zahlst du einen Pauschalpreis pro Person, oft zwischen 25 und 40 Euro. Das lohnt sich, wenn du richtig Hunger hast und mehrere Runden gehst. Wer nur einen Kaffee und ein Croissant will, zahlt beim Buffet drauf.",
+          "À la carte zahlst du, was du bestellst. Für den großen Hunger kann das ähnlich teuer werden, für den kleinen deutlich günstiger. Dafür kommt alles frisch aus der Küche statt vom Warmhaltebecken.",
+        ],
+      },
+      {
+        heading: "Unsere Preise, konkret",
+        body: [
+          "Die Frühstücke liegen zwischen 11,90 Euro für die süße Mizzi und 17,90 Euro für den guten alten Sepp oder die grüne Gretl. Den Sepp gibt es auch für zwei Personen, dann kostet er 32,90 Euro.",
+          "Die Brote bewegen sich zwischen 11,90 und 16,90 Euro, die Bowls kosten jeweils 9,90 Euro. Ab 11:30 Uhr kommen die Mittagsgerichte dazu: Currywurst 12,90 Euro, Salat 12,90 Euro, Burger 13,90 bis 14,90 Euro.",
+          "Beim Kaffee geht es bei 2,80 Euro für den Espresso los, der Cappuccino kostet 4,20 Euro, der Latte Macchiato 4,90 Euro. Für Kinder bis 12 Jahre gibt es den kleinen Hansi für 6,90 Euro.",
+        ],
+      },
+      {
+        heading: "Was zwei Personen realistisch zahlen",
+        body: [
+          "Zwei Frühstücke mit je einem Cappuccino landen bei rund 32 bis 44 Euro — je nachdem, ob es die süße Mizzi oder der große Sepp wird. Wer sich den Sepp zu zweit teilt und zwei Cappuccino dazu nimmt, ist bei etwa 41 Euro.",
+          "Kleiner geht es auch: ein Brot und ein Kaffee liegen bei rund 16 bis 21 Euro pro Person. Wer nur eine Bowl und einen Espresso möchte, kommt mit knapp 13 Euro raus.",
+        ],
+      },
+      {
+        heading: "Woran man Qualität auch am Preis erkennt",
+        body: [
+          "Hausgemachtes kostet mehr in der Herstellung als zugekauftes. Bei uns sind Dips, Soßen, Aufstriche, Granola, Marmelade, Bananenbrot und die Desserts selbst gemacht — das steckt im Preis, aber eben auch im Teller.",
+          "Dazu kommen die Lieferanten aus der Region: Gemüsebau Espach, Geflügelhof Hüttner, Metzgerei Schwindl, Bäckerei Biendl & Weber und der Weinkontor Sinzing. Kurze Wege sind nicht immer der billigste Weg, aber meist der bessere.",
+          "Und wer vegan isst, bekommt bei uns kein Gericht, bei dem einfach etwas weggelassen wurde, sondern ein eigenes — zum gleichen Preisniveau wie alles andere.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        q: "Was kostet Frühstück bei Wald & Wiese?",
+        a: "Die Frühstücke kosten zwischen 11,90 und 17,90 Euro. Der gute alte Sepp ist für zwei Personen für 32,90 Euro zu haben, für Kinder bis 12 Jahre gibt es den kleinen Hansi für 6,90 Euro.",
+      },
+      {
+        q: "Was kostet ein Kaffee?",
+        a: "Espresso 2,80 Euro, Tasse Filterkaffee 3,20 Euro, Kaffee Crema 3,50 Euro, Cappuccino 4,20 Euro, Latte Macchiato 4,90 Euro. Alles auch entkoffeiniert, mit Hafermilch oder laktosefrei; Sirup kostet 1,00 Euro extra.",
+      },
+      {
+        q: "Habt ihr ein Brunch-Buffet?",
+        a: "Nein. Bei uns wird à la carte bestellt und frisch gekocht. Das heißt: Du zahlst, was du isst, statt einen Pauschalpreis.",
+      },
+      {
+        q: "Was kostet ein Brunch für zwei Personen?",
+        a: "Je nach Hunger ungefähr 35 bis 45 Euro für zwei Frühstücke mit Kaffee. Wer sich den guten alten Sepp zu zweit teilt und zwei Cappuccino dazu nimmt, liegt bei rund 41 Euro.",
+      },
+    ],
+    related: [
+      { label: "Zur Speisekarte", href: "/speisekarte" },
+      { label: "Brunch Regensburg", href: "/brunch-regensburg" },
+      { label: "Frühstück oder Brunch?", href: "/ratgeber/fruehstueck-oder-brunch-unterschied" },
+    ],
+    cta: { label: "Tisch reservieren", href: "/reservieren" },
+    publishedAt: "2026-10-06",
+  },
 ];
 
 export function getGuide(slug: string): Guide | undefined {

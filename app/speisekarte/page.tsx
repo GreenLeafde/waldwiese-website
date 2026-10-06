@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title:
     "Speisekarte — Frühstück, Mittag & Abend | Wald & Wiese Sinzing bei Regensburg",
   description:
-    "Die ganze Speisekarte von Wald & Wiese in Sinzing bei Regensburg: Frühstück & Mittag täglich von 8–14 Uhr (Frühstücke, Brote, Bowls, Currywurst, Burger, Salate) und Abend Fr–So von 17–22 Uhr (Burger, Bowls, vom Grill, Finale). Regional, hausgemacht, vegan & vegetarisch.",
+    "Die ganze Speisekarte von Wald & Wiese in Sinzing bei Regensburg: Frühstück & Mittag täglich 8–14 Uhr (Frühstücke ab 11,90 €, Brote, Bowls 9,90 €, Currywurst, Burger ab 13,90 €) und Abend Fr–So 17–22 Uhr (Burger, Bowls, vom Grill, Finale). Regional, hausgemacht, vegan & vegetarisch.",
   alternates: { canonical: "/speisekarte" },
 };
 
@@ -183,6 +183,45 @@ function DaypartHeader({
   );
 }
 
+/**
+ * Preis für schema.org: „14,90 €" → „14.90". Bei mehreren Größen zählt die
+ * erste (günstigste). Gibt null zurück, wenn kein Betrag drinsteckt (z. B.
+ * „inklusive") — dann bleibt `offers` weg, statt eine 0 zu behaupten.
+ */
+function schemaPrice(price: string | string[]): string | null {
+  const first = Array.isArray(price) ? price[0] : price;
+  const m = first.match(/(\d+),(\d{2})/);
+  return m ? `${m[1]}.${m[2]}` : null;
+}
+
+/** schema.org-Diät aus unseren Tags — „möglich" zählt bewusst nicht mit. */
+function schemaDiet(tags?: string[]): string[] {
+  if (!tags) return [];
+  if (tags.includes("vegan")) return ["https://schema.org/VeganDiet"];
+  if (tags.includes("vegetarisch")) return ["https://schema.org/VegetarianDiet"];
+  return [];
+}
+
+function schemaMenuItem(d: AnyDish) {
+  const price = schemaPrice(d.price);
+  const diets = schemaDiet(d.tags);
+  return {
+    "@type": "MenuItem",
+    name: d.name,
+    ...(d.desc ? { description: d.desc } : {}),
+    ...(diets.length ? { suitableForDiet: diets } : {}),
+    ...(price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price,
+            priceCurrency: "EUR",
+          },
+        }
+      : {}),
+  };
+}
+
 export default function SpeisekartePage() {
   const menuJsonLd = {
     "@context": "https://schema.org",
@@ -196,11 +235,7 @@ export default function SpeisekartePage() {
         hasMenuSection: BREAKFAST_MENU.map((cat) => ({
           "@type": "MenuSection",
           name: cat.title,
-          hasMenuItem: cat.items.map((d) => ({
-            "@type": "MenuItem",
-            name: d.name,
-            ...(d.desc ? { description: d.desc } : {}),
-          })),
+          hasMenuItem: cat.items.map(schemaMenuItem),
         })),
       },
       {
@@ -209,11 +244,7 @@ export default function SpeisekartePage() {
         hasMenuSection: DINNER_MENU.map((cat) => ({
           "@type": "MenuSection",
           name: cat.title,
-          hasMenuItem: cat.items.map((d) => ({
-            "@type": "MenuItem",
-            name: d.name,
-            ...(d.desc ? { description: d.desc } : {}),
-          })),
+          hasMenuItem: cat.items.map(schemaMenuItem),
         })),
       },
     ],
