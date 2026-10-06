@@ -727,10 +727,8 @@ export const RECIPES: Recipe[] = [
   },
   {
     slug: "mediterraner-karotten-tomaten-hummus",
-    image: {
-      src: "https://images.unsplash.com/photo-1637949385162-e45f0be69b43?auto=format&fit=crop&w=1400&q=72",
-      alt: "Schale Hummus mit Olivenöl und Kichererbsen",
-    },
+    // Noch kein passendes Foto — die Karte fällt auf die Wortmarken-Kachel
+    // zurück. Lieber so als ein Stockbild, das nicht unser Hummus ist.
     title: "Mediterraner Karotten-Tomaten-Hummus",
     teaser:
       "Unser Aufstrich von der Frühstückskarte — auf dem Brot „Aller Anfang ist grün“ und im Aufstrich-Körbchen.",

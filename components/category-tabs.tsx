@@ -23,39 +23,44 @@ export function CategoryTabs({
   const [active, setActive] = useState<string>(tabs[0]?.slug ?? "");
   const navRef = useRef<HTMLDivElement>(null);
 
-  // Aktive Section über IntersectionObserver bestimmen
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    const seen: Record<string, number> = {};
-    tabs.forEach((t) => {
-      const el = document.getElementById(t.slug);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            seen[t.slug] = e.intersectionRatio;
-          }
-          // wähle den Tab mit der höchsten sichtbaren Ratio
-          const best = Object.entries(seen).sort((a, b) => b[1] - a[1])[0];
-          if (best && best[1] > 0) {
-            setActive(best[0]);
-          }
-        },
-        { rootMargin: `-${scrollOffset}px 0px -55% 0px`, threshold: [0, 0.25, 0.5, 1] },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, [tabs, scrollOffset]);
+  /**
+   * Bewusst KEIN Scroll-Spy mehr.
+   *
+   * Seit die Karten zweispaltig gesetzt sind, beginnen beide Spalten auf
+   * derselben Höhe — es stehen also immer mehrere Kategorien gleichzeitig
+   * im Bild, und welche davon „die aktuelle" ist, ist nicht eindeutig.
+   * Jede Automatik (Sichtbarkeits-Ratio wie vorher, oder „zuletzt über der
+   * Leiste") sprang deshalb beim Scrollen zwischen linker und rechter
+   * Spalte hin und her.
+   *
+   * Die Leiste ist jetzt ein reines Sprungmenü: markiert wird, wohin man
+   * zuletzt gesprungen ist. Ruhig und vorhersehbar.
+   */
 
-  // Aktiven Tab in der horizontalen Leiste sichtbar halten (Mobile)
+  /**
+   * Aktiven Tab in der horizontalen Leiste sichtbar halten.
+   * Nur `nav.scrollTo` — `scrollIntoView` würde auch die Seite selbst
+   * vertikal verschieben und genau das Ruckeln auslösen, das wir hier
+   * loswerden wollen. Und nur dann, wenn der Tab wirklich aus dem Bild
+   * gelaufen ist.
+   */
   useEffect(() => {
     const nav = navRef.current;
     if (!nav) return;
     const btn = nav.querySelector<HTMLAnchorElement>(`[data-slug="${active}"]`);
-    if (btn) {
-      btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    if (!btn) return;
+
+    const pad = 24;
+    const left = btn.offsetLeft;
+    const right = left + btn.offsetWidth;
+    const viewLeft = nav.scrollLeft;
+    const viewRight = viewLeft + nav.clientWidth;
+
+    if (left < viewLeft + pad || right > viewRight - pad) {
+      nav.scrollTo({
+        left: Math.max(0, left - nav.clientWidth / 2 + btn.offsetWidth / 2),
+        behavior: "smooth",
+      });
     }
   }, [active]);
 
