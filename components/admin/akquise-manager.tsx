@@ -911,7 +911,7 @@ function Detail({
         {feld("faellig_am", "fällig am", "date")}
       </div>
 
-      {feld("fakt", "Fakt über die Firma (ganzer Satz, z. B. „Sie bauen Sondermaschinen.“)")}
+      {feld("fakt", "Persönlicher Satz zur Firma (z. B. „Ich habe gesehen, dass Sie dieses Jahr Ihr 25-jähriges Jubiläum feiern.“)")}
       {feld("passung", "Warum wir passen (ganzer Satz)")}
       <label className="block">
         <span className={LABEL}>Notiz</span>

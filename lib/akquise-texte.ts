@@ -159,7 +159,7 @@ export type Faellig = {
   seitTagen: number;
 };
 
-type Kopf = Pick<Lead, "firma" | "person" | "ort" | "typ" | "fakt" | "passung">;
+type Kopf = Pick<Lead, "id" | "firma" | "person" | "ort" | "typ" | "fakt" | "passung">;
 
 const gross = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 const ohnePunkt = (s: string | null | undefined) =>
@@ -184,96 +184,122 @@ export function anrede(l: Pick<Lead, "person">): string {
 }
 
 /**
- * Ein Aufhaenger je Zielgruppe: ein Satz zur Lage, ein Satz Nutzen, eine
- * Frage. Preise stehen bewusst nirgends, die klaeren wir wie auf der Website
- * persoenlich.
+ * Erstkontakt: kein Akquise-Ton, sondern eine nette, persoenliche Frage
+ * (Emilian, 09.10.2026: "haben Sie schon an die Weihnachtsfeier gedacht",
+ * individuell pro Firma, nicht nach Akquise klingend, mit unseren Highlights).
  *
- * Jede Aussage hier steht so auch auf restaurant-waldwiese.de/weihnachtsfeier.
- * Wer hier etwas Neues behauptet, muss es dort ebenfalls halten koennen.
+ * Individuell wird die Mail ueber zwei Felder am Kontakt:
+ *   - fakt:    ein ganzer Satz zu genau dieser Firma ("Sie sind dieses Jahr
+ *              auf ueber 40 Leute gewachsen"). Traegt den persoenlichen Teil.
+ *   - passung: ein Satz, warum der Abend bei uns zu ihnen passt.
+ * Fehlen beide, nimmt der Entwurf einen Satz je Zielgruppe. Der Text bleibt
+ * vor dem Senden frei aenderbar, und wer ihn von Hand schreibt, schlaegt
+ * jede Vorlage.
+ *
+ * Damit zwei Firmen, die sich kennen, nicht denselben Wortlaut bekommen,
+ * gibt es je Baustein mehrere Fassungen, verteilt nach der Kontakt-Kennung.
+ *
+ * Highlights (Emilian, 09.10.2026): Gluehweinempfang, Lagerfeuer,
+ * Drei-Gaenge-Menue, auf Wunsch Zauberei. Der Zauberer ist Emilian selbst
+ * (Magicel), deshalb in der Ich-Form. Preise stehen bewusst nirgends.
  */
-const AUFHAENGER: Record<
-  Typ,
-  { betreff: string; lage: string; nutzen: string; frage: string }
-> = {
+const ZIELGRUPPE: Record<Typ, { betreff: string; satz: string; frage: string }> = {
   firma: {
-    betreff: "Weihnachtsfeier für Ihr Team bei Regensburg",
-    lage: "Die Weihnachtsfeier steht bei vielen Betrieben gerade auf der Liste, und die Abende im Advent sind erfahrungsgemäß zuerst vergeben.",
-    nutzen:
-      "Bei uns feiern Teams in Ruhe: hausgemachte, regionale Küche und drei Menüwege vom klassischen Drei-Gänge-Menü bis zum Buffet. Ab 30 Personen gehört Ihnen das ganze Restaurant als geschlossene Gesellschaft, und auch kleine Runden sind herzlich willkommen.",
-    frage: "Haben Sie für dieses Jahr schon einen Ort für Ihre Feier?",
+    betreff: "Haben Sie schon an Ihre Weihnachtsfeier gedacht?",
+    satz: "Nach so einem Jahr hat sich Ihr Team einen Abend verdient, an dem sich ausnahmsweise mal jemand anderes um alles kümmert.",
+    frage: "Wäre das etwas für Ihr Team? Dann schreiben Sie mir einfach Ihren Wunschtermin und ungefähr, wie viele Sie sind.",
   },
   praxis: {
-    betreff: "Weihnachtsessen für Ihr Team",
-    lage: "Ein kleines Team feiert anders als ein großer Betrieb: ein Tisch, gutes Essen und Zeit zum Reden.",
-    nutzen:
-      "Genau das können wir gut. Kleinere Runden bekommen bei uns einen eigenen Bereich, gekocht wird hausgemacht und regional, vegetarisch und vegan sind bei jedem Menü gleichwertig dabei.",
-    frage: "Wäre ein Abend bei uns etwas für Ihr Team?",
+    betreff: "Schon an Ihr Weihnachtsessen gedacht?",
+    satz: "Gerade in einem kleinen Team ist so ein Abend zum Jahresende oft der schönste Moment, einfach mal Danke zu sagen.",
+    frage: "Hätten Sie Lust, mit Ihrem Team bei uns zu feiern? Ein Wunschtermin genügt mir schon.",
   },
   handwerk: {
-    betreff: "Weihnachtsfeier für Ihre Mannschaft",
-    lage: "Nach einem vollen Jahr soll die Weihnachtsfeier unkompliziert sein: hinkommen, gut essen, zusammensitzen.",
-    nutzen:
-      "Bei uns gibt es ehrliche, hausgemachte Küche, Parkplätze direkt am Haus und für größere Runden auf Wunsch ein Buffet. Ab 30 Personen haben Sie das ganze Restaurant für sich.",
-    frage: "Steht bei Ihnen schon fest, wo dieses Jahr gefeiert wird?",
+    betreff: "Haben Sie schon an Ihre Weihnachtsfeier gedacht?",
+    satz: "Nach einem vollen Jahr auf den Baustellen darf es zum Abschluss ruhig gemütlich werden, ohne dass jemand etwas organisieren muss.",
+    frage: "Wäre das was für Ihre Mannschaft? Schreiben Sie mir gern Ihren Wunschtermin.",
   },
   verein: {
-    betreff: "Jahresabschluss für Ihren Verein",
-    lage: "Zum Jahresende kommen Vorstand und Mitglieder noch einmal zusammen, und dafür braucht es einen Ort, an dem alle Platz haben.",
-    nutzen:
-      "Im Innenraum haben bei uns rund 50 Gäste Platz. Ab 30 Personen feiern Sie als geschlossene Gesellschaft im ganzen Restaurant, kleinere Runden bekommen einen eigenen Bereich.",
-    frage: "Suchen Sie für Ihre Feier noch einen Ort?",
+    betreff: "Schon an Ihre Weihnachtsfeier gedacht?",
+    satz: "Zum Jahresende noch einmal alle zusammen an einem Tisch, das ist für einen Verein oft der schönste Abend im Jahr.",
+    frage: "Suchen Sie für Ihren Jahresabschluss noch einen Ort? Ich freue mich über eine kurze Nachricht.",
   },
   einrichtung: {
-    betreff: "Weihnachtsfeier für Ihr Kollegium",
-    lage: "Ein Kollegium zum Jahresende an einen Tisch zu bekommen ist schwer genug, der Ort sollte es nicht zusätzlich kompliziert machen.",
-    nutzen:
-      "Wir haben Parkplätze direkt am Haus, kochen hausgemacht und regional, und vegetarisch und vegan sind bei jedem Menü gleichwertig dabei.",
-    frage: "Darf ich Ihnen einen Vorschlag für Ihren Wunschtermin machen?",
+    betreff: "Haben Sie schon an Ihre Weihnachtsfeier gedacht?",
+    satz: "Ein Kollegium zum Jahresende an einen Tisch zu bekommen ist schon Aufgabe genug, der Rest darf dann ruhig einfach sein.",
+    frage: "Darf ich Ihnen für Ihren Wunschtermin einen Vorschlag machen?",
   },
   sonstiges: {
-    betreff: "Weihnachtsfeier bei Wald & Wiese in Sinzing",
-    lage: "Vielleicht suchen Sie für dieses Jahr noch einen Ort für Ihre Weihnachtsfeier.",
-    nutzen:
-      "Wir kochen hausgemacht und regional, haben drei Menüwege vom klassischen Drei-Gänge-Menü bis zum Buffet und Platz für rund 50 Gäste im Innenraum. Ab 30 Personen feiern Sie als geschlossene Gesellschaft, kleine Runden sind genauso willkommen.",
-    frage: "Wäre das für Sie interessant?",
+    betreff: "Haben Sie schon an Ihre Weihnachtsfeier gedacht?",
+    satz: "Vielleicht ist bei Ihnen noch gar nicht entschieden, wo dieses Jahr gefeiert wird.",
+    frage: "Wäre das etwas für Sie? Ein Wunschtermin genügt mir für einen Vorschlag.",
   },
 };
+
+/** Waehlt eine Fassung, fest je Kontakt (gleiche Kennung, gleiche Fassung). */
+function fassung<T>(id: string, salz: string, xs: readonly T[]): T {
+  const n = `${salz}:${id}`.split("").reduce((s, c) => (s * 31 + c.charCodeAt(0)) >>> 0, 7);
+  return xs[n % xs.length];
+}
+
+const EROEFFNUNG = [
+  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Ich frage lieber jetzt, denn die Abende im Advent sind bei uns erfahrungsgemäß als Erstes vergeben.",
+  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Ich weiß, im Oktober fühlt sich das noch weit weg an, aber die Adventsabende sind erfahrungsgemäß schnell weg.",
+  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Falls noch nicht, hätte ich da eine Idee für Sie.",
+] as const;
+
+const VORSTELLUNG = [
+  "Ich bin Emilian Leber, meine Familie führt das Wald & Wiese, ein kleines Restaurant am Waldrand in Sinzing.",
+  "Kurz zu mir: Ich bin Emilian Leber, und zusammen mit meiner Familie führe ich das Wald & Wiese am Waldrand in Sinzing.",
+] as const;
+
+const HIGHLIGHTS = [
+  "Bei uns wird es ein richtig schöner Abend: Es gibt einen Glühweinempfang und ein Lagerfeuer, danach ein hausgemachtes Drei-Gänge-Menü, vegetarisch und vegan genauso gut wie alles andere. Und wenn Sie mögen, komme ich zwischen den Gängen mit ein bisschen Zauberei an Ihre Tische, ich bin nämlich auch Zauberer.",
+  "Was Sie bei uns erwartet: ein Glühweinempfang, ein Lagerfeuer und ein hausgemachtes Drei-Gänge-Menü, auf Wunsch auch vegetarisch oder vegan. Wer mag, bekommt zwischen den Gängen noch etwas Zauberei an den Tisch. Die mache ich selbst, als Magicel stehe ich seit 2016 auf der Bühne.",
+] as const;
+
+const GROESSE = [
+  "Ab 30 Personen haben Sie das ganze Restaurant für sich, kleinere Runden sind uns genauso herzlich willkommen.",
+  "Kleine Runden sind uns genauso lieb wie große, und ab 30 Personen gehört Ihnen das ganze Restaurant.",
+] as const;
 
 /** Nur sagen, was stimmt: die Fahrzeit kennen wir nur ab Regensburg-Süd. */
 function ortsatz(ort: string | null): string {
   const o = String(ort ?? "").trim();
-  if (/sinzing/i.test(o)) return " Wir sind direkt bei Ihnen im Ort.";
-  if (/regensburg/i.test(o))
-    return " Von Regensburg-Süd sind es zehn Minuten zu uns.";
-  return "";
+  if (/sinzing/i.test(o)) return " Und für Sie ist es nicht einmal ein Weg, wir sind ja direkt im Ort.";
+  if (/regensburg/i.test(o)) return " Von Regensburg-Süd sind es nur zehn Minuten zu uns, Parkplätze gibt es direkt am Haus.";
+  return " Parkplätze gibt es direkt am Haus.";
 }
 
 /**
- * Vorschlag fuer die erste Mail. Steht ein recherchierter Fakt am Kontakt,
- * traegt ER den Einstieg. Der Satz zur Zielgruppe ist nur der Rueckfall.
+ * Vorschlag fuer die erste Mail. Steht ein Fakt zur Firma am Kontakt, traegt
+ * ER den persoenlichen Teil. Der Satz je Zielgruppe ist nur der Rueckfall.
  */
 export function entwurfFuer(l: Kopf): { betreff: string; text: string } {
-  const h = AUFHAENGER[l.typ] ?? AUFHAENGER.firma;
-  const firma = String(l.firma ?? "").trim();
+  const z = ZIELGRUPPE[l.typ] ?? ZIELGRUPPE.firma;
+  const id = String(l.id ?? l.firma ?? "");
   const fakt = ohnePunkt(l.fakt);
   const passung = ohnePunkt(l.passung);
 
-  const einstieg = fakt
-    ? `Ich habe mir ${firma || "Ihr Haus"} angesehen. ${gross(fakt)}.`
-    : h.lage;
-  const bruecke = passung ? `${gross(passung)}. ${h.nutzen}` : h.nutzen;
+  const persoenlich = fakt
+    ? `${gross(fakt)}.${passung ? ` ${gross(passung)}.` : " Da wäre so ein Abend doch ein schöner Abschluss."}`
+    : passung
+      ? `${gross(passung)}.`
+      : z.satz;
 
   return {
-    betreff: h.betreff,
+    betreff: z.betreff,
     text: `${anrede(l)}
 
-ich bin ${ABSENDER.name} vom Restaurant Wald & Wiese in Sinzing, einem Familienbetrieb am Waldrand. ${einstieg}
+${fassung(id, "auf", EROEFFNUNG)}
 
-${bruecke}${ortsatz(l.ort)}
+${fassung(id, "wer", VORSTELLUNG)} ${persoenlich}
 
-Im Anhang finden Sie ein Blatt mit allem, was Sie für die Planung brauchen.
+${fassung(id, "hi", HIGHLIGHTS)}
 
-${h.frage}
+${fassung(id, "gr", GROESSE)}${ortsatz(l.ort)} Ein paar Eindrücke habe ich Ihnen angehängt.
+
+${z.frage}
 
 ${GRUSS}
 ${ABSENDER.name}`,
