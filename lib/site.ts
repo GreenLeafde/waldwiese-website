@@ -30,7 +30,8 @@ export const CONTACT = {
 
 /** Rechtliche Firmenangaben (Impressum) — zentral für Footer/E-Mails. */
 export const COMPANY = {
-  ceo: "Sven Leber",
+  ceo: "Tanja Leber",
+  ceoTitel: "Geschäftsführerin",
   court: "Amtsgericht Regensburg",
   register: "HRB 21989",
   vatId: "DE459044362",

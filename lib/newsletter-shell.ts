@@ -86,7 +86,7 @@ function renderFooter(unsubUrl: string, fullWidth = false): string {
 
         <div style="margin-top:20px;font-size:12px;color:#b9c2b2;line-height:1.8">
           <strong style="color:#f2ead8">${SITE.legalName}</strong><br />
-          Geschäftsführer: ${COMPANY.ceo}<br />
+          ${COMPANY.ceoTitel}: ${COMPANY.ceo}<br />
           ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city} · ${CONTACT.country}<br />
           Tel.: ${CONTACT.phone} · <a href="${mailto}" style="color:#f2ead8;text-decoration:none">${CONTACT.email}</a><br />
           ${COMPANY.court}, ${COMPANY.register} · USt-IdNr.: ${COMPANY.vatId}

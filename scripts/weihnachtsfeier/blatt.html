@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--
+  Weihnachtsfeier-Blatt: der Anhang der Akquise-Mails (lib/akquise-texte.ts, ANHANG).
+  Drei Seiten A4: Deckblatt, der Abend, Magicel und Kontakt.
+
+  Neu erzeugen (Edge oder Chrome, laedt die Schriften von Google):
+    msedge --headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=8000 \
+      --print-to-pdf=public/downloads/wald-wiese-weihnachtsfeier.pdf scripts/weihnachtsfeier/blatt.html
+
+  Fotos liegen verkleinert daneben (Originale in public/photos: gebaeude-abend,
+  magic-balloon, ww-event).
+
+  Jede Aussage steht so auch auf restaurant-waldwiese.de (/weihnachtsfeier,
+  /gutscheine, /partner, /hochzeitslocation-regensburg). Ausnahme, von
+  Emilian am 09.10.2026 bestaetigt: geschlossene Gesellschaft ab 30 Personen.
+  Kein Mindestumsatz, keine Preise. Sie-Form, keine Gedankenstriche.
+-->
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Weihnachtsfeier bei Wald &amp; Wiese</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..600&family=Fraunces:ital,opsz,wght@0,9..144,200..500;1,9..144,200..500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --dunkel: #1a2418;
+    --gruen: #2e3d2c;
+    --creme: #f2ead8;
+    --papier: #f6f1e6;
+    --ton: #c97c5d;
+    --ton-hell: #e2a98f;
+    --text: #2e3d2c;
+    --leise: rgba(46, 61, 44, 0.62);
+    --linie: rgba(46, 61, 44, 0.18);
+    --linie-hell: rgba(242, 234, 216, 0.2);
+  }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "DM Sans", system-ui, sans-serif; font-weight: 300; font-size: 9.4pt; line-height: 1.6; color: var(--text); }
+  .serif { font-family: "Fraunces", Georgia, serif; }
+  em { font-style: italic; }
+
+  .seite {
+    width: 210mm; height: 297mm; position: relative; overflow: hidden;
+    page-break-after: always; break-after: page;
+  }
+  .seite:last-child { page-break-after: auto; break-after: auto; }
+
+  /* Kleinteile, die auf allen Seiten gleich sind */
+  .marke { font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 11pt; letter-spacing: 0.32em; }
+  .marke i { font-weight: 300; letter-spacing: 0.1em; color: var(--ton); }
+  .klein { font-size: 6.6pt; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; }
+  .nr { font-family: "Fraunces", Georgia, serif; font-style: italic; font-weight: 300; font-size: 9pt; letter-spacing: 0.04em; }
+  .kopf { position: absolute; top: 14mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; align-items: baseline; }
+  .fuss { position: absolute; bottom: 12mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; align-items: baseline; }
+
+  /* ── Seite 1: Deckblatt ───────────────────────────────────────── */
+  .deck { background: var(--dunkel) url("deckblatt.jpg") center 42% / cover no-repeat; color: var(--creme); }
+  .deck::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(20,28,18,0.55) 0%, rgba(20,28,18,0) 22%),
+      linear-gradient(180deg, rgba(20,28,18,0) 38%, rgba(20,28,18,0.78) 66%, rgba(20,28,18,0.97) 100%);
+  }
+  .deck > * { z-index: 1; }
+  .deck .kopf .klein { opacity: 0.8; }
+  .deck-titel { position: absolute; left: 18mm; right: 18mm; bottom: 40mm; }
+  .deck-titel .klein { color: var(--ton-hell); display: flex; align-items: center; gap: 4mm; }
+  .deck-titel .klein::before { content: ""; width: 12mm; border-top: 0.6pt solid var(--ton-hell); }
+  .deck h1 {
+    margin-top: 7mm; font-family: "Fraunces", Georgia, serif; font-weight: 200;
+    font-size: 58pt; line-height: 0.96; letter-spacing: -0.02em;
+  }
+  .deck h1 em { color: var(--ton-hell); font-weight: 200; }
+  .deck-unter { margin-top: 7mm; max-width: 112mm; font-size: 10.5pt; line-height: 1.6; color: rgba(242,234,216,0.82); }
+  .deck .fuss { border-top: 0.6pt solid var(--linie-hell); padding-top: 4.5mm; color: rgba(242,234,216,0.72); }
+  .deck .fuss span { flex: 1; }
+  .deck .fuss span + span { text-align: center; }
+  .deck .fuss span:last-child { text-align: right; }
+
+  /* ── Seite 2: der Abend ───────────────────────────────────────── */
+  .abend { background: var(--papier); }
+  .abend .kopf { color: var(--leise); }
+  .innen { position: absolute; top: 32mm; left: 18mm; right: 18mm; }
+  .aufmacher { display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; align-items: end; }
+  .aufmacher h2 { font-family: "Fraunces", Georgia, serif; font-weight: 200; font-size: 34pt; line-height: 1.02; letter-spacing: -0.015em; color: var(--gruen); }
+  .aufmacher h2 em { color: var(--ton); }
+  .aufmacher p { font-size: 10pt; line-height: 1.65; color: var(--leise); padding-bottom: 1.5mm; }
+
+  .abschnitt { margin-top: 12mm; }
+  .abschnitt > .klein { color: var(--ton); }
+  .wege { margin-top: 4mm; border-top: 0.6pt solid var(--linie); }
+  .weg { display: grid; grid-template-columns: 16mm 46mm 1fr; align-items: baseline; padding: 4mm 0; border-bottom: 0.6pt solid var(--linie); }
+  .weg .nr { color: var(--ton); font-size: 11pt; }
+  .weg h3 { font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 17pt; color: var(--gruen); }
+  .weg p { color: var(--leise); font-size: 10pt; }
+  .wege-notiz { margin-top: 4mm; font-size: 8.8pt; color: var(--leise); }
+
+  .runden { margin-top: 4mm; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 0.6pt solid var(--linie); border-bottom: 0.6pt solid var(--linie); }
+  .runde { padding: 6mm 0 6mm 0; }
+  .runde + .runde { border-left: 0.6pt solid var(--linie); padding-left: 9mm; }
+  .runde .gross { font-family: "Fraunces", Georgia, serif; font-weight: 200; font-size: 30pt; line-height: 1; color: var(--gruen); }
+  .runde .gross em { color: var(--ton); }
+  .runde h3 { margin-top: 3mm; font-size: 9.6pt; font-weight: 500; color: var(--gruen); }
+  .runde p { margin-top: 1mm; color: var(--leise); max-width: 74mm; }
+
+  .zahlen { margin-top: 9mm; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .zahl + .zahl { padding-left: 7mm; border-left: 0.6pt solid var(--linie); }
+  .zahl .wert { font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 19pt; color: var(--gruen); line-height: 1.1; }
+  .zahl .was { margin-top: 1mm; font-size: 8.4pt; color: var(--leise); }
+
+  .werte { margin-top: 9mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7mm; }
+  .wert-k h4 { font-size: 8.8pt; font-weight: 500; color: var(--gruen); display: flex; gap: 2.5mm; align-items: baseline; }
+  .wert-k h4::before { content: ""; width: 1.4mm; height: 1.4mm; border-radius: 50%; background: var(--ton); transform: translateY(-0.4mm); flex: none; }
+  .wert-k p { margin-top: 1.2mm; font-size: 8.6pt; color: var(--leise); }
+  .abend .fuss { color: var(--leise); }
+
+  /* ── Seite 3: Magie und Kontakt ───────────────────────────────── */
+  .magie { background: var(--dunkel); color: var(--creme); }
+  .magie .kopf { color: rgba(242,234,216,0.6); }
+  .magie-bild {
+    position: absolute; top: 0; right: 0; width: 92mm; height: 164mm;
+    background: url("magicel.jpg") 58% 30% / cover no-repeat;
+  }
+  .magie-bild::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--dunkel) 0%, rgba(26,36,24,0) 28%), linear-gradient(0deg, var(--dunkel) 0%, rgba(26,36,24,0) 26%);
+  }
+  .magie-text { position: absolute; top: 31mm; left: 18mm; width: 98mm; }
+  .magie-text .klein { color: var(--ton-hell); display: flex; align-items: center; gap: 4mm; }
+  .magie-text .klein::before { content: ""; width: 12mm; border-top: 0.6pt solid var(--ton-hell); }
+  .magie-text h2 { margin-top: 6mm; font-family: "Fraunces", Georgia, serif; font-weight: 200; font-size: 44pt; line-height: 0.98; letter-spacing: -0.02em; }
+  .magie-text h2 em { color: var(--ton-hell); }
+  .magie-text .wer { margin-top: 8mm; font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 13pt; }
+  .magie-text .wer span { color: rgba(242,234,216,0.55); font-style: italic; }
+  .magie-text p.lauf { margin-top: 3.5mm; font-size: 10pt; line-height: 1.7; color: rgba(242,234,216,0.78); }
+  .formate { margin-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; border-top: 0.6pt solid var(--linie-hell); }
+  .format { padding-top: 4mm; }
+  .format + .format { padding-left: 6mm; border-left: 0.6pt solid var(--linie-hell); }
+  .format h4 { font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 12pt; }
+  .format p { margin-top: 1mm; font-size: 8.6pt; color: rgba(242,234,216,0.65); }
+  .magie-kennzahlen { margin-top: 5.5mm; display: flex; gap: 9mm; }
+  .magie-kennzahlen div { font-size: 8.4pt; color: rgba(242,234,216,0.65); }
+  .magie-kennzahlen strong { display: block; font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 19pt; color: var(--creme); line-height: 1.1; }
+  .magie-link { margin-top: 4.5mm; font-size: 9pt; color: rgba(242,234,216,0.7); }
+  .magie-link b { font-weight: 500; color: var(--ton-hell); }
+
+  .gutschein { position: absolute; left: 18mm; right: 18mm; top: 178mm; display: grid; grid-template-columns: 62mm 1fr; gap: 8mm; padding: 6mm 0; border-top: 0.6pt solid var(--linie-hell); border-bottom: 0.6pt solid var(--linie-hell); }
+  .gutschein h3 { font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 15pt; line-height: 1.15; }
+  .gutschein h3 em { color: var(--ton-hell); }
+  .gutschein p { font-size: 9pt; color: rgba(242,234,216,0.72); }
+  .gutschein b { font-weight: 500; color: var(--ton-hell); }
+
+  .weiter { position: absolute; left: 18mm; right: 18mm; top: 214mm; display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; }
+  .weiter h2 { font-family: "Fraunces", Georgia, serif; font-weight: 200; font-size: 26pt; line-height: 1.05; }
+  .weiter h2 em { color: var(--ton-hell); }
+  .weiter p { margin-top: 4mm; font-size: 9.6pt; line-height: 1.65; color: rgba(242,234,216,0.78); }
+  .kontakt .klein { color: var(--ton-hell); }
+  .kontakt .name { margin-top: 3mm; font-family: "Fraunces", Georgia, serif; font-weight: 300; font-size: 17pt; }
+  .kontakt .zusatz { font-family: "Fraunces", Georgia, serif; font-style: italic; font-weight: 300; font-size: 10pt; color: rgba(242,234,216,0.55); }
+  .kontakt ul { margin-top: 4mm; list-style: none; font-size: 9.6pt; line-height: 1.85; }
+  .kontakt li b { font-weight: 500; color: var(--ton-hell); }
+  .magie .fuss { border-top: 0.6pt solid var(--linie-hell); padding-top: 4mm; font-size: 7pt; letter-spacing: 0.04em; color: rgba(242,234,216,0.5); }
+</style>
+</head>
+<body>
+
+<!-- ═════════════ Seite 1 ═════════════ -->
+<section class="seite deck">
+  <div class="kopf">
+    <span class="marke">WALD <i>&amp;</i> WIESE</span>
+    <span class="klein">Sinzing bei Regensburg</span>
+  </div>
+  <div class="deck-titel">
+    <p class="klein">Weihnachtsfeier 2026</p>
+    <h1>Feiern<br />am <em>Waldrand.</em></h1>
+    <p class="deck-unter">Hausgemachte, regionale Küche, ein Abend mit Zeit und eine Familie, die selbst am Herd und im Service steht.</p>
+  </div>
+  <div class="fuss klein">
+    <span>Firmen · Teams · Vereine</span>
+    <span>Ab 30 Personen exklusiv</span>
+    <span>Advent 2026</span>
+  </div>
+</section>
+
+<!-- ═════════════ Seite 2 ═════════════ -->
+<section class="seite abend">
+  <div class="kopf">
+    <span class="marke">WALD <i>&amp;</i> WIESE</span>
+    <span class="nr">02 · Der Abend</span>
+  </div>
+
+  <div class="innen">
+    <div class="aufmacher">
+      <h2>Ankommen<br />statt <em>Programm.</em></h2>
+      <p>Wald &amp; Wiese ist ein familiengeführtes Restaurant in Sinzing, wenige Minuten südwestlich von Regensburg. Ankunft mit Aperitif, das Menü in Ruhe, danach offener Ausklang, so lange, wie wir es miteinander vereinbaren.</p>
+    </div>
+
+    <div class="abschnitt">
+      <p class="klein">Drei Wege durch den Abend</p>
+      <div class="wege">
+        <div class="weg"><span class="nr">i.</span><h3>Klassisch</h3><p>Ein Menü mit drei Gängen.</p></div>
+        <div class="weg"><span class="nr">ii.</span><h3>Festlich</h3><p>Vier Gänge mit Aperitif und Weinbegleitung.</p></div>
+        <div class="weg"><span class="nr">iii.</span><h3>Buffet</h3><p>Flexibel, für größere Runden.</p></div>
+      </div>
+      <p class="wege-notiz">Zu jedem Weg gibt es eine vegetarische und eine vegane Alternative, gleichwertig gedacht. Menü und Preise stimmen wir persönlich mit Ihnen ab.</p>
+    </div>
+
+    <div class="abschnitt">
+      <p class="klein">Klein oder ganz für sich</p>
+      <div class="runden">
+        <div class="runde">
+          <p class="gross"><em>Jede</em> Größe</p>
+          <h3>Auch kleine Feiern</h3>
+          <p>Ein Tisch für ein kleines Team ist uns genauso lieb wie eine große Runde. Kleinere Gruppen bekommen einen eigenen Bereich.</p>
+        </div>
+        <div class="runde">
+          <p class="gross">ab 30 <em>Personen</em></p>
+          <h3>Geschlossene Gesellschaft</h3>
+          <p>Ab 30 Gästen gehört Ihnen das ganze Restaurant. Kein Nebentisch, nur Ihr Team.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="zahlen">
+      <div class="zahl"><p class="wert">rund 50</p><p class="was">Gäste im Innenraum</p></div>
+      <div class="zahl"><p class="wert">10 Minuten</p><p class="was">von Regensburg-Süd</p></div>
+      <div class="zahl"><p class="wert">Parkplätze</p><p class="was">direkt am Haus</p></div>
+    </div>
+
+    <div class="werte">
+      <div class="wert-k"><h4>Familiengeführt</h4><p>Kein Caterer, keine Kette. Sie planen direkt mit Familie Leber.</p></div>
+      <div class="wert-k"><h4>Hausgemacht und regional</h4><p>Ein winterliches Menü mit dem, was die Saison hergibt.</p></div>
+      <div class="wert-k"><h4>Terrasse zum Auftakt</h4><p>Der Aperitif bei passendem Wetter draußen, mit Heizstrahlern.</p></div>
+    </div>
+  </div>
+
+  <div class="fuss">
+    <span class="klein">restaurant-waldwiese.de/weihnachtsfeier</span>
+    <span class="nr">Sinzing</span>
+  </div>
+</section>
+
+<!-- ═════════════ Seite 3 ═════════════ -->
+<section class="seite magie">
+  <div class="magie-bild" role="img" aria-label="Magicel mit rotem Luftballon bei Wald &amp; Wiese"></div>
+  <div class="kopf">
+    <span class="marke">WALD <i>&amp;</i> WIESE</span>
+  </div>
+
+  <div class="magie-text">
+    <p class="klein">Auf Wunsch dazu</p>
+    <h2>Ein Hauch<br /><em>Magie.</em></h2>
+    <p class="wer">Emilian Leber <span>alias Magicel</span></p>
+    <p class="lauf">Emilian gehört zur Familie und ist Auftrittsmagier für Firmenfeiern, Hochzeiten und Events. Er verbindet Zauberkunst und Comedy zu Momenten, über die Ihr Team am nächsten Morgen noch redet.</p>
+    <div class="formate">
+      <div class="format"><h4>Am Tisch</h4><p>Close-Up zwischen den Gängen, direkt bei Ihren Gästen.</p></div>
+      <div class="format"><h4>Auf der Bühne</h4><p>Eine Show für alle Gäste auf einmal.</p></div>
+    </div>
+    <div class="magie-kennzahlen">
+      <div><strong>seit 2016</strong>auf der Bühne</div>
+      <div><strong>über 200</strong>Events</div>
+    </div>
+    <p class="magie-link">Einfach bei der Anfrage dazusagen. Mehr unter <b>magicel.de</b></p>
+  </div>
+
+  <div class="gutschein">
+    <h3>Auch eine Idee:<br /><em>Gutscheine</em> für Ihr Team</h3>
+    <p>Wertgutscheine ab 10 Euro, sofort als PDF oder als gedruckte Karte per Post, drei Jahre gültig. Firmen bestellen auch auf Rechnung. <b>restaurant-waldwiese.de/gutscheine</b></p>
+  </div>
+
+  <div class="weiter">
+    <div>
+      <h2>So geht es<br /><em>weiter.</em></h2>
+      <p>Nennen Sie uns Ihren Wunschtermin, die ungefähre Personenzahl und was Ihnen vorschwebt. Sie bekommen in der Regel innerhalb von 24 Stunden einen persönlichen Vorschlag, ganz unverbindlich. Die Adventswochenenden sind erfahrungsgemäß zuerst vergeben.</p>
+    </div>
+    <div class="kontakt">
+      <p class="klein">Ihr Ansprechpartner</p>
+      <p class="name">Emilian Leber</p>
+      <p class="zusatz">und auf Wunsch auch Ihr Zauberer</p>
+      <ul>
+        <li>+49 160 4265772</li>
+        <li>info@restaurant-waldwiese.de</li>
+        <li><b>restaurant-waldwiese.de/weihnachtsfeier</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fuss">
+    <span>Wald &amp; Wiese UG (haftungsbeschränkt) · Bruckdorfer Straße 42 · 93161 Sinzing</span>
+    <span>Amtsgericht Regensburg, HRB 21989</span>
+  </div>
+</section>
+
+</body>
+</html>

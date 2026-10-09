@@ -184,6 +184,54 @@ export async function ensureSchema(): Promise<void> {
           empfaenger  TEXT NOT NULL,
           gesendet_am INTEGER NOT NULL
         )`,
+
+        // ─── Akquise (Firmenkontakte, siehe lib/akquise.ts) ─────────────
+        // Der Kontakt selbst und sein Verlauf. Zeitpunkte in Millisekunden
+        // wie ueberall sonst, `faellig_am` als Kalendertag (JJJJ-MM-TT).
+        `CREATE TABLE IF NOT EXISTS akquise_leads (
+          id                    TEXT PRIMARY KEY,
+          firma                 TEXT NOT NULL,
+          person                TEXT,
+          rolle                 TEXT,
+          email                 TEXT,
+          telefon               TEXT,
+          website               TEXT,
+          ort                   TEXT,
+          branche               TEXT,
+          typ                   TEXT NOT NULL DEFAULT 'firma',
+          quelle                TEXT,
+          status                TEXT NOT NULL DEFAULT 'neu',
+          notiz                 TEXT,
+          naechster_schritt     TEXT,
+          faellig_am            TEXT,
+          fakt                  TEXT,
+          passung               TEXT,
+          betreff               TEXT,
+          entwurf               TEXT,
+          angeschrieben_am      INTEGER,
+          nachgefasst_am        INTEGER,
+          anruf_am              INTEGER,
+          anruf_ergebnis        TEXT,
+          zuletzt_gesendet_text TEXT,
+          zuletzt_gesendet_am   INTEGER,
+          resend_id             TEXT,
+          gesperrt              INTEGER NOT NULL DEFAULT 0,
+          created_at            INTEGER NOT NULL,
+          updated_at            INTEGER NOT NULL
+        )`,
+        // Dieselbe Adresse nicht zweimal anlegen — sonst bekommt eine Firma
+        // die Anfrage doppelt.
+        `CREATE UNIQUE INDEX IF NOT EXISTS idx_akq_email
+           ON akquise_leads (lower(email)) WHERE email IS NOT NULL AND email <> ''`,
+        `CREATE INDEX IF NOT EXISTS idx_akq_status ON akquise_leads (status, faellig_am)`,
+        `CREATE TABLE IF NOT EXISTS akquise_events (
+          id         TEXT PRIMARY KEY,
+          lead_id    TEXT NOT NULL,
+          art        TEXT NOT NULL DEFAULT 'notiz',
+          text       TEXT,
+          created_at INTEGER NOT NULL
+        )`,
+        `CREATE INDEX IF NOT EXISTS idx_akq_events ON akquise_events (lead_id, created_at)`,
       ],
       "write",
     );

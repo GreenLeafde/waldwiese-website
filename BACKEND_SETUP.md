@@ -92,6 +92,37 @@ der Aufruf von Vercel kommt.
     angemeldet sind. Unter `/admin/versand` steht sie als „⏰ geplant"; von dort
     lässt sie sich auch vorzeitig losschicken.
 
+## Akquise (`/admin/akquise`)
+
+Firmenkontakte für Weihnachtsfeiern: Kontakte, fertiger Mail-Entwurf, Versand
+und Verlauf. Vorbild ist der gleiche Bereich im Hotel-Backend.
+
+- **Kontakte** einzeln anlegen oder als Liste einfügen (eine Zeile je Kontakt:
+  `Firma; Person; Rolle; E-Mail; Telefon; Ort; Branche; Website; Fakt; Passung`).
+- **Entwurf schreiben** füllt Betreff und Text je nach Zielgruppe. Der Text
+  lässt sich vor dem Senden frei ändern, die **Vorschau** zeigt die fertige Mail.
+- **Mail senden** schickt die erste Mail mit dem Weihnachtsfeier-Blatt im
+  Anhang (`public/downloads/wald-wiese-weihnachtsfeier.pdf`, drei Seiten, Quelle
+  und Anleitung zum Neuerzeugen: `scripts/weihnachtsfeier/blatt.html`). Resend holt das Blatt von der
+  Live-Website, es muss also deployed sein, bevor die erste Mail rausgeht.
+- **Stapel senden** schickt bis zu 50 fertige Entwürfe, **Alle senden** arbeitet
+  sich in Blöcken durch, bis nichts mehr offen ist (Browser offen lassen).
+- **Heute zu tun** zeigt, wo nachgefasst (5 Tage nach der ersten Mail) oder
+  angerufen (5 Tage nach der zweiten) werden sollte. Fälligkeiten fallen nie
+  aufs Wochenende, Samstag und Sonntag rutschen auf den Montag.
+- **Erinnerung**: Cron `/api/cron/akquise-erinnerung` jeden Montag früh
+  (`vercel.json`), schickt eine kurze Liste an info@, nur wenn etwas fällig ist.
+- **Abmelden**: ein Klick auf den Link im Mail-Kopf sperrt den Kontakt sofort
+  (`/api/akquise/abmelden`), wie im Natürlich. Keine sichtbare Abmeldezeile.
+- Sicherungen im Versand (`lib/akquise.ts`): höchstens 250 Mails pro Tag, jeder
+  Kontakt bekommt die erste Mail genau einmal, derselbe Text geht nie zweimal
+  raus, abgemeldete Kontakte und die Sperrliste werden nie angeschrieben.
+- Absender, Unterschrift, Tageslimit und Texte stehen in `lib/akquise-texte.ts`.
+
+Es braucht keine neuen Env-Variablen: genutzt werden `RESEND_API_KEY`,
+`CONTACT_FROM_EMAIL` und `NEWSLETTER_SECRET` (signiert die Abmeldelinks). Die
+Tabellen legt der Code beim ersten Zugriff selbst an.
+
 ## Auswertungen (`/admin/analytics`)
 
 First-Party-Tracking — **anonym, cookielos, ohne IP/personenbezogene Daten**,

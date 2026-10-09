@@ -1,6 +1,6 @@
 import { Eyebrow } from "@/components/eyebrow";
 import { LeafDivider } from "@/components/leaf-divider";
-import { CONTACT, SITE } from "@/lib/site";
+import { COMPANY, CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
   title: "Impressum",
@@ -44,7 +44,9 @@ export default function ImpressumPage() {
 
           <section>
             <h2 className="font-display text-xl text-waldgruen">Vertreten durch</h2>
-            <p className="mt-3">Sven Leber (Geschäftsführer)</p>
+            <p className="mt-3">
+              {COMPANY.ceo} ({COMPANY.ceoTitel})
+            </p>
           </section>
 
           <section>

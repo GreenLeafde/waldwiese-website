@@ -9,6 +9,7 @@ const NAV = [
   { label: "Auswertungen", href: "/admin/analytics" },
   { label: "Newsletter", href: "/admin/newsletter" },
   { label: "Versand", href: "/admin/versand" },
+  { label: "Akquise", href: "/admin/akquise" },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -52,7 +53,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         {/* Mobile-Nav */}
-        <nav className="sm:hidden border-t border-mehlcreme/10 px-5 py-2 flex gap-5 text-sm">
+        <nav className="sm:hidden border-t border-mehlcreme/10 px-5 py-2 flex gap-5 text-sm overflow-x-auto whitespace-nowrap">
           {NAV.map((n) => (
             <Link
               key={n.href}
