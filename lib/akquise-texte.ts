@@ -177,8 +177,12 @@ export function anrede(l: Pick<Lead, "person">): string {
   if (!p) return "Guten Tag,";
   const m = p.match(/^(frau|herr)\s+(.+)$/i);
   if (m) {
-    const nachname = m[2].trim().split(/\s+/).slice(-1)[0];
-    return `Guten Tag ${gross(m[1].toLowerCase())} ${nachname},`;
+    // Nur die erste Person, falls mehrere genannt sind ("Herr A und Herr B").
+    const rest = m[2].split(/\s+und\s+/i)[0].trim();
+    const nachname = rest.split(/\s+/).slice(-1)[0];
+    // Doktor und Professor gehoeren in die Anrede, "med.", "Dipl.-Ing." nicht.
+    const titel = `${/\bProf\./.test(rest) ? "Prof. " : ""}${/\bDr\./.test(rest) ? "Dr. " : ""}`;
+    return `Guten Tag ${gross(m[1].toLowerCase())} ${titel}${nachname},`;
   }
   return `Guten Tag ${p},`;
 }
@@ -277,7 +281,9 @@ function ortsatz(ort: string | null): string {
  */
 export function entwurfFuer(l: Kopf): { betreff: string; text: string } {
   const z = ZIELGRUPPE[l.typ] ?? ZIELGRUPPE.firma;
-  const id = String(l.id ?? l.firma ?? "");
+  // Nach Firmenname, nicht nach Kennung: so ist die Vorschau vor dem Import
+  // wortgleich mit der Mail, die spaeter aus der Datenbank rausgeht.
+  const id = String(l.firma || l.id || "");
   const fakt = ohnePunkt(l.fakt);
   const passung = ohnePunkt(l.passung);
 
