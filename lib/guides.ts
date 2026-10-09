@@ -199,7 +199,7 @@ export const GUIDES: Guide[] = [
         heading: "So plant ihr eure Weihnachtsfeier bei Wald & Wiese",
         body: [
           "Damit das nicht graue Theorie bleibt, kurz zu uns: Wald & Wiese ist ein familiengeführtes Restaurant in Sinzing, rund zehn Minuten von Regensburg-Süd, direkt am Waldrand mit Parkplätzen am Haus. Die Küche ist komplett hausgemacht und regional, vegetarisch und vegan gleichberechtigt. Für den Aperitif gibt es die Terrasse im Grünen — im Winter mit Heizstrahlern, wenn das Wetter mitspielt.",
-          "Zur Wahl stehen drei Menü-Wege: klassisch mit drei Gängen, festlich mit vier Gängen und Aperitif, oder ein Buffet für größere Runden. Mehr Details findet ihr auf unserer Seite zur Weihnachtsfeier.",
+          "Zur Wahl stehen zwei Menü-Wege: klassisch mit drei Gängen oder festlich mit vier Gängen und Aperitif. Mehr Details findet ihr auf unserer Seite zur Weihnachtsfeier.",
           "Eine Anfrage ist schnell gemacht und unverbindlich: über die Weihnachtsfeier-Seite, per Mail an info@restaurant-waldwiese.de oder telefonisch bei Sven Leber unter 0160 4265772. Wir melden uns in der Regel innerhalb von 24 Stunden mit einem persönlichen Vorschlag zurück.",
         ],
       },
