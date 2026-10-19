@@ -344,6 +344,14 @@ function Karte({
   function zeigerHoch(e: React.PointerEvent) {
     const gezogen = richtungKlar.current === "quer";
     const weit = breite > 0 && -dx > breite * SCHWELLE;
+    // Beim Scrollen bricht der Browser den Zeiger ab (pointercancel) — oft
+    // noch bevor die 10 px erreicht sind. Das ist nie ein Antippen, sonst
+    // springt beim Durchscrollen staendig die Detailansicht auf.
+    const abgebrochen = e.type === "pointercancel";
+    const kaumBewegt =
+      start.current !== null &&
+      Math.abs(e.clientX - start.current.x) < 10 &&
+      Math.abs(e.clientY - start.current.y) < 10;
 
     if (gezogen) {
       try {
@@ -351,8 +359,8 @@ function Karte({
       } catch {
         /* war nie gefangen */
       }
-      if (weit) onErledigen();
-    } else if (start.current) {
+      if (weit && !abgebrochen) onErledigen();
+    } else if (!abgebrochen && richtungKlar.current === null && kaumBewegt) {
       // Kaum bewegt = Antippen.
       onOeffnen();
     }
