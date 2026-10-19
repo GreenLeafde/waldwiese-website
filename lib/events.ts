@@ -54,6 +54,22 @@ export type EventItem = {
   /** Kurze Fakten-Liste (Datum, Preis, Menü …) für die Detailseite */
   facts: { label: string; value: string }[];
   faq?: { q: string; a: string }[];
+  /** schema.org-Typ(en); Standard ist TheaterEvent */
+  schemaType?: string | string[];
+  /** Einlass in lokaler Zeit, ISO (schema.org doorTime) */
+  doorTime?: string;
+  /** Ab wann Tickets verkauft werden, ISO (Offer.validFrom) */
+  ticketsFrom?: string;
+  /** Wer auftritt — für schema.org performer */
+  performer?: { name: string; url: string; sameAs?: string[] };
+  /** YouTube-Video des Veranstalters (wird erst nach Klick geladen) */
+  video?: { youtubeId: string; title: string };
+  /** Bildnachweis unter dem Hero, Standard „Szenenfoto: <Veranstalter>“ */
+  heroCredit?: string;
+  /** Überschrift + Text für den Abschluss-CTA */
+  cta?: { heading: string; accent: string; text: string };
+  /** Suchbegriffe für schema.org keywords („Dinnershow Regensburg“ …) */
+  keywords?: string[];
 };
 
 const KRIMI = {
@@ -65,6 +81,160 @@ const KRIMI_TICKET_NOTE =
   "Tickets gibt es ausschließlich direkt beim Veranstalter „Das Kriminal Dinner“ — nicht bei uns im Restaurant und nicht über unsere Tischreservierung.";
 
 export const EVENTS: EventItem[] = [
+  {
+    slug: "magic-dinner-regensburg-sinzing-2027",
+    title: "Magic Dinner · Eine Show in 3 Gängen",
+    kicker: "Dinnershow · Zauberei & Comedy",
+    metaTitle:
+      "Magic Dinner Regensburg 20.02.2027 · Dinnershow mit Zauberer | Wald & Wiese",
+    metaDescription:
+      "Magic Dinner bei Regensburg am Samstag, 20.02.2027 im Wald & Wiese in Sinzing: 3-Gänge-Menü plus Zauberei & Comedy von Emilian Leber direkt am Tisch. Einlass 17 Uhr, Beginn 18 Uhr, 89,90 € pro Person.",
+    teaser:
+      "Ein 3-Gänge-Menü aus unserer Küche — und zwischen den Gängen Close-Up-Magie und Comedy von Emilian Leber direkt an eurem Tisch. Die Wintertermine der letzten Jahre waren ausverkauft.",
+    startsAt: "2027-02-20T18:00:00+01:00",
+    doorTime: "2027-02-20T17:00:00+01:00",
+    ticketsFrom: "2026-10-18T00:00:00+02:00",
+    dateLabel: "Samstag, 20. Februar 2027",
+    timeLabel: "18:00 Uhr · Einlass 17:00 Uhr",
+    price: 89.9,
+    priceLabel: "89,90 € pro Person",
+    priceNote: "3-Gänge-Menü und Show inklusive",
+    ticketUrl:
+      "https://okticket.de/tickets-magic-dinner-eine-show-in-3-gaengen-sinzing-wald-wiese-2027-02-20-e60557?event_id=60557",
+    ticketNote:
+      "Tickets gibt es online bei okticket (Veranstalter magicEL) — nicht über unsere normale Tischreservierung. Fleisch-, vegetarisches oder veganes Menü wählst du direkt bei der Buchung.",
+    organizer: { name: "magicEL", url: "https://magicel.de" },
+    schemaType: ["TheaterEvent", "FoodEvent"],
+    performer: {
+      name: "Emilian Leber",
+      url: "https://magicel.de",
+      sameAs: [
+        "https://www.youtube.com/@magicelde",
+        "https://www.instagram.com/_magicel/",
+      ],
+    },
+    video: {
+      youtubeId: "jYuy-XMrrgY",
+      title: "Magic Dinner · Eine Show in 3 Gängen I Showreel",
+    },
+    hero: {
+      src: "/photos/events/magic-dinner-emilian-leber-01.webp",
+      alt: "Zauberkünstler Emilian Leber im roten Sakko zeigt zwei Gästen im Anzug einen Trick direkt am Tisch",
+      width: 1200,
+      height: 674,
+    },
+    heroCredit: "Foto: magicEL",
+    gallery: [],
+    intro:
+      "Am Samstag, 20. Februar 2027 wird das Wald & Wiese in Sinzing bei Regensburg für einen Abend zu einem Ort voller Magie: Unsere Küche serviert ein 3-Gänge-Menü — und zwischen den Gängen übernimmt Zauberkünstler Emilian Leber, mit Close-Up und Comedy hautnah an eurem Tisch.",
+    sections: [
+      {
+        heading: "Was ist das Magic Dinner?",
+        body: [
+          "Das Magic Dinner ist eine Dinnershow bei Regensburg: ein 3-Gänge-Menü aus der Küche des Wald & Wiese, und zwischen den Gängen Zauberei und Comedy von Emilian Leber. Es ist sein Signature-Format — mit dem Wald & Wiese als Hauspartner.",
+          "Kein Abstand zur Bühne, kein Zuschauen aus der letzten Reihe: Die Wunder passieren direkt vor euren Augen und oft in euren eigenen Händen. Dazu kommen Momente, die der ganze Raum gemeinsam erlebt. Ein Abend zum Lachen, Staunen und Genießen.",
+        ],
+      },
+      {
+        heading: "Wer ist Emilian Leber?",
+        body: [
+          "Emilian Leber ist Zauberkünstler aus Regensburg und Finalist bei Greatest Talent und Talents of Magic. 2025 stand er im TVA-Studio, seit 2016 hat er über 200 Events gespielt.",
+          "Er stammt selbst aus der Familie, die das Wald & Wiese führt, und ist regelmäßig im Restaurant — das Magic Dinner ist also ein Abend bei Familie, nicht in einer anonymen Eventhalle.",
+        ],
+      },
+      {
+        heading: "So läuft der Abend",
+        body: [
+          "Einlass ist ab 17:00 Uhr, los geht es um 18:00 Uhr. Serviert wird ein 3-Gänge-Menü; zwischen den Gängen kommt die Show — am Tisch und für den ganzen Raum.",
+          "Beim Ticketkauf wählst du für jede Person Fleisch-, vegetarisches oder veganes Menü, ohne Aufpreis. Getränke sind nicht im Ticket enthalten und laufen wie gewohnt über uns.",
+        ],
+      },
+      {
+        heading: "Schon zum fünften Mal",
+        body: [
+          "Das Magic Dinner ist ein Winterformat im Wald & Wiese: 2025 gab es Termine im Januar und Februar, 2026 am 24. Januar und 7. Februar — beide waren innerhalb weniger Wochen ausverkauft. Der 20. Februar 2027 ist die fünfte Ausgabe.",
+          "Wer sicher dabei sein will, holt sich seine Tickets also lieber früh. Der Vorverkauf läuft seit dem 18. Oktober 2026.",
+        ],
+      },
+      {
+        heading: "Anfahrt nach Sinzing",
+        body: [
+          "Das Wald & Wiese liegt in der Bruckdorfer Straße 42 in 93161 Sinzing — im Landkreis Regensburg, direkt vor den Toren der Stadt. Aus Regensburg seid ihr in wenigen Minuten bei uns, auch aus Nittendorf, Pentling oder Kelheim ist es nicht weit.",
+        ],
+      },
+    ],
+    facts: [
+      {
+        label: "Wann",
+        value: "Samstag, 20.02.2027 · Einlass 17:00 Uhr, Beginn 18:00 Uhr",
+      },
+      {
+        label: "Wo",
+        value: "Wald & Wiese, Bruckdorfer Str. 42, 93161 Sinzing bei Regensburg",
+      },
+      { label: "Preis", value: "89,90 € pro Person" },
+      {
+        label: "Inklusive",
+        value: "3-Gänge-Menü + Zaubershow (Close-Up & Comedy)",
+      },
+      {
+        label: "Menü",
+        value: "Fleisch, vegetarisch oder vegan — bei der Buchung wählen",
+      },
+      { label: "Künstler", value: "Emilian Leber, Zauberkünstler aus Regensburg" },
+      { label: "Tickets", value: "online bei okticket, seit 18.10.2026" },
+      {
+        label: "Veranstalter",
+        value: "magicEL · örtlicher Veranstalter Restaurant Wald & Wiese",
+      },
+    ],
+    faq: [
+      {
+        q: "Wann und wo findet das Magic Dinner statt?",
+        a: "Am Samstag, 20. Februar 2027 im Restaurant Wald & Wiese, Bruckdorfer Str. 42, 93161 Sinzing bei Regensburg. Einlass ist um 17:00 Uhr, Beginn um 18:00 Uhr.",
+      },
+      {
+        q: "Was kostet ein Ticket?",
+        a: "89,90 € pro Person. Darin enthalten sind das 3-Gänge-Menü und die Show. Getränke zahlt ihr wie gewohnt vor Ort.",
+      },
+      {
+        q: "Wo bekomme ich Tickets?",
+        a: "Online bei okticket. Der Vorverkauf läuft seit Sonntag, 18. Oktober 2026. Unsere normale Tischreservierung gilt für diesen Abend nicht.",
+      },
+      {
+        q: "Gibt es ein vegetarisches oder veganes Menü?",
+        a: "Ja. Bei der Buchung wählst du für jede Person zwischen Fleisch-Menü, vegetarischem und veganem Menü — ohne Aufpreis.",
+      },
+      {
+        q: "Was passiert an dem Abend?",
+        a: "Zwischen den drei Gängen zeigt Emilian Leber Zauberei und Comedy: Close-Up-Magie direkt an eurem Tisch und Momente, die der ganze Raum gemeinsam erlebt.",
+      },
+      {
+        q: "Wer ist Emilian Leber?",
+        a: "Ein Zauberkünstler aus Regensburg, Finalist bei Greatest Talent und Talents of Magic, seit 2016 mit über 200 Events. Er gehört zur Familie hinter dem Wald & Wiese.",
+      },
+      {
+        q: "Kann ich Tickets verschenken?",
+        a: "Ja, ein Abend mit Essen und Show ist ein schönes Geschenk, zum Beispiel zu Weihnachten. Die Tickets kaufst du bei okticket; für einen normalen Restaurantbesuch gibt es außerdem unsere Gutscheine.",
+      },
+      {
+        q: "Kann ich ein Magic Dinner auch für meine eigene Feier buchen?",
+        a: "Ja, das Format gibt es auch privat — für Firmen- und Weihnachtsfeiern, Geburtstage oder Hochzeiten, bei uns im Wald & Wiese oder in eurer Location. Die Anfrage läuft direkt über Emilian Leber auf magicel.de.",
+      },
+    ],
+    cta: {
+      heading: "Staunen?",
+      accent: "Platz sichern.",
+      text: "Die letzten Magic Dinner waren schnell ausverkauft. Tickets für Samstag, 20. Februar 2027 gibt es bei okticket — das Menü (Fleisch, vegetarisch oder vegan) wählst du gleich mit.",
+    },
+    keywords: [
+      "Magic Dinner Regensburg",
+      "Dinnershow Regensburg",
+      "Zauberdinner Sinzing",
+      "Zaubershow mit Essen",
+      "Emilian Leber",
+    ],
+  },
   {
     slug: "krimidinner-mord-und-tod-im-gasthof-zur-zapfsaeule",
     title: "Krimidinner: Mord & Tod im Gasthof zur Zapfsäule",

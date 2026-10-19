@@ -38,9 +38,13 @@ const nextConfig: NextConfig = {
       { source: "/brunch", destination: "/speisekarte#fruehstueck", permanent: true },
       { source: "/abendessen", destination: "/speisekarte#abend", permanent: true },
       { source: "/speisen", destination: "/speisekarte", permanent: true },
-      // Magic Dinner / Events beendet → auf die Veranstaltungs-Seite umleiten.
-      { source: "/magic-dinner-summer-edition", destination: "/veranstaltungen", permanent: true },
-      { source: "/events/magic-dinner-summer-edition", destination: "/veranstaltungen", permanent: true },
+      // Magic Dinner: kurze Adressen (Social, Print, Radio) und alte Magic-
+      // Dinner-URLs zeigen immer auf den aktuellen Termin. Bewusst nicht
+      // permanent — beim nächsten Termin ändert sich nur das Ziel hier.
+      { source: "/magic-dinner", destination: "/veranstaltungen/magic-dinner-regensburg-sinzing-2027", permanent: false },
+      { source: "/magic-dinner-regensburg", destination: "/veranstaltungen/magic-dinner-regensburg-sinzing-2027", permanent: false },
+      { source: "/magic-dinner-summer-edition", destination: "/veranstaltungen/magic-dinner-regensburg-sinzing-2027", permanent: false },
+      { source: "/events/magic-dinner-summer-edition", destination: "/veranstaltungen/magic-dinner-regensburg-sinzing-2027", permanent: false },
       { source: "/events", destination: "/veranstaltungen", permanent: true },
       { source: "/speisen-getraenke", destination: "/speisekarte", permanent: true },
       { source: "/restaurant-regensburg", destination: "/abendessen-regensburg", permanent: true },

@@ -103,6 +103,9 @@ function buildRestaurantJsonLd() {
   return {
   "@context": "https://schema.org",
   "@type": "Restaurant",
+  // Gleiche @id wie der Ort in den Event-Schemas — so verknüpft Google
+  // Veranstaltungen mit dem Restaurant statt mit einem zweiten „Ort“.
+  "@id": `${SITE.url}/#restaurant`,
   name: SITE.name,
   url: SITE.url,
   description: siteDescription(),

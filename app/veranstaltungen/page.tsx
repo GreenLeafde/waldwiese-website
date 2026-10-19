@@ -4,12 +4,13 @@ import { EventCards } from "@/components/event-cards";
 import { LeafDivider } from "@/components/leaf-divider";
 import { GrowingVine } from "@/components/growing-vine";
 import { pastEvents, upcomingEvents } from "@/lib/events";
-import { CONTACT, GEO, SITE } from "@/lib/site";
+import { eventJsonLd } from "@/lib/event-schema";
+import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Veranstaltungen & Tickets — Krimidinner & Co. in Sinzing",
+  title: "Veranstaltungen & Tickets — Magic Dinner, Krimidinner & Co. bei Regensburg",
   description:
-    "Alle Veranstaltungen im Wald & Wiese in Sinzing bei Regensburg: Krimidinner und weitere Abende mit Termin, Preis und Ticketlink. Jetzt Termine ansehen.",
+    "Alle Veranstaltungen im Wald & Wiese in Sinzing bei Regensburg: Magic Dinner mit Zauberer Emilian Leber, Krimidinner und weitere Dinnershows mit Termin, Preis und Ticketlink.",
   alternates: { canonical: "/veranstaltungen" },
 };
 
@@ -22,42 +23,7 @@ export default function VeranstaltungenPage() {
   const upcoming = upcomingEvents();
   const past = pastEvents();
 
-  const eventsLd = upcoming.map((e) => ({
-    "@context": "https://schema.org",
-    "@type": "TheaterEvent",
-    name: e.title,
-    description: e.teaser,
-    startDate: e.startsAt,
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    image: `${SITE.url}${e.hero.src}`,
-    url: `${SITE.url}/veranstaltungen/${e.slug}`,
-    location: {
-      "@type": "Place",
-      name: SITE.name,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: CONTACT.street,
-        postalCode: CONTACT.postalCode,
-        addressLocality: CONTACT.city,
-        addressRegion: CONTACT.region,
-        addressCountry: "DE",
-      },
-      geo: { "@type": "GeoCoordinates", latitude: GEO.lat, longitude: GEO.lng },
-    },
-    organizer: {
-      "@type": "Organization",
-      name: e.organizer.name,
-      url: e.organizer.url,
-    },
-    offers: {
-      "@type": "Offer",
-      price: e.price,
-      priceCurrency: "EUR",
-      url: e.ticketUrl,
-      availability: "https://schema.org/InStock",
-    },
-  }));
+  const eventsLd = upcoming.map(eventJsonLd);
 
   const breadcrumbLd = {
     "@context": "https://schema.org",

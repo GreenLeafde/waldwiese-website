@@ -10,8 +10,9 @@ import { CONTACT, FOOTER_NAV, LEGAL_NAV, SITE } from "@/lib/site";
 export function SiteFooter() {
   return (
     <footer className="bg-waldgruen text-mehlcreme/70 border-t border-mehlcreme/10">
-      {/* NEWSLETTER-BAND */}
-      <div className="border-b border-mehlcreme/10">
+      {/* NEWSLETTER-BAND — id="newsletter": der QR-Code auf dem Aufsteller
+          im Restaurant führt auf restaurant-waldwiese.de/#newsletter. */}
+      <div id="newsletter" className="scroll-mt-24 border-b border-mehlcreme/10">
         <div className="mx-auto max-w-7xl px-6 md:px-10 py-14 md:py-16">
           <div className="relative overflow-hidden rounded-[2rem] bg-mehlcreme/[0.06] ring-1 ring-mehlcreme/15 px-7 py-10 md:px-12 md:py-12">
             {/* Botanik-Akzent */}
@@ -34,11 +35,12 @@ export function SiteFooter() {
               <div>
                 <p className="eyebrow no-line text-tonwarm">Newsletter</p>
                 <h2 className="mt-4 font-display text-3xl md:text-4xl font-normal leading-tight text-mehlcreme">
-                  Sei beim Frühstücks-Start dabei.
+                  Erfahr&apos;s als Erstes.
                 </h2>
                 <p className="mt-4 max-w-md text-mehlcreme/70 leading-relaxed">
                   Kein Spam — nur eine Mail, wenn&apos;s wirklich was gibt:
-                  Frühstücks-Start, neue Karte, besondere Abende auf der Terrasse.
+                  neue Termine wie Magic Dinner oder Krimidinner, neue Karte,
+                  besondere Abende bei uns im Grünen.
                 </p>
               </div>
               <div>

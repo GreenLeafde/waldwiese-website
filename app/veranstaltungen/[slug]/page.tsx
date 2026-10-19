@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
+import { VideoFacade } from "@/components/video-facade";
 import { EVENTS, getEvent, isPastEvent, upcomingEvents } from "@/lib/events";
-import { CONTACT, GEO, SITE } from "@/lib/site";
+import { eventJsonLd } from "@/lib/event-schema";
+import { SITE } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -17,15 +19,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const event = getEvent(slug);
   if (!event) return {};
   return {
-    title: event.metaTitle,
+    // metaTitle nennt das Restaurant schon selbst — ohne Layout-Suffix.
+    title: { absolute: event.metaTitle },
     description: event.metaDescription,
     alternates: { canonical: `/veranstaltungen/${slug}` },
+    ...(event.keywords?.length ? { keywords: event.keywords } : {}),
     openGraph: {
       title: event.title,
       description: event.metaDescription,
       url: `/veranstaltungen/${slug}`,
       type: "article",
-      images: [{ url: event.hero.src, alt: event.hero.alt }],
+      images: [
+        {
+          url: event.hero.src,
+          alt: event.hero.alt,
+          width: event.hero.width,
+          height: event.hero.height,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: event.title,
+      description: event.metaDescription,
+      images: [event.hero.src],
     },
   };
 }
@@ -38,45 +55,7 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
   const isPast = isPastEvent(event);
   const otherEvents = upcomingEvents().filter((e) => e.slug !== event.slug);
 
-  const eventLd = {
-    "@context": "https://schema.org",
-    "@type": "TheaterEvent",
-    name: event.title,
-    description: event.metaDescription,
-    startDate: event.startsAt,
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    image: [`${SITE.url}${event.hero.src}`],
-    url: `${SITE.url}/veranstaltungen/${slug}`,
-    inLanguage: "de-DE",
-    location: {
-      "@type": "Place",
-      name: SITE.name,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: CONTACT.street,
-        postalCode: CONTACT.postalCode,
-        addressLocality: CONTACT.city,
-        addressRegion: CONTACT.region,
-        addressCountry: "DE",
-      },
-      geo: { "@type": "GeoCoordinates", latitude: GEO.lat, longitude: GEO.lng },
-    },
-    organizer: {
-      "@type": "Organization",
-      name: event.organizer.name,
-      url: event.organizer.url,
-    },
-    offers: {
-      "@type": "Offer",
-      price: event.price,
-      priceCurrency: "EUR",
-      url: event.ticketUrl,
-      availability: isPast
-        ? "https://schema.org/SoldOut"
-        : "https://schema.org/InStock",
-    },
-  };
+  const eventLd = eventJsonLd(event);
 
   const faqLd = event.faq?.length
     ? {
@@ -198,7 +177,7 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
             />
           </div>
           <p className="mt-4 text-center text-xs text-mehlcreme/45">
-            Szenenfoto: {event.organizer.name}
+            {event.heroCredit ?? `Szenenfoto: ${event.organizer.name}`}
           </p>
         </div>
       </section>
@@ -241,6 +220,26 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {/* VIDEO */}
+      {event.video && (
+        <section className="bg-waldgruen text-mehlcreme">
+          <div className="mx-auto max-w-4xl px-6 md:px-10 py-16 md:py-24">
+            <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium reveal">
+              Video-Vorschau
+            </p>
+            <h2 className="mt-4 mb-8 text-3xl md:text-4xl font-display font-normal leading-tight tracking-tight text-mehlcreme reveal">
+              So fühlt sich der <span className="accent">Abend an.</span>
+            </h2>
+            <VideoFacade
+              youtubeId={event.video.youtubeId}
+              title={event.video.title}
+              poster={event.hero.src}
+              posterAlt={event.hero.alt}
+            />
+          </div>
+        </section>
+      )}
 
       {/* GALERIE */}
       {event.gallery.length > 0 && (
@@ -310,12 +309,14 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
           {!isPast && (
             <>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-                Mitermitteln? <span className="accent">Platz sichern.</span>
+                {event.cta?.heading ?? "Mitermitteln?"}{" "}
+                <span className="accent">
+                  {event.cta?.accent ?? "Platz sichern."}
+                </span>
               </h2>
               <p className="mt-6 text-mehlcreme/80 leading-relaxed max-w-xl mx-auto">
-                Der Ticketverkauf läuft über {event.organizer.name} — dort
-                buchst du Plätze für {event.dateLabel} und gibst gleich an, wenn
-                jemand vegan, vegetarisch oder mit Allergie am Tisch sitzt.
+                {event.cta?.text ??
+                  `Der Ticketverkauf läuft über ${event.organizer.name} — dort buchst du Plätze für ${event.dateLabel} und gibst gleich an, wenn jemand vegan, vegetarisch oder mit Allergie am Tisch sitzt.`}
               </p>
               <div className="mt-10">
                 <a

@@ -8,6 +8,7 @@ import { StampBadge } from "@/components/stamp-badge";
 import { ReviewsSection } from "@/components/reviews-section";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
 import { IMG } from "@/lib/images";
+import { upcomingEvents } from "@/lib/events";
 import {
   BREAKFAST_LAUNCH,
   CONTACT,
@@ -107,6 +108,7 @@ function SideVine({ side = "left" }: { side?: "left" | "right" }) {
 }
 
 export default function HomePage() {
+  const nextEvents = upcomingEvents().slice(0, 3);
   const reviewsJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -574,6 +576,26 @@ export default function HomePage() {
               >
                 Anfrage schicken <span aria-hidden>→</span>
               </a>
+              {nextEvents.length > 0 && (
+                <div className="mt-10 max-w-xl">
+                  <p className="text-[0.65rem] tracking-[0.22em] uppercase text-mehlcreme/50 font-medium">
+                    Kommende Abende mit Tickets
+                  </p>
+                  <ul className="mt-4 space-y-2 text-mehlcreme/80">
+                    {nextEvents.map((e) => (
+                      <li key={e.slug}>
+                        <Link
+                          href={`/veranstaltungen/${e.slug}`}
+                          className="border-b border-mehlcreme/25 hover:border-tonwarm hover:text-tonwarm pb-0.5 transition-colors"
+                        >
+                          {e.title}
+                        </Link>
+                        <span className="text-mehlcreme/55"> · {e.dateLabel}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
             <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal-scale">
               <Image
