@@ -46,6 +46,8 @@ export type EventItem = {
   /** Externer Ticketshop — der Verkauf läuft NICHT über uns */
   ticketUrl: string;
   ticketNote: string;
+  /** Beschriftung des Ticket-Buttons, Standard „Tickets beim Veranstalter“ */
+  ticketButtonLabel?: string;
   organizer: { name: string; url: string };
   hero: EventImage;
   gallery: EventImage[];
@@ -102,8 +104,9 @@ export const EVENTS: EventItem[] = [
     ticketUrl:
       "https://okticket.de/tickets-magic-dinner-eine-show-in-3-gaengen-sinzing-wald-wiese-2027-02-20-e60557?event_id=60557",
     ticketNote:
-      "Tickets gibt es online bei okticket (Veranstalter magicEL) — nicht über unsere normale Tischreservierung. Fleisch-, vegetarisches oder veganes Menü wählst du direkt bei der Buchung.",
-    organizer: { name: "magicEL", url: "https://magicel.de" },
+      "Tickets gibt es online bei okticket und bei uns im Restaurant an der Bar — nicht über die normale Tischreservierung. Online wählst du Fleisch-, vegetarisches oder veganes Menü direkt bei der Buchung.",
+    ticketButtonLabel: "Tickets online bei okticket",
+    organizer: { name: "Restaurant Wald & Wiese", url: "https://restaurant-waldwiese.de" },
     schemaType: ["TheaterEvent", "FoodEvent"],
     performer: {
       name: "Emilian Leber",
@@ -182,10 +185,13 @@ export const EVENTS: EventItem[] = [
         value: "Fleisch, vegetarisch oder vegan — bei der Buchung wählen",
       },
       { label: "Künstler", value: "Emilian Leber, Zauberkünstler aus Regensburg" },
-      { label: "Tickets", value: "online bei okticket, seit 18.10.2026" },
+      {
+        label: "Tickets",
+        value: "online bei okticket oder im Restaurant an der Bar, seit 18.10.2026",
+      },
       {
         label: "Veranstalter",
-        value: "magicEL · örtlicher Veranstalter Restaurant Wald & Wiese",
+        value: "Restaurant Wald & Wiese, Sinzing",
       },
     ],
     faq: [
@@ -199,7 +205,7 @@ export const EVENTS: EventItem[] = [
       },
       {
         q: "Wo bekomme ich Tickets?",
-        a: "Online bei okticket. Der Vorverkauf läuft seit Sonntag, 18. Oktober 2026. Unsere normale Tischreservierung gilt für diesen Abend nicht.",
+        a: "Online bei okticket oder direkt bei uns im Restaurant an der Bar. Der Vorverkauf läuft seit Sonntag, 18. Oktober 2026. Unsere normale Tischreservierung gilt für diesen Abend nicht.",
       },
       {
         q: "Gibt es ein vegetarisches oder veganes Menü?",
@@ -215,7 +221,7 @@ export const EVENTS: EventItem[] = [
       },
       {
         q: "Kann ich Tickets verschenken?",
-        a: "Ja, ein Abend mit Essen und Show ist ein schönes Geschenk, zum Beispiel zu Weihnachten. Die Tickets kaufst du bei okticket; für einen normalen Restaurantbesuch gibt es außerdem unsere Gutscheine.",
+        a: "Ja, ein Abend mit Essen und Show ist ein schönes Geschenk, zum Beispiel zu Weihnachten. Die Tickets bekommst du online bei okticket oder bei uns an der Bar; für einen normalen Restaurantbesuch gibt es außerdem unsere Gutscheine.",
       },
       {
         q: "Kann ich ein Magic Dinner auch für meine eigene Feier buchen?",
@@ -225,7 +231,7 @@ export const EVENTS: EventItem[] = [
     cta: {
       heading: "Staunen?",
       accent: "Platz sichern.",
-      text: "Die letzten Magic Dinner waren schnell ausverkauft. Tickets für Samstag, 20. Februar 2027 gibt es bei okticket — das Menü (Fleisch, vegetarisch oder vegan) wählst du gleich mit.",
+      text: "Die letzten Magic Dinner waren schnell ausverkauft. Tickets für Samstag, 20. Februar 2027 gibt es online bei okticket — das Menü (Fleisch, vegetarisch oder vegan) wählst du gleich mit — oder bei uns im Restaurant an der Bar.",
     },
     keywords: [
       "Magic Dinner Regensburg",

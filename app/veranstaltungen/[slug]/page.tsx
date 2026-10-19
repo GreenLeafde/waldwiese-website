@@ -155,7 +155,8 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
               >
-                Tickets beim Veranstalter <span aria-hidden>↗</span>
+                {event.ticketButtonLabel ?? "Tickets beim Veranstalter"}{" "}
+                <span aria-hidden>↗</span>
               </a>
               <p className="max-w-md text-sm text-mehlcreme/60 leading-relaxed">
                 {event.ticketNote}
@@ -325,7 +326,8 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
                 >
-                  Tickets beim Veranstalter <span aria-hidden>↗</span>
+                  {event.ticketButtonLabel ?? "Tickets beim Veranstalter"}{" "}
+                <span aria-hidden>↗</span>
                 </a>
               </div>
             </>

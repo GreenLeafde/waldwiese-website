@@ -40,11 +40,10 @@ export function eventJsonLd(event: EventItem) {
       },
       geo: { "@type": "GeoCoordinates", latitude: GEO.lat, longitude: GEO.lng },
     },
-    organizer: {
-      "@type": "Organization",
-      name: event.organizer.name,
-      url: event.organizer.url,
-    },
+    // Veranstalten wir selbst, zeigt der Veranstalter auf das Restaurant.
+    organizer: event.organizer.url.startsWith(SITE.url)
+      ? { "@type": "Restaurant", "@id": `${SITE.url}/#restaurant`, name: SITE.name, url: SITE.url }
+      : { "@type": "Organization", name: event.organizer.name, url: event.organizer.url },
     ...(event.performer
       ? {
           performer: {
