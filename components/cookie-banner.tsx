@@ -8,7 +8,7 @@ import {
   type ConsentCategory,
   type ConsentState,
 } from "@/lib/consent";
-import { hasGtm, hasHotjar } from "@/lib/tracking";
+import { hasConsentTracking } from "@/lib/tracking";
 
 export function CookieBanner() {
   const {
@@ -37,7 +37,7 @@ export function CookieBanner() {
   // Das einzige externe Element (Google-Maps-Karte) holt sich die Zustimmung
   // selbst per „Karte laden". Sobald Tracking-IDs gesetzt sind, erscheint das
   // Banner automatisch wieder.
-  if (!ready || !isOpen || !(hasGtm() || hasHotjar())) return null;
+  if (!ready || !isOpen || !hasConsentTracking()) return null;
 
   const toggle = (key: ConsentCategory) =>
     setDraft((d) => ({ ...d, [key]: !d[key] }));

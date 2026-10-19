@@ -1,7 +1,7 @@
 "use client";
 
 import { useConsent } from "./consent-provider";
-import { hasGtm, hasHotjar } from "@/lib/tracking";
+import { hasConsentTracking } from "@/lib/tracking";
 
 /**
  * Footer-Link zum erneuten Öffnen der Cookie-Einstellungen.
@@ -9,7 +9,7 @@ import { hasGtm, hasHotjar } from "@/lib/tracking";
  */
 export function ConsentSettingsLink({ className }: { className?: string }) {
   const { openSettings } = useConsent();
-  if (!hasGtm() && !hasHotjar()) return null;
+  if (!hasConsentTracking()) return null;
   return (
     <button type="button" onClick={openSettings} className={className}>
       Cookie-Einstellungen

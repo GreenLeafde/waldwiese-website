@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { readConsent } from "@/lib/consent";
 import { hasReservationConversion, TRACKING } from "@/lib/tracking";
 import type { EventType } from "@/lib/analytics";
+import { RESERVATION_URL } from "@/lib/site";
 
 /**
  * Feuert einen Google-Ads-Conversion für "Reservierung gestartet".
@@ -21,6 +22,31 @@ export function trackReservationConversion(): void {
     value: 1.0,
     currency: "EUR",
   });
+}
+
+/**
+ * Klick auf einen "Reservieren"-Link zu Lightspeed. Die Buchung selbst läuft
+ * dort ohne Rückmeldung an uns — der Klick ist das letzte messbare Signal.
+ * GA4-Event + Ads-Conversion (wie trackReservationConversion: Consent Mode
+ * regelt, ob cookielos oder mit Cookies) + anonym ins eigene Dashboard.
+ */
+export function trackReservationClick(location: string): void {
+  if (typeof window === "undefined") return;
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "reservation_click", { link_location: location });
+  }
+  trackReservationConversion();
+  track("reservation_open", { label: `link:${location}` });
+}
+
+/** Ort eines Links grob einordnen (Header/Footer/Seite) für die Auswertung. */
+function linkLocation(link: HTMLAnchorElement): string {
+  const area = link.closest("header")
+    ? "header"
+    : link.closest("footer")
+      ? "footer"
+      : "seite";
+  return `${area}:${window.location.pathname}`;
 }
 
 /**
@@ -102,6 +128,19 @@ export function Analytics() {
       sendTime();
     };
   }, [pathname]);
+
+  // Alle Links zur Lightspeed-Reservierung (Header, Mobil-Menü, Seiten-CTAs)
+  // zentral per Event-Delegation erfassen — statt an jedem Button einzeln.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as Element | null;
+      const link = target?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!link || !link.href.startsWith(RESERVATION_URL)) return;
+      trackReservationClick(linkLocation(link));
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, []);
 
   return null;
 }

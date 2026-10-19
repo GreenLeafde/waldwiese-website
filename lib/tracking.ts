@@ -50,3 +50,12 @@ export function hasGtm(): boolean {
 export function hasHotjar(): boolean {
   return /^\d+$/.test(TRACKING.hotjarId);
 }
+
+/**
+ * Ist irgendein einwilligungspflichtiges Tracking konfiguriert? Dann muss das
+ * Cookie-Banner erscheinen — sonst kann niemand einwilligen und GA4/Ads
+ * bleiben dauerhaft im cookielosen "denied"-Modus.
+ */
+export function hasConsentTracking(): boolean {
+  return hasGa() || hasAds() || hasGtm() || hasHotjar();
+}
