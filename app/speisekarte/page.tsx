@@ -218,7 +218,7 @@ export default function SpeisekartePage() {
         eyebrow="Tageszeit · 2"
         title="Mittag"
         time="täglich · ab 11:30 – 14 Uhr"
-        note="Ab 11:30 Uhr wird aus dem Frühstück Mittag: Currywurst, Burger und ein Salat, der satt macht."
+        note="Ab 11:30 Uhr kommt zur ganzen Frühstückskarte noch Mittag dazu: Currywurst, Burger und ein Salat, der satt macht. Frühstück gibt's weiter bis 14 Uhr."
       />
       <section className="bg-mehlcreme">
         <div className="mx-auto max-w-3xl px-6 md:px-10 py-16 md:py-24">

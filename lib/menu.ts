@@ -149,7 +149,7 @@ export const BREAKFAST_MENU: BreakfastCategory[] = [
   {
     slug: "mittags",
     title: "Mittags",
-    hint: "ab 11:30 bis 14 Uhr",
+    hint: "ab 11:30 bis 14 Uhr · zusätzlich zur ganzen Frühstückskarte",
     items: [
       {
         name: "Omas Lieblingscurrywurst",
