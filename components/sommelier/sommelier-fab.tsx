@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { SommelierQuiz } from "./sommelier-quiz";
+import { STICKY_CTA_PATHS } from "@/lib/season";
 
 /**
  * Schwebender „Frühstücks-Sommelier"-Button (statt Menüpunkt). Öffnet ein
@@ -28,6 +29,8 @@ export function SommelierFab() {
 
   // Auf der eigenen Seite steht das Quiz schon inline.
   if (pathname === "/fruehstuecks-sommelier") return null;
+  // Auf Seiten mit fester Kaufleiste würde er (mobil) den Kaufknopf verdecken.
+  if (STICKY_CTA_PATHS.some((p) => pathname?.startsWith(p))) return null;
 
   return (
     <>

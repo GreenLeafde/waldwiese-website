@@ -22,6 +22,10 @@ export const TRACKING = {
     process.env.NEXT_PUBLIC_GOOGLE_ADS_RESERVATION_CONVERSION ??
     process.env.NEXT_PUBLIC_GOOGLE_ADS_PAGEVIEW_CONVERSION ??
     "",
+  /** Conversion-Kennung (AW-XXXX/Label) für „Gutschein-Shop geöffnet“ (BON BON). */
+  gutscheinConversion: process.env.NEXT_PUBLIC_GOOGLE_ADS_GUTSCHEIN_CONVERSION ?? "",
+  /** Conversion-Kennung (AW-XXXX/Label) für „Ticket-Shop geöffnet“ (okticket). */
+  ticketConversion: process.env.NEXT_PUBLIC_GOOGLE_ADS_TICKET_CONVERSION ?? "",
   gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "",
   hotjarId: process.env.NEXT_PUBLIC_HOTJAR_ID ?? "",
 } as const;
@@ -38,7 +42,11 @@ export function hasAds(): boolean {
 
 /** Conversion-Kennung im Format AW-XXXX/Label (ID + Conversion-Label). */
 export function hasReservationConversion(): boolean {
-  return /^AW-[A-Z0-9]+\/[A-Za-z0-9_-]+$/.test(TRACKING.reservationConversion);
+  return isConversionId(TRACKING.reservationConversion);
+}
+
+export function isConversionId(id: string): boolean {
+  return /^AW-[A-Z0-9]+\/[A-Za-z0-9_-]+$/.test(id);
 }
 
 /** GTM-Container-IDs haben das Format GTM-XXXXXX. */

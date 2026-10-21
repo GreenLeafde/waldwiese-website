@@ -7,8 +7,13 @@ import { VideoFacade } from "@/components/video-facade";
 import { EVENTS, getEvent, isPastEvent, upcomingEvents } from "@/lib/events";
 import { eventJsonLd } from "@/lib/event-schema";
 import { SITE } from "@/lib/site";
+import { isXmasSeason } from "@/lib/season";
+import { StickyCta } from "@/components/sticky-cta";
 
 type Props = { params: Promise<{ slug: string }> };
+
+// Stündlich neu bauen: Geschenk-Block endet am 25.12. von selbst.
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return EVENTS.map((e) => ({ slug: e.slug }));
@@ -53,6 +58,7 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
   if (!event) notFound();
 
   const isPast = isPastEvent(event);
+  const gift = !isPast && isXmasSeason() ? event.gift : undefined;
   const otherEvents = upcomingEvents().filter((e) => e.slug !== event.slug);
 
   const eventLd = eventJsonLd(event);
@@ -127,6 +133,13 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
         </div>
 
         <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center reveal">
+          {gift && (
+            <p className="mb-6">
+              <span className="inline-flex items-center rounded-full bg-tonwarm px-4 py-1.5 text-xs font-medium tracking-wide text-white">
+                {gift.badge}
+              </span>
+            </p>
+          )}
           <p className="eyebrow no-line justify-center text-tonwarm">
             {event.kicker}
           </p>
@@ -182,6 +195,44 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
           </p>
         </div>
       </section>
+
+      {/* GESCHENK — nur in der Weihnachtszeit */}
+      {gift && (
+        <section className="bg-mehlcreme border-b border-waldgruen/15">
+          <div className="mx-auto max-w-3xl px-6 md:px-10 py-16 md:py-20 text-center reveal">
+            <h2 className="font-display text-3xl md:text-4xl font-normal leading-[1.08] tracking-tight text-waldgruen">
+              {gift.heading} <span className="accent">{gift.accent}</span>
+            </h2>
+            <p className="mt-6 italic leading-relaxed text-waldgruen/70">
+              {gift.text}
+            </p>
+            <ul className="mx-auto mt-8 max-w-md space-y-2 text-left text-waldgruen/80">
+              {gift.points.map((p) => (
+                <li key={p} className="flex gap-3">
+                  <span aria-hidden className="text-tonwarm">✓</span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-5">
+              <a
+                href={event.ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-tonwarm px-7 py-3.5 font-medium text-white transition-colors hover:bg-tonwarm-dark"
+              >
+                Tickets verschenken <span aria-hidden>↗</span>
+              </a>
+              <Link
+                href="/gutscheine"
+                className="inline-flex items-center gap-3 border-b border-waldgruen/30 pb-1 font-medium text-waldgruen transition-colors hover:border-tonwarm hover:text-tonwarm"
+              >
+                Lieber flexibel? Wertgutschein
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* INHALT */}
       <section className="bg-mehlcreme">
@@ -377,6 +428,14 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
           <LeafDivider tone="light" className="mt-14 opacity-80" />
         </div>
       </section>
+
+      {!isPast && (
+        <StickyCta
+          href={event.ticketUrl}
+          label={gift ? "Tickets verschenken" : "Tickets sichern"}
+          note={`${event.priceLabel} · ${event.dateLabel.replace(/^\w+, /, "")}`}
+        />
+      )}
     </article>
   );
 }

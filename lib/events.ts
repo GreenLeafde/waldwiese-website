@@ -72,6 +72,11 @@ export type EventItem = {
   cta?: { heading: string; accent: string; text: string };
   /** Suchbegriffe für schema.org keywords („Dinnershow Regensburg“ …) */
   keywords?: string[];
+  /**
+   * Geschenk-Block für die Weihnachtszeit (nur solange lib/season.ts
+   * isXmasSeason() gilt): Hinweis im Kopf + eigener Abschnitt mit Kaufknopf.
+   */
+  gift?: { badge: string; heading: string; accent: string; text: string; points: string[] };
 };
 
 const KRIMI = {
@@ -92,7 +97,7 @@ export const EVENTS: EventItem[] = [
     metaDescription:
       "Magic Dinner bei Regensburg am Samstag, 20.02.2027 im Wald & Wiese in Sinzing: 3-Gänge-Menü plus Zauberei & Comedy von Emilian Leber direkt am Tisch. Einlass 17 Uhr, Beginn 18 Uhr, 89,90 € pro Person.",
     teaser:
-      "Ein 3-Gänge-Menü aus unserer Küche — und zwischen den Gängen Close-Up-Magie und Comedy von Emilian Leber direkt an eurem Tisch. Die Wintertermine der letzten Jahre waren ausverkauft.",
+      "Ein 3-Gänge-Menü aus unserer Küche — und zwischen den Gängen Close-Up-Magie und Comedy von Emilian Leber direkt an eurem Tisch. Schon zum fünften Mal im Wald & Wiese.",
     startsAt: "2027-02-20T18:00:00+01:00",
     doorTime: "2027-02-20T17:00:00+01:00",
     ticketsFrom: "2026-10-18T00:00:00+02:00",
@@ -106,6 +111,17 @@ export const EVENTS: EventItem[] = [
     ticketNote:
       "Tickets gibt es online bei okticket und bei uns im Restaurant an der Bar — nicht über die normale Tischreservierung. Online wählst du Fleisch-, vegetarisches oder veganes Menü direkt bei der Buchung.",
     ticketButtonLabel: "Tickets online bei okticket",
+    gift: {
+      badge: "Geschenkidee zu Weihnachten",
+      heading: "Ein Abend zum Verschenken —",
+      accent: "unterm Baum schon Vorfreude.",
+      text: "Tickets fürs Magic Dinner sind ein Geschenk, das man gemeinsam erlebt: ein 3-Gänge-Menü und Zauberei direkt am Tisch, am Samstag, 20. Februar 2027.",
+      points: [
+        "89,90 € pro Person — Menü und Show inklusive",
+        "Fleisch, vegetarisch oder vegan — bei der Buchung wählen",
+        "Online bei okticket oder bei uns im Restaurant an der Bar",
+      ],
+    },
     organizer: { name: "Restaurant Wald & Wiese", url: "https://restaurant-waldwiese.de" },
     schemaType: ["TheaterEvent", "FoodEvent"],
     performer: {
@@ -155,7 +171,7 @@ export const EVENTS: EventItem[] = [
       {
         heading: "Schon zum fünften Mal",
         body: [
-          "Das Magic Dinner ist ein Winterformat im Wald & Wiese: 2025 gab es Termine im Januar und Februar, 2026 am 24. Januar und 7. Februar — beide waren innerhalb weniger Wochen ausverkauft. Der 20. Februar 2027 ist die fünfte Ausgabe.",
+          "Das Magic Dinner ist ein Winterformat im Wald & Wiese: 2025 gab es Termine im Januar und Februar, 2026 am 24. Januar und 7. Februar. Der 20. Februar 2027 ist die fünfte Ausgabe.",
           "Wer sicher dabei sein will, holt sich seine Tickets also lieber früh. Der Vorverkauf läuft seit dem 18. Oktober 2026.",
         ],
       },
@@ -231,7 +247,7 @@ export const EVENTS: EventItem[] = [
     cta: {
       heading: "Staunen?",
       accent: "Platz sichern.",
-      text: "Die letzten Magic Dinner waren schnell ausverkauft. Tickets für Samstag, 20. Februar 2027 gibt es online bei okticket — das Menü (Fleisch, vegetarisch oder vegan) wählst du gleich mit — oder bei uns im Restaurant an der Bar.",
+      text: "Ein Abend zum Staunen, Genießen und Verschenken. Tickets für Samstag, 20. Februar 2027 gibt es online bei okticket — das Menü (Fleisch, vegetarisch oder vegan) wählst du gleich mit — oder bei uns im Restaurant an der Bar.",
     },
     keywords: [
       "Magic Dinner Regensburg",

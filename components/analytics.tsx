@@ -3,7 +3,11 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { readConsent } from "@/lib/consent";
-import { hasReservationConversion, TRACKING } from "@/lib/tracking";
+import {
+  hasReservationConversion,
+  isConversionId,
+  TRACKING,
+} from "@/lib/tracking";
 import type { EventType } from "@/lib/analytics";
 import { RESERVATION_URL } from "@/lib/site";
 
@@ -37,6 +41,31 @@ export function trackReservationClick(location: string): void {
   }
   trackReservationConversion();
   track("reservation_open", { label: `link:${location}` });
+}
+
+/**
+ * Klick in einen externen Shop, in dem verkauft wird (Gutscheine bei BON BON,
+ * Event-Tickets bei okticket). Wie bei der Reservierung ist der Klick das
+ * letzte Signal, das wir sehen: GA4-Event + eigene Ads-Conversion (falls die
+ * Kennung gesetzt ist) + anonym ins eigene Dashboard.
+ */
+function trackShopClick(
+  gaEvent: "gutschein_click" | "ticket_click",
+  conversionId: string,
+  location: string,
+): void {
+  if (typeof window === "undefined") return;
+  if (typeof window.gtag === "function") {
+    window.gtag("event", gaEvent, { link_location: location });
+    if (isConversionId(conversionId)) {
+      window.gtag("event", "conversion", {
+        send_to: conversionId,
+        value: 1.0,
+        currency: "EUR",
+      });
+    }
+  }
+  track("cta_click", { label: `${gaEvent}:${location}` });
 }
 
 /** Ort eines Links grob einordnen (Header/Footer/Seite) für die Auswertung. */
@@ -129,14 +158,21 @@ export function Analytics() {
     };
   }, [pathname]);
 
-  // Alle Links zur Lightspeed-Reservierung (Header, Mobil-Menü, Seiten-CTAs)
+  // Alle Links in externe Buchung/Shops (Lightspeed, BON BON, okticket)
   // zentral per Event-Delegation erfassen — statt an jedem Button einzeln.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const target = e.target as Element | null;
       const link = target?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!link || !link.href.startsWith(RESERVATION_URL)) return;
-      trackReservationClick(linkLocation(link));
+      if (!link) return;
+      const href = link.href;
+      if (href.startsWith(RESERVATION_URL)) {
+        trackReservationClick(linkLocation(link));
+      } else if (href.includes("bon-bon.de/gutschein")) {
+        trackShopClick("gutschein_click", TRACKING.gutscheinConversion, linkLocation(link));
+      } else if (href.includes("okticket.de")) {
+        trackShopClick("ticket_click", TRACKING.ticketConversion, linkLocation(link));
+      }
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
