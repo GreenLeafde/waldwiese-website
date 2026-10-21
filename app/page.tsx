@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { DaySection } from "@/components/day-section";
 import { GoogleG, GoogleReviews } from "@/components/google-reviews";
 import { HeroSlides } from "@/components/hero-slides";
+import { IconAbend, IconBrunch, IconEvents } from "@/components/offer-icons";
 import { ReserveButton } from "@/components/reserve-chooser";
 import { ScrollDay } from "@/components/scroll-day";
 import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
@@ -173,6 +174,11 @@ export default function HomePage() {
               }}
             />
             <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 md:h-56"
+              style={{ background: "linear-gradient(0deg, var(--color-morgen) 0%, rgba(247,244,236,0) 100%)" }}
+            />
+            <div
               className={`${CONTAINER} hero-in grid justify-items-center gap-4 py-16 text-creme md:gap-5`}
               style={{ textShadow: "0 1px 14px rgba(1,28,13,.5)" }}
             >
@@ -211,54 +217,23 @@ export default function HomePage() {
           </div>
 
           {/* WAS ES BEI UNS GIBT — drei Fotos mit klarer Unterschrift */}
-          <div className={`${CONTAINER} py-14 md:py-20`}>
-            <span className={LABEL}>Was es bei uns gibt</span>
-            <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-6">
+          <div className={`${CONTAINER} pb-20 pt-14 md:pb-28 md:pt-20`}>
+            <div className="mx-auto grid max-w-[1040px] grid-cols-3 gap-3 md:gap-8">
               {[
-                {
-                  img: { ...IMG.wwFood4, alt: "Siebträger-Kaffeemaschine und Gläser an der Bar" },
-                  pos: "center 60%",
-                  k: "Täglich 8–14 Uhr",
-                  t: "Brunch",
-                  s: "Frühstück, Brote, Bowls, ab 11:30 Uhr Mittagstisch.",
-                  href: "/speisekarte#fruehstueck",
-                  l: "Brunch-Karte",
-                },
-                {
-                  img: IMG.burger,
-                  pos: "center",
-                  k: "Freitag bis Sonntag 17–22 Uhr",
-                  t: "Abendessen",
-                  s: "Burger, Steak und Spare Ribs vom Grill, Cocktails.",
-                  href: "/speisekarte#abend",
-                  l: "Abendkarte",
-                },
-                {
-                  img: IMG.wwEvent,
-                  pos: "center 30%",
-                  k: "Termine & Anfragen",
-                  t: "Events & Feiern",
-                  s: "Krimidinner, Magic Dinner, eure eigene Feier bei uns.",
-                  href: "/veranstaltungen",
-                  l: "Alle Termine",
-                },
+                { Icon: IconBrunch, t: "Brunch", s: "täglich 8–14 Uhr", href: "/speisekarte#fruehstueck" },
+                { Icon: IconAbend, t: "Abendessen", s: "Fr–So 17–22 Uhr", href: "/speisekarte#abend" },
+                { Icon: IconEvents, t: "Events", s: "Shows & Feiern", href: "/veranstaltungen" },
               ].map((c) => (
-                <Link key={c.t} href={c.href} className="group grid content-start gap-3">
-                  <span className="zoom-hover block">
-                    <Image
-                      src={c.img.src}
-                      alt={c.img.alt}
-                      width={c.img.width}
-                      height={c.img.height}
-                      sizes="(min-width: 768px) 33vw, 100vw"
-                      className={`${FOTO} aspect-[4/3] w-full`}
-                      style={{ objectPosition: c.pos }}
-                    />
+                <Link
+                  key={c.t}
+                  href={c.href}
+                  className="group grid content-start justify-items-center gap-1.5 text-center md:gap-3"
+                >
+                  <span className="mb-1 grid h-16 w-16 place-items-center rounded-full bg-mittag md:h-24 md:w-24 text-tanne transition-transform duration-300 group-hover:-translate-y-1">
+                    <c.Icon className="h-8 w-8 md:h-11 md:w-11" />
                   </span>
-                  <span className={LABEL}>{c.k}</span>
-                  <b className="font-display text-[1.6rem] font-normal leading-tight">{c.t}</b>
-                  <span className="text-[0.95rem] text-muted">{c.s}</span>
-                  <span className={`${LINK} justify-self-start`}>{c.l}</span>
+                  <b className="whitespace-nowrap font-display text-[1.1rem] font-normal leading-tight md:text-[2rem]">{c.t}</b>
+                  <span className="whitespace-nowrap text-[0.78rem] leading-snug text-muted md:text-[1.05rem]">{c.s}</span>
                 </Link>
               ))}
             </div>
