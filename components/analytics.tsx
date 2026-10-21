@@ -70,6 +70,9 @@ function trackShopClick(
 
 /** Ort eines Links grob einordnen (Header/Footer/Seite) für die Auswertung. */
 function linkLocation(link: HTMLAnchorElement): string {
+  // Links aus der Reservierungs-Vorauswahl tragen den Ort des Knopfs, der sie
+  // geöffnet hat (hero, header, kaufleiste …) — das Modal selbst liegt außerhalb.
+  if (link.dataset.location) return `${link.dataset.location}:${window.location.pathname}`;
   const area = link.closest("header")
     ? "header"
     : link.closest("footer")
@@ -175,7 +178,7 @@ export function Analytics() {
         );
       } else if (href.includes("bon-bon.de/gutschein")) {
         trackShopClick("gutschein_click", TRACKING.gutscheinConversion, linkLocation(link));
-      } else if (href.includes("okticket.de")) {
+      } else if (href.includes("okticket.de") || href.includes("das-kriminal-dinner.de/ticket")) {
         trackShopClick("ticket_click", TRACKING.ticketConversion, linkLocation(link));
       }
     };

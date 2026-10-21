@@ -86,6 +86,7 @@ export function ReserveChooserProvider({ children }: { children: ReactNode }) {
             <ChooserOption
               ref={firstRef}
               href={reservationHref("brunch")}
+              location={state.location}
               title="Brunch"
               sub="Montag bis Sonntag, 8–14 Uhr"
               active={picked === "brunch"}
@@ -94,6 +95,7 @@ export function ReserveChooserProvider({ children }: { children: ReactNode }) {
             />
             <ChooserOption
               href={reservationHref("abend")}
+              location={state.location}
               title="Abendessen"
               sub="Freitag bis Sonntag, 17–22 Uhr"
               dark
@@ -133,6 +135,7 @@ export function ReserveChooserProvider({ children }: { children: ReactNode }) {
 function ChooserOption({
   ref,
   href,
+  location,
   title,
   sub,
   dark = false,
@@ -142,6 +145,8 @@ function ChooserOption({
 }: {
   ref?: React.Ref<HTMLAnchorElement>;
   href: string;
+  /** Wo der Reservieren-Knopf saß — liest das Klick-Tracking (analytics.tsx). */
+  location?: string;
   title: string;
   sub: string;
   dark?: boolean;
@@ -153,6 +158,7 @@ function ChooserOption({
     <a
       ref={ref}
       href={href}
+      data-location={location}
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={onPick}
