@@ -38,11 +38,11 @@ export function SommelierFab() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          aria-label="Frühstücks-Sommelier öffnen"
-          className="fixed bottom-[84px] md:bottom-5 right-4 md:right-5 z-40 inline-flex items-center gap-2.5 rounded-full bg-waldgruen hover:bg-tonwarm text-mehlcreme pl-4 pr-5 py-3 shadow-lg shadow-waldgruen/25 transition-colors"
+          aria-label="Was passt zu dir? Frühstücks-Sommelier öffnen"
+          className="fixed bottom-[84px] md:bottom-5 right-4 md:right-5 z-40 inline-flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-waldgruen hover:bg-tonwarm text-mehlcreme shadow-lg shadow-waldgruen/25 transition-colors md:h-auto md:w-auto md:pl-4 md:pr-5 md:py-3"
         >
           <LeafIcon />
-          <span className="font-medium text-sm">Was passt zu dir?</span>
+          <span className="hidden font-medium text-sm md:inline">Was passt zu dir?</span>
         </button>
       )}
 

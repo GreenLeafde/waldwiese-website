@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { DaySection } from "@/components/day-section";
-import { GoogleBadge, GoogleReviews } from "@/components/google-reviews";
+import { GoogleBadge, GoogleG, GoogleReviews } from "@/components/google-reviews";
 import { ReserveButton } from "@/components/reserve-chooser";
 import { ScrollDay } from "@/components/scroll-day";
 import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
@@ -136,7 +136,76 @@ export default function HomePage() {
       <ScrollDay>
         {/* 1 · HERO — Morgen. Platz für den festen Header (92 px) oben. */}
         <DaySection stage="morgen" className="pt-[92px]">
-          <div className={`${CONTAINER} grid items-center gap-9 pb-16 pt-8 md:grid-cols-[1fr_1.1fr] md:gap-16 md:pb-24 md:pt-14`}>
+          {/* Handy: Foto randlos oben, Überschrift auf dem Foto, darunter
+              ein Satz, die Google-Wertung als Zeile und das nächste Event. */}
+          <div className="md:hidden">
+            <div className="relative isolate flex min-h-[64svh] items-end">
+              <Image
+                src={IMG.terrasseOlivenbaum.src}
+                alt={IMG.terrasseOlivenbaum.alt}
+                fill
+                priority
+                sizes="100vw"
+                className="-z-20 object-cover"
+                style={{ objectPosition: "center 30%" }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 -z-10"
+                style={{ background: "linear-gradient(0deg, rgba(1,28,13,.88) 0%, rgba(1,28,13,.45) 45%, rgba(1,28,13,0) 75%)" }}
+              />
+              <div className="w-full px-5 pb-7 text-creme" style={{ textShadow: "0 1px 12px rgba(1,28,13,.5)" }}>
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8a487]">
+                  Sinzing bei Regensburg
+                </span>
+                <h1 className="mt-2 font-display text-[2.35rem] font-normal leading-[1.06]">
+                  Brunch jeden Morgen.
+                  <br />
+                  Abendessen am Wochenende.
+                </h1>
+              </div>
+            </div>
+            <div className="grid gap-5 px-5 pb-10 pt-6">
+              <p className="m-0 text-[1.05rem] leading-relaxed">
+                Am Waldrand von Sinzing, bei Familie Leber. Hunde willkommen.
+              </p>
+              <div className="grid grid-cols-[1.4fr_1fr] gap-2.5">
+                <ReserveButton location="hero" className={`${BTN_A} px-4`}>
+                  Tisch reservieren
+                </ReserveButton>
+                <Link href="/gutscheine" className={`${BTN_O} px-4`}>
+                  Gutschein
+                </Link>
+              </div>
+              <a
+                href="#rezensionen"
+                className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[#1f1f1f]"
+              >
+                <GoogleG className="h-6 w-6 shrink-0" />
+                <span className="text-lg font-semibold">{GOOGLE_RATING.value.toLocaleString("de-DE")}</span>
+                <span className="tracking-[1px] text-[#FBBC04]">★★★★★</span>
+                <span className="ml-auto text-sm text-[#5f6368]">{GOOGLE_RATING.count} Bewertungen</span>
+              </a>
+              {highlight && (
+                <Link
+                  href={`/veranstaltungen/${highlight.slug}`}
+                  className="grid gap-0.5 border-t pt-4"
+                  style={{ borderColor: "var(--linie)" }}
+                >
+                  <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-akzent">
+                    Nächstes Highlight
+                  </span>
+                  <span className="font-semibold">
+                    {highlight.title.split(" · ")[0]} · {shortDate(highlight).rest.split(" · ")[0]},{" "}
+                    {shortDate(highlight).day}
+                    {new Date(highlight.startsAt).getFullYear()}
+                  </span>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className={`${CONTAINER} hidden items-center gap-9 pb-16 pt-8 md:grid md:grid-cols-[1fr_1.1fr] md:gap-16 md:pb-24 md:pt-14`}>
             <div className="grid justify-items-start gap-5 md:gap-6">
               <span className={LABEL}>Sinzing bei Regensburg</span>
               <h1 className="font-display text-[2.5rem] font-light leading-[1.06] md:text-[3.75rem]">
