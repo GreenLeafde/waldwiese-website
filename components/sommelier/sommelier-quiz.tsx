@@ -81,10 +81,10 @@ export function SommelierQuiz({ onNavigate }: Props) {
                   setStep(1);
                 }}
               >
-                <span className="font-display text-lg text-waldgruen group-hover:text-tonwarm-dark transition-colors">
+                <span className="font-display text-[1.15rem] text-tanne">
                   {o.label}
                 </span>
-                <span className="block text-sm text-waldgruen/50">{o.sub}</span>
+                <span className="block text-sm text-muted-hell">{o.sub}</span>
               </OptionButton>
             ))}
           </div>
@@ -103,7 +103,7 @@ export function SommelierQuiz({ onNavigate }: Props) {
                   setStep(2);
                 }}
               >
-                <span className="font-display text-lg text-waldgruen group-hover:text-tonwarm-dark transition-colors">
+                <span className="font-display text-[1.15rem] text-tanne">
                   {o.label}
                 </span>
               </OptionButton>
@@ -124,10 +124,8 @@ export function SommelierQuiz({ onNavigate }: Props) {
                   setStep(3);
                 }}
                 aria-pressed={personen === n}
-                className={`rounded-2xl border py-4 font-display text-xl transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5 ${
-                  personen === n
-                    ? "border-tonwarm bg-tonwarm/10 ring-1 ring-tonwarm/30 text-tonwarm-dark"
-                    : "border-waldgruen/15 bg-mehlcreme/40 text-waldgruen"
+                className={`rounded-[14px] border py-4 font-display text-xl tabular-nums transition-shadow hover:shadow-[0_0_0_2px_var(--color-akzent)] ${
+                  personen === n ? "border-tanne bg-white text-tanne shadow-[0_0_0_2px_var(--color-akzent)]" : "border-tanne/20 bg-white text-tanne"
                 }`}
               >
                 {n === 8 ? "8+" : n}
@@ -149,10 +147,8 @@ export function SommelierQuiz({ onNavigate }: Props) {
                   setDone(true);
                 }}
                 aria-pressed={zeit === t}
-                className={`rounded-2xl border py-4 font-display text-base transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5 ${
-                  zeit === t
-                    ? "border-tonwarm bg-tonwarm/10 ring-1 ring-tonwarm/30 text-tonwarm-dark"
-                    : "border-waldgruen/15 bg-mehlcreme/40 text-waldgruen"
+                className={`rounded-[14px] border py-4 font-display text-base tabular-nums transition-shadow hover:shadow-[0_0_0_2px_var(--color-akzent)] ${
+                  zeit === t ? "border-tanne bg-white text-tanne shadow-[0_0_0_2px_var(--color-akzent)]" : "border-tanne/20 bg-white text-tanne"
                 }`}
               >
                 {t}
@@ -169,7 +165,7 @@ export function SommelierQuiz({ onNavigate }: Props) {
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl ring-1 ring-waldgruen/10 bg-white px-6 py-9 md:px-10 md:py-12 shadow-sm">
+    <div className="px-1 pb-2 pt-1 text-tanne md:px-3">
       {children}
     </div>
   );
@@ -186,19 +182,19 @@ function Header({
 }) {
   return (
     <>
-      <div className="flex items-center justify-between text-[0.7rem] tracking-[0.18em] uppercase text-waldgruen/45 font-medium">
+      <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-muted-hell">
         <span>
           Schritt {step + 1} von {TOTAL}
         </span>
         {step > 0 && (
-          <button type="button" onClick={onBack} className="hover:text-tonwarm transition-colors">
+          <button type="button" onClick={onBack} className="normal-case tracking-normal underline underline-offset-4 hover:text-tanne">
             ← zurück
           </button>
         )}
       </div>
-      <div className="mt-3 h-1 w-full rounded-full bg-waldgruen/10 overflow-hidden">
+      <div className="mt-3 h-[3px] w-full overflow-hidden rounded-full bg-tanne/10">
         <div
-          className="h-full bg-tonwarm transition-all duration-500"
+          className="h-full bg-akzent transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -215,10 +211,10 @@ function Question({
 }) {
   return (
     <>
-      <h3 className="mt-8 text-2xl md:text-3xl font-display font-normal leading-tight tracking-tight text-waldgruen">
+      <h3 className="mt-7 font-display text-[1.7rem] font-light leading-tight md:text-[2rem]">
         {prompt}
       </h3>
-      <div className="mt-7">{children}</div>
+      <div className="mt-6">{children}</div>
     </>
   );
 }
@@ -237,10 +233,8 @@ function OptionButton({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`group rounded-2xl border px-5 py-4 text-left transition-all hover:border-tonwarm hover:bg-tonwarm/5 hover:-translate-y-0.5 ${
-        selected
-          ? "border-tonwarm bg-tonwarm/10 ring-1 ring-tonwarm/30"
-          : "border-waldgruen/15 bg-mehlcreme/40"
+      className={`group grid gap-0.5 rounded-[14px] border px-[18px] py-3.5 text-left transition-shadow hover:shadow-[0_0_0_2px_var(--color-akzent)] ${
+        selected ? "border-tanne bg-white text-tanne shadow-[0_0_0_2px_var(--color-akzent)]" : "border-tanne/20 bg-white text-tanne"
       }`}
     >
       {children}
@@ -275,33 +269,33 @@ function Result({
 
   return (
     <div>
-      <div className="flex items-center justify-between text-[0.7rem] tracking-[0.18em] uppercase text-waldgruen/45 font-medium">
+      <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-muted-hell">
         <span>Dein Ergebnis</span>
-        <button type="button" onClick={onBack} className="hover:text-tonwarm transition-colors">
+        <button type="button" onClick={onBack} className="normal-case tracking-normal underline underline-offset-4 hover:text-tanne">
           ← zurück
         </button>
       </div>
 
       {/* Empfehlung */}
-      <p className="mt-7 text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+      <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">
         {anlass === "fruehstueck" ? "Dein Frühstücks-Match" : "Unsere Empfehlung"}
       </p>
 
       <div className="mt-4">
-        <p className="italic text-waldgruen/70">{empf.intro}</p>
+        <p className="m-0 leading-relaxed text-muted-hell">{empf.intro}</p>
         {empf.dish && <PickRow pick={empf.dish} kicker="Zum Essen" />}
         {empf.drink && <PickRow pick={empf.drink} kicker="Dazu" />}
       </div>
 
       {/* Tisch */}
-      <div className="mt-8 rounded-2xl bg-waldgruen text-mehlcreme px-6 py-6">
-        <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
+      <div className="mt-7 rounded-[18px] bg-tanne px-6 py-6 text-creme">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8a487]">
           Dein Tisch
         </p>
-        <p className="mt-2 font-display text-2xl text-mehlcreme">
+        <p className="mt-2 font-display text-[1.6rem] font-normal">
           {personenLabel(personen)} · gegen {zeit} Uhr
         </p>
-        <p className="mt-1 text-sm text-mehlcreme/60">
+        <p className="mt-1 text-sm text-creme/70">
           {anlass === "fruehstueck" ? "Frühstück" : "Abends am Wochenende"}
         </p>
         <Link
@@ -310,11 +304,11 @@ function Result({
             track("cta_click", { label: "sommelier_tisch_sichern" });
             onNavigate?.();
           }}
-          className="mt-5 inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-6 py-3 rounded-full font-medium transition-colors"
+          className="mt-5 inline-flex h-[50px] items-center rounded-full bg-akzent px-[26px] font-semibold text-white transition-colors hover:bg-akzent-hover"
         >
-          Tisch sichern <span aria-hidden>→</span>
+          Tisch sichern
         </Link>
-        <p className="mt-3 text-xs text-mehlcreme/50">
+        <p className="mt-3 text-xs text-creme/60">
           Personenzahl &amp; Uhrzeit wählst du im Buchungsschritt nochmal kurz.
         </p>
       </div>
@@ -322,9 +316,9 @@ function Result({
       <button
         type="button"
         onClick={onRestart}
-        className="mt-6 text-sm text-waldgruen/60 hover:text-tonwarm transition-colors"
+        className="mt-5 text-sm text-muted-hell underline underline-offset-4 hover:text-tanne"
       >
-        ← Nochmal von vorn
+        Nochmal von vorn
       </button>
     </div>
   );
@@ -332,17 +326,17 @@ function Result({
 
 function PickRow({ pick, kicker }: { pick: { name: string; desc: string; price: string }; kicker: string }) {
   return (
-    <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-waldgruen/10 pt-4">
+    <div className="mt-4 flex items-baseline justify-between gap-4 border-t border-tanne/15 pt-4">
       <div>
-        <p className="text-[0.6rem] tracking-[0.2em] uppercase text-waldgruen/40 font-medium">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-hell">
           {kicker}
         </p>
-        <p className="mt-1 font-display text-xl text-waldgruen">{pick.name}</p>
+        <p className="mt-1 font-display text-[1.3rem]">{pick.name}</p>
         {pick.desc && (
-          <p className="mt-1 text-sm text-waldgruen/55 leading-snug">{pick.desc}</p>
+          <p className="mt-1 text-sm leading-snug text-muted-hell">{pick.desc}</p>
         )}
       </div>
-      <span className="font-display text-base text-tonwarm whitespace-nowrap">
+      <span className="whitespace-nowrap tabular-nums">
         {pick.price}
       </span>
     </div>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { DaySection } from "@/components/day-section";
-import { GoogleBadge, GoogleG, GoogleReviews } from "@/components/google-reviews";
+import { GoogleG, GoogleReviews } from "@/components/google-reviews";
 import { ReserveButton } from "@/components/reserve-chooser";
 import { ScrollDay } from "@/components/scroll-day";
 import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
@@ -107,7 +107,6 @@ function DishRow({ dish, hide }: { dish: BreakfastDish | Dish; hide?: boolean })
 
 export default function HomePage() {
   const nextEvents = upcomingEvents().slice(0, 2);
-  const highlight = nextEvents[0];
   const reviewsJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -134,162 +133,116 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
       />
       <ScrollDay>
-        {/* 1 · HERO — Morgen. Platz für den festen Header (92 px) oben. */}
+        {/* 1 · HERO — ein Foto, ein Satz, was wir sind und wann. Darunter
+            sofort die drei Dinge, die es bei uns gibt, jeweils mit Foto. */}
         <DaySection stage="morgen" className="pt-[92px]">
-          {/* Handy: Foto randlos oben, Überschrift auf dem Foto, darunter
-              ein Satz, die Google-Wertung als Zeile und das nächste Event. */}
-          <div className="md:hidden">
-            <div className="relative isolate flex min-h-[64svh] items-end">
-              <Image
-                src={IMG.terrasseOlivenbaum.src}
-                alt={IMG.terrasseOlivenbaum.alt}
-                fill
-                priority
-                sizes="100vw"
-                className="-z-20 object-cover"
-                style={{ objectPosition: "center 30%" }}
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 -z-10"
-                style={{ background: "linear-gradient(0deg, rgba(1,28,13,.88) 0%, rgba(1,28,13,.45) 45%, rgba(1,28,13,0) 75%)" }}
-              />
-              <div className="w-full px-5 pb-7 text-creme" style={{ textShadow: "0 1px 12px rgba(1,28,13,.5)" }}>
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8a487]">
-                  Sinzing bei Regensburg
-                </span>
-                <h1 className="mt-2 font-display text-[2.35rem] font-normal leading-[1.06]">
-                  Brunch jeden Morgen.
-                  <br />
-                  Abendessen am Wochenende.
-                </h1>
-              </div>
-            </div>
-            <div className="grid gap-5 px-5 pb-10 pt-6">
-              <p className="m-0 text-[1.05rem] leading-relaxed">
-                Am Waldrand von Sinzing, bei Familie Leber. Hunde willkommen.
+          <div className="relative isolate flex min-h-[calc(100svh-92px)] items-center justify-center text-center">
+            <Image
+              src={IMG.fruehstueckFoto.src}
+              alt={IMG.fruehstueckFoto.alt}
+              fill
+              priority
+              sizes="100vw"
+              className="-z-20 object-cover"
+              style={{ objectPosition: "center 62%" }}
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0 -z-10"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, rgba(1,28,13,.72) 0%, rgba(1,28,13,.5) 55%, rgba(1,28,13,.35) 100%)",
+              }}
+            />
+            <div
+              className={`${CONTAINER} grid justify-items-center gap-4 py-16 text-creme md:gap-5`}
+              style={{ textShadow: "0 1px 14px rgba(1,28,13,.5)" }}
+            >
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8a487]">
+                Restaurant in Sinzing bei Regensburg
+              </span>
+              <h1 className="font-display text-[3rem] font-normal leading-none md:text-[5rem]">
+                Wald &amp; Wiese
+              </h1>
+              <p className="m-0 grid justify-items-center gap-0.5 text-[1.15rem] leading-snug md:text-[1.4rem]">
+                <span>Brunch · täglich 8–14 Uhr</span>
+                <span>Abendessen · Fr–So 17–22 Uhr</span>
               </p>
-              <div className="grid grid-cols-[1.4fr_1fr] gap-2.5">
-                <ReserveButton location="hero" className={`${BTN_A} px-4`}>
-                  Tisch reservieren
-                </ReserveButton>
-                <Link href="/gutscheine" className={`${BTN_O} px-4`}>
-                  Gutschein
+              {/* Reservieren steht auf dem Handy schon in der festen Leiste unten. */}
+              <div className="mt-1 flex flex-wrap items-center justify-center gap-3" style={{ textShadow: "none" }}>
+                <span className="hidden md:inline-flex">
+                  <ReserveButton location="hero" className={BTN_A}>
+                    Tisch reservieren
+                  </ReserveButton>
+                </span>
+                <Link href="/speisekarte" className={`${BTN_O} text-creme`}>
+                  Speisekarte ansehen
                 </Link>
               </div>
+            </div>
+          </div>
+
+          {/* WAS ES BEI UNS GIBT — drei Fotos mit klarer Unterschrift */}
+          <div className={`${CONTAINER} py-14 md:py-20`}>
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <span className={LABEL}>Was es bei uns gibt</span>
               <a
                 href="#rezensionen"
-                className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[#1f1f1f]"
+                className="inline-flex items-center gap-2.5 rounded-full bg-white px-4 py-2 text-sm text-[#1f1f1f] shadow-[0_6px_20px_-12px_rgba(2,41,20,.35)]"
               >
-                <GoogleG className="h-6 w-6 shrink-0" />
-                <span className="text-lg font-semibold">{GOOGLE_RATING.value.toLocaleString("de-DE")}</span>
+                <GoogleG className="h-5 w-5" />
+                <b className="font-semibold">{GOOGLE_RATING.value.toLocaleString("de-DE")}</b>
                 <span className="tracking-[1px] text-[#FBBC04]">★★★★★</span>
-                <span className="ml-auto text-sm text-[#5f6368]">{GOOGLE_RATING.count} Bewertungen</span>
+                <span className="text-[#5f6368]">{GOOGLE_RATING.count} Bewertungen</span>
               </a>
-              {highlight && (
-                <Link
-                  href={`/veranstaltungen/${highlight.slug}`}
-                  className="grid gap-0.5 border-t pt-4"
-                  style={{ borderColor: "var(--linie)" }}
-                >
-                  <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-akzent">
-                    Nächstes Highlight
-                  </span>
-                  <span className="font-semibold">
-                    {highlight.title.split(" · ")[0]} · {shortDate(highlight).rest.split(" · ")[0]},{" "}
-                    {shortDate(highlight).day}
-                    {new Date(highlight.startsAt).getFullYear()}
-                  </span>
+            </div>
+            <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-6">
+              {[
+                {
+                  img: { src: "/photos/karte/ww-fruehstuecksbrett.png", alt: "Frühstücksbrett mit Wurst, Käse, Aufstrichen, Rührei, Obst und Gemüse", width: 343, height: 520 },
+                  pos: "center 40%",
+                  k: "Täglich 8–14 Uhr",
+                  t: "Brunch",
+                  s: "Frühstück, Brote, Bowls, ab 11:30 Uhr Mittagstisch.",
+                  href: "/speisekarte#fruehstueck",
+                  l: "Brunch-Karte",
+                },
+                {
+                  img: IMG.burger,
+                  pos: "center",
+                  k: "Freitag bis Sonntag 17–22 Uhr",
+                  t: "Abendessen",
+                  s: "Burger, Steak und Spare Ribs vom Grill, Cocktails.",
+                  href: "/speisekarte#abend",
+                  l: "Abendkarte",
+                },
+                {
+                  img: IMG.wwEvent,
+                  pos: "center 30%",
+                  k: "Termine & Anfragen",
+                  t: "Events & Feiern",
+                  s: "Krimidinner, Magic Dinner, eure eigene Feier bei uns.",
+                  href: "/veranstaltungen",
+                  l: "Alle Termine",
+                },
+              ].map((c) => (
+                <Link key={c.t} href={c.href} className="group grid content-start gap-3">
+                  <Image
+                    src={c.img.src}
+                    alt={c.img.alt}
+                    width={c.img.width}
+                    height={c.img.height}
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className={`${FOTO} aspect-[4/3] w-full`}
+                    style={{ objectPosition: c.pos }}
+                  />
+                  <span className={LABEL}>{c.k}</span>
+                  <b className="font-display text-[1.6rem] font-normal leading-tight">{c.t}</b>
+                  <span className="text-[0.95rem] text-muted">{c.s}</span>
+                  <span className={`${LINK} justify-self-start`}>{c.l}</span>
                 </Link>
-              )}
+              ))}
             </div>
-          </div>
-
-          <div className={`${CONTAINER} hidden items-center gap-9 pb-16 pt-8 md:grid md:grid-cols-[1fr_1.1fr] md:gap-16 md:pb-24 md:pt-14`}>
-            <div className="grid justify-items-start gap-5 md:gap-6">
-              <span className={LABEL}>Sinzing bei Regensburg</span>
-              <h1 className="font-display text-[2.5rem] font-light leading-[1.06] md:text-[3.75rem]">
-                Brunch jeden Morgen.
-                <br />
-                <span className="font-normal">Abendessen</span> am Wochenende.
-              </h1>
-              <p className="m-0 max-w-[44ch] text-[1.05rem] leading-relaxed md:text-[1.2rem]">
-                Mitten im Grünen, am Waldrand von Sinzing. Familiengeführt, regional,
-                mit Platz für Freundinnen, Familie und Hund.
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <ReserveButton location="hero" className={BTN_A}>
-                  Tisch reservieren
-                </ReserveButton>
-                <span className="hidden sm:inline">
-                  <Link href="/gutscheine" className={BTN_O}>
-                    Gutschein verschenken
-                  </Link>
-                </span>
-              </div>
-              {highlight && (
-                <div
-                  className="flex w-full flex-wrap items-center gap-x-4 gap-y-1 border-t pt-4 text-sm"
-                  style={{ borderColor: "var(--linie)" }}
-                >
-                  <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-akzent">
-                    Nächstes Highlight
-                  </span>
-                  <span className="font-semibold">
-                    {highlight.title.split(" · ")[0]} · {shortDate(highlight).rest.split(" · ")[0]},{" "}
-                    {shortDate(highlight).day}
-                    {new Date(highlight.startsAt).getFullYear()}
-                  </span>
-                  <Link href={`/veranstaltungen/${highlight.slug}`} className={LINK}>
-                    Tickets
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Foto-Stapel: Terrasse, kleines Hundefoto, Google-Karte */}
-            <div className="relative pb-10 md:pb-14 md:pl-12">
-              <Image
-                src={IMG.terrasseOlivenbaum.src}
-                alt={IMG.terrasseOlivenbaum.alt}
-                width={IMG.terrasseOlivenbaum.width}
-                height={IMG.terrasseOlivenbaum.height}
-                priority
-                sizes="(min-width: 768px) 55vw, 100vw"
-                className={`${FOTO} aspect-[4/5] w-full`}
-                style={{ objectPosition: "center 28%" }}
-              />
-              <Image
-                src={IMG.hundWald.src}
-                alt={IMG.hundWald.alt}
-                width={IMG.hundWald.width}
-                height={IMG.hundWald.height}
-                sizes="(min-width: 768px) 22vw, 40vw"
-                className={`${FOTO} absolute bottom-0 left-0 aspect-square w-[40%] border-[6px] border-morgen md:w-[42%]`}
-                style={{ objectPosition: "center 40%" }}
-              />
-              <GoogleBadge className="absolute -right-1 top-4 w-[190px] md:-right-4 md:top-9 md:w-[236px]" />
-            </div>
-          </div>
-
-          {/* Drei Einstiege — offene Spalten, feine Linie oben */}
-          <div className={`${CONTAINER} grid gap-4 pb-10 md:grid-cols-3 md:gap-10`}>
-            {[
-              { k: "Täglich", t: "Brunch 8–14 Uhr", s: "Frühstück, Brote, Bowls, ab 11:30 Uhr Mittagstisch", href: "/speisekarte#fruehstueck" },
-              { k: "Fr bis So", t: "Abendessen 17–22 Uhr", s: "Burger, vom Grill, Cocktails", href: "/speisekarte#abend" },
-              { k: "Verschenken", t: "Gutschein als PDF", s: "sofort per Mail, für Brunch und Abend", href: "/gutscheine" },
-            ].map((t) => (
-              <Link
-                key={t.t}
-                href={t.href}
-                className="grid gap-1 border-t pt-4"
-                style={{ borderColor: "var(--linie)" }}
-              >
-                <span className={LABEL}>{t.k}</span>
-                <b className="font-display text-[1.3rem] font-normal leading-tight md:text-[1.5rem]">{t.t}</b>
-                <span className="text-sm text-muted">{t.s}</span>
-              </Link>
-            ))}
           </div>
         </DaySection>
 
@@ -306,13 +259,12 @@ export default function HomePage() {
                 className={`${FOTO} mb-6 aspect-[4/5] w-full md:mb-10`}
               />
               <Image
-                src={IMG.fruehstueckFoto.src}
-                alt={IMG.fruehstueckFoto.alt}
-                width={IMG.fruehstueckFoto.width}
-                height={IMG.fruehstueckFoto.height}
+                src={IMG.wwFood5.src}
+                alt="Tisch am Fenster mit Messinglampe und Blick ins Grüne"
+                width={IMG.wwFood5.width}
+                height={IMG.wwFood5.height}
                 sizes="(min-width: 768px) 25vw, 50vw"
                 className={`${FOTO} aspect-[4/5] w-full`}
-                style={{ objectPosition: "center 70%" }}
               />
             </div>
             <div className="grid justify-items-start gap-4 md:gap-[18px]">

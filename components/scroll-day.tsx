@@ -22,7 +22,6 @@ export function ScrollDay({ children }: { children: ReactNode }) {
 
     const secs = Array.from(root.querySelectorAll<HTMLElement>("[data-bg]"));
     if (secs.length === 0) return;
-    secs.forEach((s) => (s.style.backgroundColor = "transparent"));
 
     const hex = (h: string) =>
       [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)) as [number, number, number];
@@ -48,11 +47,21 @@ export function ScrollDay({ children }: { children: ReactNode }) {
         }
       }
       let color = `rgb(${hex(cur.dataset.bg!).join(",")})`;
-      if (next) {
+      // Nur innerhalb eines Tons weich überblenden. Zwischen hell und dunkel
+      // würde der Text der noch sichtbaren Sektion sonst auf einem Hintergrund
+      // im falschen Ton stehen (dunkelgrün auf dunkelgrün). Dort schaltet die
+      // Farbe an der Kante um; die Dämmerungs-Sektion bringt ihren eigenen
+      // Verlauf im Foto mit.
+      if (next && next.dataset.tone === cur.dataset.tone) {
         const d = top(next) - y;
         if (d < zone) color = mix(hex(cur.dataset.bg!), hex(next.dataset.bg!), 1 - Math.max(0, d) / zone);
       }
       root.style.backgroundColor = color;
+      // Sektionen im selben Ton zeigen die gemischte Farbe, die anderen
+      // behalten ihre eigene. So steht Text nie auf einem Grund im falschen
+      // Ton, auch wenn eine helle und eine dunkle Sektion gleichzeitig im Bild sind.
+      const curTone = cur.dataset.tone;
+      for (const s of secs) s.style.backgroundColor = s.dataset.tone === curTone ? color : s.dataset.bg!;
       // Header und Sticky-Leisten lesen --bgc (globals.css) und laufen so mit.
       document.documentElement.style.setProperty("--bgc", color);
 

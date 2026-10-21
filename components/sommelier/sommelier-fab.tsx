@@ -39,7 +39,7 @@ export function SommelierFab() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Was passt zu dir? Frühstücks-Sommelier öffnen"
-          className="fixed bottom-[84px] md:bottom-5 right-4 md:right-5 z-40 inline-flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-waldgruen hover:bg-tonwarm text-mehlcreme shadow-lg shadow-waldgruen/25 transition-colors md:h-auto md:w-auto md:pl-4 md:pr-5 md:py-3"
+          className="fixed bottom-[84px] md:bottom-5 right-4 md:right-5 z-40 inline-flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-tanne text-creme shadow-[0_10px_30px_-12px_rgba(1,28,13,.6)] ring-1 ring-creme/15 transition-colors hover:bg-abend md:h-auto md:w-auto md:pl-4 md:pr-5 md:py-3"
         >
           <LeafIcon />
           <span className="hidden font-medium text-sm md:inline">Was passt zu dir?</span>
@@ -51,24 +51,24 @@ export function SommelierFab() {
           <div
             aria-hidden
             onClick={() => setOpen(false)}
-            className="absolute inset-0 bg-waldgruen-dark/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-nacht/60"
           />
           <div
             role="dialog"
             aria-modal="true"
             aria-label="Frühstücks-Sommelier"
-            className="relative w-full sm:max-w-lg max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-mehlcreme p-3.5 sm:p-4 shadow-2xl"
+            className="relative max-h-[92vh] w-full overflow-y-auto rounded-t-[20px] bg-morgen p-5 shadow-2xl sm:max-w-lg sm:rounded-[20px] sm:p-7"
           >
             <div className="flex items-center justify-between px-2 pb-3">
-              <span className="eyebrow no-line text-tonwarm">
-                Frühstücks-Sommelier
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">
+                Was passt zu dir?
               </span>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Schließen"
                 autoFocus
-                className="grid h-9 w-9 place-items-center rounded-full text-waldgruen/60 hover:bg-waldgruen/10 hover:text-waldgruen transition-colors"
+                className="grid h-9 w-9 place-items-center rounded-full text-tanne/60 transition-colors hover:bg-tanne/10 hover:text-tanne"
               >
                 <span aria-hidden className="text-lg leading-none">
                   ✕
