@@ -1,3 +1,4 @@
+import { pageTitle } from "@/lib/site";
 import { RichLanding, type LandingContent } from "@/components/rich-landing";
 import { IMG } from "@/lib/images";
 
@@ -74,7 +75,7 @@ const content: LandingContent = {
 };
 
 export const metadata = {
-  title: content.metaTitle,
+  title: pageTitle(content.metaTitle),
   description: content.metaDescription,
   alternates: { canonical: "/abendessen-regensburg" },
 };

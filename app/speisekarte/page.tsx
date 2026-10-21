@@ -17,8 +17,9 @@ import { BREAKFAST_MENU } from "@/lib/menu";
 import { BURGER_CHOICES, DINNER_MENU } from "@/lib/dinner-menu";
 
 export const metadata: Metadata = {
-  title:
-    "Speisekarte — Frühstück, Mittag & Abend | Wald & Wiese Sinzing bei Regensburg",
+  title: {
+    absolute: "Speisekarte — Frühstück, Mittag & Abend | Wald & Wiese Sinzing bei Regensburg",
+  },
   description:
     "Die ganze Speisekarte von Wald & Wiese in Sinzing bei Regensburg: Frühstück & Mittag täglich 8–14 Uhr (Frühstücke ab 11,90 €, Brote, Bowls 9,90 €, Currywurst, Burger ab 13,90 €) und Abend Fr–So 17–22 Uhr (Burger, Bowls, vom Grill, Finale). Regional, hausgemacht, vegan & vegetarisch.",
   alternates: { canonical: "/speisekarte" },

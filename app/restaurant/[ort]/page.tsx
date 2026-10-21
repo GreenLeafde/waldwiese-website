@@ -1,3 +1,4 @@
+import { pageTitle } from "@/lib/site";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { RichLanding } from "@/components/rich-landing";
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const entry = ORT_MAP[ort];
   if (!entry) return {};
   return {
-    title: entry.content.metaTitle,
+    title: pageTitle(entry.content.metaTitle),
     description: entry.content.metaDescription,
     alternates: { canonical: `/restaurant/${ort}` },
   };

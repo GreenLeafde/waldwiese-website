@@ -45,8 +45,8 @@ const dmSans = DM_Sans({
 
 /** Standard-Vorschaubild fürs Teilen (OG/Twitter) — echtes Foto aus dem Haus. */
 const OG_IMAGE = {
-  url: "/photos/fruehstueck-avocado-toast.jpg",
-  alt: "Frühstück im Grünen bei Wald & Wiese in Sinzing bei Regensburg",
+  url: "/photos/terrasse-olivenbaum.jpg",
+  alt: "Terrasse von Wald & Wiese mit Olivenbaum am Waldrand in Sinzing bei Regensburg",
 };
 
 export function generateMetadata(): Metadata {
@@ -114,15 +114,29 @@ function buildRestaurantJsonLd() {
   url: SITE.url,
   description: siteDescription(),
   image: [
-    `${SITE.url}/photos/fruehstueck-avocado-toast.jpg`,
+    `${SITE.url}/photos/terrasse-olivenbaum.jpg`,
+    `${SITE.url}/photos/fruehstueck-sauerteig.jpg`,
     `${SITE.url}/photos/gebaeude-abend.jpg`,
-    `${SITE.url}/photos/terrasse-tische.jpg`,
+    `${SITE.url}/photos/ww-00008.jpeg`,
   ],
-  servesCuisine: ["Brunch", "Frühstück", "Regional", "Vegetarisch", "Vegan"],
+  logo: `${SITE.url}/brand/wald-und-wiese-tanne.svg`,
+  servesCuisine: ["Brunch", "Frühstück", "Burger", "Grill", "Regional", "Vegetarisch", "Vegan"],
+  slogan: "Brunch & Abendessen mitten im Grünen.",
+  areaServed: ["Sinzing", "Regensburg", "Nittendorf", "Pentling", "Kelheim", "Bad Abbach"],
+  amenityFeature: [
+    { "@type": "LocationFeatureSpecification", name: "Hunde willkommen", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Terrasse", value: true },
+    { "@type": "LocationFeatureSpecification", name: "Vegane und vegetarische Gerichte", value: true },
+  ],
+  potentialAction: {
+    "@type": "ReserveAction",
+    target: `${SITE.url}/reservieren`,
+    result: { "@type": "FoodEstablishmentReservation", name: "Tisch reservieren" },
+  },
   priceRange: "€€",
   telephone: CONTACT.phone,
   email: CONTACT.email,
-  acceptsReservations: "True",
+  acceptsReservations: `${SITE.url}/reservieren`,
   menu: `${SITE.url}/speisekarte`,
   hasMenu: `${SITE.url}/speisekarte`,
   address: {
@@ -162,7 +176,7 @@ function buildRestaurantJsonLd() {
     longitude: GEO.lng,
   },
   hasMap: GOOGLE_MAPS_URL,
-  sameAs: [CONTACT.instagram],
+  sameAs: [CONTACT.instagram, GOOGLE_MAPS_URL],
   };
 }
 

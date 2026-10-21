@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const recipe = getRecipe(slug);
   if (!recipe) return {};
   return {
-    title: `${recipe.title} — Rezept | Wald & Wiese`,
+    title: { absolute: `${recipe.title} — Rezept | Wald & Wiese` },
     description: recipe.teaser,
     alternates: { canonical: `/rezepte/${slug}` },
     openGraph: {

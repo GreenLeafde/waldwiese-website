@@ -9,6 +9,7 @@ import { ReserveButton } from "@/components/reserve-chooser";
 import { ScrollDay } from "@/components/scroll-day";
 import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
 import { upcomingEvents, type EventItem } from "@/lib/events";
+import { HOME_FAQ } from "@/lib/faq";
 import { IMG } from "@/lib/images";
 import { BREAKFAST_MENU, type BreakfastDish } from "@/lib/menu";
 import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
@@ -112,6 +113,7 @@ export default function HomePage() {
   const reviewsJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
+    "@id": `${SITE.url}/#restaurant`,
     name: SITE.name,
     url: SITE.url,
     aggregateRating: {
@@ -133,6 +135,20 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: HOME_FAQ.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }),
+        }}
       />
       <ScrollDay>
         {/* 1 · HERO — ein Foto, ein Satz, was wir sind und wann. Darunter
@@ -530,6 +546,25 @@ export default function HomePage() {
               <h2 className={`${H2} mt-2`}>Das sagen unsere Gäste</h2>
             </div>
             <GoogleReviews limit={4} />
+          </div>
+        </DaySection>
+
+        {/* 9b · HÄUFIGE FRAGEN — kurze Fakten, auch für Google und KI-Suchen */}
+        <DaySection stage="tanne" id="fragen" className="pb-16 md:pb-[104px]">
+          <div className={`${CONTAINER} max-w-[860px]`}>
+            <span className={LABEL}>Kurz gefragt</span>
+            <h2 className={`${H2} mt-2`}>Gut zu wissen</h2>
+            <div className="mt-8 border-t" style={{ borderColor: "var(--linie)" }}>
+              {HOME_FAQ.map((f) => (
+                <details key={f.q} className="group border-b py-5" style={{ borderColor: "var(--linie)" }}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                    <span className="font-display text-[1.2rem] font-normal md:text-[1.3rem]">{f.q}</span>
+                    <span aria-hidden className="text-2xl leading-none text-akzent transition-transform group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="mb-0 mt-3 leading-relaxed text-muted">{f.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </DaySection>
 

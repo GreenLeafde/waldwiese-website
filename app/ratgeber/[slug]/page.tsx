@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
 import { PageTone } from "@/components/page-tone";
 import { getGuide, GUIDES } from "@/lib/guides";
-import { SITE } from "@/lib/site";
+import { SITE , pageTitle } from "@/lib/site";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const guide = getGuide(slug);
   if (!guide) return {};
   return {
-    title: guide.metaTitle,
+    title: pageTitle(guide.metaTitle),
     description: guide.metaDescription,
     alternates: { canonical: `/ratgeber/${slug}` },
     openGraph: {

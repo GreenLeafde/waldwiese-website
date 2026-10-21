@@ -27,7 +27,7 @@ const MAGIC_DINNER = "/veranstaltungen/magic-dinner-regensburg-sinzing-2027";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Gutscheine — Wald & Wiese verschenken",
+  title: { absolute: "Gutscheine — Wald & Wiese verschenken" },
   description:
     "Gutschein für Wald & Wiese in Sinzing bei Regensburg — auch als Weihnachtsgeschenk: Betrag frei wählbar ab 10 €, sofort als PDF per E-Mail oder als Karte per Post, drei Jahre gültig. Einlösbar auf alles — Brunch, Abendessen und Getränke.",
   alternates: { canonical: "/gutscheine" },

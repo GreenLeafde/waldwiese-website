@@ -1,3 +1,4 @@
+import { pageTitle } from "@/lib/site";
 import { RichLanding, type LandingContent } from "@/components/rich-landing";
 import { IMG } from "@/lib/images";
 import raw from "@/lib/landing/fruehstueck-regensburg.json";
@@ -5,7 +6,7 @@ import raw from "@/lib/landing/fruehstueck-regensburg.json";
 const content = raw as unknown as LandingContent;
 
 export const metadata = {
-  title: content.metaTitle,
+  title: pageTitle(content.metaTitle),
   description: content.metaDescription,
   alternates: { canonical: "/fruehstueck-regensburg" },
 };

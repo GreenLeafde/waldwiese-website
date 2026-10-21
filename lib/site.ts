@@ -312,3 +312,12 @@ export const FOOTER_NAV: Array<{
     ],
   },
 ];
+
+/**
+ * Seitentitel ohne doppelte Marke: Steht „Wald & Wiese" schon im Titel, wird
+ * das Layout-Suffix „· Wald & Wiese" weggelassen (sonst „… | Wald & Wiese ·
+ * Wald & Wiese" in Google).
+ */
+export function pageTitle(title: string): string | { absolute: string } {
+  return /Wald & Wiese/.test(title) ? { absolute: title } : title;
+}
