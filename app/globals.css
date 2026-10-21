@@ -379,3 +379,58 @@ html[data-tone="dunkel"] .cat-tabs { color: var(--color-creme); --linie: rgba(24
 @media (prefers-reduced-motion: reduce) {
   .site-header, .site-header-top, .site-header-bar { transition: none; }
 }
+
+/* ---------------------------------------------------------------------------
+ * Bewegung (Redesign 10/2026). Nur wenn das System Bewegung erlaubt.
+ *  - .hero-in: Hero-Text blendet beim Laden gestaffelt ein
+ *  - .slow-zoom: Hero-Fotos zoomen ganz langsam heraus (Ken Burns)
+ *  - Überschriften und Fotos in DaySections blenden beim Scrollen ein
+ *    (scroll-driven, ohne JS; Browser ohne Support zeigen alles sofort)
+ *  - .zoom-hover: Foto-Kacheln zoomen beim Drüberfahren leicht
+ * --------------------------------------------------------------------------*/
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes ww-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes ww-slow-zoom {
+    from { transform: scale(1.12); }
+    to { transform: scale(1); }
+  }
+  .hero-in > * {
+    opacity: 0;
+    animation: ww-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-in > *:nth-child(1) { animation-delay: 0.15s; }
+  .hero-in > *:nth-child(2) { animation-delay: 0.3s; }
+  .hero-in > *:nth-child(3) { animation-delay: 0.45s; }
+  .hero-in > *:nth-child(4) { animation-delay: 0.6s; }
+  .hero-in > *:nth-child(5) { animation-delay: 0.75s; }
+  .slow-zoom { animation: ww-slow-zoom 9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  .zoom-hover { overflow: hidden; border-radius: var(--radius-foto); }
+  .zoom-hover img { transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .zoom-hover:hover img, a:hover > .zoom-hover img { transform: scale(1.04); }
+
+  @supports (animation-timeline: view()) {
+    @keyframes ww-reveal {
+      from { opacity: 0; transform: translateY(26px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes ww-reveal-img {
+      from { opacity: 0.2; transform: translateY(30px) scale(0.97); }
+      to { opacity: 1; transform: none; }
+    }
+    .day-section h2,
+    .day-section h3 {
+      animation: ww-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 25%;
+    }
+    .day-section img:not(.no-reveal) {
+      animation: ww-reveal-img linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}

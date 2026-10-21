@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { DaySection } from "@/components/day-section";
 import { GoogleG, GoogleReviews } from "@/components/google-reviews";
+import { HeroSlides } from "@/components/hero-slides";
 import { ReserveButton } from "@/components/reserve-chooser";
 import { ScrollDay } from "@/components/scroll-day";
 import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
@@ -137,15 +138,32 @@ export default function HomePage() {
             sofort die drei Dinge, die es bei uns gibt, jeweils mit Foto. */}
         <DaySection stage="morgen" className="pt-[92px]">
           <div className="relative isolate flex min-h-[calc(100svh-92px)] items-center justify-center text-center">
-            <Image
-              src={IMG.fruehstueckFoto.src}
-              alt={IMG.fruehstueckFoto.alt}
-              fill
-              priority
-              sizes="100vw"
-              className="-z-20 object-cover"
-              style={{ objectPosition: "center 62%" }}
-            />
+            {/* Bewegter Hintergrund aus echten Fotos. Handy: ein Feld, Desktop:
+                drei Felder nebeneinander, versetzt überblendend — so wird kein
+                Foto über seine Originalbreite gestreckt (Brunch-Foto: 900 px). */}
+            <div className="absolute inset-0 -z-20 md:hidden">
+              <HeroSlides
+                priority
+                sizes="100vw"
+                slides={[
+                  { src: IMG.fruehstueckFoto.src, pos: "center 62%" },
+                  { src: IMG.burger.src, pos: "center 55%" },
+                  { src: IMG.cocktail.src, pos: "center 40%" },
+                  { src: IMG.terrasseOlivenbaum.src, pos: "center 35%" },
+                ]}
+              />
+            </div>
+            <div className="absolute inset-0 -z-20 hidden grid-cols-3 md:grid">
+              {[
+                { offset: 0, slides: [{ src: IMG.fruehstueckFoto.src, pos: "center 65%" }, { src: IMG.terrasseOlivenbaum.src, pos: "center 35%" }] },
+                { offset: 2200, slides: [{ src: IMG.wwFood5.src, pos: "center 55%" }, { src: IMG.burger.src, pos: "center 55%" }] },
+                { offset: 4400, slides: [{ src: IMG.cocktail.src, pos: "center 40%" }, { src: IMG.gebaeudeAbend.src, pos: "center 60%" }] },
+              ].map((panel) => (
+                <div key={panel.slides[0].src} className="relative">
+                  <HeroSlides priority sizes="34vw" offset={panel.offset} slides={panel.slides} />
+                </div>
+              ))}
+            </div>
             <div
               aria-hidden
               className="absolute inset-0 -z-10"
@@ -155,7 +173,7 @@ export default function HomePage() {
               }}
             />
             <div
-              className={`${CONTAINER} grid justify-items-center gap-4 py-16 text-creme md:gap-5`}
+              className={`${CONTAINER} hero-in grid justify-items-center gap-4 py-16 text-creme md:gap-5`}
               style={{ textShadow: "0 1px 14px rgba(1,28,13,.5)" }}
             >
               <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8a487]">
@@ -179,16 +197,10 @@ export default function HomePage() {
                   Speisekarte ansehen
                 </Link>
               </div>
-            </div>
-          </div>
-
-          {/* WAS ES BEI UNS GIBT — drei Fotos mit klarer Unterschrift */}
-          <div className={`${CONTAINER} py-14 md:py-20`}>
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className={LABEL}>Was es bei uns gibt</span>
               <a
                 href="#rezensionen"
-                className="inline-flex items-center gap-2.5 rounded-full bg-white px-4 py-2 text-sm text-[#1f1f1f] shadow-[0_6px_20px_-12px_rgba(2,41,20,.35)]"
+                className="mt-1 inline-flex items-center gap-2.5 rounded-full bg-white px-4 py-2 text-sm text-[#1f1f1f]"
+                style={{ textShadow: "none" }}
               >
                 <GoogleG className="h-5 w-5" />
                 <b className="font-semibold">{GOOGLE_RATING.value.toLocaleString("de-DE")}</b>
@@ -196,11 +208,16 @@ export default function HomePage() {
                 <span className="text-[#5f6368]">{GOOGLE_RATING.count} Bewertungen</span>
               </a>
             </div>
+          </div>
+
+          {/* WAS ES BEI UNS GIBT — drei Fotos mit klarer Unterschrift */}
+          <div className={`${CONTAINER} py-14 md:py-20`}>
+            <span className={LABEL}>Was es bei uns gibt</span>
             <div className="mt-6 grid gap-8 md:grid-cols-3 md:gap-6">
               {[
                 {
-                  img: { src: "/photos/karte/ww-fruehstuecksbrett.png", alt: "Frühstücksbrett mit Wurst, Käse, Aufstrichen, Rührei, Obst und Gemüse", width: 343, height: 520 },
-                  pos: "center 40%",
+                  img: { ...IMG.wwFood4, alt: "Siebträger-Kaffeemaschine und Gläser an der Bar" },
+                  pos: "center 60%",
                   k: "Täglich 8–14 Uhr",
                   t: "Brunch",
                   s: "Frühstück, Brote, Bowls, ab 11:30 Uhr Mittagstisch.",
@@ -227,15 +244,17 @@ export default function HomePage() {
                 },
               ].map((c) => (
                 <Link key={c.t} href={c.href} className="group grid content-start gap-3">
-                  <Image
-                    src={c.img.src}
-                    alt={c.img.alt}
-                    width={c.img.width}
-                    height={c.img.height}
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className={`${FOTO} aspect-[4/3] w-full`}
-                    style={{ objectPosition: c.pos }}
-                  />
+                  <span className="zoom-hover block">
+                    <Image
+                      src={c.img.src}
+                      alt={c.img.alt}
+                      width={c.img.width}
+                      height={c.img.height}
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      className={`${FOTO} aspect-[4/3] w-full`}
+                      style={{ objectPosition: c.pos }}
+                    />
+                  </span>
                   <span className={LABEL}>{c.k}</span>
                   <b className="font-display text-[1.6rem] font-normal leading-tight">{c.t}</b>
                   <span className="text-[0.95rem] text-muted">{c.s}</span>
@@ -365,7 +384,7 @@ export default function HomePage() {
             alt={IMG.gebaeudeAbend.alt}
             fill
             sizes="100vw"
-            className="-z-20 object-cover"
+            className="no-reveal -z-20 object-cover"
             style={{ objectPosition: "center 60%" }}
           />
           <div
