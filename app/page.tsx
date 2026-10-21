@@ -352,15 +352,17 @@ export default function HomePage() {
             className="absolute inset-0 -z-10"
             style={{
               background:
-                "linear-gradient(180deg, var(--color-mittag) 0%, rgba(1,28,13,0) 22%, rgba(1,28,13,0) 55%, rgba(1,28,13,.85) 100%)",
+                // Oben weicher Übergang aus der hellen Sektion, links und unten
+                // ein kräftiger Schleier, damit der Text auf dem Foto lesbar bleibt.
+                "linear-gradient(180deg, var(--color-mittag) 0%, rgba(1,28,13,0) 20%), linear-gradient(90deg, rgba(1,28,13,.88) 0%, rgba(1,28,13,.7) 45%, rgba(1,28,13,.15) 80%), linear-gradient(0deg, rgba(1,28,13,.9) 0%, rgba(1,28,13,0) 60%)",
             }}
           />
-          <div className={`${CONTAINER} grid justify-items-start gap-4 pb-12 pt-32 md:gap-5 md:pb-[72px]`}>
-            <span className={LABEL}>Abends · Freitag bis Sonntag, 17 bis 22 Uhr</span>
-            <h2 className="max-w-[16ch] font-display text-[2.4rem] font-light leading-[1.05] md:text-[3.5rem]">
-              Wenn es dunkel wird, <em className="font-light italic">geht bei uns das Licht an.</em>
+          <div className={`${CONTAINER} grid justify-items-start gap-4 pb-12 pt-32 md:gap-5 md:pb-[72px]`} style={{ textShadow: "0 1px 12px rgba(1,28,13,.55)" }}>
+            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8a487]">Abends · Freitag bis Sonntag, 17 bis 22 Uhr</span>
+            <h2 className="max-w-[16ch] font-display text-[2.4rem] font-normal leading-[1.08] md:text-[3.5rem]">
+              Wenn es dunkel wird, <em className="font-normal italic">geht bei uns das Licht an.</em>
             </h2>
-            <p className="m-0 max-w-[44ch] text-[1.05rem] leading-relaxed text-creme/85 md:text-lg">
+            <p className="m-0 max-w-[44ch] text-[1.05rem] leading-relaxed text-creme md:text-lg">
               Am Wochenende kochen wir abends weiter: Burger, vom Grill und ein süßes Finale.
               <span className="hidden md:inline"> Sven steht an der Bar.</span>
             </p>
