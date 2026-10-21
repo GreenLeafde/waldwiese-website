@@ -1,31 +1,44 @@
 import Link from "next/link";
+import { LOGO_PATH, LOGO_VIEWBOX } from "./logo-path";
 
 type LogoProps = {
-  variant?: "light" | "dark";
+  /** light = Creme (auf dunklem Grund), dark = Tanne (auf hellem Grund), current = erbt die Textfarbe. */
+  variant?: "light" | "dark" | "current";
   showSubtitle?: boolean;
   className?: string;
+  /** Höhe in Pixeln; Breite ergibt sich aus dem Seitenverhältnis (297.53 : 55.95). */
+  height?: number;
 };
 
 /**
- * Wortmarke „WALD & WIESE" mit Heinzi-Ampersand-Schwung.
- * Bewusst in HTML/CSS gebaut statt PNG, damit es scharf bleibt und sich
- * der Schriftfarbe anpasst (light = creme, dark = waldgruen).
+ * Echte Wortmarke „WALD & WIESE" (geschwungener Ampersand) als Inline-SVG
+ * aus dem Original-Vektor (public/brand/wald-und-wiese-*.svg). Inline, damit
+ * die Farbe per currentColor dem Tageszeit-Ton folgt (Header auf der
+ * Startseite wechselt beim Scrollen von Tanne auf Creme).
  */
-export function Logo({ variant = "dark", showSubtitle = false, className = "" }: LogoProps) {
-  const color = variant === "light" ? "text-mehlcreme" : "text-waldgruen";
+export function Logo({
+  variant = "current",
+  showSubtitle = false,
+  className = "",
+  height = 22,
+}: LogoProps) {
+  const color =
+    variant === "light" ? "text-creme" : variant === "dark" ? "text-tanne" : "";
   return (
     <Link
       href="/"
       aria-label="Wald & Wiese — Startseite"
-      className={`inline-flex flex-col items-center leading-none ${color} ${className}`}
+      className={`inline-flex flex-col items-start leading-none ${color} ${className}`}
     >
-      <span className="font-display text-2xl md:text-3xl tracking-[0.18em] uppercase">
-        Wald{" "}
-        <span className="italic font-normal lowercase tracking-normal text-[1.15em] align-middle">
-          &amp;
-        </span>{" "}
-        Wiese
-      </span>
+      <svg
+        viewBox={LOGO_VIEWBOX}
+        role="img"
+        aria-label="Wald & Wiese"
+        style={{ height, width: "auto" }}
+        className="block"
+      >
+        <path fill="currentColor" d={LOGO_PATH} />
+      </svg>
       {showSubtitle && (
         <span className="mt-2 text-[0.65rem] tracking-[0.3em] uppercase opacity-80">
           Sinzing · bei Regensburg

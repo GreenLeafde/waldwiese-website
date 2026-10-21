@@ -1,8 +1,8 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { DaySection } from "@/components/day-section";
 import { EventCards } from "@/components/event-cards";
-import { LeafDivider } from "@/components/leaf-divider";
-import { GrowingVine } from "@/components/growing-vine";
+import { PageTone } from "@/components/page-tone";
 import { pastEvents, upcomingEvents } from "@/lib/events";
 import { eventJsonLd } from "@/lib/event-schema";
 import { CONTACT, SITE } from "@/lib/site";
@@ -14,33 +14,30 @@ export const metadata: Metadata = {
   alternates: { canonical: "/veranstaltungen" },
 };
 
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+
 /**
- * Öffentliche Termine mit Ticketverkauf (Krimidinner & Co.) als Karten-Liste,
+ * Öffentliche Termine mit Ticketverkauf (Krimidinner & Co.) als Liste,
  * Details je Termin unter /veranstaltungen/<slug>. Eigene Feiern — also uns
  * als Location buchen — liegen bewusst getrennt davon auf /feiern.
+ * Dunkle Seite (Abend), siehe CI.
  */
 export default function VeranstaltungenPage() {
   const upcoming = upcomingEvents();
   const past = pastEvents();
-
   const eventsLd = upcoming.map(eventJsonLd);
-
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Startseite", item: SITE.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Veranstaltungen",
-        item: `${SITE.url}/veranstaltungen`,
-      },
+      { "@type": "ListItem", position: 2, name: "Veranstaltungen", item: `${SITE.url}/veranstaltungen` },
     ],
   };
 
   return (
     <>
+      <PageTone tone="dunkel" />
       {eventsLd.map((ld) => (
         <script
           key={ld.url}
@@ -53,114 +50,74 @@ export default function VeranstaltungenPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
-      {/* HEADER */}
-      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-2 2xl:right-[5%] hidden lg:block h-[58%] max-h-[440px]"
-        >
-          <GrowingVine flip className="h-full w-auto" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
-          <nav
-            aria-label="Brotkrumen"
-            className="flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50"
-          >
-            <Link href="/" className="hover:text-tonwarm transition-colors">
-              Startseite
-            </Link>
+      <DaySection stage="tanne" className="pt-[116px] pb-10 md:pt-[140px] md:pb-14">
+        <div className={CONTAINER}>
+          <nav aria-label="Brotkrumen" className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-creme/60">
+            <Link href="/" className="hover:underline underline-offset-4">Startseite</Link>
             <span aria-hidden>/</span>
-            <span className="text-mehlcreme/80">Veranstaltungen</span>
+            <span>Veranstaltungen</span>
           </nav>
-        </div>
-
-        <div className="relative mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-16 md:pb-20 text-center reveal">
-          <p className="eyebrow no-line justify-center text-tonwarm">
-            Termine &amp; Tickets
-          </p>
-          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-mehlcreme">
-            Abende mit <span className="accent">Programm.</span>
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Termine &amp; Tickets</p>
+          <h1 className="mt-3 max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] md:text-[3.75rem]">
+            Abende mit Programm.
           </h1>
-          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
-            Zwischen unseren Tischen wird nicht nur gegessen: Immer wieder
-            gastieren Veranstalter mit besonderen Abenden bei uns im Grünen.
-            Hier findest du alle Termine mit Datum, Preis und Ticketlink.
+          <p className="mt-5 max-w-[56ch] text-[1.05rem] leading-relaxed text-creme/75">
+            Zwischen unseren Tischen wird nicht nur gegessen: Immer wieder gastieren
+            Veranstalter mit besonderen Abenden bei uns im Grünen. Hier stehen alle Termine
+            mit Datum, Preis und Ticketlink.
           </p>
         </div>
-      </section>
+      </DaySection>
 
-      {/* TERMINE */}
-      <section
-        id="termine"
-        className="scroll-mt-24 bg-waldgruen text-mehlcreme"
-      >
-        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-20 md:pb-28">
+      <DaySection stage="tanne" id="termine" className="scroll-mt-24 pb-16 md:pb-24">
+        <div className={CONTAINER}>
           {upcoming.length > 0 ? (
             <>
-              <h2
-                id="termine-heading"
-                className="text-[0.65rem] tracking-[0.22em] uppercase text-mehlcreme/50 font-medium reveal"
-              >
+              <h2 id="termine-heading" className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">
                 Kommende Termine
               </h2>
-              <div className="mt-8">
-                <EventCards events={upcoming} headingId="termine-heading" />
-              </div>
+              <EventCards events={upcoming} headingId="termine-heading" />
             </>
           ) : (
-            <p className="text-mehlcreme/75 leading-relaxed max-w-xl reveal">
-              Gerade steht kein öffentlicher Termin im Kalender. Trag dich in
-              den Newsletter ein oder schau bald wieder vorbei — dann erfährst
-              du als Erstes vom nächsten Abend.
+            <p className="max-w-[56ch] leading-relaxed text-creme/75">
+              Gerade steht kein öffentlicher Termin im Kalender. Trag dich in den Newsletter
+              ein oder schau bald wieder vorbei, dann erfährst du als Erstes vom nächsten Abend.
             </p>
           )}
-
           {past.length > 0 && (
-            <div className="mt-20">
-              <h2 className="text-[0.65rem] tracking-[0.22em] uppercase text-mehlcreme/50 font-medium reveal">
-                Schon gelaufen
-              </h2>
-              <div className="mt-8">
-                <EventCards events={past} variant="past" />
-              </div>
+            <div className="mt-16">
+              <h2 className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Schon gelaufen</h2>
+              <EventCards events={past} variant="past" />
             </div>
           )}
-
-          <LeafDivider tone="light" className="mt-20 opacity-80" />
         </div>
-      </section>
+      </DaySection>
 
-      {/* HINWEIS: eigene Feier ist etwas anderes */}
-      <section className="bg-waldgruen-dark text-mehlcreme">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
-          <p className="eyebrow no-line justify-center text-tonwarm">
-            Lieber selbst feiern?
-          </p>
-          <h2 className="mt-6 text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-            Dein Anlass, unsere <span className="accent">kleine Bühne.</span>
-          </h2>
-          <p className="mt-7 text-mehlcreme/80 leading-relaxed max-w-xl mx-auto">
-            Geburtstag, Taufe, Firmenfeier oder Hochzeit: Für deine eigene Feier
-            planen wir Menü und Ablauf persönlich mit dir — unabhängig von den
-            Terminen oben.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-5">
+      <DaySection stage="wald-2" className="py-14 md:py-20">
+        <div className={`${CONTAINER} grid gap-6 md:grid-cols-[1fr_auto] md:items-end md:gap-16`}>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Lieber selbst feiern?</p>
+            <h2 className="mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
+              Dein Anlass, unsere kleine Bühne.
+            </h2>
+            <p className="mt-3 max-w-[52ch] leading-relaxed text-creme/75">
+              Geburtstag, Taufe, Firmenfeier oder Hochzeit: Für deine eigene Feier planen wir
+              Menü und Ablauf persönlich mit dir, unabhängig von den Terminen oben.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <Link
               href="/feiern"
-              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+              className="inline-flex h-[50px] items-center rounded-full bg-akzent px-[26px] text-[0.95rem] font-semibold text-white transition-colors hover:bg-akzent-hover"
             >
-              Feiern bei uns <span aria-hidden>→</span>
+              Feiern bei uns
             </Link>
-            <a
-              href={`tel:${CONTACT.phoneRaw}`}
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
+            <a href={`tel:${CONTACT.phoneRaw}`} className="font-semibold border-b-[1.5px] border-current pb-0.5">
               {CONTACT.phone}
             </a>
           </div>
         </div>
-      </section>
+      </DaySection>
     </>
   );
 }

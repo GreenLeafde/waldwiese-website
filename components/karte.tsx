@@ -1,14 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LeafMark } from "@/components/diet-leaf";
 
 /**
- * Bausteine für Speise- und Getränkekarte im Look der gedruckten Karten
- * (Stand Oktober 2026): Papierfläche in Mehlcreme, Waldgrün-Haarlinien,
- * zentrierte Versalien-Überschriften, Preis direkt hinter dem Namen und
- * freigestellte Foodfotos als Spots.
+ * Bausteine für Speise- und Getränkekarte (Redesign 10/2026).
  *
- * Die Freisteller in /public/photos/karte stammen aus den Karten-PDFs.
+ * Gericht in Jost, Preis rechts in Tabellenziffern, Beschreibung klein
+ * darunter, feine Linie zwischen den Gerichten — wie der Karten-Auszug auf
+ * der Startseite. Tags (vegan, vegetarisch) als kleines Wort, keine Icons.
+ *
+ * `tone` meint die SCHRIFT: "dark" = dunkle Schrift auf heller Fläche,
+ * "light" = Creme auf dunkler Fläche. Die Fläche selbst kommt von der
+ * umgebenden DaySection. Die Freisteller in /public/photos/karte stammen
+ * aus den Karten-PDFs (echte Fotos der Gerichte).
  */
 
 /* ------------------------------------------------------------------ Spots */
@@ -26,8 +29,14 @@ export const KARTE_SPOTS = {
 } as const;
 
 export type SpotKey = keyof typeof KARTE_SPOTS;
+export type KarteTone = "dark" | "light";
 
-/** Freigestelltes Foto wie auf der gedruckten Karte — rein dekorativ. */
+const T = {
+  dark: { text: "text-tanne", muted: "text-muted-hell", line: "border-tanne/15", soft: "text-tanne/60" },
+  light: { text: "text-creme", muted: "text-creme/75", line: "border-creme/15", soft: "text-creme/60" },
+} as const;
+
+/** Freigestelltes Foto aus der gedruckten Karte — rein dekorativ. */
 export function KarteSpot({
   spot,
   className = "",
@@ -54,8 +63,8 @@ export function KarteSpot({
 /* --------------------------------------------------------------- Masthead */
 
 /**
- * Kopf wie auf der Karte: dicke Linie, Wortmarke, dünne Linie, Zeile mit
- * Ort / Kartenname / Familie.
+ * Kopf einer Kartenseite: Label, große Überschrift, Zeile mit Zeiten,
+ * darunter Platz für Knöpfe. Linksbündig im Seitenraster, kein Rahmen.
  */
 export function KarteMasthead({
   kicker,
@@ -63,60 +72,44 @@ export function KarteMasthead({
   accent,
   line,
   children,
+  tone = "dark",
 }: {
   kicker: string;
   title: string;
   accent?: string;
-  /** Die kleine Zeile unter der Wortmarke, z. B. „Täglich · 8 bis 14 Uhr". */
+  /** Die Zeile unter der Überschrift, z. B. „Täglich · 8 bis 14 Uhr". */
   line: string;
   children?: React.ReactNode;
+  tone?: KarteTone;
 }) {
+  const t = T[tone];
   return (
-    <section className="bg-mehlcreme">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 pt-24 md:pt-28">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-waldgruen/45 hover:text-tonwarm transition-colors"
-        >
-          <span aria-hidden>←</span> Startseite
-        </Link>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-6 md:px-10 pt-10 md:pt-12 pb-10 md:pb-14">
-        <div aria-hidden className="h-[3px] bg-waldgruen" />
-
-        <div className="py-8 md:py-10 text-center reveal">
-          <p className="text-[0.62rem] md:text-[0.68rem] tracking-[0.3em] uppercase text-waldgruen/50">
-            {kicker}
-          </p>
-          <h1 className="mt-5 font-display font-normal leading-[0.95] tracking-tight text-waldgruen text-5xl md:text-7xl lg:text-8xl">
-            {title}
-            {accent && (
-              <>
-                {" "}
-                <span className="accent">{accent}</span>
-              </>
-            )}
-          </h1>
-        </div>
-
-        <div aria-hidden className="h-px bg-waldgruen/35" />
-
-        <p className="py-4 text-center text-[0.62rem] md:text-[0.7rem] tracking-[0.26em] uppercase text-waldgruen/60">
-          {line}
-        </p>
-
-        <div aria-hidden className="h-px bg-waldgruen/35" />
-
-        {children && <div className="pt-10 md:pt-12">{children}</div>}
-      </div>
-    </section>
+    <div className={`mx-auto max-w-[1180px] px-5 pb-12 pt-[116px] md:px-12 md:pb-16 md:pt-[140px] ${t.text}`}>
+      <Link
+        href="/"
+        className={`inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] ${t.soft} hover:underline underline-offset-4`}
+      >
+        <span aria-hidden>←</span> Startseite
+      </Link>
+      <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">{kicker}</p>
+      <h1 className="mt-3 max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] md:text-[3.75rem]">
+        {title}
+        {accent && (
+          <>
+            {" "}
+            <span className="font-normal">{accent}</span>
+          </>
+        )}
+      </h1>
+      <p className={`mt-5 max-w-[60ch] text-[1.05rem] leading-relaxed ${t.muted}`}>{line}</p>
+      {children && <div className="mt-8">{children}</div>}
+    </div>
   );
 }
 
 /* ------------------------------------------------------- Kategorie & Dish */
 
-/** Zentrierte Versalien-Überschrift mit Haarlinie darunter. */
+/** Kategorie-Überschrift mit Hinweis, linksbündig, Linie darunter. */
 export function KarteHeading({
   title,
   hint,
@@ -124,20 +117,13 @@ export function KarteHeading({
 }: {
   title: string;
   hint?: string;
-  tone?: "dark" | "light";
+  tone?: KarteTone;
 }) {
-  const text = tone === "light" ? "text-mehlcreme" : "text-waldgruen";
-  const rule = tone === "light" ? "bg-mehlcreme/30" : "bg-waldgruen/30";
-  const sub = tone === "light" ? "text-mehlcreme/65" : "text-waldgruen/55";
+  const t = T[tone];
   return (
-    <div className="text-center">
-      <h3
-        className={`font-display font-normal uppercase tracking-[0.14em] leading-tight text-2xl md:text-3xl ${text}`}
-      >
-        {title}
-      </h3>
-      {hint && <p className={`mt-2 text-sm italic ${sub}`}>{hint}</p>}
-      <div aria-hidden className={`mt-4 h-px ${rule}`} />
+    <div className={`border-b pb-4 ${t.line} ${t.text}`}>
+      <h3 className="font-display text-[1.6rem] font-normal leading-tight md:text-[1.9rem]">{title}</h3>
+      {hint && <p className={`mt-1 text-[0.95rem] ${t.muted}`}>{hint}</p>}
     </div>
   );
 }
@@ -147,24 +133,7 @@ const TAG_LABEL: Record<string, string> = {
   vegetarisch: "vegetarisch",
   "vegan möglich": "vegan möglich",
   "vegetarisch möglich": "vegetarisch möglich",
-  empfehlung: "Empfehlung",
 };
-
-function DishTag({ tag, tone }: { tag: string; tone: "dark" | "light" }) {
-  const label = TAG_LABEL[tag];
-  if (!label || tag === "empfehlung") return null;
-  const vegan = tag === "vegan" || tag === "vegan möglich";
-  return (
-    <span
-      className={`ml-2 inline-flex items-center gap-1 align-middle font-body text-[0.68rem] lowercase tracking-wide ${
-        tone === "light" ? "text-tonwarm" : "text-tonwarm"
-      }`}
-    >
-      <LeafMark filled={vegan} className="h-2.5 w-2.5 shrink-0" />
-      {label}
-    </span>
-  );
-}
 
 export type KarteDishData = {
   name: string;
@@ -176,78 +145,59 @@ export type KarteDishData = {
   recipeSlug?: string;
 };
 
-/**
- * Ein Gericht im Kartenlook: Name fett, Preis direkt dahinter (wie gedruckt),
- * Beschreibung klein darunter.
- */
+/** Ein Gericht: Name links, Preis rechts, Beschreibung darunter. */
 export function KarteDish({
   dish,
   tone = "dark",
 }: {
   dish: KarteDishData;
-  tone?: "dark" | "light";
+  tone?: KarteTone;
 }) {
+  const t = T[tone];
   const star = dish.tags?.includes("empfehlung");
-  const name = tone === "light" ? "text-mehlcreme" : "text-waldgruen";
-  const body = tone === "light" ? "text-mehlcreme/70" : "text-waldgruen/70";
-  const price = tone === "light" ? "text-mehlcreme/90" : "text-waldgruen/90";
   const prices = Array.isArray(dish.price) ? dish.price : [dish.price];
+  const tags = (dish.tags ?? []).map((x) => TAG_LABEL[x]).filter(Boolean);
 
   return (
-    <li className="relative">
-      {star && (
-        <span
-          aria-label="Unsere Empfehlung"
-          title="Unsere Empfehlung"
-          className="absolute -left-5 top-[0.15em] text-tonwarm text-sm md:-left-6 md:text-base"
-        >
-          ★
-        </span>
-      )}
-      <p className="font-display text-lg md:text-xl leading-snug">
-        <span className={`font-semibold ${name}`}>{dish.name}</span>{" "}
-        <span className={`whitespace-nowrap font-normal ${price}`}>
-          {prices.join(" / ")}
-        </span>
-        {dish.tags?.map((t) => (
-          <DishTag key={t} tag={t} tone={tone} />
-        ))}
+    <li className={`grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-b py-4 ${t.line} ${t.text}`}>
+      <p className="m-0 font-display text-[1.2rem] leading-tight md:text-[1.3rem]">
+        {dish.name}
+        {star && (
+          <span aria-label="Unsere Empfehlung" title="Unsere Empfehlung" className="ml-2 text-akzent">
+            ★
+          </span>
+        )}
+        {tags.length > 0 && (
+          <span className={`ml-2 font-body text-xs ${t.muted}`}>{tags.join(" · ")}</span>
+        )}
       </p>
+      <span className="whitespace-nowrap text-[0.95rem] tabular-nums">{prices.join(" / ")}</span>
       {dish.desc && (
-        <p className={`mt-1.5 text-[0.95rem] leading-relaxed ${body}`}>
-          {dish.desc}
-        </p>
+        <p className={`col-span-2 m-0 text-[0.9rem] leading-snug ${t.muted}`}>{dish.desc}</p>
       )}
       {dish.options?.map((opt) => (
-        <p key={opt.label} className="mt-1 text-[0.95rem] text-tonwarm">
-          + {opt.label}{" "}
-          <span className={tone === "light" ? "text-mehlcreme/50" : "text-waldgruen/50"}>
-            {opt.price}
-          </span>
+        <p key={opt.label} className={`col-span-2 m-0 text-[0.9rem] ${t.muted}`}>
+          + {opt.label} <span className="tabular-nums">{opt.price}</span>
         </p>
       ))}
       {dish.hint && (
-        <p
-          className={`mt-1 text-[0.68rem] uppercase tracking-[0.18em] ${
-            tone === "light" ? "text-mehlcreme/45" : "text-waldgruen/45"
-          }`}
-        >
+        <p className={`col-span-2 m-0 text-xs font-semibold uppercase tracking-[0.12em] ${t.soft}`}>
           {dish.hint}
         </p>
       )}
       {dish.recipeSlug && (
         <Link
           href={`/rezepte/${dish.recipeSlug}`}
-          className="mt-1.5 inline-flex items-center gap-1.5 text-[0.9rem] text-tonwarm underline decoration-tonwarm/40 underline-offset-2 transition-colors hover:text-tonwarm-dark"
+          className="col-span-2 justify-self-start text-[0.9rem] font-semibold underline underline-offset-4"
         >
-          Rezept zum Nachmachen <span aria-hidden>→</span>
+          Rezept zum Nachmachen
         </Link>
       )}
     </li>
   );
 }
 
-/** Kategorie-Spalte: Überschrift, Gerichte, optional ein Freisteller. */
+/** Kategorie: Überschrift, Gerichte, optional ein Freisteller unten. */
 export function KarteColumn({
   title,
   hint,
@@ -261,37 +211,33 @@ export function KarteColumn({
   items: readonly KarteDishData[];
   spot?: SpotKey;
   spotWidth?: number;
-  tone?: "dark" | "light";
+  tone?: KarteTone;
 }) {
   return (
     <div className="break-inside-avoid">
       <KarteHeading title={title} hint={hint} tone={tone} />
-      <ul className="mt-7 space-y-7 pl-5 md:pl-6">
+      <ul className="m-0 list-none p-0">
         {items.map((d) => (
           <KarteDish key={d.name} dish={d} tone={tone} />
         ))}
       </ul>
       {spot && (
-        <div className="mt-9 flex justify-center">
-          <KarteSpot spot={spot} width={spotWidth ?? 230} />
+        <div className="mt-8 flex justify-center">
+          <KarteSpot spot={spot} width={spotWidth ?? 200} />
         </div>
       )}
     </div>
   );
 }
 
-/** Schlusszeile wie im Fuß der gedruckten Karte. */
-export function KarteFineprint({ tone = "dark" }: { tone?: "dark" | "light" }) {
-  const c = tone === "light" ? "text-mehlcreme/45" : "text-waldgruen/45";
-  const rule = tone === "light" ? "bg-mehlcreme/20" : "bg-waldgruen/20";
+/** Schlusszeile unter der Karte. */
+export function KarteFineprint({ tone = "dark" }: { tone?: KarteTone }) {
+  const t = T[tone];
   return (
-    <div className="mt-16 md:mt-20">
-      <div aria-hidden className={`h-px ${rule}`} />
-      <p className={`pt-4 text-center text-[0.72rem] leading-relaxed ${c}`}>
-        Alle Preise in Euro inkl. MwSt. · Über Allergene und Zusatzstoffe
-        informiert dich gerne unser Serviceteam · Änderungen vorbehalten ·{" "}
-        <span className="text-tonwarm">★</span> unsere Empfehlung für dich
-      </p>
-    </div>
+    <p className={`mt-12 border-t pt-4 text-[0.8rem] leading-relaxed ${t.line} ${t.muted}`}>
+      Alle Preise in Euro inkl. MwSt. · Über Allergene und Zusatzstoffe informiert dich gerne
+      unser Serviceteam · Änderungen vorbehalten · <span className="text-akzent">★</span>{" "}
+      unsere Empfehlung
+    </p>
   );
 }

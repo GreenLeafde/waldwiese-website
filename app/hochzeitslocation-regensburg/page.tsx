@@ -15,6 +15,7 @@ export default function HochzeitslocationRegensburgPage() {
     <RichLanding
       content={content}
       path="/hochzeitslocation-regensburg"
+      tone="dunkel"
       splitImage={{
         src: IMG.terrasseTische.src,
         alt: IMG.terrasseTische.alt,

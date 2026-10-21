@@ -39,7 +39,7 @@ export function SommelierFab() {
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Frühstücks-Sommelier öffnen"
-          className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 rounded-full bg-waldgruen hover:bg-tonwarm text-mehlcreme pl-4 pr-5 py-3 shadow-lg shadow-waldgruen/25 transition-colors"
+          className="fixed bottom-[84px] md:bottom-5 right-4 md:right-5 z-40 inline-flex items-center gap-2.5 rounded-full bg-waldgruen hover:bg-tonwarm text-mehlcreme pl-4 pr-5 py-3 shadow-lg shadow-waldgruen/25 transition-colors"
         >
           <LeafIcon />
           <span className="font-medium text-sm">Was passt zu dir?</span>

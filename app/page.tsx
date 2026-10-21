@@ -1,25 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LogoIntro } from "@/components/logo-intro";
-import { LeafDivider } from "@/components/leaf-divider";
-import { LeafOrnament } from "@/components/leaf-ornament";
-import { GrowingVine } from "@/components/growing-vine";
-import { StampBadge } from "@/components/stamp-badge";
-import { ReviewsSection } from "@/components/reviews-section";
-import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
-import { IMG } from "@/lib/images";
-import { upcomingEvents } from "@/lib/events";
-import {
-  BREAKFAST_LAUNCH,
-  CONTACT,
-  CURRENT_OPENING_HOURS,
-  NEW_OPENING_HOURS,
-  RESERVATION_URL,
-  SITE,
-  hasBreakfastLaunched,
-  liveOpeningHours,
-} from "@/lib/site";
 import type { Metadata } from "next";
+import { DaySection } from "@/components/day-section";
+import { GoogleBadge, GoogleReviews } from "@/components/google-reviews";
+import { ReserveButton } from "@/components/reserve-chooser";
+import { ScrollDay } from "@/components/scroll-day";
+import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
+import { upcomingEvents, type EventItem } from "@/lib/events";
+import { IMG } from "@/lib/images";
+import { BREAKFAST_MENU, type BreakfastDish } from "@/lib/menu";
+import { GOOGLE_RATING, REVIEWS } from "@/lib/reviews";
+import { CONTACT, SITE } from "@/lib/site";
 
 export function generateMetadata(): Metadata {
   return {
@@ -31,84 +22,92 @@ export function generateMetadata(): Metadata {
 }
 
 /* ----------------------------------------------------------------------------
- * Onepager-Startseite — Redesign nach der Brunch-Karte 2026.
+ * Startseite — „Von der Wiese in den Wald" (Redesign 10/2026)
  *
- * Leitidee:
- *   - GRÜN trägt die Seite. Beige nur ein einziges Mal (familiäre „Über uns").
- *   - Jede Sektion ist ein Vollbild (min-h-svh), Inhalt vertikal zentriert.
- *   - Bilder gezielt & nie gestapelt: drei echte Foto-Sektionen (Frühstück,
- *     Hund, Terrasse), dazwischen immer eine grüne Typo-Sektion.
- *   - Botanik (wiegende Blatt-Ornamente, Blatt-Trenner) + Scroll-Reveals +
- *     sanfter Parallax auf den Fotos sorgen fürs „lieblich" Durchscrollen.
- *   - Serif nur für große Headings; Beschreibungen in kursivem Sans.
+ * Die Seite ist ein Tag am Waldrand: oben Morgenlicht und Brunch, beim
+ * Scrollen wird es Abend (Abendessen, Events, Gutscheine). ScrollDay mischt
+ * den Hintergrund stufenlos zwischen den Tagesstufen der DaySections.
+ *
+ * Ein Raster für alles: Label → Überschrift → Text → ein Knopf. Fotos mit
+ * 18 px Ecken, keine Rahmen-Kästen, keine Ornamente. Gerichte, Preise und
+ * Termine kommen aus lib/, nichts steht hier hart drin.
+ * Doku: ../redesign/CI-Website-2026.md
  * ------------------------------------------------------------------------- */
 
-/** Startseite zeigt die drei Tageszeiten mit je einem Highlight — nicht die
- *  ganze Karte. Details & Preise stehen auf /speisekarte. Keine Food-Stock-
- *  Bilder (echte Gericht-Fotos liegen noch nicht vor). */
-const menuCategories: Array<{ title: string; highlight: string }> = [
-  {
-    title: "Frühstück · täglich 8–14 Uhr",
-    highlight: "Der gute alte Sepp · Avocado-Brot · „Schmusi“-Bowls",
-  },
-  {
-    title: "Mittag · täglich ab 11:30 Uhr",
-    highlight: "Oma’s Currywurst · Heinzi-Burger · Sophia’s Garten",
-  },
-  {
-    title: "Abend · Fr–So 17–22 Uhr",
-    highlight: "Burger, Steak, Spare Ribs & süßes Finale",
-  },
-];
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+const BTN = "inline-flex h-[50px] items-center justify-center rounded-full px-[26px] text-[0.95rem] font-semibold transition-colors";
+const BTN_A = `${BTN} bg-akzent text-white hover:bg-akzent-hover`;
+const BTN_O = `${BTN} shadow-[inset_0_0_0_1.5px_currentColor]`;
+const LINK = "font-semibold border-b-[1.5px] border-current pb-0.5";
+const LABEL = "text-xs font-semibold uppercase tracking-[0.16em] text-akzent";
+const H2 = "font-display text-[2rem] font-normal leading-[1.1] md:text-[2.75rem]";
+const FOTO = "rounded-[18px] object-cover";
 
-/** Wiegende Blatt-Ornamente in den seitlichen Freiräumen grüner Sektionen.
- *  Erst ab xl sichtbar, damit sie auf schmalen Screens nichts überlagern. */
-function SideLeaves({
-  flip = false,
-}: {
-  flip?: boolean;
-}) {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 hidden xl:block"
-    >
-      <div
-        className={`absolute ${
-          flip ? "right-[4%] 2xl:right-[8%]" : "left-[4%] 2xl:left-[8%]"
-        } top-1/2 -translate-y-1/2 h-[46%] max-h-[330px] w-auto sway opacity-80`}
-      >
-        <LeafOrnament variant="leaves-berries" className="h-full w-auto" />
-      </div>
-      <div
-        className={`absolute ${
-          flip ? "left-[4%] 2xl:left-[8%]" : "right-[4%] 2xl:right-[8%]"
-        } top-1/2 -translate-y-1/2 h-[46%] max-h-[330px] w-auto sway-slow opacity-80`}
-      >
-        <LeafOrnament variant="berries-stem" className="h-full w-auto" />
-      </div>
-    </div>
-  );
+/** Gerichte für die Auszüge — nach Namen aus der Karte geholt, damit Preise
+ *  und Beschreibungen nie auseinanderlaufen. Fehlt ein Name, fällt er weg. */
+function pick<T extends { name: string }>(menu: Array<{ items: T[] }>, names: string[]): T[] {
+  const all = menu.flatMap((c) => c.items);
+  return names
+    .map((n) => all.find((d) => d.name === n))
+    .filter((d): d is T => Boolean(d));
 }
 
-/** Wachsende Ranke in einer Seitenkante grüner Sektionen (zeichnet sich beim
- *  Scrollen). Erst ab xl sichtbar, damit auf schmaleren Screens nichts mit dem
- *  Inhalt kollidiert. */
-function SideVine({ side = "left" }: { side?: "left" | "right" }) {
+const BRUNCH_PICKS = pick<BreakfastDish>(BREAKFAST_MENU, [
+  "Der gute alte Sepp",
+  "Die grüne Gretl",
+  "Morgenstund hat Avocado im Mund",
+  "Wiesenschmuserl",
+  "Omas Lieblingscurrywurst",
+  "Der kleine Hansi",
+]);
+
+const ABEND_PICKS = pick<Dish>(DINNER_MENU, [
+  "Der klassische Heinzi",
+  "Die mähende Moni",
+  "Spare Ribs",
+  "Pistazientiramisu",
+]);
+
+function priceLabel(price: string | string[]): string {
+  return Array.isArray(price) ? `${price[0]} · zu zweit ${price[1]}` : price;
+}
+
+/** „Sa, 20.02.2027" aus dem ISO-Start. */
+function shortDate(e: EventItem): { day: string; rest: string } {
+  const d = new Date(e.startsAt);
+  const f = new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    weekday: "short",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).formatToParts(d);
+  const g = (t: string) => f.find((p) => p.type === t)?.value ?? "";
+  return { day: `${g("day")}.${g("month")}.`, rest: `${g("weekday")} · ${g("year")}` };
+}
+
+function DishRow({ dish, hide }: { dish: BreakfastDish | Dish; hide?: boolean }) {
+  const tag = dish.tags?.find((t) => t === "vegan" || t === "vegan möglich" || t === "vegetarisch");
   return (
     <div
-      aria-hidden
-      className={`pointer-events-none absolute top-1/2 -translate-y-1/2 hidden lg:block h-[55%] max-h-[440px] ${
-        side === "left" ? "left-2 2xl:left-[5%]" : "right-2 2xl:right-[5%]"
+      className={`grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 border-t py-4 ${
+        hide ? "hidden md:grid" : ""
       }`}
+      style={{ borderColor: "var(--linie)" }}
     >
-      <GrowingVine flip={side === "right"} className="h-full w-auto" />
+      <b className="font-display text-[1.2rem] font-normal leading-tight md:text-[1.3rem]">
+        {dish.name}
+        {tag && <span className="ml-2 font-body text-xs font-normal text-muted">{tag}</span>}
+      </b>
+      <span className="whitespace-nowrap text-[0.95rem] tabular-nums">{priceLabel(dish.price)}</span>
+      {dish.desc && <p className="col-span-2 m-0 text-[0.9rem] leading-snug text-muted">{dish.desc}</p>}
     </div>
   );
 }
 
 export default function HomePage() {
-  const nextEvents = upcomingEvents().slice(0, 3);
+  const nextEvents = upcomingEvents().slice(0, 2);
+  const highlight = nextEvents[0];
   const reviewsJsonLd = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
@@ -127,611 +126,431 @@ export default function HomePage() {
       reviewBody: r.text,
     })),
   };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
       />
-      {/* 1 · INTRO — Waldgrün-Wortmarke, sticky, Vollbild */}
-      <LogoIntro />
-
-      {/* 1b · Hinweis-Banner — schmaler Tonwarm-Akzent, kein Vollbild */}
-      <a
-        href="#brunch"
-        className="block bg-tonwarm text-white hover:bg-tonwarm-dark transition-colors"
-      >
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-4 md:py-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm md:text-base">
-          <span className="text-[0.7rem] md:text-xs tracking-[0.28em] uppercase text-white/75">
-            {hasBreakfastLaunched() ? "Neu" : "Demnächst"}
-          </span>
-          <span className="font-medium">
-            {hasBreakfastLaunched() ? (
-              "Brunch mitten im Grünen — täglich von 8 bis 14 Uhr in Sinzing."
-            ) : (
-              <>
-                Frühstück mitten im Grünen — ab{" "}
-                <span className="italic">{BREAKFAST_LAUNCH.dateShort}</span> in
-                Sinzing.
-              </>
-            )}
-          </span>
-          <span aria-hidden className="text-white/80">
-            →
-          </span>
-        </div>
-      </a>
-
-      {/* 2 · SPEISEKARTE — grün, große Serif-Headline, Kategorien als Liste */}
-      <section
-        id="speisekarte"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <SideVine side="left" />
-        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-28">
-          <div className="text-center reveal">
-            <p className="eyebrow no-line justify-center text-tonwarm">
-              Unsere Speisekarte
-            </p>
-            <h2 className="mt-6 text-6xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
-              Die Karte.
-            </h2>
-            <p className="mt-7 italic text-lg md:text-xl text-mehlcreme/75 max-w-xl mx-auto leading-relaxed">
-              Ein Haus, drei Tageszeiten: Frühstück &amp; Mittag täglich,
-              Abend am Wochenende. Die ganze Speisekarte mit allen Gerichten
-              und Preisen findest du{" "}
-              <Link
-                href="/speisekarte"
-                className="not-italic underline decoration-tonwarm/50 decoration-2 underline-offset-[6px] hover:decoration-tonwarm hover:text-tonwarm transition-colors"
-              >
-                hier
-              </Link>
-              .
-            </p>
-          </div>
-
-          {/* Kategorien — große, lesbare Liste, verlinkt auf die volle Karte */}
-          <ul className="mt-12 md:mt-16 border-t border-mehlcreme/15 reveal-1">
-            {menuCategories.map((cat) => (
-              <li key={cat.title}>
-                <Link
-                  href="/speisekarte"
-                  className="group flex items-center justify-between gap-6 py-6 md:py-7 border-b border-mehlcreme/15"
+      <ScrollDay>
+        {/* 1 · HERO — Morgen. Platz für den festen Header (92 px) oben. */}
+        <DaySection stage="morgen" className="pt-[92px]">
+          <div className={`${CONTAINER} grid items-center gap-9 pb-16 pt-8 md:grid-cols-[1fr_1.1fr] md:gap-16 md:pb-24 md:pt-14`}>
+            <div className="grid justify-items-start gap-5 md:gap-6">
+              <span className={LABEL}>Sinzing bei Regensburg</span>
+              <h1 className="font-display text-[2.5rem] font-light leading-[1.06] md:text-[3.75rem]">
+                Brunch jeden Morgen.
+                <br />
+                <span className="font-normal">Abendessen</span> am Wochenende.
+              </h1>
+              <p className="m-0 max-w-[44ch] text-[1.05rem] leading-relaxed md:text-[1.2rem]">
+                Mitten im Grünen, am Waldrand von Sinzing. Familiengeführt, regional,
+                mit Platz für Freundinnen, Familie und Hund.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <ReserveButton location="hero" className={BTN_A}>
+                  Tisch reservieren
+                </ReserveButton>
+                <span className="hidden sm:inline">
+                  <Link href="/gutscheine" className={BTN_O}>
+                    Gutschein verschenken
+                  </Link>
+                </span>
+              </div>
+              {highlight && (
+                <div
+                  className="flex w-full flex-wrap items-center gap-x-4 gap-y-1 border-t pt-4 text-sm"
+                  style={{ borderColor: "var(--linie)" }}
                 >
-                  <div>
-                    <h3 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal tracking-tight text-mehlcreme group-hover:text-tonwarm transition-colors">
-                      {cat.title}
-                    </h3>
-                    <p className="mt-2 italic text-mehlcreme/55 text-base md:text-lg">
-                      {cat.highlight}
-                    </p>
-                  </div>
-                  <span
-                    aria-hidden
-                    className="shrink-0 text-tonwarm text-2xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
-                  >
-                    →
+                  <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-akzent">
+                    Nächstes Highlight
                   </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-12 md:mt-16 text-center reveal-2">
-            <Link
-              href="/speisekarte"
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Komplette Karte ansehen <span aria-hidden>→</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 · FRÜHSTÜCK — Vollbild-Foto (echtes Gästefoto) mit grünem Schleier */}
-      <section
-        id="brunch"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <Image
-          src={IMG.fruehstueckFoto.src}
-          alt={IMG.fruehstueckFoto.alt}
-          fill
-          sizes="100vw"
-          className="object-cover parallax"
-          style={{ objectPosition: "center 55%" }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/95 via-waldgruen-dark/75 to-waldgruen-dark/35"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
-        />
-        {/* Stempel frei in der Ecke — überlappt den Text nicht */}
-        <StampBadge
-          tone="light"
-          rotate={-8}
-          className="hidden sm:grid absolute z-10 top-24 right-6 md:right-12 lg:right-20 w-32 h-32 md:w-36 md:h-36"
-        >
-          <span className="block text-[0.5rem] tracking-[0.12em] uppercase text-mehlcreme/80">
-            {hasBreakfastLaunched() ? "Jetzt neu" : "Neu ab"}
-          </span>
-          <span className="block font-display text-sm md:text-base mt-1">
-            {hasBreakfastLaunched() ? "Brunch" : BREAKFAST_LAUNCH.dateShort}
-          </span>
-        </StampBadge>
-        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
-          <div className="max-w-xl reveal">
-            <p className="eyebrow no-line text-tonwarm">
-              {hasBreakfastLaunched()
-                ? "Brunch & Abendessen in Sinzing"
-                : "Bald · Frühstücksrestaurant in Sinzing"}
-            </p>
-            <h2 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Brunch,{" "}
-              <span className="accent">mitten im Grünen.</span>
-            </h2>
-            <p className="mt-6 italic text-xl md:text-2xl text-mehlcreme/85">
-              {hasBreakfastLaunched()
-                ? "Täglich Brunch von 8 bis 14 Uhr in Sinzing — Fr – So zusätzlich abends."
-                : `Wir werden zum Frühstücksrestaurant — ab ${BREAKFAST_LAUNCH.dateShort} in Sinzing.`}
-            </p>
-            <div className="mt-7 text-mehlcreme/80 leading-relaxed space-y-5">
-              <p>
-                Frühstücke, Brote und Bowls ab 8 Uhr, ab 11:30 Uhr der
-                Mittagstisch mit Currywurst, Burgern und Salaten. Hausgemachte
-                Aufstriche, Granola und Kaffee mit Charakter — regional, herzhaft
-                oder süß, vegan und vegetarisch gleichberechtigt.
-              </p>
-              <p>
-                {hasBreakfastLaunched()
-                  ? "Die ganze Brunch-Karte mit allen Preisen findest du auf unserer Brunch-Seite. Wir haben täglich von 8 bis 14 Uhr für dich gedeckt."
-                  : "Die ganze Karte verraten wir kurz vor dem Start. Sei vom ersten Morgen an dabei."}
-              </p>
+                  <span className="font-semibold">
+                    {highlight.title.split(" · ")[0]} · {shortDate(highlight).rest.split(" · ")[0]},{" "}
+                    {shortDate(highlight).day}
+                    {new Date(highlight.startsAt).getFullYear()}
+                  </span>
+                  <Link href={`/veranstaltungen/${highlight.slug}`} className={LINK}>
+                    Tickets
+                  </Link>
+                </div>
+              )}
             </div>
-            <div className="mt-9 flex flex-wrap items-center gap-5">
+
+            {/* Foto-Stapel: Terrasse, kleines Hundefoto, Google-Karte */}
+            <div className="relative pb-10 md:pb-14 md:pl-12">
+              <Image
+                src={IMG.terrasseOlivenbaum.src}
+                alt={IMG.terrasseOlivenbaum.alt}
+                width={IMG.terrasseOlivenbaum.width}
+                height={IMG.terrasseOlivenbaum.height}
+                priority
+                sizes="(min-width: 768px) 55vw, 100vw"
+                className={`${FOTO} aspect-[4/5] w-full`}
+                style={{ objectPosition: "center 28%" }}
+              />
+              <Image
+                src={IMG.hundWald.src}
+                alt={IMG.hundWald.alt}
+                width={IMG.hundWald.width}
+                height={IMG.hundWald.height}
+                sizes="(min-width: 768px) 22vw, 40vw"
+                className={`${FOTO} absolute bottom-0 left-0 aspect-square w-[40%] border-[6px] border-morgen md:w-[42%]`}
+                style={{ objectPosition: "center 40%" }}
+              />
+              <GoogleBadge className="absolute -right-1 top-4 w-[190px] md:-right-4 md:top-9 md:w-[236px]" />
+            </div>
+          </div>
+
+          {/* Drei Einstiege — offene Spalten, feine Linie oben */}
+          <div className={`${CONTAINER} grid gap-4 pb-10 md:grid-cols-3 md:gap-10`}>
+            {[
+              { k: "Täglich", t: "Brunch 8–14 Uhr", s: "Frühstück, Brote, Bowls, ab 11:30 Uhr Mittagstisch", href: "/speisekarte#fruehstueck" },
+              { k: "Fr bis So", t: "Abendessen 17–22 Uhr", s: "Burger, vom Grill, Cocktails", href: "/speisekarte#abend" },
+              { k: "Verschenken", t: "Gutschein als PDF", s: "sofort per Mail, für Brunch und Abend", href: "/gutscheine" },
+            ].map((t) => (
               <Link
-                href="/speisekarte"
-                className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+                key={t.t}
+                href={t.href}
+                className="grid gap-1 border-t pt-4"
+                style={{ borderColor: "var(--linie)" }}
               >
-                {hasBreakfastLaunched() ? "Zur Brunch-Karte" : "Mehr zum Frühstück"}{" "}
-                <span aria-hidden>→</span>
+                <span className={LABEL}>{t.k}</span>
+                <b className="font-display text-[1.3rem] font-normal leading-tight md:text-[1.5rem]">{t.t}</b>
+                <span className="text-sm text-muted">{t.s}</span>
+              </Link>
+            ))}
+          </div>
+        </DaySection>
+
+        {/* 2 · BRUNCH IM GRÜNEN */}
+        <DaySection stage="morgen-2" className="py-16 md:py-[104px]">
+          <div className={`${CONTAINER} grid items-center gap-9 md:grid-cols-2 md:gap-14`}>
+            <div className="grid grid-cols-2 items-end gap-3.5">
+              <Image
+                src={IMG.terrasseTische.src}
+                alt={IMG.terrasseTische.alt}
+                width={IMG.terrasseTische.width}
+                height={IMG.terrasseTische.height}
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className={`${FOTO} mb-6 aspect-[4/5] w-full md:mb-10`}
+              />
+              <Image
+                src={IMG.fruehstueckFoto.src}
+                alt={IMG.fruehstueckFoto.alt}
+                width={IMG.fruehstueckFoto.width}
+                height={IMG.fruehstueckFoto.height}
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className={`${FOTO} aspect-[4/5] w-full`}
+                style={{ objectPosition: "center 70%" }}
+              />
+            </div>
+            <div className="grid justify-items-start gap-4 md:gap-[18px]">
+              <span className={LABEL}>Morgens · täglich 8 bis 14 Uhr</span>
+              <h2 className={H2}>Brunch im Grünen</h2>
+              <p className="m-0 max-w-[46ch] leading-relaxed">
+                Sauerteigbrote, Bowls, Rührei und Kaffee, der seinen Namen verdient.
+                <span className="hidden md:inline">
+                  {" "}
+                  Ab 11:30 Uhr dazu der Mittagstisch. Draußen auf der Terrasse, drinnen am
+                  Fenster, der Hund liegt daneben.
+                </span>
+              </p>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <ReserveButton location="brunch" pre="brunch" className={BTN_A}>
+                  Brunch reservieren
+                </ReserveButton>
+                <Link href="/speisekarte#fruehstueck" className={LINK}>
+                  Zur Brunch-Karte
+                </Link>
+              </div>
+            </div>
+          </div>
+        </DaySection>
+
+        {/* 3 · AUS DER BRUNCH-KARTE */}
+        <DaySection stage="vormittag" className="py-16 md:py-[104px]">
+          <div className={CONTAINER}>
+            <div className="mb-6 grid gap-3 md:mb-10 md:flex md:items-end md:justify-between">
+              <div>
+                <span className={LABEL}>Aus der Brunch-Karte</span>
+                <h2 className={`${H2} mt-2`}>Bei uns hat jedes Gericht einen Namen</h2>
+              </div>
+              <Link href="/speisekarte" className={`${LINK} justify-self-start`}>
+                Ganze Karte mit Preisen
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-2 md:gap-x-10">
+              {BRUNCH_PICKS.map((d, i) => (
+                <DishRow key={d.name} dish={d} hide={i >= 4} />
+              ))}
+            </div>
+            <div
+              className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t pt-5 text-sm"
+              style={{ borderColor: "var(--linie)" }}
+            >
+              <span className="hidden text-muted md:inline">
+                Vegan und vegetarisch stehen gleichberechtigt auf der Karte.
+              </span>
+              <Link href="/speisekarte" className={LINK}>
+                Speisekarte ansehen
+              </Link>
+            </div>
+          </div>
+        </DaySection>
+
+        {/* 4 · FAMILIE LEBER — Mittag */}
+        <DaySection stage="mittag" className="py-16 md:py-[104px]">
+          <div className={`${CONTAINER} grid items-center gap-9 md:grid-cols-[0.8fr_1.2fr] md:gap-16`}>
+            <Image
+              src={IMG.teamFamilie.src}
+              alt={IMG.teamFamilie.alt}
+              width={IMG.teamFamilie.width}
+              height={IMG.teamFamilie.height}
+              sizes="(min-width: 768px) 40vw, 100vw"
+              className={`${FOTO} aspect-[4/5] w-full`}
+              style={{ objectPosition: "center 20%" }}
+            />
+            <div className="grid justify-items-start gap-4 md:gap-[18px]">
+              <span className={LABEL}>Familie Leber</span>
+              <h2 className={H2}>Schön, dass du da bist.</h2>
+              <p className="m-0 max-w-[54ch] leading-relaxed">
+                Wir sind ein Familienbetrieb am Waldrand von Sinzing. Tanja kocht, Sven mixt,
+                und bei uns heißt nichts einfach nur „Burger“: Der Heinzi ist nach unserem
+                Hund Henry benannt, Sophias Garten nach Sophia.
+              </p>
+              <p className="m-0 hidden max-w-[54ch] leading-relaxed md:block">
+                Kein Sterne-Tempel, sondern das Lieblingsrestaurant deiner Freunde. Dein Hund
+                ist Gast, nicht geduldet.
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-1.5 text-sm font-semibold">
+                <span>Familiengeführt</span>
+                <span>Hunde willkommen</span>
+                <span>Regional &amp; saisonal</span>
+                <span>Vegan &amp; vegetarisch</span>
+              </div>
+              <Link href="/ueber-uns" className={LINK}>
+                Mehr über uns
+              </Link>
+            </div>
+          </div>
+        </DaySection>
+
+        {/* 5 · DÄMMERUNG — Vollbild-Foto als Übergang hell → dunkel */}
+        <DaySection stage="daemmerung" className="relative isolate flex min-h-[600px] items-end md:min-h-[720px]">
+          <Image
+            src={IMG.gebaeudeAbend.src}
+            alt={IMG.gebaeudeAbend.alt}
+            fill
+            sizes="100vw"
+            className="-z-20 object-cover"
+            style={{ objectPosition: "center 60%" }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10"
+            style={{
+              background:
+                "linear-gradient(180deg, var(--color-mittag) 0%, rgba(1,28,13,0) 22%, rgba(1,28,13,0) 55%, rgba(1,28,13,.85) 100%)",
+            }}
+          />
+          <div className={`${CONTAINER} grid justify-items-start gap-4 pb-12 pt-32 md:gap-5 md:pb-[72px]`}>
+            <span className={LABEL}>Abends · Freitag bis Sonntag, 17 bis 22 Uhr</span>
+            <h2 className="max-w-[16ch] font-display text-[2.4rem] font-light leading-[1.05] md:text-[3.5rem]">
+              Wenn es dunkel wird, <em className="font-light italic">geht bei uns das Licht an.</em>
+            </h2>
+            <p className="m-0 max-w-[44ch] text-[1.05rem] leading-relaxed text-creme/85 md:text-lg">
+              Am Wochenende kochen wir abends weiter: Burger, vom Grill und ein süßes Finale.
+              <span className="hidden md:inline"> Sven steht an der Bar.</span>
+            </p>
+            <ReserveButton location="daemmerung" pre="abend" className={BTN_A}>
+              Abend reservieren
+            </ReserveButton>
+          </div>
+        </DaySection>
+
+        {/* 6 · AUS DER ABENDKARTE */}
+        <DaySection stage="abend" className="py-16 md:py-[104px]">
+          <div className={`${CONTAINER} grid items-center gap-9 md:grid-cols-2 md:gap-14`}>
+            <div className="grid justify-items-start gap-4 md:gap-[18px]">
+              <span className={LABEL}>Aus der Abendkarte</span>
+              <h2 className={H2}>Burger, Grill und Pistazientiramisu</h2>
+              <p className="m-0 max-w-[46ch] leading-relaxed">
+                Der klassische Heinzi, die mähende Moni mit Ziegenkäse, dazu Cocktails von Sven.
+                <span className="hidden md:inline"> Zum Schluss unser Pistazientiramisu.</span>
+              </p>
+              <div className="w-full">
+                {ABEND_PICKS.map((d, i) => (
+                  <DishRow key={d.name} dish={d} hide={i >= 3} />
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+                <ReserveButton location="abend" pre="abend" className={BTN_A}>
+                  Abend reservieren
+                </ReserveButton>
+                <Link href="/speisekarte#abend" className={LINK}>
+                  Ganze Abendkarte
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 items-end gap-3.5">
+              <Image
+                src={IMG.burger.src}
+                alt={IMG.burger.alt}
+                width={IMG.burger.width}
+                height={IMG.burger.height}
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className={`${FOTO} mb-6 aspect-[4/5] w-full md:mb-10`}
+              />
+              <Image
+                src={IMG.cocktail.src}
+                alt={IMG.cocktail.alt}
+                width={IMG.cocktail.width}
+                height={IMG.cocktail.height}
+                sizes="(min-width: 768px) 25vw, 50vw"
+                className={`${FOTO} aspect-[4/5] w-full`}
+              />
+            </div>
+          </div>
+        </DaySection>
+
+        {/* 7 · EVENTS */}
+        {nextEvents.length > 0 && (
+          <DaySection stage="wald" className="py-16 md:py-[104px]">
+            <div className={CONTAINER}>
+              <div className="mb-6 grid gap-3 md:mb-10 md:flex md:items-end md:justify-between">
+                <div>
+                  <span className={LABEL}>Abende mit Programm</span>
+                  <h2 className={`${H2} mt-2`}>Krimidinner und Magic Dinner</h2>
+                </div>
+                <Link href="/veranstaltungen" className={`${LINK} justify-self-start`}>
+                  Alle Termine
+                </Link>
+              </div>
+              <div className="grid items-center gap-9 md:grid-cols-2 md:gap-14">
+                <Image
+                  src={IMG.wwEvent.src}
+                  alt="Emilian Leber zaubert beim Magic Dinner vor Gästen im Gastraum"
+                  width={IMG.wwEvent.width}
+                  height={IMG.wwEvent.height}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className={`${FOTO} aspect-[3/2] w-full`}
+                />
+                <div>
+                  {nextEvents.map((e) => {
+                    const d = shortDate(e);
+                    return (
+                      <div
+                        key={e.slug}
+                        className="grid gap-2 border-t py-5 md:grid-cols-[120px_1fr] md:gap-5 last:border-b"
+                        style={{ borderColor: "var(--linie)" }}
+                      >
+                        <span className="font-display text-[1.8rem] leading-none tabular-nums md:text-[2rem]">
+                          {d.day}
+                          <small className="mt-1.5 block font-body text-[0.8rem] text-muted">
+                            {d.rest} · {e.timeLabel}
+                          </small>
+                        </span>
+                        <div>
+                          <h3 className="m-0 font-display text-[1.35rem] font-normal leading-tight md:text-[1.5rem]">
+                            {e.title}
+                          </h3>
+                          <p className="mb-3 mt-1 text-[0.95rem] text-muted">
+                            {e.kicker} · {e.priceLabel}
+                          </p>
+                          <Link
+                            href={`/veranstaltungen/${e.slug}`}
+                            className="inline-flex h-[42px] items-center rounded-full px-[18px] text-sm font-semibold shadow-[inset_0_0_0_1.5px_currentColor]"
+                          >
+                            Tickets &amp; Infos
+                          </Link>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </DaySection>
+        )}
+
+        {/* 8 · FEIERN — offene Spalten */}
+        <DaySection stage="wald-2" className="py-16 md:py-[104px]">
+          <div className={CONTAINER}>
+            <div className="mb-6 grid gap-3 md:mb-10 md:flex md:items-end md:justify-between">
+              <div>
+                <span className={LABEL}>Feiern</span>
+                <h2 className={`${H2} mt-2`}>Dein Fest bei uns im Grünen</h2>
+              </div>
+              <Link href="/feiern" className={`${BTN_O} justify-self-start`}>
+                Feier anfragen
+              </Link>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3 md:gap-10">
+              {[
+                { t: "Geburtstag & Familie", s: "Brunch mit der ganzen Familie oder ein Abend für euch. Wir planen den Tisch mit dir.", href: "/feiern", l: "Anfragen" },
+                { t: "Firmenfeier", s: "Teamfrühstück am Morgen oder Abendessen am Wochenende, auf Wunsch mit Zaubershow.", href: "/feiern", l: "Anfragen" },
+                { t: "Weihnachtsfeier", s: "Die Termine im Dezember vergeben wir zuerst an die, die früh fragen.", href: "/weihnachtsfeier", l: "Weihnachtsfeier planen" },
+              ].map((c) => (
+                <div key={c.t} className="grid content-start gap-2.5 border-t pt-5" style={{ borderColor: "var(--linie)" }}>
+                  <h3 className="m-0 font-display text-[1.4rem] font-normal leading-tight md:text-[1.6rem]">{c.t}</h3>
+                  <p className="m-0 text-[0.95rem] leading-relaxed text-muted">{c.s}</p>
+                  <Link href={c.href} className={`${LINK} mt-1 justify-self-start`}>
+                    {c.l}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </DaySection>
+
+        {/* 9 · GOOGLE-BEWERTUNGEN */}
+        <DaySection stage="tanne" id="rezensionen" className="py-16 md:py-[104px]">
+          <div className={CONTAINER}>
+            <div className="mb-6 md:mb-10">
+              <span className={LABEL}>Gäste über uns</span>
+              <h2 className={`${H2} mt-2`}>Das sagen unsere Gäste</h2>
+            </div>
+            <GoogleReviews limit={4} />
+          </div>
+        </DaySection>
+
+        {/* 10 · GUTSCHEINE + INSTAGRAM — Nacht (Newsletter folgt in der Fußzeile) */}
+        <DaySection stage="nacht" className="py-16 md:py-[104px]">
+          <div className={`${CONTAINER} grid items-center gap-9 md:grid-cols-2 md:gap-14`}>
+            <div className="grid justify-items-start gap-4 md:gap-[18px]">
+              <span className={LABEL}>Verschenken</span>
+              <h2 className={H2}>
+                Verschenk einen Morgen <em className="font-light italic">oder einen Abend</em> bei uns.
+              </h2>
+              <p className="m-0 max-w-[46ch] leading-relaxed text-creme/80">
+                Wertgutscheine kaufst du online bei BON BON und bekommst sie sofort als PDF.
+                <span className="hidden md:inline"> Gilt für Brunch, Abendessen und an der Bar.</span>
+              </p>
+              <Link href="/gutscheine" className={BTN_A}>
+                Gutschein kaufen
               </Link>
               <a
                 href={CONTACT.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
+                className={`${LINK} mt-2`}
               >
-                {CONTACT.instagramHandle} <span aria-hidden>→</span>
+                {CONTACT.instagramHandle} auf Instagram
               </a>
             </div>
+            <Image
+              src={IMG.wwFood5.src}
+              alt="Tisch am Fenster mit Messinglampe und Blick ins Grüne"
+              width={IMG.wwFood5.width}
+              height={IMG.wwFood5.height}
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className={`${FOTO} aspect-[4/5] w-full`}
+            />
           </div>
-        </div>
-      </section>
-
-      {/* 4 · GETRÄNKE — dunkles Grün, ruhig, mit Botanik (kein Stock-Foto) */}
-      <section
-        id="getraenke"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <SideLeaves flip />
-        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
-          <div className="reveal">
-            <p className="eyebrow no-line justify-center text-tonwarm">
-              Getränke
-            </p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] text-mehlcreme tracking-tight">
-              Was du{" "}
-              <span className="accent">dazu trinkst.</span>
-            </h2>
-          </div>
-          <p className="mt-8 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-1">
-            Kaffee mit Charakter, hausgemachte Limonaden, regionale Weine,
-            Cocktails, Schaumweine. Auch entkoffeiniert und alkoholfrei — hier
-            kommt jeder auf seinen Geschmack.
-          </p>
-          <div className="mt-10 reveal-2">
-            <Link
-              href="/getraenke"
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Zur Getränkekarte <span aria-hidden>→</span>
-            </Link>
-          </div>
-          <LeafDivider tone="light" className="mt-14 opacity-80" />
-        </div>
-      </section>
-
-      {/* 5 · ÜBER UNS — der EINE beige Akzent: familiär, lieblich, mit Familienfoto */}
-      <section
-        id="ueber-uns"
-        className="relative isolate min-h-svh flex items-center bg-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-            <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal-scale">
-              <Image
-                src={IMG.teamFamilie.src}
-                alt={IMG.teamFamilie.alt}
-                fill
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="md:col-span-7 reveal-1">
-              <p className="eyebrow no-line">Über uns</p>
-              <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-waldgruen">
-                Dein{" "}
-                <span className="accent">familiengeführtes</span>
-                <br />
-                Restaurant in Sinzing.
-              </h2>
-              <div className="mt-9 max-w-xl text-waldgruen/75 leading-relaxed space-y-5">
-                <p>
-                  Wir sind die Familie Leber — Tanja, Sven, Sophia, Julia und
-                  Emilian. Klein, fein, ehrlich. Mehr Frühstückstisch als feines
-                  Restaurant.
-                </p>
-                <p>
-                  Was hier wächst, kommt auf den Teller. Vegan, vegetarisch und
-                  herzhaft, gleichberechtigt auf der Karte.
-                </p>
-              </div>
-              <Link
-                href="/ueber-uns"
-                className="mt-9 inline-flex items-center gap-3 text-waldgruen font-medium border-b border-waldgruen/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-              >
-                Mehr über uns <span aria-hidden>→</span>
-              </Link>
-            </div>
-          </div>
-          <LeafDivider tone="dark" className="mt-16 md:mt-20 opacity-90" />
-        </div>
-      </section>
-
-      {/* 6 · RESERVIEREN — grün, Öffnungszeiten + CTA (Puffer zwischen zwei Fotos) */}
-      <section
-        id="reservieren"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <SideVine side="right" />
-        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
-          <div className="reveal">
-            <p className="eyebrow no-line justify-center text-tonwarm">
-              Reservieren
-            </p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Tisch sichern —{" "}
-              <span className="accent">ein Klick.</span>
-            </h2>
-            <p className="mt-8 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed">
-              Wir buchen über Lightspeed. Datum wählen, Uhrzeit, Personenzahl —
-              fertig. Bestätigung kommt per Mail. Oder ruf einfach an, wenn dir
-              das lieber ist.
-            </p>
-          </div>
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-5 reveal-1">
-            <a
-              href={RESERVATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-            >
-              Online reservieren <span aria-hidden>→</span>
-            </a>
-            <a
-              href={`tel:${CONTACT.phoneRaw}`}
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              {CONTACT.phone}
-            </a>
-          </div>
-          <div className="mt-14 mx-auto max-w-2xl grid sm:grid-cols-2 gap-10 text-left text-sm reveal-2">
-            {hasBreakfastLaunched() ? (
-              <div className="sm:col-span-2 text-center">
-                <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                  Öffnungszeiten
-                </p>
-                <dl className="mt-3 inline-block text-left divide-y divide-mehlcreme/15">
-                  {NEW_OPENING_HOURS.map((slot) => (
-                    <div
-                      key={slot.days}
-                      className="flex justify-between py-2.5 text-mehlcreme/80 gap-10"
-                    >
-                      <dt className="font-medium text-mehlcreme pt-0.5">
-                        {slot.days}
-                      </dt>
-                      <dd className="text-right">
-                        {slot.slots.map((s) => (
-                          <div key={s}>{s}</div>
-                        ))}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-                <p className="mt-2 text-xs text-mehlcreme/45">
-                  Fr – So mit Frühstück & Abendservice.
-                </p>
-              </div>
-            ) : (
-              <>
-                <div>
-                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/55 font-medium">
-                    Aktuell
-                  </p>
-                  <dl className="mt-3 divide-y divide-mehlcreme/15">
-                    {CURRENT_OPENING_HOURS.map((slot) => (
-                      <div
-                        key={slot.days}
-                        className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
-                      >
-                        <dt className="font-medium text-mehlcreme">{slot.days}</dt>
-                        <dd className="text-right">{slot.hours}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-                <div>
-                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                    Ab {BREAKFAST_LAUNCH.dateShort}
-                  </p>
-                  <dl className="mt-3 divide-y divide-mehlcreme/15">
-                    {NEW_OPENING_HOURS.map((slot) => (
-                      <div
-                        key={slot.days}
-                        className="flex justify-between py-2.5 text-mehlcreme/80 gap-4"
-                      >
-                        <dt className="font-medium text-mehlcreme pt-0.5">
-                          {slot.days}
-                        </dt>
-                        <dd className="text-right">
-                          {slot.slots.map((s) => (
-                            <div key={s}>{s}</div>
-                          ))}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <p className="mt-2 text-xs text-mehlcreme/45">
-                    Fr – So mit Frühstück & Abendservice.
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* 7 · HUNDEFREUNDLICH — Vollbild-Foto (echte Hunde im Wald) + grüner Schleier */}
-      <section
-        id="hund"
-        className="relative isolate min-h-svh flex items-center text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <Image
-          src={IMG.hundWald.src}
-          alt={IMG.hundWald.alt}
-          fill
-          sizes="100vw"
-          className="object-cover parallax"
-          style={{ objectPosition: "center 35%" }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-r from-waldgruen-dark/90 via-waldgruen-dark/65 to-waldgruen-dark/25"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-waldgruen-dark/80 via-transparent to-transparent"
-        />
-        <div className="relative w-full mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 text-center">
-          <div className="reveal">
-            <p className="eyebrow no-line text-tonwarm justify-center">
-              Hundefreundliches Restaurant in Sinzing
-            </p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Dein Hund ist nicht nur erlaubt, sondern{" "}
-              <span className="accent">herzlich willkommen.</span>
-            </h2>
-            <div className="mt-10">
-              <a
-                href={RESERVATION_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-              >
-                Tisch reservieren <span aria-hidden>→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 8 · VERANSTALTUNGEN — grün mit gerahmtem Terrassenfoto.
-       * Bewusst KEIN Vollbild-Foto: sonst stoßen zwei randlose Fotos (Hund,
-       * Terrasse) direkt aufeinander und die Naht sieht nach Bildfehler aus. */}
-      <section
-        id="veranstaltungen"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <SideVine side="left" />
-        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-center">
-            <div className="md:col-span-7 reveal-1">
-              <p className="eyebrow no-line text-tonwarm">Veranstaltungen</p>
-              <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-                Wenn der Anlass{" "}
-                <span className="accent">groß ist.</span>
-              </h2>
-              <p className="mt-8 max-w-xl text-mehlcreme/85 leading-relaxed">
-                Hochzeit, Geburtstag, Firmenfeier oder einfach ein Abend mit
-                vielen Menschen, die du magst. Wir planen mit dir — ehrlich
-                gekocht, mit viel Liebe und ohne Schickimicki.
-              </p>
-              <a
-                href={`mailto:${CONTACT.email}?subject=Anfrage%20Veranstaltung`}
-                className="mt-9 inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-              >
-                Anfrage schicken <span aria-hidden>→</span>
-              </a>
-              {nextEvents.length > 0 && (
-                <div className="mt-10 max-w-xl">
-                  <p className="text-[0.65rem] tracking-[0.22em] uppercase text-mehlcreme/50 font-medium">
-                    Kommende Abende mit Tickets
-                  </p>
-                  <ul className="mt-4 space-y-2 text-mehlcreme/80">
-                    {nextEvents.map((e) => (
-                      <li key={e.slug}>
-                        <Link
-                          href={`/veranstaltungen/${e.slug}`}
-                          className="border-b border-mehlcreme/25 hover:border-tonwarm hover:text-tonwarm pb-0.5 transition-colors"
-                        >
-                          {e.title}
-                        </Link>
-                        <span className="text-mehlcreme/55"> · {e.dateLabel}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-            <div className="md:col-span-5 relative aspect-[4/5] overflow-hidden rounded-3xl shadow-xl reveal-scale">
-              <Image
-                src={IMG.terrasseTische.src}
-                alt={IMG.terrasseTische.alt}
-                fill
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 10 · REZEPTE — grün, Typo (Stock-Dessertbild entfernt) */}
-      <section
-        id="rezepte"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <SideVine side="left" />
-        <div className="relative w-full mx-auto max-w-3xl px-6 md:px-10 py-24 md:py-32 text-center">
-          <div className="reveal">
-            <p className="eyebrow no-line justify-center text-tonwarm">Rezepte</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Mitkochen{" "}
-              <span className="accent">zuhause.</span>
-            </h2>
-          </div>
-          <p className="mt-8 max-w-xl mx-auto text-mehlcreme/80 leading-relaxed reveal-1">
-            Unser Pistazientiramisu — über 1.500 Mal verkauft. Bald gibt&apos;s
-            das Rezept hier zum Nachmachen. Und ein paar andere
-            Lieblingsgerichte dazu.
-          </p>
-          <div className="mt-10 reveal-2">
-            <Link
-              href="/rezepte"
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              Zu den Rezepten <span aria-hidden>→</span>
-            </Link>
-          </div>
-          <LeafDivider tone="light" className="mt-14 opacity-80" />
-        </div>
-      </section>
-
-      {/* 11 · REZENSIONEN — echte Google-Bewertungen (jetzt auf Grün) */}
-      <ReviewsSection />
-
-      {/* 12 · KONTAKT — dunkler Anker am Ende, fließt nahtlos in den Footer */}
-      <section
-        id="kontakt"
-        className="relative isolate min-h-svh flex items-center bg-waldgruen-dark text-mehlcreme scroll-mt-24 overflow-hidden"
-      >
-        <div className="relative w-full mx-auto max-w-7xl px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-12 gap-12 md:gap-16">
-          <div className="md:col-span-6 reveal">
-            <p className="eyebrow no-line text-tonwarm">Kontakt</p>
-            <h2 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal text-mehlcreme leading-[1.05] tracking-tight">
-              Komm{" "}
-              <span className="accent">vorbei.</span>
-            </h2>
-            <p className="mt-8 max-w-md text-mehlcreme/80 leading-relaxed">
-              Bruckdorfer Straße 42, Sinzing — direkt vor dem Wald, mit eigenem
-              Parkplatz. Hund mitbringen ist selbstverständlich.
-            </p>
-          </div>
-
-          <div className="md:col-span-6 reveal-1 grid sm:grid-cols-2 gap-10 text-sm">
-            <div>
-              <p className="eyebrow no-line text-tonwarm">Adresse</p>
-              <address className="not-italic mt-4 leading-relaxed text-mehlcreme/90">
-                {CONTACT.street}
-                <br />
-                {CONTACT.postalCode} {CONTACT.city}
-              </address>
-              <div className="mt-6 space-y-1.5 text-mehlcreme/90">
-                <a
-                  href={`tel:${CONTACT.phoneRaw}`}
-                  className="block hover:text-tonwarm"
-                >
-                  {CONTACT.phone}
-                </a>
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  className="block hover:text-tonwarm break-all"
-                >
-                  {CONTACT.email}
-                </a>
-                <a
-                  href={CONTACT.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block hover:text-tonwarm"
-                >
-                  {CONTACT.instagramHandle}
-                </a>
-              </div>
-            </div>
-            <div>
-              <p className="eyebrow no-line text-tonwarm">Öffnungszeiten</p>
-              <dl className="mt-4 space-y-2 text-mehlcreme/90">
-                {liveOpeningHours().map((slot) => (
-                  <div
-                    key={slot.days}
-                    className="flex justify-between gap-4 items-start"
-                  >
-                    <dt>{slot.days}</dt>
-                    <dd className="text-right">{slot.hours}</dd>
-                  </div>
-                ))}
-              </dl>
-              {!hasBreakfastLaunched() && (
-                <div className="mt-6 pt-5 border-t border-mehlcreme/15">
-                  <p className="text-[0.7rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                    Ab {BREAKFAST_LAUNCH.dateShort}
-                  </p>
-                  <dl className="mt-3 space-y-2 text-mehlcreme/80 text-[0.78rem]">
-                    {NEW_OPENING_HOURS.map((slot) => (
-                      <div
-                        key={slot.days}
-                        className="flex justify-between gap-4 items-start"
-                      >
-                        <dt>{slot.days}</dt>
-                        <dd className="text-right">
-                          {slot.slots.map((s) => (
-                            <div key={s}>{s}</div>
-                          ))}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+        </DaySection>
+      </ScrollDay>
     </>
   );
 }

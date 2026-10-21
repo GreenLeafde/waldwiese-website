@@ -1,12 +1,9 @@
 import Link from "next/link";
+import { DaySection } from "@/components/day-section";
+import { PageTone } from "@/components/page-tone";
+import { reservationHref } from "@/lib/reservation";
 import { ReservationWidget } from "@/components/reservation-widget";
-import {
-  BREAKFAST_LAUNCH,
-  CONTACT,
-  CURRENT_OPENING_HOURS,
-  NEW_OPENING_HOURS,
-  hasBreakfastLaunched,
-} from "@/lib/site";
+import { CONTACT, NEW_OPENING_HOURS } from "@/lib/site";
 
 export const metadata = {
   title: "Reservieren",
@@ -15,147 +12,139 @@ export const metadata = {
   alternates: { canonical: "/reservieren" },
 };
 
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+
+/**
+ * Reservieren (Redesign 10/2026), dunkle Seite: oben die Vorauswahl Brunch
+ * oder Abendessen groß auf der Seite (nicht nur als Modal), dann das
+ * Lightspeed-Widget, dann persönliche Wege und Öffnungszeiten.
+ */
 export default function ReservierenPage() {
+  const slots = [
+    {
+      k: "brunch" as const,
+      title: "Brunch",
+      sub: "Montag bis Sonntag, 8–14 Uhr",
+      text: "Frühstück, Brote, Bowls, ab 11:30 Uhr Mittagstisch.",
+    },
+    {
+      k: "abend" as const,
+      title: "Abendessen",
+      sub: "Freitag bis Sonntag, 17–22 Uhr",
+      text: "Burger, vom Grill, Cocktails und ein süßes Finale.",
+    },
+  ];
+
   return (
     <>
-      {/* HEADER */}
-      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
+      <PageTone tone="dunkel" />
+
+      <DaySection stage="tanne" className="pt-[116px] pb-14 md:pt-[140px] md:pb-20">
+        <div className={CONTAINER}>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50 hover:text-tonwarm transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-creme/60 hover:underline underline-offset-4"
           >
             <span aria-hidden>←</span> Startseite
           </Link>
-        </div>
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-20 text-center reveal">
-          <p className="eyebrow no-line justify-center text-tonwarm">Reservieren</p>
-          <h1 className="mt-7 text-5xl md:text-7xl lg:text-8xl font-display font-normal leading-[0.95] tracking-tight text-mehlcreme">
-            Ein Tisch{" "}
-            <span className="accent">für dich.</span>
+          <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Reservieren</p>
+          <h1 className="mt-3 max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] md:text-[3.75rem]">
+            Ein Tisch für dich.
           </h1>
-          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
-            Direkt hier auf der Seite, telefonisch oder per WhatsApp — wie es
-            dir lieber ist.
+          <p className="mt-5 max-w-[52ch] text-[1.05rem] leading-relaxed text-creme/75">
+            Sag uns, wofür du kommst, dann geht es direkt zur Online-Buchung. Für Feiern
+            und größere Gruppen planen wir lieber persönlich mit dir.
           </p>
-          <div className="mt-10">
-            <a
-              href="#reservierung"
-              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {slots.map((s) => (
+              <a
+                key={s.k}
+                href={reservationHref(s.k)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="grid content-start gap-2 border-t border-creme/20 pt-5 transition-colors hover:border-akzent"
+              >
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">{s.sub}</span>
+                <span className="font-display text-[1.7rem] font-normal leading-tight md:text-[2rem]">{s.title}</span>
+                <span className="text-[0.95rem] text-creme/75">{s.text}</span>
+                <span className="mt-2 inline-flex h-11 w-fit items-center rounded-full bg-akzent px-5 text-sm font-semibold text-white">
+                  {s.title} reservieren
+                </span>
+              </a>
+            ))}
+            <Link
+              href="/feiern#anfrage"
+              className="grid content-start gap-2 border-t border-creme/20 pt-5 transition-colors hover:border-akzent"
             >
-              Tisch wählen <span aria-hidden>↓</span>
-            </a>
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Ab etwa 10 Personen</span>
+              <span className="font-display text-[1.7rem] font-normal leading-tight md:text-[2rem]">Feier oder Gruppe</span>
+              <span className="text-[0.95rem] text-creme/75">Anfrage statt Online-Buchung, wir melden uns mit Vorschlägen.</span>
+              <span className="mt-2 inline-flex h-11 w-fit items-center rounded-full px-5 text-sm font-semibold shadow-[inset_0_0_0_1.5px_currentColor]">
+                Anfragen
+              </span>
+            </Link>
           </div>
         </div>
-      </section>
+      </DaySection>
 
-      {/* RESERVIERUNGS-WIDGET (Lightspeed, eingebettet) */}
-      <section id="reservierung" className="bg-mehlcreme scroll-mt-24">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-20 md:pt-28">
-          <div className="reveal text-center">
-            <p className="eyebrow no-line justify-center text-tonwarm">
-              Online reservieren
-            </p>
-            <h2 className="mt-5 text-3xl md:text-4xl font-display font-normal text-waldgruen">
-              Wähl dir deinen Tisch
-            </h2>
-            <p className="mt-4 italic text-waldgruen/60 max-w-md mx-auto leading-relaxed">
-              Datum, Uhrzeit, Personen — in wenigen Schritten erledigt. Du
-              bleibst dabei direkt bei uns.
-            </p>
-          </div>
-          <div className="reveal mt-10">
+      {/* LIGHTSPEED-WIDGET */}
+      <DaySection stage="abend" id="reservierung" className="scroll-mt-24 py-14 md:py-20">
+        <div className={`${CONTAINER} max-w-[860px]`}>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Online reservieren</p>
+          <h2 className="mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
+            Direkt hier auf der Seite
+          </h2>
+          <p className="mt-3 max-w-[52ch] leading-relaxed text-creme/75">
+            Datum, Uhrzeit, Personen, in wenigen Schritten erledigt. Die Buchung läuft
+            über unseren Reservierungs-Dienst Lightspeed.
+          </p>
+          <div className="mt-8 text-tanne">
             <ReservationWidget />
           </div>
         </div>
-      </section>
+      </DaySection>
 
-      {/* OPTIONEN + ÖFFNUNGSZEITEN */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28 grid md:grid-cols-2 gap-12 md:gap-20">
-          <div className="reveal">
-            <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-              Lieber persönlich?
-            </p>
-            <ul className="mt-5 divide-y divide-waldgruen/15 text-sm">
-              <li className="py-4 flex justify-between items-baseline gap-4">
-                <span className="text-waldgruen/45">Telefon</span>
-                <a
-                  href={`tel:${CONTACT.phoneRaw}`}
-                  className="font-display text-base text-waldgruen hover:text-tonwarm transition-colors"
-                >
-                  {CONTACT.phone}
-                </a>
-              </li>
-              <li className="py-4 flex justify-between items-baseline gap-4">
-                <span className="text-waldgruen/45">WhatsApp</span>
-                <a
-                  href={`https://wa.me/${CONTACT.whatsapp.replace(/[^0-9]/g, "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-display text-base text-waldgruen hover:text-tonwarm transition-colors"
-                >
-                  Nachricht schicken
-                </a>
-              </li>
-              <li className="py-4 flex justify-between items-baseline gap-4">
-                <span className="text-waldgruen/45">E-Mail</span>
-                <a
-                  href={`mailto:${CONTACT.email}?subject=Reservierung`}
-                  className="font-display text-base text-waldgruen hover:text-tonwarm break-all text-right transition-colors"
-                >
-                  {CONTACT.email}
-                </a>
-              </li>
+      {/* PERSÖNLICH + ZEITEN */}
+      <DaySection stage="wald" className="py-14 md:py-20">
+        <div className={`${CONTAINER} grid gap-12 md:grid-cols-2 md:gap-20`}>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Lieber persönlich?</p>
+            <ul className="mt-4 text-[0.95rem]">
+              {[
+                { l: "Telefon", v: CONTACT.phone, href: `tel:${CONTACT.phoneRaw}` },
+                { l: "WhatsApp", v: "Nachricht schicken", href: `https://wa.me/${CONTACT.whatsapp.replace(/[^0-9]/g, "")}` },
+                { l: "E-Mail", v: CONTACT.email, href: `mailto:${CONTACT.email}?subject=Reservierung` },
+              ].map((r) => (
+                <li key={r.l} className="flex items-baseline justify-between gap-4 border-b border-creme/15 py-4">
+                  <span className="text-creme/60">{r.l}</span>
+                  <a href={r.href} className="break-all text-right font-semibold hover:underline underline-offset-4">
+                    {r.v}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
-
-          <div className="reveal space-y-10">
-            {!hasBreakfastLaunched() && (
-              <div>
-                <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                  Öffnungszeiten · Aktuell
-                </p>
-                <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
-                  {CURRENT_OPENING_HOURS.map((s) => (
-                    <div
-                      key={s.days}
-                      className="py-3 flex justify-between gap-4 text-waldgruen/70"
-                    >
-                      <dt className="font-medium text-waldgruen">{s.days}</dt>
-                      <dd>{s.hours}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            )}
-            <div>
-              <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                {hasBreakfastLaunched()
-                  ? "Öffnungszeiten"
-                  : `Ab ${BREAKFAST_LAUNCH.dateShort}`}
-              </p>
-              <dl className="mt-5 divide-y divide-waldgruen/15 text-sm">
-                {NEW_OPENING_HOURS.map((s) => (
-                  <div
-                    key={s.days}
-                    className="py-3 flex justify-between gap-4 text-waldgruen/70 items-start"
-                  >
-                    <dt className="font-medium text-waldgruen pt-0.5">
-                      {s.days}
-                    </dt>
-                    <dd className="text-right">
-                      {s.slots.map((slot) => (
-                        <div key={slot}>{slot}</div>
-                      ))}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">Öffnungszeiten</p>
+            <dl className="mt-4 text-[0.95rem]">
+              {NEW_OPENING_HOURS.map((s) => (
+                <div key={s.days} className="flex justify-between gap-4 border-b border-creme/15 py-4">
+                  <dt className="font-semibold">{s.days}</dt>
+                  <dd className="text-right tabular-nums">
+                    {s.slots.map((slot) => (
+                      <div key={slot}>{slot}</div>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-4 text-sm text-creme/60">
+              Brunch täglich, abends Freitag bis Sonntag. An Feiertagen sag uns kurz Bescheid.
+            </p>
           </div>
         </div>
-      </section>
+      </DaySection>
     </>
   );
 }

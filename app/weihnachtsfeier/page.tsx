@@ -15,6 +15,7 @@ export default function WeihnachtsfeierPage() {
     <RichLanding
       content={content}
       path="/weihnachtsfeier"
+      tone="dunkel"
       splitImage={{
         src: IMG.gebaeudeAbend.src,
         alt: IMG.gebaeudeAbend.alt,

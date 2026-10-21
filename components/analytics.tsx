@@ -167,7 +167,12 @@ export function Analytics() {
       if (!link) return;
       const href = link.href;
       if (href.startsWith(RESERVATION_URL)) {
-        trackReservationClick(linkLocation(link));
+        // Die Vorauswahl hängt ?slot=brunch|abend an (reserve-chooser.tsx),
+        // so sehen wir, wofür reserviert wird.
+        const slot = new URL(href).searchParams.get("slot");
+        trackReservationClick(
+          slot ? `${linkLocation(link)}:${slot}` : linkLocation(link),
+        );
       } else if (href.includes("bon-bon.de/gutschein")) {
         trackShopClick("gutschein_click", TRACKING.gutscheinConversion, linkLocation(link));
       } else if (href.includes("okticket.de")) {

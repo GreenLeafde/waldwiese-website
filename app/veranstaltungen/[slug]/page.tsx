@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { LeafDivider } from "@/components/leaf-divider";
+import { DaySection } from "@/components/day-section";
+import { PageTone } from "@/components/page-tone";
 import { VideoFacade } from "@/components/video-facade";
 import { EVENTS, getEvent, isPastEvent, upcomingEvents } from "@/lib/events";
 import { eventJsonLd } from "@/lib/event-schema";
@@ -11,6 +12,13 @@ import { isXmasSeason } from "@/lib/season";
 import { StickyCta } from "@/components/sticky-cta";
 
 type Props = { params: Promise<{ slug: string }> };
+
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+const LABEL = "text-xs font-semibold uppercase tracking-[0.16em] text-akzent";
+const H2 = "mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]";
+const MUTED = "text-creme/75";
+const BTN_A = "inline-flex h-[50px] items-center justify-center gap-2 rounded-full bg-akzent px-[26px] text-[0.95rem] font-semibold text-white transition-colors hover:bg-akzent-hover";
+const LINK = "font-semibold border-b-[1.5px] border-current pb-0.5";
 
 // Stündlich neu bauen: Geschenk-Block endet am 25.12. von selbst.
 export const revalidate = 3600;
@@ -112,177 +120,115 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
-      {/* HEADER — Waldgrün */}
-      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
-          <nav
-            aria-label="Brotkrumen"
-            className="flex flex-wrap items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50"
-          >
-            <Link href="/" className="hover:text-tonwarm transition-colors">
-              Startseite
-            </Link>
+      <PageTone tone="dunkel" />
+      {/* KOPF — dunkel, Foto rechts, Ticket-Knopf oben */}
+      <DaySection stage="tanne" className="pt-[116px] pb-14 md:pt-[140px] md:pb-20">
+        <div className={CONTAINER}>
+          <nav aria-label="Brotkrumen" className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-creme/60">
+            <Link href="/" className="hover:underline underline-offset-4">Startseite</Link>
             <span aria-hidden>/</span>
-            <Link
-              href="/veranstaltungen#termine"
-              className="hover:text-tonwarm transition-colors"
-            >
-              Veranstaltungen
-            </Link>
+            <Link href="/veranstaltungen#termine" className="hover:underline underline-offset-4">Veranstaltungen</Link>
           </nav>
-        </div>
-
-        <div className="mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center reveal">
-          {gift && (
-            <p className="mb-6">
-              <span className="inline-flex items-center rounded-full bg-tonwarm px-4 py-1.5 text-xs font-medium tracking-wide text-white">
-                {gift.badge}
-              </span>
-            </p>
-          )}
-          <p className="eyebrow no-line justify-center text-tonwarm">
-            {event.kicker}
-          </p>
-          <h1 className="mt-7 text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.02] tracking-tight text-mehlcreme">
-            {event.title}
-          </h1>
-          <p className="mt-7 text-lg md:text-xl text-mehlcreme">
-            <time dateTime={event.startsAt}>
-              {event.dateLabel} · {event.timeLabel}
-            </time>
-          </p>
-          <p className="mt-3 text-mehlcreme/70">
-            {event.priceLabel}
-            {event.priceNote ? ` — ${event.priceNote}` : ""}
-          </p>
-
-          {isPast ? (
-            <p className="mt-10 inline-flex items-center rounded-full border border-mehlcreme/30 px-6 py-3 text-mehlcreme/70">
-              Dieser Termin ist vorbei.
-            </p>
-          ) : (
-            <div className="mt-10 flex flex-col items-center gap-4">
-              <a
-                href={event.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-              >
-                {event.ticketButtonLabel ?? "Tickets beim Veranstalter"}{" "}
-                <span aria-hidden>↗</span>
-              </a>
-              <p className="max-w-md text-sm text-mehlcreme/60 leading-relaxed">
-                {event.ticketNote}
+          <div className="mt-8 grid items-center gap-9 md:grid-cols-2 md:gap-14">
+            <div className="grid justify-items-start gap-4">
+              {gift && (
+                <span className="inline-flex items-center rounded-full bg-akzent px-4 py-1.5 text-xs font-semibold tracking-wide text-white">
+                  {gift.badge}
+                </span>
+              )}
+              <p className={LABEL}>{event.kicker}</p>
+              <h1 className="font-display text-[2.4rem] font-light leading-[1.05] md:text-[3.25rem]">{event.title}</h1>
+              <p className="m-0 text-[1.1rem] md:text-[1.25rem]">
+                <time dateTime={event.startsAt}>{event.dateLabel} · {event.timeLabel}</time>
               </p>
+              <p className={`m-0 ${MUTED}`}>
+                {event.priceLabel}
+                {event.priceNote ? ` — ${event.priceNote}` : ""}
+              </p>
+              {isPast ? (
+                <p className="m-0 inline-flex h-[50px] items-center rounded-full px-[26px] text-[0.95rem] font-semibold shadow-[inset_0_0_0_1.5px_currentColor]">
+                  Dieser Termin ist vorbei.
+                </p>
+              ) : (
+                <>
+                  <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer" className={BTN_A}>
+                    {event.ticketButtonLabel ?? "Tickets beim Veranstalter"} <span aria-hidden>↗</span>
+                  </a>
+                  <p className={`m-0 max-w-[48ch] text-sm leading-relaxed ${MUTED}`}>{event.ticketNote}</p>
+                </>
+              )}
             </div>
-          )}
-        </div>
-
-        {/* HERO-BILD */}
-        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-20 md:pb-28">
-          <div className="relative aspect-[27/20] md:aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-mehlcreme/10 reveal-scale">
-            <Image
-              src={event.hero.src}
-              alt={event.hero.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 80vw, 100vw"
-              className="object-cover"
-            />
+            <figure className="m-0">
+              <Image
+                src={event.hero.src}
+                alt={event.hero.alt}
+                width={event.hero.width}
+                height={event.hero.height}
+                priority
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="aspect-[4/3] w-full rounded-[18px] object-cover"
+              />
+              <figcaption className={`mt-2 text-xs ${MUTED}`}>
+                {event.heroCredit ?? `Szenenfoto: ${event.organizer.name}`}
+              </figcaption>
+            </figure>
           </div>
-          <p className="mt-4 text-center text-xs text-mehlcreme/45">
-            {event.heroCredit ?? `Szenenfoto: ${event.organizer.name}`}
-          </p>
         </div>
-      </section>
+      </DaySection>
 
       {/* GESCHENK — nur in der Weihnachtszeit */}
       {gift && (
-        <section className="bg-mehlcreme border-b border-waldgruen/15">
-          <div className="mx-auto max-w-3xl px-6 md:px-10 py-16 md:py-20 text-center reveal">
-            <h2 className="font-display text-3xl md:text-4xl font-normal leading-[1.08] tracking-tight text-waldgruen">
-              {gift.heading} <span className="accent">{gift.accent}</span>
-            </h2>
-            <p className="mt-6 italic leading-relaxed text-waldgruen/70">
-              {gift.text}
-            </p>
-            <ul className="mx-auto mt-8 max-w-md space-y-2 text-left text-waldgruen/80">
+        <DaySection stage="abend" className="py-14 md:py-20">
+          <div className={`${CONTAINER} max-w-[860px]`}>
+            <p className={LABEL}>Verschenken</p>
+            <h2 className={H2}>{gift.heading} {gift.accent}</h2>
+            <p className={`mt-3 leading-relaxed ${MUTED}`}>{gift.text}</p>
+            <ul className="mt-5 grid list-none gap-2 p-0">
               {gift.points.map((p) => (
-                <li key={p} className="flex gap-3">
-                  <span aria-hidden className="text-tonwarm">✓</span>
-                  {p}
-                </li>
+                <li key={p} className="flex gap-3"><span aria-hidden className="text-akzent">✓</span>{p}</li>
               ))}
             </ul>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-5">
-              <a
-                href={event.ticketUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-tonwarm px-7 py-3.5 font-medium text-white transition-colors hover:bg-tonwarm-dark"
-              >
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer" className={BTN_A}>
                 Tickets verschenken <span aria-hidden>↗</span>
               </a>
-              <Link
-                href="/gutscheine"
-                className="inline-flex items-center gap-3 border-b border-waldgruen/30 pb-1 font-medium text-waldgruen transition-colors hover:border-tonwarm hover:text-tonwarm"
-              >
-                Lieber flexibel? Wertgutschein
-              </Link>
+              <Link href="/gutscheine" className={LINK}>Lieber flexibel? Wertgutschein</Link>
             </div>
           </div>
-        </section>
+        </DaySection>
       )}
 
       {/* INHALT */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-2xl px-6 md:px-10 py-20 md:py-28">
-          <p className="italic text-lg md:text-xl text-waldgruen/65 leading-relaxed reveal">
-            {event.intro}
-          </p>
-
-          {/* FAKTEN */}
-          <dl className="mt-12 divide-y divide-waldgruen/15 border-y border-waldgruen/15 reveal">
+      <DaySection stage="abend" className="py-14 md:py-20">
+        <div className={`${CONTAINER} max-w-[860px]`}>
+          <p className="text-[1.15rem] leading-relaxed md:text-[1.25rem]">{event.intro}</p>
+          <dl className="mt-10 border-t border-creme/15">
             {event.facts.map((f) => (
-              <div
-                key={f.label}
-                className="flex flex-col gap-1 py-4 sm:flex-row sm:gap-6"
-              >
-                <dt className="sm:w-36 shrink-0 text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium sm:pt-1">
-                  {f.label}
-                </dt>
-                <dd className="text-waldgruen/80 leading-relaxed">{f.value}</dd>
+              <div key={f.label} className="grid gap-1 border-b border-creme/15 py-4 sm:grid-cols-[150px_1fr] sm:gap-6">
+                <dt className={LABEL}>{f.label}</dt>
+                <dd className={`leading-relaxed ${MUTED}`}>{f.value}</dd>
               </div>
             ))}
           </dl>
-
-          <div className="mt-14 space-y-14">
+          <div className="mt-12 grid gap-12">
             {event.sections.map((sec) => (
-              <div key={sec.heading} className="reveal">
-                <h2 className="text-2xl md:text-3xl font-display font-normal leading-tight tracking-tight text-waldgruen">
-                  {sec.heading}
-                </h2>
-                <div className="mt-5 space-y-4 text-waldgruen/75 leading-relaxed">
-                  {sec.body.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
+              <div key={sec.heading}>
+                <h2 className="font-display text-[1.6rem] font-normal leading-tight md:text-[2rem]">{sec.heading}</h2>
+                <div className={`mt-4 grid gap-4 leading-relaxed ${MUTED}`}>
+                  {sec.body.map((p) => (<p key={p} className="m-0">{p}</p>))}
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </DaySection>
 
       {/* VIDEO */}
       {event.video && (
-        <section className="bg-waldgruen text-mehlcreme">
-          <div className="mx-auto max-w-4xl px-6 md:px-10 py-16 md:py-24">
-            <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium reveal">
-              Video-Vorschau
-            </p>
-            <h2 className="mt-4 mb-8 text-3xl md:text-4xl font-display font-normal leading-tight tracking-tight text-mehlcreme reveal">
-              So fühlt sich der <span className="accent">Abend an.</span>
-            </h2>
+        <DaySection stage="wald" className="py-14 md:py-20">
+          <div className={`${CONTAINER} max-w-[960px]`}>
+            <p className={LABEL}>Video-Vorschau</p>
+            <h2 className={`${H2} mb-8`}>So fühlt sich der Abend an</h2>
             <VideoFacade
               youtubeId={event.video.youtubeId}
               title={event.video.title}
@@ -290,144 +236,84 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
               posterAlt={event.hero.alt}
             />
           </div>
-        </section>
+        </DaySection>
       )}
 
       {/* GALERIE */}
       {event.gallery.length > 0 && (
-        <section className="bg-mehlcreme border-t border-waldgruen/15">
-          <div className="mx-auto max-w-5xl px-6 md:px-10 py-16 md:py-24">
-            <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium reveal">
-              Eindrücke vom Stück
-            </p>
-            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 reveal-1">
+        <DaySection stage="wald" className="py-14 md:py-20">
+          <div className={CONTAINER}>
+            <p className={LABEL}>Eindrücke vom Stück</p>
+            <ul className="mt-6 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
               {event.gallery.map((img) => (
-                <li
-                  key={img.src}
-                  className="relative aspect-[27/20] overflow-hidden rounded-2xl ring-1 ring-waldgruen/10"
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                    className="object-cover"
-                  />
+                <li key={img.src} className="relative aspect-[27/20] overflow-hidden rounded-[18px]">
+                  <Image src={img.src} alt={img.alt} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw" className="object-cover" />
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs text-waldgruen/45">
-              Szenenfotos: {event.organizer.name}
-            </p>
+            <p className={`mt-3 text-xs ${MUTED}`}>Szenenfotos: {event.organizer.name}</p>
           </div>
-        </section>
+        </DaySection>
       )}
 
       {/* FAQ */}
       {event.faq?.length ? (
-        <section className="bg-waldgruen-dark text-mehlcreme">
-          <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28">
-            <p className="eyebrow no-line text-tonwarm">Häufige Fragen</p>
-            <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-              Gut zu <span className="accent">wissen.</span>
-            </h2>
-            <div className="mt-10 divide-y divide-mehlcreme/15 border-y border-mehlcreme/15">
+        <DaySection stage="wald-2" className="py-14 md:py-20">
+          <div className={`${CONTAINER} max-w-[860px]`}>
+            <p className={LABEL}>Häufige Fragen</p>
+            <h2 className={H2}>Gut zu wissen</h2>
+            <div className="mt-8 border-t border-creme/15">
               {event.faq.map((f) => (
-                <details key={f.q} className="group py-5">
-                  <summary className="flex cursor-pointer items-center justify-between gap-4 list-none">
-                    <span className="font-display text-lg md:text-xl text-mehlcreme">
-                      {f.q}
-                    </span>
-                    <span
-                      aria-hidden
-                      className="text-tonwarm text-2xl leading-none transition-transform group-open:rotate-45"
-                    >
-                      +
-                    </span>
+                <details key={f.q} className="group border-b border-creme/15 py-5">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                    <span className="font-display text-[1.25rem] font-normal">{f.q}</span>
+                    <span aria-hidden className="text-2xl leading-none text-akzent transition-transform group-open:rotate-45">+</span>
                   </summary>
-                  <p className="mt-4 text-mehlcreme/75 leading-relaxed">
-                    {f.a}
-                  </p>
+                  <p className={`mt-3 leading-relaxed ${MUTED}`}>{f.a}</p>
                 </details>
               ))}
             </div>
           </div>
-        </section>
+        </DaySection>
       ) : null}
 
       {/* CTA + WEITERE TERMINE */}
-      <section className="bg-waldgruen text-mehlcreme">
-        <div className="mx-auto max-w-4xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
+      <DaySection stage="nacht" className="py-14 md:py-20">
+        <div className={`${CONTAINER} max-w-[860px]`}>
           {!isPast && (
             <>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-                {event.cta?.heading ?? "Mitermitteln?"}{" "}
-                <span className="accent">
-                  {event.cta?.accent ?? "Platz sichern."}
-                </span>
+              <h2 className="font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
+                {event.cta?.heading ?? "Mitermitteln?"} {event.cta?.accent ?? "Platz sichern."}
               </h2>
-              <p className="mt-6 text-mehlcreme/80 leading-relaxed max-w-xl mx-auto">
+              <p className={`mt-3 max-w-[56ch] leading-relaxed ${MUTED}`}>
                 {event.cta?.text ??
                   `Der Ticketverkauf läuft über ${event.organizer.name} — dort buchst du Plätze für ${event.dateLabel} und gibst gleich an, wenn jemand vegan, vegetarisch oder mit Allergie am Tisch sitzt.`}
               </p>
-              <div className="mt-10">
-                <a
-                  href={event.ticketUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-                >
-                  {event.ticketButtonLabel ?? "Tickets beim Veranstalter"}{" "}
-                <span aria-hidden>↗</span>
-                </a>
-              </div>
+              <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer" className={`${BTN_A} mt-7`}>
+                {event.ticketButtonLabel ?? "Tickets beim Veranstalter"} <span aria-hidden>↗</span>
+              </a>
             </>
           )}
-
           {otherEvents.length > 0 && (
-            <div className={isPast ? "" : "mt-16"}>
-              <p className="text-[0.65rem] tracking-[0.22em] uppercase text-mehlcreme/50 font-medium">
-                {isPast ? "Kommende Termine" : "Auch bei uns"}
-              </p>
-              <ul className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
+            <div className={isPast ? "" : "mt-12 border-t border-creme/15 pt-8"}>
+              <p className={LABEL}>{isPast ? "Kommende Termine" : "Auch bei uns"}</p>
+              <ul className="mt-3 grid list-none gap-2 p-0">
                 {otherEvents.map((e) => (
                   <li key={e.slug}>
-                    <Link
-                      href={`/veranstaltungen/${e.slug}`}
-                      className="text-mehlcreme/85 border-b border-mehlcreme/25 hover:text-tonwarm hover:border-tonwarm pb-0.5 transition-colors"
-                    >
-                      {e.title} — {e.dateLabel}
-                    </Link>
+                    <Link href={`/veranstaltungen/${e.slug}`} className={LINK}>{e.title}</Link>
+                    <span className={`ml-2 text-sm ${MUTED}`}>{e.dateLabel}</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
-
-          <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm">
-            <Link
-              href="/veranstaltungen#termine"
-              className="text-mehlcreme/80 border-b border-mehlcreme/25 hover:text-tonwarm hover:border-tonwarm pb-0.5 transition-colors"
-            >
-              Alle Veranstaltungen
-            </Link>
-            <Link
-              href="/speisekarte"
-              className="text-mehlcreme/80 border-b border-mehlcreme/25 hover:text-tonwarm hover:border-tonwarm pb-0.5 transition-colors"
-            >
-              Unsere Speisekarte
-            </Link>
-            <Link
-              href="/kontakt"
-              className="text-mehlcreme/80 border-b border-mehlcreme/25 hover:text-tonwarm hover:border-tonwarm pb-0.5 transition-colors"
-            >
-              Kontakt
-            </Link>
+          <div className={`mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-creme/15 pt-6 text-sm ${MUTED}`}>
+            <Link href="/veranstaltungen#termine" className="hover:underline underline-offset-4">Alle Veranstaltungen</Link>
+            <Link href="/speisekarte" className="hover:underline underline-offset-4">Unsere Speisekarte</Link>
+            <Link href="/kontakt" className="hover:underline underline-offset-4">Kontakt</Link>
           </div>
-
-          <LeafDivider tone="light" className="mt-14 opacity-80" />
         </div>
-      </section>
+      </DaySection>
 
       {!isPast && (
         <StickyCta

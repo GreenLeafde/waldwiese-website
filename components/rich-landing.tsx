@@ -1,7 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LeafDivider } from "@/components/leaf-divider";
-import { GrowingVine } from "@/components/growing-vine";
+import { DaySection, type Tone } from "@/components/day-section";
+import { GoogleReviews } from "@/components/google-reviews";
+import { KarteDish } from "@/components/karte";
+import { LANDING_STAGES, landingPreset } from "@/components/landing-extras";
+import { PageTone } from "@/components/page-tone";
+import { ReserveButton } from "@/components/reserve-chooser";
+import type { ReserveSlot } from "@/lib/reservation";
 import { CONTACT, SITE } from "@/lib/site";
 
 export type LandingContent = {
@@ -33,21 +38,58 @@ export type LandingContent = {
   };
 };
 
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+const LABEL = "text-xs font-semibold uppercase tracking-[0.16em] text-akzent";
+const H2 = "mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]";
+const BTN_A = "inline-flex h-[50px] items-center justify-center rounded-full bg-akzent px-[26px] text-[0.95rem] font-semibold text-white transition-colors hover:bg-akzent-hover";
+const LINK = "font-semibold border-b-[1.5px] border-current pb-0.5";
+
+/** Primärer Knopf: Reservieren öffnet die Vorauswahl, alles andere ist ein Link. */
+function LandingCta({
+  cta,
+  location,
+  slot,
+}: {
+  cta: { label: string; href: string };
+  location: string;
+  slot?: ReserveSlot;
+}) {
+  if (cta.href === "/reservieren") {
+    return (
+      <ReserveButton location={location} pre={slot} className={BTN_A}>
+        {cta.label}
+      </ReserveButton>
+    );
+  }
+  return (
+    <Link href={cta.href} className={BTN_A}>
+      {cta.label}
+    </Link>
+  );
+}
+
 /**
- * Grün-dominantes Landingpage-Layout im Brunch-Karten-Look:
- * Hero (grün, Botanik) → großes echtes Foto → nummerierte Punkte (dunkelgrün)
- * → optionaler Beige-Akzentblock → Tonwarm-Claim → Zahlen-Band → FAQ → CTA.
- * Serif nur für Headings, Beschreibungen in kursivem Sans, Body dunkelgrün/creme.
+ * Landingpage-Template (Redesign 10/2026): Kopf mit Text und großem Foto →
+ * drei Punkte als offene Spalten → Karten-Auszug mit echten Preisen →
+ * optionaler Textblock → Zahlen → FAQ → Google-Bewertungen → Abschluss.
+ * Ein Raster, keine Kästen, keine Ornamente. Ton, Gerichte und
+ * Reservierungs-Slot kommen aus landingPreset(path), `tone` kann es
+ * überschreiben (Feiern-Seiten).
  */
 export function RichLanding({
   content,
   path,
   splitImage,
+  tone,
 }: {
   content: LandingContent;
   path: string;
   splitImage: { src: string; alt: string; position?: string };
+  tone?: Tone;
 }) {
+  const preset = landingPreset(path);
+  const t: Tone = tone ?? preset.tone;
+  const dark = t === "dunkel";
   const faqLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -62,20 +104,21 @@ export function RichLanding({
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Startseite", item: SITE.url },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: content.breadcrumb,
-        item: `${SITE.url}${path}`,
-      },
+      { "@type": "ListItem", position: 2, name: content.breadcrumb, item: `${SITE.url}${path}` },
     ],
   };
 
   const features = content.features.items.slice(0, 3);
   const splitParas = content.split?.paragraphs.slice(0, 2) ?? [];
+  const [s0, s1, s2, s3, s4, s5, s6] = LANDING_STAGES[t];
+  const muted = dark ? "text-creme/75" : "text-muted-hell";
+  const soft = dark ? "text-creme/60" : "text-tanne/60";
+  /** Feiern-Seiten zeigen keinen Karten-Auszug; dort geht es um die Anfrage. */
+  const showDishes = !tone && preset.dishes.length > 0;
 
   return (
     <>
+      {dark && <PageTone tone="dunkel" />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
@@ -85,201 +128,159 @@ export function RichLanding({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
 
-      {/* HERO — Waldgrün, Botanik */}
-      <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
-        {/* wachsende Ranke in der rechten Kante (ab lg) */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute top-1/2 -translate-y-1/2 right-2 2xl:right-[5%] hidden lg:block h-[58%] max-h-[440px]"
-        >
-          <GrowingVine flip className="h-full w-auto" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">
-          <nav
-            aria-label="Brotkrumen"
-            className="flex items-center gap-2 text-[0.7rem] tracking-[0.22em] uppercase text-mehlcreme/50"
-          >
-            <Link href="/" className="hover:text-tonwarm transition-colors">
-              Startseite
-            </Link>
+      {/* KOPF: Text links, Foto rechts */}
+      <DaySection stage={s0} className="pt-[116px] pb-14 md:pt-[140px] md:pb-20">
+        <div className={CONTAINER}>
+          <nav aria-label="Brotkrumen" className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] ${soft}`}>
+            <Link href="/" className="hover:underline underline-offset-4">Startseite</Link>
             <span aria-hidden>/</span>
-            <span className="text-mehlcreme/80">{content.breadcrumb}</span>
+            <span>{content.breadcrumb}</span>
           </nav>
-        </div>
-
-        <div className="relative mx-auto max-w-3xl px-6 md:px-10 pt-10 md:pt-14 pb-14 md:pb-16 text-center reveal">
-          <p className="eyebrow no-line justify-center text-tonwarm">
-            {content.eyebrow}
-          </p>
-          <h1 className="mt-7 text-5xl md:text-7xl font-display font-normal leading-[0.98] tracking-tight text-mehlcreme">
-            {content.h1Lead} <span className="accent">{content.h1Accent}</span>
-          </h1>
-          <p className="mt-8 italic text-lg md:text-xl text-mehlcreme/80 max-w-xl mx-auto leading-relaxed">
-            {content.intro}
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-5">
-            <Link
-              href={content.primaryCta.href}
-              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-            >
-              {content.primaryCta.label} <span aria-hidden>→</span>
-            </Link>
-            <a
-              href={`tel:${CONTACT.phoneRaw}`}
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/30 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              {CONTACT.phone}
-            </a>
-          </div>
-        </div>
-
-        {/* GROSSES ECHTES FOTO — weich gerahmt auf Grün */}
-        <div className="relative mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28">
-          <div className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-3xl shadow-2xl ring-1 ring-mehlcreme/10 reveal-scale">
+          <div className="mt-8 grid items-center gap-9 md:grid-cols-[1.05fr_1fr] md:gap-14">
+            <div className="grid justify-items-start gap-4 md:gap-5">
+              <p className={LABEL}>{content.eyebrow}</p>
+              <h1 className="font-display text-[2.5rem] font-light leading-[1.05] md:text-[3.5rem]">
+                {content.h1Lead} <span className="font-normal">{content.h1Accent}</span>
+              </h1>
+              <p className={`m-0 max-w-[48ch] text-[1.05rem] leading-relaxed md:text-[1.15rem] ${muted}`}>
+                {content.intro}
+              </p>
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                <LandingCta cta={content.primaryCta} location={`landing-kopf:${path}`} slot={preset.slot} />
+                <a href={`tel:${CONTACT.phoneRaw}`} className={LINK}>
+                  {CONTACT.phone}
+                </a>
+              </div>
+            </div>
             <Image
               src={splitImage.src}
               alt={splitImage.alt}
-              fill
+              width={1600}
+              height={1200}
               priority
-              sizes="(min-width: 768px) 80vw, 100vw"
-              className="object-cover"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="aspect-[4/3] w-full rounded-[18px] object-cover"
               style={{ objectPosition: splitImage.position ?? "center" }}
             />
           </div>
         </div>
-      </section>
+      </DaySection>
 
-      {/* NUMMERIERTE PUNKTE — dunkles Grün */}
-      <section className="bg-waldgruen-dark text-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-20 md:py-28">
-          <h2 className="max-w-2xl text-3xl md:text-4xl lg:text-5xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme reveal">
-            {content.features.heading}{" "}
-            <span className="accent">{content.features.accent}</span>
+      {/* DREI PUNKTE — offene Spalten */}
+      <DaySection stage={s1} className="py-14 md:py-20">
+        <div className={CONTAINER}>
+          <h2 className="max-w-[24ch] font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
+            {content.features.heading} {content.features.accent}
           </h2>
-          <ul className="mt-12 grid sm:grid-cols-3 gap-x-10 gap-y-10 reveal-1">
-            {features.map((item, i) => (
-              <li key={item.title} className="border-t border-mehlcreme/20 pt-5">
-                <span className="font-display italic text-tonwarm text-2xl leading-none">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-3 text-xl font-display font-normal tracking-tight text-mehlcreme">
-                  {item.title}
-                </h3>
-                <p className="mt-2.5 text-mehlcreme/75 leading-relaxed">
-                  {item.text}
-                </p>
+          <ul className="mt-8 grid list-none gap-6 p-0 md:grid-cols-3 md:gap-10">
+            {features.map((item) => (
+              <li key={item.title} className="border-t pt-5" style={{ borderColor: "var(--linie)" }}>
+                <h3 className="m-0 font-display text-[1.4rem] font-normal leading-tight">{item.title}</h3>
+                <p className={`mt-2 leading-relaxed ${muted}`}>{item.text}</p>
               </li>
             ))}
           </ul>
         </div>
-      </section>
+      </DaySection>
 
-      {/* OPTIONALER AKZENT-BLOCK — der eine Beige-Akzent */}
-      {content.split && splitParas.length > 0 && (
-        <section className="bg-mehlcreme">
-          <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 reveal">
-            <p className="eyebrow no-line">{content.split.eyebrow}</p>
-            <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.08] tracking-tight text-waldgruen">
-              {content.split.heading}{" "}
-              <span className="accent">{content.split.accent}</span>
-            </h2>
-            <div className="mt-7 space-y-4 text-waldgruen/75 leading-relaxed text-lg">
-              {splitParas.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+      {/* KARTEN-AUSZUG mit echten Preisen */}
+      {showDishes && (
+        <DaySection stage={s2} className="py-14 md:py-20">
+          <div className={CONTAINER}>
+            <div className="mb-6 grid gap-3 md:mb-8 md:flex md:items-end md:justify-between">
+              <div>
+                <p className={LABEL}>{preset.dishesTitle}</p>
+                <h2 className={H2}>Bei uns hat jedes Gericht einen Namen</h2>
+              </div>
+              <Link href="/speisekarte" className={`${LINK} justify-self-start`}>Ganze Karte mit Preisen</Link>
             </div>
-            <LeafDivider tone="dark" className="mt-12 opacity-90" />
+            <ul className="m-0 grid list-none p-0 md:grid-cols-2 md:gap-x-10">
+              {preset.dishes.map((d) => (
+                <KarteDish key={d.name} dish={d} tone={dark ? "light" : "dark"} />
+              ))}
+            </ul>
+            {preset.slot && (
+              <div className="mt-8">
+                <ReserveButton location={`landing-karte:${path}`} pre={preset.slot} className={BTN_A}>
+                  {preset.slot === "abend" ? "Abend reservieren" : "Brunch reservieren"}
+                </ReserveButton>
+              </div>
+            )}
           </div>
-        </section>
+        </DaySection>
       )}
 
-      {/* CLAIM-BAND — warmer Tonwarm-Pop */}
-      <section className="bg-tonwarm text-white">
-        <div className="mx-auto max-w-4xl px-6 md:px-10 py-16 md:py-20 text-center">
-          <p className="font-display italic text-3xl md:text-4xl lg:text-5xl leading-[1.1]">
-            Klein, fein &amp; ehrlich.
-          </p>
-          <p className="mt-4 text-white/85 tracking-[0.04em]">
-            Familiengeführt in Sinzing — mitten im Grünen, bei Regensburg.
-          </p>
-        </div>
-      </section>
+      {/* OPTIONALER TEXTBLOCK */}
+      {content.split && splitParas.length > 0 && (
+        <DaySection stage={s3} className="py-14 md:py-20">
+          <div className={`${CONTAINER} max-w-[860px]`}>
+            <p className={LABEL}>{content.split.eyebrow}</p>
+            <h2 className={H2}>
+              {content.split.heading} {content.split.accent}
+            </h2>
+            <div className={`mt-5 grid gap-4 text-[1.05rem] leading-relaxed ${muted}`}>
+              {splitParas.map((p, i) => (
+                <p key={i} className="m-0">{p}</p>
+              ))}
+            </div>
+          </div>
+        </DaySection>
+      )}
 
-      {/* ZAHLEN-BAND — Waldgrün */}
-      <section className="bg-waldgruen text-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-16 md:py-20">
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center reveal">
+      {/* ZAHLEN */}
+      <DaySection stage={s4} className="py-14 md:py-20">
+        <div className={CONTAINER}>
+          <ul className="grid list-none gap-6 p-0 sm:grid-cols-3 md:gap-10">
             {content.stats.map((s) => (
-              <li key={s.label}>
-                <p className="font-display text-4xl md:text-5xl text-mehlcreme leading-none">
-                  {s.value}
-                </p>
-                <p className="mt-3 text-sm tracking-[0.06em] text-mehlcreme/70">
-                  {s.label}
-                </p>
+              <li key={s.label} className="border-t pt-5" style={{ borderColor: "var(--linie)" }}>
+                <p className="m-0 font-display text-[2.4rem] font-light leading-none md:text-[3rem]">{s.value}</p>
+                <p className={`mt-2 text-sm ${muted}`}>{s.label}</p>
               </li>
             ))}
           </ul>
         </div>
-      </section>
+      </DaySection>
 
-      {/* FAQ — dunkles Grün, eingeklappt */}
-      <section className="bg-waldgruen-dark text-mehlcreme">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28">
-          <p className="eyebrow no-line text-tonwarm">Häufige Fragen</p>
-          <h2 className="mt-6 text-3xl md:text-4xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-            Gut zu <span className="accent">wissen.</span>
-          </h2>
-          <div className="mt-10 divide-y divide-mehlcreme/15 border-y border-mehlcreme/15">
+      {/* FAQ */}
+      <DaySection stage={s5} className="py-14 md:py-20">
+        <div className={`${CONTAINER} max-w-[860px]`}>
+          <p className={LABEL}>Häufige Fragen</p>
+          <h2 className={H2}>Gut zu wissen</h2>
+          <div className="mt-8 border-t" style={{ borderColor: "var(--linie)" }}>
             {content.faq.map((f) => (
-              <details key={f.question} className="group py-5">
-                <summary className="flex cursor-pointer items-center justify-between gap-4 list-none">
-                  <span className="font-display text-lg md:text-xl text-mehlcreme">
-                    {f.question}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="text-tonwarm text-2xl leading-none transition-transform group-open:rotate-45"
-                  >
-                    +
-                  </span>
+              <details key={f.question} className="group border-b py-5" style={{ borderColor: "var(--linie)" }}>
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                  <span className="font-display text-[1.25rem] font-normal">{f.question}</span>
+                  <span aria-hidden className="text-2xl leading-none text-akzent transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <p className="mt-4 text-mehlcreme/75 leading-relaxed">
-                  {f.answer}
-                </p>
+                <p className={`mt-3 leading-relaxed ${muted}`}>{f.answer}</p>
               </details>
             ))}
           </div>
         </div>
-      </section>
+      </DaySection>
 
-      {/* CLOSING CTA — Waldgrün, fließt in den Footer */}
-      <section className="bg-waldgruen text-mehlcreme">
-        <div className="mx-auto max-w-4xl px-6 md:px-10 py-24 md:py-32 text-center reveal">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-normal leading-[1.05] tracking-tight text-mehlcreme">
-            {content.closing.heading}{" "}
-            <span className="accent">{content.closing.accent}</span>
-          </h2>
-          <p className="mt-8 text-mehlcreme/85 leading-relaxed max-w-xl mx-auto">
-            {content.closing.text}
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center items-center gap-5">
-            <Link
-              href={content.closing.cta.href}
-              className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-            >
-              {content.closing.cta.label} <span aria-hidden>→</span>
-            </Link>
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="inline-flex items-center gap-3 text-mehlcreme font-medium border-b border-mehlcreme/40 hover:border-tonwarm hover:text-tonwarm pb-1 transition-colors"
-            >
-              {CONTACT.email}
-            </a>
+      {/* GOOGLE-BEWERTUNGEN + ABSCHLUSS — id="anfrage": Ziel der Vorauswahl „Feier" */}
+      <DaySection stage={s6} id="anfrage" className="scroll-mt-24 py-14 md:py-20">
+        <div className={CONTAINER}>
+          <p className={LABEL}>Gäste über uns</p>
+          <GoogleReviews limit={4} className="mt-4" />
+          <div className="mt-14 grid gap-6 border-t pt-10 md:grid-cols-[1fr_auto] md:items-end md:gap-16" style={{ borderColor: "var(--linie)" }}>
+            <div>
+              <h2 className="font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
+                {content.closing.heading} {content.closing.accent}
+              </h2>
+              <p className={`mt-3 max-w-[56ch] leading-relaxed ${muted}`}>{content.closing.text}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <LandingCta cta={content.closing.cta} location={`landing-abschluss:${path}`} slot={preset.slot} />
+              <a href={`mailto:${CONTACT.email}`} className={LINK}>
+                {CONTACT.email}
+              </a>
+            </div>
           </div>
         </div>
-      </section>
+      </DaySection>
     </>
   );
 }

@@ -2,10 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import type { EventItem } from "@/lib/events";
 
+/** „23.01." und „Sa · 2027" aus dem ISO-Start (Berlin-Zeit). */
+function shortDate(e: EventItem): { day: string; rest: string } {
+  const f = new Intl.DateTimeFormat("de-DE", {
+    timeZone: "Europe/Berlin",
+    weekday: "short",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).formatToParts(new Date(e.startsAt));
+  const g = (t: string) => f.find((p) => p.type === t)?.value ?? "";
+  return { day: `${g("day")}.${g("month")}.`, rest: `${g("weekday")} · ${g("year")}` };
+}
+
 /**
- * Karten-Liste der Veranstaltungen — Aufbau wie die Ratgeber-/Rezept-Karten:
- * Bild, Datums-Band, Titel, Teaser, Link auf die Detailseite. Der Ticketkauf
- * bleibt bewusst auf der Detailseite (und geht dort zum externen Veranstalter).
+ * Terminliste (Redesign 10/2026): Datum groß links, Foto, Titel, Teaser,
+ * Preis und Knopf, zwischen den Terminen eine feine Linie. Keine Kästen.
+ * Der Ticketkauf bleibt auf der Detailseite (extern beim Veranstalter).
  */
 export function EventCards({
   events,
@@ -17,71 +30,60 @@ export function EventCards({
   variant?: "upcoming" | "past";
 }) {
   if (events.length === 0) return null;
+  const past = variant === "past";
 
   return (
-    <ul
-      aria-labelledby={headingId}
-      className="grid gap-8 md:grid-cols-2 reveal-1"
-    >
-      {events.map((e) => (
-        <li key={e.slug} className="h-full">
-          <Link
-            href={`/veranstaltungen/${e.slug}`}
-            className="group flex h-full flex-col overflow-hidden rounded-3xl bg-mehlcreme ring-1 ring-mehlcreme/15 shadow-lg hover:shadow-2xl transition-shadow duration-300"
+    <ul aria-labelledby={headingId} className="m-0 list-none p-0">
+      {events.map((e) => {
+        const d = shortDate(e);
+        return (
+          <li
+            key={e.slug}
+            className="grid gap-5 border-t py-7 last:border-b md:grid-cols-[120px_minmax(0,1fr)_280px] md:gap-8 md:py-9"
+            style={{ borderColor: "var(--linie)" }}
           >
-            <div className="relative aspect-[27/20] overflow-hidden">
+            <span className="font-display text-[1.9rem] leading-none tabular-nums md:text-[2.2rem]">
+              {d.day}
+              <small className="mt-1.5 block font-body text-[0.8rem] text-muted">
+                {d.rest} · {e.timeLabel}
+              </small>
+            </span>
+            <div className="min-w-0">
+              <p className="m-0 text-xs font-semibold uppercase tracking-[0.16em] text-akzent">{e.kicker}</p>
+              <h3 className="mt-2 font-display text-[1.5rem] font-normal leading-tight md:text-[1.8rem]">
+                <Link href={`/veranstaltungen/${e.slug}`} className="hover:underline underline-offset-4">
+                  {e.title}
+                </Link>
+              </h3>
+              <p className="mt-2 max-w-[56ch] leading-relaxed text-muted">{e.teaser}</p>
+              <p className="mt-3 text-[0.95rem]">
+                <time dateTime={e.startsAt}>{e.dateLabel}, {e.timeLabel}</time>
+                {!past && <span className="font-semibold"> · {e.priceLabel}</span>}
+              </p>
+              <Link
+                href={`/veranstaltungen/${e.slug}`}
+                className={`mt-4 inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold ${
+                  past
+                    ? "shadow-[inset_0_0_0_1.5px_currentColor]"
+                    : "bg-akzent text-white transition-colors hover:bg-akzent-hover"
+                }`}
+              >
+                {past ? "Nachlesen" : "Tickets & Infos"}
+              </Link>
+            </div>
+            <Link href={`/veranstaltungen/${e.slug}`} className="md:order-none" aria-hidden tabIndex={-1}>
               <Image
                 src={e.hero.src}
-                alt={e.hero.alt}
-                fill
-                sizes="(min-width: 768px) 45vw, 100vw"
-                className={`object-cover transition-transform duration-700 group-hover:scale-[1.03] ${
-                  variant === "past" ? "grayscale opacity-70" : ""
-                }`}
+                alt=""
+                width={e.hero.width}
+                height={e.hero.height}
+                sizes="(min-width: 768px) 280px, 100vw"
+                className={`aspect-[3/2] w-full rounded-[18px] object-cover ${past ? "opacity-70 grayscale" : ""}`}
               />
-              <span className="absolute left-5 top-5 inline-flex items-center rounded-full bg-waldgruen/90 px-4 py-1.5 text-[0.7rem] tracking-[0.16em] uppercase text-mehlcreme backdrop-blur-sm">
-                {variant === "past" ? "Vorbei" : e.dateLabel}
-              </span>
-            </div>
-
-            {/* text-waldgruen am Container: globales `h1–h5 { color: inherit }`
-                schlägt sonst die Utility-Klasse direkt auf der Überschrift. */}
-            <div className="flex flex-1 flex-col p-8 md:p-9 text-waldgruen">
-              <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                {e.kicker}
-              </p>
-              <h3 className="mt-4 text-2xl md:text-[1.75rem] font-display font-normal leading-tight tracking-tight">
-                <span className="group-hover:text-tonwarm-dark transition-colors">
-                  {e.title}
-                </span>
-              </h3>
-              <p className="mt-4 text-waldgruen/65 leading-relaxed">
-                {e.teaser}
-              </p>
-
-              <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2 text-sm text-waldgruen/70">
-                <div className="flex items-baseline gap-2">
-                  <dt className="sr-only">Beginn</dt>
-                  <dd>
-                    <time dateTime={e.startsAt}>
-                      {e.dateLabel}, {e.timeLabel}
-                    </time>
-                  </dd>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <dt className="sr-only">Preis</dt>
-                  <dd className="font-medium text-waldgruen">{e.priceLabel}</dd>
-                </div>
-              </dl>
-
-              <span className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-tonwarm">
-                {variant === "past" ? "Nachlesen" : "Details & Tickets"}{" "}
-                <span aria-hidden>→</span>
-              </span>
-            </div>
-          </Link>
-        </li>
-      ))}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }

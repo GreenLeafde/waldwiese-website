@@ -1,34 +1,60 @@
 @import "tailwindcss";
 
 /* ----------------------------------------------------------------------------
- * Wald & Wiese — Grün-dominante Palette (Redesign, angelehnt an die Brunch-Karte)
+ * Wald & Wiese — CI „Von der Wiese in den Wald" (Redesign 10/2026)
  *
- * Markenfarben:   Waldgrün TRÄGT die Seite (dominant), Tonwarm = einziger Akzent
- * Mehlcreme:      sparsamer Beige-Akzent (z. B. die familiäre „Über uns"-Sektion)
- * Body-Text:      auf hellen Flächen dunkelgrün statt schwarz
+ * Die Seite ist ein Tag am Waldrand: oben Morgenlicht (Brunch), nach unten
+ * wird es Abend (Abendessen, Events). Jede Sektion bekommt eine Tagesstufe
+ * als Hintergrund; die Startseite blendet stufenlos zwischen ihnen.
  *
- * Typo (Brunch-Karte): Serif (Fraunces) NUR für große Headings,
- * Beschreibungen in kursivem Sans (DM Sans italic), nicht in Serif.
+ * Tanne trägt die Marke, Creme ist die Schrift auf dunklem Grund, Terracotta
+ * ist der EINZIGE Akzent — nur auf Kauf-/Buchungsknöpfen und Labels.
+ * Kein Beige als Fläche, keine Ornamente, keine Rahmen-Kästen.
  *
- * Ziel: lieblich-familiär, botanisch, mit weichem Durchscrollen.
+ * Typo: Jost (Überschriften, 300/400) + DM Sans (Text, 400/600).
+ * Doku: ../redesign/CI-Website-2026.md
  * ------------------------------------------------------------------------- */
 
 @theme {
-  --color-waldgruen: #2e3d2c;
-  --color-waldgruen-dark: #1f2b1d;
+  /* Marke */
+  --color-tanne: #022914;
+  --color-nacht: #011c0d;
+  --color-creme: #f3eee3;
+  --color-akzent: #c97c5d;
+  --color-akzent-hover: #b56848;
+
+  /* Tagesstufen (Sektions-Hintergründe, hell → dunkel) */
+  --color-morgen: #f7f4ec;
+  --color-morgen-2: #f1f2e6;
+  --color-vormittag: #e8ebdc;
+  --color-mittag: #dce3d2;
+  --color-daemmerung: #1e3a2a;
+  --color-abend: #0a3821;
+  --color-wald: #052e18;
+  --color-wald-2: #042a16;
+
+  /* Nebentext */
+  --color-muted-hell: #52635a;
+
+  /* Alte Namen als Alias auf die neuen Werte — damit bestehende Seiten
+     weiterlaufen, bis sie einzeln umgestellt sind. Nicht mehr neu verwenden. */
+  --color-waldgruen: #022914;
+  --color-waldgruen-dark: #011c0d;
   --color-tonwarm: #c97c5d;
   --color-tonwarm-dark: #b56848;
-  --color-mehlcreme: #f2ead8;
+  --color-mehlcreme: #f3eee3;
 
-  /* Neutrale Grays, ohne Beige-Stich */
-  --color-ink: #1a1a1a;
+  /* Neutrale Grays (Admin, Formulare) */
+  --color-ink: #12201a;
   --color-stone-soft: #f7f6f3;
   --color-stone-200: #e9e7e2;
   --color-stone-400: #b3b0a7;
   --color-stone-600: #6b6960;
 
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-jost);
   --font-body: var(--font-dm-sans);
+
+  --radius-foto: 18px;
 }
 
 html {
@@ -45,8 +71,8 @@ html {
 }
 
 body {
-  background: #ffffff;
-  color: var(--color-ink);
+  background: var(--color-morgen);
+  color: var(--color-tanne);
   font-family: var(--font-body), system-ui, sans-serif;
   font-feature-settings: "ss01", "cv11";
   overflow-x: clip;
@@ -59,16 +85,18 @@ main, section {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: var(--font-display), Georgia, serif;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display), "Futura", system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
   /* Farbe erbt vom Section-Container — auf weiß = ink/waldgruen, auf grün = mehlcreme */
   color: inherit;
 }
 
+/* Akzentwort in Überschriften: nur noch kursiv-leicht, nicht mehr farbig. */
 .accent {
-  color: var(--color-tonwarm);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 /* ---------------------------------------------------------------------------
@@ -81,7 +109,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-tonwarm);
+  color: var(--color-akzent);
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -313,6 +341,16 @@ h1, h2, h3, h4, h5 {
   }
 }
 
+/* ---------------------------------------------------------------------------
+ * Tageszeit-Ton. Sektionen tragen data-tone="hell|dunkel"; der Header liest
+ * den Ton der Seite (bzw. auf der Startseite der Sektion unter ihm) über
+ * html[data-tone]. Standard ist hell.
+ * --------------------------------------------------------------------------*/
+[data-tone="hell"] { color: var(--color-tanne); --muted: #52635a; --linie: rgba(2, 41, 20, 0.15); }
+[data-tone="dunkel"] { color: var(--color-creme); --muted: rgba(243, 238, 227, 0.74); --linie: rgba(243, 238, 227, 0.16); }
+.text-muted { color: var(--muted, #52635a); }
+.border-linie { border-color: var(--linie, rgba(2, 41, 20, 0.15)); }
+
 /* Horizontaler Slider ohne sichtbare Scrollbar (Bewertungen) */
 .no-scrollbar {
   -ms-overflow-style: none;
@@ -320,4 +358,24 @@ h1, h2, h3, h4, h5 {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Header-Ton. Folgt html[data-tone]: hell = Tanne auf Morgenlicht,
+ * dunkel = Creme auf Tanne. Das Logo ist Inline-SVG in currentColor und
+ * wechselt mit.
+ * --------------------------------------------------------------------------*/
+.site-header { color: var(--color-tanne); transition: color 0.3s ease; }
+/* --bgc = aktuelle Seitenfarbe. Standard je Ton; auf Scroll-Seiten setzt
+   ScrollDay den gemischten Wert als Inline-Style auf <html>. */
+html { --bgc: var(--color-morgen); }
+html[data-tone="dunkel"] { --bgc: var(--color-tanne); }
+.site-header-top { background: var(--bgc); border-bottom: 1px solid rgba(2, 41, 20, 0.12); transition: background-color 0.3s ease; }
+.site-header-bar { background: color-mix(in srgb, var(--bgc) 94%, transparent); border-color: rgba(2, 41, 20, 0.12); backdrop-filter: blur(8px); transition: background-color 0.3s ease; }
+html[data-tone="dunkel"] .site-header { color: var(--color-creme); }
+html[data-tone="dunkel"] .site-header-top { border-bottom-color: rgba(243, 238, 227, 0.12); }
+html[data-tone="dunkel"] .site-header-bar { border-color: rgba(243, 238, 227, 0.12); }
+html[data-tone="dunkel"] .cat-tabs { color: var(--color-creme); --linie: rgba(243, 238, 227, 0.16); }
+@media (prefers-reduced-motion: reduce) {
+  .site-header, .site-header-top, .site-header-bar { transition: none; }
 }

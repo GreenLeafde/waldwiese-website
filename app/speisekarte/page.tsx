@@ -1,14 +1,18 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { CategoryTabs } from "@/components/category-tabs";
+import { DaySection } from "@/components/day-section";
 import {
   KarteColumn,
   KarteFineprint,
   KarteMasthead,
   KarteSpot,
   type KarteDishData,
+  type KarteTone,
 } from "@/components/karte";
-import { RESERVATION_URL, SITE } from "@/lib/site";
+import { ReserveButton } from "@/components/reserve-chooser";
+import { ScrollDay } from "@/components/scroll-day";
+import { SITE } from "@/lib/site";
 import { BREAKFAST_MENU } from "@/lib/menu";
 import { BURGER_CHOICES, DINNER_MENU } from "@/lib/dinner-menu";
 
@@ -20,11 +24,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/speisekarte" },
 };
 
-/**
- * Preis für schema.org: „14,90 €" → „14.90". Bei mehreren Größen zählt die
- * erste (günstigste). Gibt null zurück, wenn kein Betrag drinsteckt (z. B.
- * „inklusive") — dann bleibt `offers` weg, statt eine 0 zu behaupten.
- */
+/* ----------------------------------------------------------------------------
+ * Speisekarte als Tag: oben hell (Frühstück, Mittag), unten dunkel (Abend,
+ * Getränke). ScrollDay blendet den Hintergrund zwischen den Stufen, die
+ * Sprungleiste läuft mit. Daten aus lib/menu.ts und lib/dinner-menu.ts.
+ * ------------------------------------------------------------------------- */
+
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+const BTN_A = "inline-flex h-[50px] items-center justify-center rounded-full bg-akzent px-[26px] text-[0.95rem] font-semibold text-white transition-colors hover:bg-akzent-hover";
+const LINK = "font-semibold border-b-[1.5px] border-current pb-0.5";
+
+/** Preis für schema.org: „14,90 €" → „14.90". */
 function schemaPrice(price: string | string[]): string | null {
   const first = Array.isArray(price) ? price[0] : price;
   const m = first.match(/(\d+),(\d{2})/);
@@ -47,23 +57,20 @@ function schemaMenuItem(d: KarteDishData) {
     name: d.name,
     ...(d.desc ? { description: d.desc } : {}),
     ...(diets.length ? { suitableForDiet: diets } : {}),
-    ...(price
-      ? { offers: { "@type": "Offer", price, priceCurrency: "EUR" } }
-      : {}),
+    ...(price ? { offers: { "@type": "Offer", price, priceCurrency: "EUR" } } : {}),
   };
 }
 
-// Brunch-Karte in Frühstück (alles außer Mittags) und Mittag aufteilen.
 const FRUEHSTUECK_CATS = BREAKFAST_MENU.filter((c) => c.slug !== "mittags");
 const MITTAG_CATS = BREAKFAST_MENU.filter((c) => c.slug === "mittags");
 
 /** Welcher Freisteller zu welcher Kategorie gehört. */
 const SPOT_BY_SLUG = {
-  fruehstueck: { spot: "brett", width: 250 },
-  brote: { spot: "brote", width: 280 },
-  bowls: { spot: "bowl", width: 215 },
-  extras: { spot: "kinder", width: 215 },
-  burger: { spot: "burger", width: 260 },
+  fruehstueck: { spot: "brett", width: 220 },
+  brote: { spot: "brote", width: 240 },
+  bowls: { spot: "bowl", width: 190 },
+  extras: { spot: "kinder", width: 190 },
+  burger: { spot: "burger", width: 230 },
 } as const;
 
 const DAYPART_TABS = [
@@ -73,53 +80,41 @@ const DAYPART_TABS = [
   { slug: "getraenke", title: "Getränke" },
 ];
 
-/** Schmales Grünband als Tageszeit-Trenner — gibt der Papierfläche Rhythmus. */
-function DaypartBand({
-  id,
-  eyebrow,
+/** Kopf einer Tageszeit: Label, Überschrift, Zeit, ein Satz. */
+function Daypart({
+  label,
   title,
   time,
   note,
+  tone,
+  cta,
 }: {
-  id: string;
-  eyebrow: string;
+  label: string;
   title: string;
   time: string;
   note: string;
+  tone: KarteTone;
+  cta?: React.ReactNode;
 }) {
   return (
-    <section
-      id={id}
-      className="bg-waldgruen text-mehlcreme scroll-mt-[150px]"
-    >
-      <div className="mx-auto max-w-3xl px-6 md:px-10 py-14 md:py-20 text-center reveal">
-        <p className="text-[0.62rem] tracking-[0.3em] uppercase text-tonwarm">
-          {eyebrow}
-        </p>
-        <h2 className="mt-5 font-display font-normal leading-[0.95] tracking-tight text-mehlcreme text-4xl md:text-5xl lg:text-6xl">
-          {title}
+    <div className="mb-10 grid gap-3 md:mb-14 md:flex md:items-end md:justify-between md:gap-8">
+      <div>
+        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">{label}</span>
+        <h2 className="mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.75rem]">
+          {title} <span className="block font-light md:inline">{time}</span>
         </h2>
-        <p className="mt-5 text-[0.7rem] tracking-[0.26em] uppercase text-mehlcreme/70">
-          {time}
-        </p>
-        <p className="mt-6 italic text-mehlcreme/70 max-w-xl mx-auto leading-relaxed">
+        <p className={`mt-3 max-w-[56ch] leading-relaxed ${tone === "light" ? "text-creme/75" : "text-muted-hell"}`}>
           {note}
         </p>
       </div>
-    </section>
+      {cta && <div className="shrink-0">{cta}</div>}
+    </div>
   );
 }
 
-/** Zweispaltiger Satzspiegel mit Haarlinie dazwischen — wie auf der Karte. */
+/** Zweispaltiges Raster der Kategorien. */
 function KarteGrid({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="md:columns-2 [column-gap:3.5rem] lg:[column-gap:4.5rem]"
-      style={{ columnRule: "1px solid rgba(46,61,44,0.16)" }}
-    >
-      {children}
-    </div>
-  );
+  return <div className="grid gap-x-12 gap-y-12 md:grid-cols-2 lg:gap-x-16">{children}</div>;
 }
 
 export default function SpeisekartePage() {
@@ -157,181 +152,169 @@ export default function SpeisekartePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(menuJsonLd) }}
       />
 
-      <KarteMasthead
-        kicker="Sinzing bei Regensburg · Familie Leber"
-        title="Die ganze"
-        accent="Karte."
-        line="Frühstück & Mittag täglich 8 – 14 Uhr · Abends Freitag bis Sonntag 17 – 22 Uhr"
-      >
-        <div className="flex flex-wrap justify-center items-center gap-5">
-          <a
-            href={RESERVATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-tonwarm px-7 py-3.5 font-medium text-white transition-colors hover:bg-tonwarm-dark"
+      <ScrollDay>
+        <DaySection stage="morgen">
+          <KarteMasthead
+            kicker="Sinzing bei Regensburg · Familie Leber"
+            title="Die ganze"
+            accent="Karte."
+            line="Frühstück und Mittag täglich 8 bis 14 Uhr, abends Freitag bis Sonntag 17 bis 22 Uhr. Alles hausgemacht, vegan und vegetarisch gleichberechtigt."
           >
-            Tisch reservieren <span aria-hidden>→</span>
-          </a>
-          <Link
-            href="/getraenke"
-            className="inline-flex items-center gap-3 border-b border-waldgruen/30 pb-1 font-medium text-waldgruen transition-colors hover:border-tonwarm hover:text-tonwarm"
-          >
-            Getränkekarte
-          </Link>
-        </div>
-      </KarteMasthead>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <ReserveButton location="speisekarte" className={BTN_A}>
+                Tisch reservieren
+              </ReserveButton>
+              <Link href="/getraenke" className={LINK}>
+                Getränkekarte
+              </Link>
+            </div>
+          </KarteMasthead>
+        </DaySection>
 
-      <CategoryTabs tabs={DAYPART_TABS} scrollOffset={150} />
+        <CategoryTabs tabs={DAYPART_TABS} scrollOffset={150} />
 
-      {/* ---------------------------------------------------- FRÜHSTÜCK */}
-      <DaypartBand
-        id="fruehstueck"
-        eyebrow="Tageszeit · 1"
-        title="Frühstück"
-        time="täglich · 8 – 14 Uhr"
-        note="Frühstücke mit Namen, Brote, „Schmusi“-Bowls und Extras — hausgemacht, regional, vegan und vegetarisch gleichberechtigt."
-      />
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-16 md:py-24">
-          <KarteGrid>
-            {FRUEHSTUECK_CATS.map((cat) => {
-              const s = SPOT_BY_SLUG[cat.slug as keyof typeof SPOT_BY_SLUG];
-              return (
-                <div key={cat.slug} className="mb-14 break-inside-avoid">
-                  <KarteColumn
-                    title={cat.title}
-                    hint={cat.hint}
-                    items={cat.items as readonly KarteDishData[]}
-                    spot={s?.spot}
-                    spotWidth={s?.width}
-                  />
-                </div>
-              );
-            })}
-          </KarteGrid>
-        </div>
-      </section>
-
-      {/* -------------------------------------------------------- MITTAG */}
-      <DaypartBand
-        id="mittag"
-        eyebrow="Tageszeit · 2"
-        title="Mittag"
-        time="täglich · ab 11:30 – 14 Uhr"
-        note="Ab 11:30 Uhr kommt zur ganzen Frühstückskarte noch Mittag dazu: Currywurst, Burger und ein Salat, der satt macht. Frühstück gibt's weiter bis 14 Uhr."
-      />
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-16 md:py-24">
-          {MITTAG_CATS.map((cat) => (
-            <KarteColumn
-              key={cat.slug}
-              title={cat.title}
-              hint={cat.hint}
-              items={cat.items as readonly KarteDishData[]}
+        {/* ---------------------------------------------------- FRÜHSTÜCK */}
+        <DaySection stage="morgen-2" id="fruehstueck" className="scroll-mt-[150px] py-14 md:py-20">
+          <div className={CONTAINER}>
+            <Daypart
+              label="Morgens"
+              title="Frühstück"
+              time="täglich 8–14 Uhr"
+              note="Frühstücke mit Namen, Brote, „Schmusi“-Bowls und Extras."
+              tone="dark"
+              cta={
+                <ReserveButton location="speisekarte-fruehstueck" pre="brunch" className={BTN_A}>
+                  Brunch reservieren
+                </ReserveButton>
+              }
             />
-          ))}
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------- ABEND */}
-      <DaypartBand
-        id="abend"
-        eyebrow="Tageszeit · 3"
-        title="Abend"
-        time="Fr · Sa · So · 17 – 22 Uhr"
-        note="Burger mit Namen, Bowls aus dem Märchenbuch, Steak und Lachs vom Grill — und ein süßes Finale. Nur am Wochenende."
-      />
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-16 md:py-24">
-          <KarteGrid>
-            {DINNER_MENU.map((cat) => {
-              const s = SPOT_BY_SLUG[cat.slug as keyof typeof SPOT_BY_SLUG];
-              return (
-                <div key={cat.slug} className="mb-14 break-inside-avoid">
+            <KarteGrid>
+              {FRUEHSTUECK_CATS.map((cat) => {
+                const s = SPOT_BY_SLUG[cat.slug as keyof typeof SPOT_BY_SLUG];
+                return (
                   <KarteColumn
+                    key={cat.slug}
                     title={cat.title}
                     hint={cat.hint}
                     items={cat.items as readonly KarteDishData[]}
                     spot={s?.spot}
                     spotWidth={s?.width}
                   />
-                </div>
-              );
-            })}
-          </KarteGrid>
+                );
+              })}
+            </KarteGrid>
+          </div>
+        </DaySection>
 
-          {/* Burger-Baukasten — als eingerahmter Kasten wie die Notizen
-              auf der gedruckten Karte */}
-          <div className="mt-6 rounded-sm border border-waldgruen/25 px-7 py-9 md:px-10 md:py-11">
-            <p className="text-center font-display text-xl uppercase tracking-[0.14em] text-waldgruen">
-              Beim Burger
-            </p>
-            <p className="mt-4 text-center text-[0.95rem] leading-relaxed text-waldgruen/70">
-              {BURGER_CHOICES.bunNote}: {BURGER_CHOICES.buns.join(" oder ")} ·
-              Patty nach Wahl: {BURGER_CHOICES.patties.join(", ")}
-            </p>
-            <div className="mt-9 grid gap-10 sm:grid-cols-2">
-              <div>
-                <p className="text-[0.62rem] uppercase tracking-[0.26em] text-tonwarm">
-                  Dazu
-                </p>
-                <ul className="mt-4 space-y-2 font-display text-waldgruen">
-                  {BURGER_CHOICES.sides.map((s) => (
-                    <li key={s.label} className="flex justify-between gap-4">
-                      <span>{s.label}</span>
-                      <span className="text-waldgruen/55">{s.price}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="text-[0.62rem] uppercase tracking-[0.26em] text-tonwarm">
-                  Extras
-                </p>
-                <ul className="mt-4 space-y-2 font-display text-waldgruen">
-                  {BURGER_CHOICES.extras.map((e) => (
-                    <li key={e.label} className="flex justify-between gap-4">
-                      <span>{e.label}</span>
-                      <span className="text-waldgruen/55">{e.price}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {/* -------------------------------------------------------- MITTAG */}
+        <DaySection stage="vormittag" id="mittag" className="scroll-mt-[150px] py-14 md:py-20">
+          <div className={CONTAINER}>
+            <Daypart
+              label="Mittags"
+              title="Mittag"
+              time="täglich 11:30–14 Uhr"
+              note="Ab 11:30 Uhr kommt zur Frühstückskarte noch Mittag dazu: Currywurst, Burger und ein Salat, der satt macht. Frühstück gibt es weiter bis 14 Uhr."
+              tone="dark"
+            />
+            <div className="max-w-[720px]">
+              {MITTAG_CATS.map((cat) => (
+                <KarteColumn
+                  key={cat.slug}
+                  title={cat.title}
+                  hint={cat.hint}
+                  items={cat.items as readonly KarteDishData[]}
+                />
+              ))}
             </div>
           </div>
+        </DaySection>
 
-          <KarteFineprint />
-        </div>
-      </section>
+        {/* --------------------------------------------------------- ABEND */}
+        <DaySection stage="abend" id="abend" className="scroll-mt-[150px] py-14 md:py-20">
+          <div className={CONTAINER}>
+            <Daypart
+              label="Abends"
+              title="Abend"
+              time="Fr–So 17–22 Uhr"
+              note="Burger mit Namen, Bowls aus dem Märchenbuch, Steak und Lachs vom Grill und ein süßes Finale. Nur am Wochenende."
+              tone="light"
+              cta={
+                <ReserveButton location="speisekarte-abend" pre="abend" className={BTN_A}>
+                  Abend reservieren
+                </ReserveButton>
+              }
+            />
+            <KarteGrid>
+              {DINNER_MENU.map((cat) => {
+                const s = SPOT_BY_SLUG[cat.slug as keyof typeof SPOT_BY_SLUG];
+                return (
+                  <KarteColumn
+                    key={cat.slug}
+                    title={cat.title}
+                    hint={cat.hint}
+                    items={cat.items as readonly KarteDishData[]}
+                    spot={s?.spot}
+                    spotWidth={s?.width}
+                    tone="light"
+                  />
+                );
+              })}
+            </KarteGrid>
 
-      {/* ------------------------------------------------------ GETRÄNKE */}
-      <section
-        id="getraenke"
-        className="bg-waldgruen text-mehlcreme scroll-mt-[150px]"
-      >
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-20 md:py-28 text-center reveal">
-          <p className="text-[0.62rem] tracking-[0.3em] uppercase text-tonwarm">
-            Tageszeit · rund um die Uhr
-          </p>
-          <h2 className="mt-5 font-display text-4xl md:text-5xl lg:text-6xl font-normal leading-[0.95] tracking-tight text-mehlcreme">
-            Getränke &amp; <span className="accent">Bar.</span>
-          </h2>
-          <p className="mt-7 italic text-mehlcreme/75 leading-relaxed max-w-xl mx-auto">
-            Kaffee mit Charakter, hausgemachte Limonaden, regionale Weine,
-            Spritz und Cocktails — auch entkoffeiniert und alkoholfrei. Die
-            ganze Getränkekarte gibt es auf einer eigenen Seite.
-          </p>
-          <div className="mt-9 flex justify-center">
-            <KarteSpot spot="kaffee" width={220} />
+            {/* Burger-Baukasten */}
+            <div className="mt-12 grid gap-8 border-t border-creme/15 pt-8 md:grid-cols-[1fr_1fr_1fr]">
+              <div>
+                <h3 className="font-display text-[1.4rem] font-normal">Beim Burger</h3>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-creme/75">
+                  {BURGER_CHOICES.bunNote}: {BURGER_CHOICES.buns.join(" oder ")}. Patty nach Wahl:{" "}
+                  {BURGER_CHOICES.patties.join(" oder ")}.
+                </p>
+              </div>
+              {[
+                { t: "Dazu", list: BURGER_CHOICES.sides },
+                { t: "Extras", list: BURGER_CHOICES.extras },
+              ].map((g) => (
+                <div key={g.t}>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">{g.t}</p>
+                  <ul className="mt-3 grid gap-1.5">
+                    {g.list.map((x) => (
+                      <li key={x.label} className="flex justify-between gap-4 text-[0.95rem]">
+                        <span>{x.label}</span>
+                        <span className="tabular-nums text-creme/75">{x.price}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <KarteFineprint tone="light" />
           </div>
-          <Link
-            href="/getraenke"
-            className="mt-9 inline-flex items-center gap-2 rounded-full bg-tonwarm px-7 py-3.5 font-medium text-white transition-colors hover:bg-tonwarm-dark"
-          >
-            Zur Getränkekarte <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </section>
+        </DaySection>
+
+        {/* ------------------------------------------------------ GETRÄNKE */}
+        <DaySection stage="wald" id="getraenke" className="scroll-mt-[150px] py-14 md:py-20">
+          <div className={`${CONTAINER} grid items-center gap-8 md:grid-cols-[1fr_auto] md:gap-16`}>
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-akzent">
+                Rund um die Uhr
+              </span>
+              <h2 className="mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.75rem]">
+                Getränke und Bar
+              </h2>
+              <p className="mt-3 max-w-[52ch] leading-relaxed text-creme/75">
+                Kaffee mit Charakter, hausgemachte Limonaden, regionale Weine, Spritz und
+                Cocktails, auch entkoffeiniert und alkoholfrei. Die ganze Getränkekarte hat
+                eine eigene Seite.
+              </p>
+              <Link href="/getraenke" className={`${BTN_A} mt-7`}>
+                Zur Getränkekarte
+              </Link>
+            </div>
+            <KarteSpot spot="kaffee" width={200} className="justify-self-center" />
+          </div>
+        </DaySection>
+      </ScrollDay>
     </>
   );
 }

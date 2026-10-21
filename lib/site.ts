@@ -149,6 +149,18 @@ export type NavGroup = {
   items?: Array<{ label: string; href: string; desc?: string }>;
 };
 
+/**
+ * Hauptnavigation (Redesign 10/2026): fünf Punkte, die Gäste wirklich suchen.
+ * Gutscheine und Reservieren stehen separat rechts im Header.
+ */
+export const NAV_MAIN: Array<{ label: string; href: string }> = [
+  { label: "Brunch", href: "/speisekarte#fruehstueck" },
+  { label: "Abendessen", href: "/speisekarte#abend" },
+  { label: "Speisekarte", href: "/speisekarte" },
+  { label: "Events", href: "/veranstaltungen" },
+  { label: "Feiern", href: "/feiern" },
+];
+
 export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Karte",

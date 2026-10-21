@@ -1,24 +1,22 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  KarteHeading,
-  KarteMasthead,
-  KarteSpot,
-} from "@/components/karte";
+import { DaySection } from "@/components/day-section";
+import { KarteSpot } from "@/components/karte";
+import { PageTone } from "@/components/page-tone";
 import { StickyCta } from "@/components/sticky-cta";
 import { CONTACT, SITE } from "@/lib/site";
 import { isXmasSeason } from "@/lib/season";
 
 /**
- * Gutschein-Seite. Verkauf und Abwicklung laufen über BON BON — dort liegt
- * unser Partner-Shop. Wir verlinken dorthin, statt den fremden Checkout
- * einzubetten: so bleibt die Zahlung in deren Hand und wir holen uns keine
- * fremden Skripte (und damit kein Einwilligungs-Thema) auf die Seite.
+ * Gutschein-Seite (Redesign 10/2026, dunkel). Verkauf und Abwicklung laufen
+ * über BON BON — dort liegt unser Partner-Shop. Wir verlinken dorthin, statt
+ * den fremden Checkout einzubetten: so bleibt die Zahlung in deren Hand und
+ * wir holen uns keine fremden Skripte auf die Seite.
  *
- * Aufbau auf Kauf ausgelegt: Kaufknopf + drei Gründe ganz oben, dann
- * Betrags-Beispiele mit echten Kartenpreisen (jedes mit eigenem Knopf),
- * Firmen, Querverweis Magic Dinner, FAQ — und mobil eine feste Kaufleiste.
- * Bis Heiligabend läuft die Seite in der Weihnachts-Variante (lib/season.ts).
+ * Aufbau auf Kauf ausgelegt: Kaufknopf + drei Gründe oben, Betrags-Beispiele
+ * mit echten Kartenpreisen (jedes mit eigenem Knopf), vier Schritte, Firmen,
+ * Magic Dinner, FAQ — und mobil eine feste Kaufleiste. Bis Heiligabend läuft
+ * die Seite in der Weihnachts-Variante (lib/season.ts).
  */
 const GUTSCHEIN_SHOP =
   "https://www.bon-bon.de/gutschein/waldwiese-ug-haftungsbeschraenkt/";
@@ -40,6 +38,11 @@ export const metadata: Metadata = {
     url: "/gutscheine",
   },
 };
+
+const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
+const LABEL = "text-xs font-semibold uppercase tracking-[0.16em] text-akzent";
+const H2 = "mt-2 font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]";
+const MUTED = "text-creme/75";
 
 /** Die drei Gründe direkt unter dem Kaufknopf — alles Fakten vom Shop. */
 const GRUENDE = [
@@ -122,21 +125,23 @@ const FAQ = [
 
 function BuyButton({
   children,
-  tone = "dark",
+  outline = false,
+  className = "",
 }: {
   children: React.ReactNode;
-  tone?: "dark" | "light";
+  outline?: boolean;
+  className?: string;
 }) {
   return (
     <a
       href={GUTSCHEIN_SHOP}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 rounded-full px-8 py-4 font-medium transition-colors ${
-        tone === "light"
-          ? "bg-mehlcreme text-waldgruen hover:bg-white"
-          : "bg-tonwarm text-white hover:bg-tonwarm-dark"
-      }`}
+      className={`inline-flex h-[50px] items-center justify-center gap-2 rounded-full px-[26px] text-[0.95rem] font-semibold transition-colors ${
+        outline
+          ? "shadow-[inset_0_0_0_1.5px_currentColor] hover:bg-creme/10"
+          : "bg-akzent text-white hover:bg-akzent-hover"
+      } ${className}`}
     >
       {children} <span aria-hidden>↗</span>
     </a>
@@ -176,6 +181,7 @@ export default function GutscheinePage() {
 
   return (
     <>
+      <PageTone tone="dunkel" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -185,225 +191,156 @@ export default function GutscheinePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
       />
 
-      <KarteMasthead
-        kicker={
-          xmas
-            ? "Weihnachten · Sinzing bei Regensburg"
-            : "Sinzing bei Regensburg · Familie Leber"
-        }
-        title={xmas ? "Weihnachten am Tisch" : "Einen Platz am Tisch"}
-        accent="verschenken."
-        line={
-          xmas
-            ? "Gutschein ab 10 € · sofort als PDF — auch noch an Heiligabend"
-            : "Gutscheine · sofort als PDF oder als Karte per Post"
-        }
-      >
-        <p className="mx-auto max-w-2xl text-center text-lg italic leading-relaxed text-waldgruen/70">
-          Ein Gutschein für Wald &amp; Wiese ist kein Gegenstand, der
-          herumsteht. Er ist ein Vormittag auf der Terrasse, ein Abend mit
-          Burgern und Wein oder einfach ein richtig guter Kaffee im Grünen.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center justify-center gap-5">
-          <BuyButton>Gutschein kaufen</BuyButton>
-          <a
-            href="#betrag"
-            className="inline-flex items-center gap-3 border-b border-waldgruen/30 pb-1 font-medium text-waldgruen transition-colors hover:border-tonwarm hover:text-tonwarm"
+      {/* KOPF + GRÜNDE */}
+      <DaySection stage="tanne" className="pt-[116px] pb-14 md:pt-[140px] md:pb-20">
+        <div className={CONTAINER}>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-creme/60 hover:underline underline-offset-4"
           >
-            Welcher Betrag passt? <span aria-hidden>↓</span>
-          </a>
+            <span aria-hidden>←</span> Startseite
+          </Link>
+          <p className={`mt-8 ${LABEL}`}>
+            {xmas ? "Weihnachten · Sinzing bei Regensburg" : "Gutscheine · Sinzing bei Regensburg"}
+          </p>
+          <h1 className="mt-3 max-w-[18ch] font-display text-[2.6rem] font-light leading-[1.05] md:text-[3.75rem]">
+            {xmas ? "Weihnachten am Tisch" : "Einen Platz am Tisch"}{" "}
+            <span className="font-normal">verschenken.</span>
+          </h1>
+          <p className={`mt-5 max-w-[56ch] text-[1.05rem] leading-relaxed ${MUTED}`}>
+            Ein Gutschein für Wald &amp; Wiese ist kein Gegenstand, der herumsteht. Er ist ein
+            Vormittag auf der Terrasse, ein Abend mit Burgern und Wein oder einfach ein richtig
+            guter Kaffee im Grünen.
+            {xmas ? " Als PDF kommt er sofort, auch noch an Heiligabend." : ""}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <BuyButton>Gutschein kaufen</BuyButton>
+            <a href="#betrag" className="font-semibold border-b-[1.5px] border-current pb-0.5">
+              Welcher Betrag passt?
+            </a>
+          </div>
+          <ul className="mt-12 grid gap-6 sm:grid-cols-3 md:gap-10">
+            {GRUENDE.map((g) => (
+              <li key={g.title} className="border-t border-creme/20 pt-4">
+                <p className="font-display text-[1.3rem] font-normal">{g.title}</p>
+                <p className={`mt-1 text-sm ${MUTED}`}>{g.body}</p>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="mx-auto mt-12 grid max-w-3xl gap-6 text-center sm:grid-cols-3">
-          {GRUENDE.map((g) => (
-            <li key={g.title}>
-              <p className="font-display text-lg font-semibold text-waldgruen">
-                {g.title}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-waldgruen/65">
-                {g.body}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </KarteMasthead>
+      </DaySection>
 
-      {/* -------------------------------------------------------- BETRÄGE */}
-      <section id="betrag" className="scroll-mt-24 bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 pb-16 md:pb-24">
-          <KarteHeading
-            title="Welcher Betrag passt?"
-            hint="gerechnet mit unseren echten Kartenpreisen"
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+      {/* BETRÄGE */}
+      <DaySection stage="abend" id="betrag" className="scroll-mt-24 py-14 md:py-20">
+        <div className={CONTAINER}>
+          <p className={LABEL}>Welcher Betrag passt?</p>
+          <h2 className={H2}>Gerechnet mit unseren echten Kartenpreisen</h2>
+          <div className="mt-8 grid gap-8 md:grid-cols-3 md:gap-10">
             {BETRAEGE.map((b) => (
-              <div
-                key={b.amount}
-                className="flex flex-col rounded-2xl bg-white p-7 ring-1 ring-waldgruen/10"
-              >
-                <p className="font-display text-4xl text-tonwarm">{b.amount}</p>
-                <p className="mt-3 font-display text-lg font-semibold text-waldgruen">
-                  {b.title}
-                </p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-waldgruen/70">
-                  {b.body}
-                </p>
+              <div key={b.amount} className="grid content-start gap-2 border-t border-creme/20 pt-5">
+                <p className="font-display text-[2.4rem] font-light leading-none">{b.amount}</p>
+                <p className="font-display text-[1.3rem] font-normal leading-tight">{b.title}</p>
+                <p className={`text-[0.95rem] leading-relaxed ${MUTED}`}>{b.body}</p>
                 <a
                   href={GUTSCHEIN_SHOP}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center justify-center gap-2 rounded-full border border-tonwarm px-5 py-2.5 text-sm font-medium text-tonwarm transition-colors hover:bg-tonwarm hover:text-white"
+                  className="mt-2 inline-flex h-11 w-fit items-center gap-2 rounded-full px-5 text-sm font-semibold shadow-[inset_0_0_0_1.5px_currentColor] transition-colors hover:bg-creme/10"
                 >
                   {b.amount} verschenken <span aria-hidden>↗</span>
                 </a>
               </div>
             ))}
           </div>
-          <p className="mt-8 text-center text-sm text-waldgruen/60">
-            Oder jeden anderen Betrag ab 10 € — im Shop frei eintragbar.
-          </p>
+          <p className={`mt-8 text-sm ${MUTED}`}>Oder jeden anderen Betrag ab 10 €, im Shop frei eintragbar.</p>
         </div>
-      </section>
+      </DaySection>
 
-      {/* ---------------------------------------------------- LAST MINUTE */}
-      <section className="bg-waldgruen text-mehlcreme">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-16 md:py-20 text-center reveal">
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.05] tracking-tight text-mehlcreme">
-            {xmas ? "Noch kein Geschenk?" : "Muss es schnell gehen?"}{" "}
-            <span className="accent">In zwei Minuten erledigt.</span>
-          </h2>
-          <p className="mt-7 italic leading-relaxed text-mehlcreme/75">
-            Als PDF kommt der Gutschein sofort per E-Mail — zum Ausdrucken
-            oder direkt Weiterleiten
-            {xmas ? ", also auch noch an Heiligabend" : ""}. Die gedruckte
-            Karte per Post braucht zwei bis vier Tage.
-          </p>
-          <div className="mt-9">
-            <BuyButton>Jetzt Gutschein kaufen</BuyButton>
-          </div>
-          <p className="mt-6 text-[0.8rem] text-mehlcreme/50">
-            Kauf und Versand wickelt unser Partner BON BON ab — du wirst dorthin
-            weitergeleitet.
-          </p>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------- SO GEHT'S */}
-      <section className="bg-mehlcreme">
-        <div className="mx-auto max-w-5xl px-6 md:px-10 py-16 md:py-24">
-          <KarteHeading
-            title="So geht's"
-            hint="vier Schritte, keine Anmeldung nötig"
-          />
-          <ol className="mt-12 grid gap-10 sm:grid-cols-2">
-            {SCHRITTE.map((s, i) => (
-              <li key={s.title} className="flex gap-5">
-                <span
-                  aria-hidden
-                  className="mt-1 flex h-8 w-8 flex-none items-center justify-center rounded-full border border-tonwarm font-display text-sm text-tonwarm"
-                >
-                  {i + 1}
-                </span>
-                <div>
-                  <p className="font-display text-lg font-semibold text-waldgruen">
+      {/* SO GEHT'S */}
+      <DaySection stage="wald" className="py-14 md:py-20">
+        <div className={`${CONTAINER} grid gap-10 md:grid-cols-[1fr_auto] md:gap-16`}>
+          <div>
+            <p className={LABEL}>So geht’s</p>
+            <h2 className={H2}>Vier Schritte, keine Anmeldung nötig</h2>
+            <ol className="mt-8 grid gap-6 sm:grid-cols-2 md:gap-x-10">
+              {SCHRITTE.map((s, i) => (
+                <li key={s.title} className="border-t border-creme/20 pt-4">
+                  <p className="font-display text-[1.3rem] font-normal">
+                    <span className="mr-3 font-light text-akzent">{i + 1}</span>
                     {s.title}
                   </p>
-                  <p className="mt-2 leading-relaxed text-waldgruen/70">
-                    {s.body}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="mt-14 flex justify-center">
-            <KarteSpot spot="kaffee" width={240} />
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------- FIRMEN + MAGIC DINNER */}
-      <section className="bg-mehlcreme border-t border-waldgruen/15">
-        <div className="mx-auto grid max-w-5xl gap-6 px-6 md:px-10 py-16 md:py-24 md:grid-cols-2">
-          <div className="flex flex-col rounded-2xl bg-white p-8 ring-1 ring-waldgruen/10">
-            <p className="text-[0.65rem] font-medium uppercase tracking-[0.22em] text-tonwarm">
-              Für Firmen
-            </p>
-            <h2 className="mt-4 font-display text-2xl leading-tight text-waldgruen">
-              {xmas ? "Ein Weihnachtsgeschenk fürs Team" : "Ein Dankeschön fürs Team"}
-            </h2>
-            <p className="mt-3 flex-1 leading-relaxed text-waldgruen/70">
-              Im Shop einfach die Anzahl wählen — so bestellst du gleich
-              mehrere Gutscheine. Eingelöst wird, wann es passt: drei Jahre
-              lang, für Brunch, Mittag oder Abendessen.
-            </p>
-            <div className="mt-7">
-              <BuyButton>Gutscheine bestellen</BuyButton>
+                  <p className={`mt-1.5 text-[0.95rem] leading-relaxed ${MUTED}`}>{s.body}</p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-8">
+              <BuyButton>{xmas ? "Jetzt Gutschein kaufen" : "Gutschein kaufen"}</BuyButton>
+              <p className={`mt-4 text-sm ${MUTED}`}>
+                Kauf und Versand wickelt unser Partner BON BON ab, du wirst dorthin weitergeleitet.
+              </p>
             </div>
           </div>
+          <KarteSpot spot="kaffee" width={200} className="hidden self-center md:block" />
+        </div>
+      </DaySection>
 
-          <div className="flex flex-col rounded-2xl bg-waldgruen p-8 text-mehlcreme">
-            <p className="text-[0.65rem] font-medium uppercase tracking-[0.22em] text-tonwarm">
-              Lieber ein Erlebnis?
+      {/* FIRMEN + MAGIC DINNER */}
+      <DaySection stage="wald-2" className="py-14 md:py-20">
+        <div className={`${CONTAINER} grid gap-10 md:grid-cols-2 md:gap-16`}>
+          <div className="border-t border-creme/20 pt-5">
+            <p className={LABEL}>Für Firmen</p>
+            <h2 className={H2}>{xmas ? "Ein Weihnachtsgeschenk fürs Team" : "Ein Dankeschön fürs Team"}</h2>
+            <p className={`mt-3 leading-relaxed ${MUTED}`}>
+              Im Shop einfach die Anzahl wählen, so bestellst du gleich mehrere Gutscheine.
+              Eingelöst wird, wann es passt: drei Jahre lang, für Brunch, Mittag oder Abendessen.
             </p>
-            <h2 className="mt-4 font-display text-2xl leading-tight text-mehlcreme">
-              Magic Dinner am 20. Februar 2027
-            </h2>
-            <p className="mt-3 flex-1 leading-relaxed text-mehlcreme/75">
-              3-Gänge-Menü und Zaubershow direkt am Tisch — 89,90 € pro Person.
-              Tickets online oder bei uns an der Bar.
+            <BuyButton outline className="mt-6">Gutscheine bestellen</BuyButton>
+          </div>
+          <div className="border-t border-creme/20 pt-5">
+            <p className={LABEL}>Lieber ein Erlebnis?</p>
+            <h2 className={H2}>Magic Dinner am 20. Februar 2027</h2>
+            <p className={`mt-3 leading-relaxed ${MUTED}`}>
+              3-Gänge-Menü und Zaubershow direkt am Tisch, 89,90 € pro Person. Tickets online
+              oder bei uns an der Bar.
             </p>
-            <div className="mt-7">
-              <Link
-                href={MAGIC_DINNER}
-                className="inline-flex items-center gap-2 rounded-full bg-mehlcreme px-8 py-4 font-medium text-waldgruen transition-colors hover:bg-white"
-              >
-                Zum Magic Dinner <span aria-hidden>→</span>
-              </Link>
-            </div>
+            <Link
+              href={MAGIC_DINNER}
+              className="mt-6 inline-flex h-[50px] items-center rounded-full px-[26px] text-[0.95rem] font-semibold shadow-[inset_0_0_0_1.5px_currentColor] transition-colors hover:bg-creme/10"
+            >
+              Zum Magic Dinner
+            </Link>
           </div>
         </div>
-      </section>
+      </DaySection>
 
-      {/* ----------------------------------------------------------- FAQ */}
-      <section className="bg-mehlcreme border-t border-waldgruen/15">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-16 md:py-24">
-          <KarteHeading title="Häufige Fragen" />
-          <dl className="mt-12 divide-y divide-waldgruen/15">
+      {/* FAQ */}
+      <DaySection stage="nacht" className="py-14 md:py-20">
+        <div className={`${CONTAINER} max-w-[860px]`}>
+          <p className={LABEL}>Häufige Fragen</p>
+          <h2 className={H2}>Gut zu wissen</h2>
+          <dl className="mt-8">
             {FAQ.map((f) => (
-              <div key={f.q} className="py-6">
-                <dt className="font-display text-lg font-semibold text-waldgruen">
-                  {f.q}
-                </dt>
-                <dd className="mt-2 leading-relaxed text-waldgruen/70">
-                  {f.a}
-                </dd>
+              <div key={f.q} className="border-t border-creme/15 py-5">
+                <dt className="font-display text-[1.25rem] font-normal">{f.q}</dt>
+                <dd className={`mt-2 leading-relaxed ${MUTED}`}>{f.a}</dd>
               </div>
             ))}
           </dl>
-
-          <div className="mt-12 flex justify-center">
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-creme/15 pt-8">
             <BuyButton>Gutschein kaufen</BuyButton>
+            <p className={`m-0 text-sm ${MUTED}`}>
+              Noch eine Frage?{" "}
+              <a href={`mailto:${CONTACT.email}`} className="underline underline-offset-4">
+                {CONTACT.email}
+              </a>{" "}
+              oder{" "}
+              <a href={`tel:${CONTACT.phoneRaw}`} className="underline underline-offset-4">
+                {CONTACT.phone}
+              </a>
+            </p>
           </div>
-
-          <p className="mt-10 text-center text-waldgruen/60">
-            Noch eine Frage offen?{" "}
-            <a
-              href={`mailto:${CONTACT.email}`}
-              className="text-tonwarm underline decoration-tonwarm/40 underline-offset-2 hover:text-tonwarm-dark"
-            >
-              {CONTACT.email}
-            </a>{" "}
-            oder{" "}
-            <a
-              href={`tel:${CONTACT.phoneRaw}`}
-              className="text-tonwarm underline decoration-tonwarm/40 underline-offset-2 hover:text-tonwarm-dark"
-            >
-              {CONTACT.phone}
-            </a>
-            .
-          </p>
         </div>
-      </section>
+      </DaySection>
 
       <StickyCta
         href={GUTSCHEIN_SHOP}

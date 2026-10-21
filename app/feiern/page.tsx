@@ -20,6 +20,7 @@ export default function FeiernPage() {
     <RichLanding
       content={content}
       path="/feiern"
+      tone="dunkel"
       splitImage={{
         src: IMG.wwFood3.src,
         alt: "Festlich gedeckter Gastraum mit grünen Stühlen im Wald & Wiese",

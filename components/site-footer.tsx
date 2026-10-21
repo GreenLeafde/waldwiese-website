@@ -1,71 +1,78 @@
 import Link from "next/link";
 import { ConsentSettingsLink } from "@/components/consent-settings-link";
+import { Logo } from "@/components/logo";
 import { NewsletterSignup } from "@/components/newsletter-signup";
 import { CONTACT, FOOTER_NAV, LEGAL_NAV, SITE } from "@/lib/site";
 
 /**
- * Footer mit Newsletter-Anmeldeband (oben) + Sitemap-Navigation + Kolophon.
- * Schließt nahtlos an die Waldgrün-Kontakt-Section an (kein Farbsprung).
+ * Fußzeile (Redesign 10/2026) auf Nacht-Grund: Newsletter oben, dann Logo,
+ * Zeiten getrennt nach Brunch und Abendessen, Kontakt, darunter die
+ * Sitemap (interne Links für alle Seiten) und das Kolophon.
+ * Keine Kästen, keine Ornamente — nur feine Linien.
  */
 export function SiteFooter() {
   return (
-    <footer className="bg-waldgruen text-mehlcreme/70 border-t border-mehlcreme/10">
-      {/* NEWSLETTER-BAND — id="newsletter": der QR-Code auf dem Aufsteller
-          im Restaurant führt auf restaurant-waldwiese.de/#newsletter. */}
-      <div id="newsletter" className="scroll-mt-24 border-b border-mehlcreme/10">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-14 md:py-16">
-          <div className="relative overflow-hidden rounded-[2rem] bg-mehlcreme/[0.06] ring-1 ring-mehlcreme/15 px-7 py-10 md:px-12 md:py-12">
-            {/* Botanik-Akzent */}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 200 200"
-              className="pointer-events-none absolute -right-8 -top-10 h-52 w-52 text-tonwarm/20"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            >
-              <path d="M100 180 C100 120 100 70 100 30" />
-              <path d="M100 150 C70 140 55 120 52 92 C82 96 98 118 100 150 Z" />
-              <path d="M100 124 C130 116 146 96 150 70 C120 72 102 94 100 124 Z" />
-              <path d="M100 96 C74 90 60 72 58 48 C84 52 98 72 100 96 Z" />
-            </svg>
-
-            <div className="relative grid gap-8 md:grid-cols-2 md:items-center md:gap-12">
-              <div>
-                <p className="eyebrow no-line text-tonwarm">Newsletter</p>
-                <h2 className="mt-4 font-display text-3xl md:text-4xl font-normal leading-tight text-mehlcreme">
-                  Erfahr&apos;s als Erstes.
-                </h2>
-                <p className="mt-4 max-w-md text-mehlcreme/70 leading-relaxed">
-                  Kein Spam — nur eine Mail, wenn&apos;s wirklich was gibt:
-                  neue Termine wie Magic Dinner oder Krimidinner, neue Karte,
-                  besondere Abende bei uns im Grünen.
-                </p>
-              </div>
-              <div>
-                <NewsletterSignup theme="dark" buttonLabel="Anmelden" />
-              </div>
-            </div>
+    <footer data-tone="dunkel" className="bg-nacht text-creme">
+      {/* NEWSLETTER — id="newsletter": der QR-Code auf dem Aufsteller im
+          Restaurant führt auf restaurant-waldwiese.de/#newsletter. */}
+      <div id="newsletter" className="scroll-mt-24 border-b border-creme/15">
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-14 md:grid-cols-2 md:items-center md:gap-12 md:px-10 md:py-16">
+          <div>
+            <p className="eyebrow no-line">Newsletter</p>
+            <h2 className="mt-3 font-display text-3xl font-normal leading-tight md:text-4xl">
+              Neue Termine zuerst per Mail.
+            </h2>
+            <p className="mt-4 max-w-md leading-relaxed text-creme/75">
+              Kein Spam. Eine Mail, wenn es wirklich etwas gibt: neue Abende wie
+              Magic Dinner oder Krimidinner, neue Karte, Saisonales.
+            </p>
           </div>
+          <NewsletterSignup theme="dark" buttonLabel="Eintragen" />
+        </div>
+      </div>
+
+      {/* MARKE + ZEITEN + KONTAKT */}
+      <div className="mx-auto grid max-w-7xl gap-8 px-6 pb-4 pt-12 text-sm md:grid-cols-[1.4fr_1fr_1fr_1fr] md:px-10 md:pt-14">
+        <div>
+          <Logo variant="light" height={24} />
+          <p className="mt-4 leading-relaxed">
+            {CONTACT.street}
+            <br />
+            {CONTACT.postalCode} {CONTACT.city} bei Regensburg
+          </p>
+        </div>
+        <div>
+          <b className="mb-2 block font-semibold">Brunch</b>
+          <p className="text-creme/75">Montag bis Sonntag<br />8–14 Uhr</p>
+        </div>
+        <div>
+          <b className="mb-2 block font-semibold">Abendessen</b>
+          <p className="text-creme/75">Freitag bis Sonntag<br />17–22 Uhr</p>
+        </div>
+        <div>
+          <b className="mb-2 block font-semibold">Kontakt</b>
+          <p className="text-creme/75">
+            <a href={`tel:${CONTACT.phoneRaw}`} className="hover:text-creme">{CONTACT.phone}</a>
+            <br />
+            <a href={`mailto:${CONTACT.email}`} className="break-all hover:text-creme">{CONTACT.email}</a>
+            <br />
+            <a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-creme">
+              {CONTACT.instagramHandle}
+            </a>
+          </p>
         </div>
       </div>
 
       {/* SITEMAP */}
-      <div className="mx-auto max-w-7xl px-6 md:px-10 pt-14 md:pt-16 pb-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+      <div className="mx-auto max-w-7xl px-6 pb-10 pt-10 md:px-10">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 border-t border-creme/15 pt-10 md:grid-cols-4">
           {FOOTER_NAV.map((col) => (
             <nav key={col.title} aria-label={col.title}>
-              <p className="text-[0.65rem] tracking-[0.22em] uppercase text-tonwarm font-medium">
-                {col.title}
-              </p>
-              <ul className="mt-4 space-y-2.5">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-akzent">{col.title}</p>
+              <ul className="mt-3 space-y-2">
                 {col.links.map((l) => (
                   <li key={l.href}>
-                    <Link
-                      href={l.href}
-                      className="text-sm text-mehlcreme/80 hover:text-tonwarm transition-colors"
-                    >
+                    <Link href={l.href} className="text-sm text-creme/75 transition-colors hover:text-creme">
                       {l.label}
                     </Link>
                   </li>
@@ -77,41 +84,19 @@ export function SiteFooter() {
       </div>
 
       {/* KOLOPHON */}
-      <div className="border-t border-mehlcreme/10">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-7 flex flex-col md:flex-row md:items-center md:justify-between gap-5 text-[0.78rem] tracking-[0.06em]">
-          <p className="font-display italic text-mehlcreme/85 text-base">
-            {SITE.name} · {CONTACT.city}
-          </p>
-
+      <div className="border-t border-creme/15">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 text-[0.78rem] text-creme/60 md:flex-row md:items-center md:justify-between md:px-10">
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {LEGAL_NAV.map((item) => (
               <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="hover:text-tonwarm transition-colors"
-                >
-                  {item.label}
-                </Link>
+                <Link href={item.href} className="transition-colors hover:text-creme">{item.label}</Link>
               </li>
             ))}
             <li>
-              <a
-                href={CONTACT.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-tonwarm transition-colors"
-              >
-                Instagram
-              </a>
-            </li>
-            <li>
-              <ConsentSettingsLink className="hover:text-tonwarm transition-colors" />
+              <ConsentSettingsLink className="transition-colors hover:text-creme" />
             </li>
           </ul>
-
-          <p className="text-mehlcreme/45">
-            © {new Date().getFullYear()} {SITE.legalName}
-          </p>
+          <p>© {new Date().getFullYear()} {SITE.legalName}</p>
         </div>
       </div>
     </footer>

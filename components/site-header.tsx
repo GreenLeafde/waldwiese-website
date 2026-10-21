@@ -3,66 +3,23 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
-import { CONTACT, NAV_GROUPS, RESERVATION_URL } from "@/lib/site";
-
-/** WhatsApp-Deeplink aus der Nummer (nur Ziffern). */
-const WHATSAPP_URL = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, "")}`;
-
-function PhoneIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.7 21 3 13.3 3 3.9c0-.6.5-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1l-2.2 2.3z" />
-    </svg>
-  );
-}
-
-function WhatsAppIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.2 4.74 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.86-7.01zM12.04 20.13h-.01c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.25 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42h-.48c-.17 0-.43.06-.66.31-.22.25-.86.84-.86 2.06s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z" />
-    </svg>
-  );
-}
-
-function ChevronIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 12 12"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M2.5 4.5 6 8l3.5-3.5" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
+import { LiveStatus } from "./live-status";
+import { ReserveButton } from "./reserve-chooser";
+import { CONTACT, NAV_GROUPS, NAV_MAIN } from "@/lib/site";
 
 /**
- * Header in zwei Ebenen:
- *  - Oben: schmale Waldgrün-Kontaktleiste (Telefon, WhatsApp, Instagram) —
- *    auf Desktop & Handy direkt erreichbar.
- *  - Darunter: Hauptbar mit Logo, Navigation und Reservieren-Button.
- * Immer sichtbar (kein Verstecken), damit Kontakt jederzeit griffbereit ist.
- * Mobile-Menü als Vollbild-Overlay.
+ * Header (Redesign 10/2026) in zwei Ebenen:
+ *  - Infoleiste: Live-Status, Telefon, Adresse, Instagram
+ *  - Hauptbar: Logo, fünf Navigationspunkte, Gutscheine, Reservieren
+ *
+ * Der Ton folgt der Seite: html[data-tone="hell"] = Tanne auf Morgenlicht,
+ * html[data-tone="dunkel"] = Creme auf Tanne (siehe globals.css, PageTone,
+ * ScrollDay). Reservieren öffnet die Vorauswahl Brunch/Abendessen.
+ * Mobile-Menü als Vollbild-Overlay mit den fünf Punkten groß und der
+ * restlichen Sitemap darunter.
  */
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  /** Label der aufgeklappten Desktop-Gruppe, sonst null. */
-  const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -74,159 +31,73 @@ export function SiteHeader() {
     }
   }, [mobileOpen]);
 
+  const close = () => setMobileOpen(false);
+
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-40">
-        {/* Kontaktleiste */}
-        <div className="bg-waldgruen-dark text-mehlcreme/85">
-          <div className="mx-auto max-w-7xl px-5 md:px-8 h-9 flex items-center justify-between gap-4 text-[0.72rem] md:text-[0.76rem]">
-            <div className="flex items-center gap-4 md:gap-6">
-              <a
-                href={`tel:${CONTACT.phoneRaw}`}
-                className="inline-flex items-center gap-1.5 hover:text-tonwarm transition-colors"
-              >
-                <PhoneIcon className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">{CONTACT.phone}</span>
-                <span className="sm:hidden">Anrufen</span>
-              </a>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 hover:text-tonwarm transition-colors"
-              >
-                <WhatsAppIcon className="w-4 h-4 shrink-0" />
-                WhatsApp
-              </a>
-            </div>
+      <header className="site-header fixed inset-x-0 top-0 z-40">
+        {/* Infoleiste */}
+        <div className="site-header-top text-[0.76rem]">
+          <div className="mx-auto flex h-9 max-w-7xl items-center justify-between gap-4 px-5 md:px-8">
+            <LiveStatus />
             <div className="flex items-center gap-5">
-              <span className="hidden md:inline text-mehlcreme/55 tracking-wide">
-                Sinzing · bei Regensburg
+              <a href={`tel:${CONTACT.phoneRaw}`} className="hidden sm:inline hover:underline underline-offset-4">
+                {CONTACT.phone}
+              </a>
+              <span className="hidden md:inline opacity-80">
+                {CONTACT.street}, {CONTACT.city}
               </span>
               <a
                 href={CONTACT.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="inline-flex items-center gap-1.5 hover:text-tonwarm transition-colors"
+                className="hover:underline underline-offset-4"
               >
-                <InstagramIcon className="w-4 h-4 shrink-0" />
-                <span className="hidden sm:inline">Instagram</span>
+                Instagram
               </a>
             </div>
           </div>
         </div>
 
         {/* Hauptbar */}
-        <div className="bg-mehlcreme/95 backdrop-blur-md border-b border-waldgruen/10">
-          <div className="mx-auto max-w-7xl px-5 md:px-8 h-14 flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center gap-6">
-            <div className="lg:justify-self-start">
-              <Logo />
-            </div>
+        <div className="site-header-bar border-b">
+          <div className="mx-auto flex h-14 max-w-7xl items-center gap-8 px-5 md:px-8 lg:h-16">
+            <Logo height={26} />
 
-            <nav
-              aria-label="Hauptnavigation"
-              className="hidden lg:block justify-self-center"
-              onKeyDown={(e) => {
-                if (e.key === "Escape") setOpenGroup(null);
-              }}
-            >
-              <ul className="flex items-center gap-7 text-[0.78rem] tracking-[0.18em] uppercase text-waldgruen/80">
-                {NAV_GROUPS.map((group) => {
-                  const open = openGroup === group.label;
-                  return (
-                    <li
-                      key={group.href}
-                      className="relative"
-                      onMouseEnter={() => setOpenGroup(group.label)}
-                      onMouseLeave={() => setOpenGroup(null)}
-                      // Tastatur: öffnen sobald der Fokus in die Gruppe
-                      // kommt, schließen sobald er sie wieder verlässt.
-                      onFocus={() => setOpenGroup(group.label)}
-                      onBlur={(e) => {
-                        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-                          setOpenGroup((g) => (g === group.label ? null : g));
-                        }
-                      }}
-                    >
-                      <Link
-                        href={group.href}
-                        aria-expanded={group.items ? open : undefined}
-                        className={`inline-flex items-center gap-1.5 py-5 transition-colors hover:text-tonwarm ${
-                          open ? "text-tonwarm" : ""
-                        }`}
-                      >
-                        {group.label}
-                        {group.items && (
-                          <ChevronIcon
-                            className={`h-3 w-3 opacity-50 transition-transform ${
-                              open ? "rotate-180" : ""
-                            }`}
-                          />
-                        )}
-                      </Link>
-
-                      {group.items && open && (
-                        <div className="absolute left-1/2 top-full z-50 -translate-x-1/2 pt-1">
-                          <ul className="anim-fade-up min-w-[17rem] rounded-sm border border-waldgruen/15 bg-mehlcreme py-2 shadow-xl shadow-waldgruen/10">
-                            {group.items.map((item) => (
-                              <li key={item.href}>
-                                <Link
-                                  href={item.href}
-                                  onClick={() => setOpenGroup(null)}
-                                  className="block px-5 py-2.5 transition-colors hover:bg-waldgruen/5"
-                                >
-                                  <span className="block text-waldgruen">
-                                    {item.label}
-                                  </span>
-                                  {item.desc && (
-                                    <span className="mt-0.5 block font-body text-[0.68rem] normal-case tracking-normal text-waldgruen/50">
-                                      {item.desc}
-                                    </span>
-                                  )}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </li>
-                  );
-                })}
+            <nav aria-label="Hauptnavigation" className="hidden flex-1 justify-center lg:flex">
+              <ul className="flex items-center gap-7 text-[0.95rem]">
+                {NAV_MAIN.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="opacity-85 transition-opacity hover:opacity-100">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
 
-            <a
-              href={RESERVATION_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white text-[0.72rem] tracking-[0.16em] uppercase px-5 py-2.5 rounded-full transition-colors justify-self-end"
-            >
-              Reservieren
-            </a>
+            <div className="ml-auto hidden items-center gap-5 md:flex">
+              <Link href="/gutscheine" className="text-[0.9rem] font-semibold hover:underline underline-offset-4">
+                Gutscheine
+              </Link>
+              <ReserveButton
+                location="header"
+                className="inline-flex h-10 items-center rounded-full bg-akzent px-5 text-[0.9rem] font-semibold text-white transition-colors hover:bg-akzent-hover"
+              >
+                Reservieren
+              </ReserveButton>
+            </div>
 
             <button
               type="button"
               aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
-              className="lg:hidden inline-flex flex-col gap-1.5 p-2 -mr-2 text-waldgruen relative z-50"
+              className="relative z-50 -mr-2 ml-auto inline-flex flex-col gap-1.5 p-2 md:ml-0 lg:hidden"
             >
-              <span
-                className={`block h-[2px] w-6 bg-current transition-transform ${
-                  mobileOpen ? "translate-y-2 rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-[2px] w-6 bg-current transition-opacity ${
-                  mobileOpen ? "opacity-0" : ""
-                }`}
-              />
-              <span
-                className={`block h-[2px] w-6 bg-current transition-transform ${
-                  mobileOpen ? "-translate-y-2 -rotate-45" : ""
-                }`}
-              />
+              <span className={`block h-[1.5px] w-6 bg-current transition-transform ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`block h-[1.5px] w-6 bg-current transition-opacity ${mobileOpen ? "opacity-0" : ""}`} />
+              <span className={`block h-[1.5px] w-6 bg-current transition-transform ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
             </button>
           </div>
         </div>
@@ -234,123 +105,84 @@ export function SiteHeader() {
 
       {/* Mobile-Menü: Vollbild-Overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-50 bg-waldgruen text-mehlcreme transition-opacity duration-300 ${
-          mobileOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-50 bg-tanne text-creme transition-opacity duration-300 lg:hidden ${
+          mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!mobileOpen}
       >
         <button
           type="button"
           aria-label="Menü schließen"
-          onClick={() => setMobileOpen(false)}
-          className="absolute top-3 right-4 z-10 inline-flex items-center justify-center w-12 h-12 text-mehlcreme hover:text-tonwarm transition-colors"
+          onClick={close}
+          className="absolute right-4 top-3 z-10 inline-flex h-12 w-12 items-center justify-center text-creme"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="w-7 h-7"
-            aria-hidden
-          >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-7 w-7" aria-hidden>
             <line x1="6" y1="6" x2="18" y2="18" />
             <line x1="18" y1="6" x2="6" y2="18" />
           </svg>
         </button>
 
-        <div className="h-full flex flex-col overflow-y-auto">
-          <div className="h-[92px] flex-shrink-0" />
-
-          <nav
-            aria-label="Hauptnavigation mobil"
-            className="flex-1 flex flex-col justify-center px-7"
-          >
-            {/* Mobil keine Klapp-Mechanik: die Gruppen stehen offen da,
-                das spart einen Tipp pro Ebene. */}
-            <ul className="space-y-5">
-              {NAV_GROUPS.map((group, i) => (
-                <li
-                  key={group.href}
-                  className={mobileOpen ? "anim-fade-up" : "opacity-0"}
-                  style={{
-                    animationDelay: mobileOpen ? `${100 + i * 70}ms` : "0ms",
-                  }}
-                >
+        <div className="flex h-full flex-col overflow-y-auto">
+          <div className="h-[92px] shrink-0" />
+          <nav aria-label="Hauptnavigation mobil" className="flex flex-1 flex-col px-7 pb-10">
+            <ul className="space-y-3">
+              {NAV_MAIN.map((item) => (
+                <li key={item.href}>
                   <Link
-                    href={group.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block font-display text-3xl leading-tight text-mehlcreme transition-colors hover:text-tonwarm"
+                    href={item.href}
+                    onClick={close}
+                    className="block font-display text-[2rem] font-light leading-tight"
                   >
-                    {group.label}
+                    {item.label}
                   </Link>
-                  {group.items && (
-                    <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5 border-l border-mehlcreme/20 pl-4">
-                      {group.items.map((item) => (
-                        <li key={item.href}>
-                          <Link
-                            href={item.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="text-[0.95rem] text-mehlcreme/65 transition-colors hover:text-tonwarm"
-                          >
-                            {item.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </li>
               ))}
+              <li>
+                <Link href="/gutscheine" onClick={close} className="block font-display text-[2rem] font-light leading-tight">
+                  Gutscheine
+                </Link>
+              </li>
             </ul>
 
-            <div className="mt-10 pt-8 border-t border-mehlcreme/15 space-y-4 text-sm">
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href={RESERVATION_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center gap-2 bg-tonwarm hover:bg-tonwarm-dark text-white px-7 py-3.5 rounded-full font-medium transition-colors"
-                >
-                  Reservieren <span aria-hidden>→</span>
-                </a>
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center gap-2 border border-mehlcreme/40 hover:border-tonwarm hover:text-tonwarm px-6 py-3.5 rounded-full font-medium transition-colors"
-                >
-                  <WhatsAppIcon className="w-4 h-4" /> WhatsApp
-                </a>
-              </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ReserveButton
+                location="menu"
+                className="inline-flex h-12 items-center rounded-full bg-akzent px-7 font-semibold text-white"
+              >
+                Reservieren
+              </ReserveButton>
+              <a
+                href={`tel:${CONTACT.phoneRaw}`}
+                className="inline-flex h-12 items-center rounded-full px-6 font-semibold shadow-[inset_0_0_0_1.5px_currentColor]"
+              >
+                Anrufen
+              </a>
+            </div>
 
-              <div className="space-y-1.5 text-mehlcreme/75 pt-2">
-                <p>
-                  <a href={`tel:${CONTACT.phoneRaw}`} className="hover:text-tonwarm">
-                    {CONTACT.phone}
-                  </a>
-                </p>
-                <p>
-                  <a
-                    href={`mailto:${CONTACT.email}`}
-                    className="hover:text-tonwarm break-all"
-                  >
-                    {CONTACT.email}
-                  </a>
-                </p>
-                <p>
-                  <a
-                    href={CONTACT.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-tonwarm"
-                  >
-                    {CONTACT.instagramHandle}
-                  </a>
-                </p>
+            <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-creme/15 pt-8 text-sm">
+              {NAV_GROUPS.filter((g) => g.items).map((group) => (
+                <div key={group.href}>
+                  <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-akzent">
+                    {group.label}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {group.items!.map((item) => (
+                      <li key={item.href}>
+                        <Link href={item.href} onClick={close} className="text-creme/80">
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <div>
+                <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-akzent">Kontakt</p>
+                <ul className="space-y-1.5 text-creme/80">
+                  <li><Link href="/kontakt" onClick={close}>Kontakt &amp; Anfahrt</Link></li>
+                  <li><a href={`mailto:${CONTACT.email}`} className="break-all">{CONTACT.email}</a></li>
+                  <li><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer">{CONTACT.instagramHandle}</a></li>
+                </ul>
               </div>
             </div>
           </nav>

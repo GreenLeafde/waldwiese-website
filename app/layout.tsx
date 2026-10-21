@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Fraunces, DM_Sans } from "next/font/google";
+import { Jost, DM_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ConsentProvider } from "@/components/consent-provider";
@@ -9,6 +9,8 @@ import { SommelierFab } from "@/components/sommelier/sommelier-fab";
 import { TrackingScripts } from "@/components/tracking-scripts";
 import { Analytics } from "@/components/analytics";
 import { HideOnInternal } from "@/components/hide-on-internal";
+import { ReserveChooserProvider } from "@/components/reserve-chooser";
+import { SiteStickyBar } from "@/components/site-sticky-bar";
 import { CONSENT_DEFAULT_SCRIPT } from "@/lib/consent";
 import {
   CONTACT,
@@ -26,11 +28,13 @@ import "./globals.css";
  */
 export const revalidate = 600;
 
-const fraunces = Fraunces({
+/** Überschriften: Jost, leicht (300) für große Zeilen, 400 für den Rest. */
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-jost",
   display: "swap",
-  axes: ["SOFT", "WONK", "opsz"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
 });
 
 const dmSans = DM_Sans({
@@ -90,7 +94,7 @@ export function generateMetadata(): Metadata {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#2e3d2c",
+  themeColor: "#022914",
   width: "device-width",
   initialScale: 1,
 };
@@ -176,9 +180,10 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      className={`${fraunces.variable} ${dmSans.variable} h-full`}
+      className={`${jost.variable} ${dmSans.variable} h-full`}
+      data-tone="hell"
     >
-      <body className="min-h-full flex flex-col bg-mehlcreme text-ink">
+      <body className="min-h-full flex flex-col bg-morgen text-tanne">
         {/* Google Consent Mode v2 — Defaults (denied) VOR jedem Tracking. */}
         <Script
           id="consent-default"
@@ -196,12 +201,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <ConsentProvider>
+          <ReserveChooserProvider>
           <HideOnInternal>
             <SiteHeader />
           </HideOnInternal>
           <main className="flex-1">{children}</main>
           <HideOnInternal>
             <SiteFooter />
+            <SiteStickyBar />
             <SommelierFab />
             {/* Cookie-Banner und Messung gehören nur auf die öffentliche
                 Website: Ein Küchen-Tablet soll keinen Consent-Dialog zeigen,
@@ -211,6 +218,7 @@ export default function RootLayout({
             <TrackingScripts />
             <Analytics />
           </HideOnInternal>
+          </ReserveChooserProvider>
         </ConsentProvider>
       </body>
     </html>
