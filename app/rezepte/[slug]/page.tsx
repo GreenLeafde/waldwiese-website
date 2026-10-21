@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
+import { PageTone } from "@/components/page-tone";
 import { StampBadge } from "@/components/stamp-badge";
 import { getRecipe, RECIPES } from "@/lib/recipes";
 import { SITE } from "@/lib/site";
@@ -88,6 +89,7 @@ export default async function RezeptDetailPage({ params }: Props) {
 
   return (
     <article>
+      <PageTone tone="dunkel" />
       {recipeJsonLd && (
         <script
           type="application/ld+json"

@@ -1,5 +1,6 @@
 import { Eyebrow } from "@/components/eyebrow";
 import { LeafDivider } from "@/components/leaf-divider";
+import { PageTone } from "@/components/page-tone";
 import { CONTACT, SITE } from "@/lib/site";
 
 export const metadata = {
@@ -12,6 +13,7 @@ export const metadata = {
 export default function DatenschutzPage() {
   return (
     <article>
+      <PageTone tone="dunkel" />
       {/* KOPF — Waldgrün, ruhig (kein Vollbild, Rechtstext bleibt lesbar) */}
       <section className="bg-waldgruen text-mehlcreme">
         <div className="mx-auto max-w-3xl px-5 md:px-8 pt-28 md:pt-36 pb-14 md:pb-16 reveal">

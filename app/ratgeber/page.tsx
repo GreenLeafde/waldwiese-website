@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
+import { PageTone } from "@/components/page-tone";
 import { GUIDES } from "@/lib/guides";
 
 export const metadata: Metadata = {
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function RatgeberIndexPage() {
   return (
     <>
+      <PageTone tone="dunkel" />
       {/* HEADER */}
       <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">

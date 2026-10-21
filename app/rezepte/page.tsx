@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LeafDivider } from "@/components/leaf-divider";
+import { PageTone } from "@/components/page-tone";
 import { StampBadge } from "@/components/stamp-badge";
 import { RECIPES } from "@/lib/recipes";
 
@@ -14,6 +15,7 @@ export const metadata = {
 export default function RezeptePage() {
   return (
     <>
+      <PageTone tone="dunkel" />
       {/* HEADER — Waldgrün */}
       <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">

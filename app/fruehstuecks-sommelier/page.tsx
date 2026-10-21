@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SommelierQuiz } from "@/components/sommelier/sommelier-quiz";
 import { LeafDivider } from "@/components/leaf-divider";
+import { PageTone } from "@/components/page-tone";
 
 export const metadata = {
   title: "Frühstücks-Sommelier — deine Empfehlung & dein Tisch",
@@ -12,6 +13,7 @@ export const metadata = {
 export default function SommelierPage() {
   return (
     <>
+      <PageTone tone="dunkel" />
       {/* HEADER */}
       <section className="relative isolate bg-waldgruen text-mehlcreme overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 md:px-10 pt-28 md:pt-36">

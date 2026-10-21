@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { LeafDivider } from "@/components/leaf-divider";
+import { PageTone } from "@/components/page-tone";
 import { getGuide, GUIDES } from "@/lib/guides";
 import { SITE } from "@/lib/site";
 
@@ -82,6 +83,7 @@ export default async function RatgeberDetailPage({ params }: Props) {
 
   return (
     <article>
+      <PageTone tone="dunkel" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

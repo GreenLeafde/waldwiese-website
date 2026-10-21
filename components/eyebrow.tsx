@@ -1,27 +1,18 @@
 /**
- * Kleines „— LABEL —"-Element wie auf den Flyern.
- * Verwendung: <Eyebrow>Was uns ausmacht</Eyebrow>
+ * Kleines Label über einer Überschrift (CI 10/2026: Versalien, Terracotta,
+ * ohne Striche). Verwendung: <Eyebrow>Pflichtangaben</Eyebrow>
  */
 export function Eyebrow({
   children,
-  variant = "default",
   align = "left",
 }: {
   children: React.ReactNode;
   variant?: "default" | "centered" | "no-rules";
   align?: "left" | "center";
 }) {
-  const cls =
-    variant === "centered"
-      ? "eyebrow"
-      : variant === "no-rules"
-      ? "eyebrow no-before no-after"
-      : "eyebrow no-before";
-  const alignWrapper =
-    align === "center" ? "flex justify-center" : "flex justify-start";
   return (
-    <div className={alignWrapper}>
-      <span className={cls}>{children}</span>
-    </div>
+    <p className={`text-xs font-semibold uppercase tracking-[0.16em] text-akzent ${align === "center" ? "text-center" : ""}`}>
+      {children}
+    </p>
   );
 }
