@@ -386,6 +386,7 @@ export async function sendNewsletterAction(
     const when = new Date(scheduledAtMs).toLocaleString("de-DE", {
       dateStyle: "full",
       timeStyle: "short",
+      timeZone: "Europe/Berlin",
     });
     return {
       status: "ok",

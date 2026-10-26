@@ -27,6 +27,14 @@ export type Newsletter = {
 
 const DATE_FMT = "'%d.%m.%Y, %H:%M'";
 
+/** „27.10.2026, 08:00“ in deutscher Zeit — SQLites 'localtime' ist auf dem Server UTC. */
+function berlinLabel(ms: unknown): string | null {
+  if (ms == null) return null;
+  const d = new Date(Number(ms));
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleString("de-DE", { timeZone: "Europe/Berlin", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
 export type NewsletterListItem = Newsletter & {
   opens: number;
   clicks: number;
@@ -183,9 +191,9 @@ function toNewsletter(r: Record<string, unknown>): Newsletter {
     bare: r.bare == null ? false : Number(r.bare) !== 0,
     recipientCount: num(r.recipient_count as number | bigint),
     sentAt: num(r.sent_at as number | bigint),
-    sentAtLabel: String(r.sent_label ?? ""),
+    sentAtLabel: berlinLabel(r.sent_at) ?? "",
     scheduledAt: r.scheduled_at == null ? null : num(r.scheduled_at as number | bigint),
-    scheduledAtLabel: (r.scheduled_label as string | null) || null,
+    scheduledAtLabel: berlinLabel(r.scheduled_at),
   };
 }
 
