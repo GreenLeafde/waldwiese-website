@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Abendküche mit Namen",
-        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und alles vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Jedes Gericht trägt seine eigene kleine Geschichte."
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und alles vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Jedes Gericht trägt seine eigene kleine Geschichte.",
+        "short": "Burger wie die mähende Moni, dazu Steak und Spare Ribs vom Grill."
       },
       {
         "title": "Für jeden Geschmack",
-        "text": "Fleisch, vegetarisch und vegan sind bei uns gleichberechtigt. Regional und saisonal gekocht — du findest deinen Teller, ganz ohne langes Suchen."
+        "text": "Fleisch, vegetarisch und vegan sind bei uns gleichberechtigt. Regional und saisonal gekocht — du findest deinen Teller, ganz ohne langes Suchen.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund gehört dazu",
-        "text": "Dein Vierbeiner ist drinnen wie auf der Terrasse herzlich willkommen. Unser Gericht „Heinzi“ ist sogar nach Hund Henry benannt — Tiere sind bei uns Familie."
+        "text": "Dein Vierbeiner ist drinnen wie auf der Terrasse herzlich willkommen. Unser Gericht „Heinzi“ ist sogar nach Hund Henry benannt — Tiere sind bei uns Familie.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       }
     ]
   },

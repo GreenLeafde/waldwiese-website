@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Abendküche mit Charakter",
-        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Gerichte vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Handgemacht, ehrlich und jedes mit eigenem Namen."
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Gerichte vom Grill — Steak, Spare Ribs, Teriyaki-Lachs. Handgemacht, ehrlich und jedes mit eigenem Namen.",
+        "short": "Handgemachte Burger, Bowls und Gerichte vom Grill."
       },
       {
         "title": "Für alle, egal wie du isst",
-        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt auf der Karte. Du findest dein Gericht, ohne lange suchen zu müssen — und zum Schluss vielleicht ein Pistazientiramisu."
+        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt auf der Karte. Du findest dein Gericht, ohne lange suchen zu müssen — und zum Schluss vielleicht ein Pistazientiramisu.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner gehört bei uns dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+        "text": "Dein Vierbeiner gehört bei uns dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt.",
+        "short": "Unser Gericht Heinzi ist nach Hund Henry benannt."
       }
     ]
   },

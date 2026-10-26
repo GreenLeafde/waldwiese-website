@@ -6,7 +6,10 @@
   "h1Lead": "Dein Restaurant in der Nähe von",
   "h1Accent": "Königswiesen.",
   "intro": "Lust, von Königswiesen mal richtig rauszukommen? Wald & Wiese in Sinzing liegt nur wenige Minuten entfernt – nicht mehr Großstadt, sondern Waldrand, Grün und Ruhe. Abends kochen wir Burger mit Namen wie den fetzigen Sven oder den Dorfbazi, dazu Bowls und Gerichte vom Grill, Fleisch genauso wie vegetarisch und vegan. Familiengeführt von der Familie Leber, nach unserem Leitsatz: klein, fein & ehrlich.",
-  "primaryCta": { "label": "Zur Abendkarte", "href": "/speisekarte" },
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/speisekarte"
+  },
   "split": {
     "eyebrow": "Von Königswiesen ins Grüne",
     "heading": "Ein kurzer Weg aus Königswiesen,",
@@ -21,22 +24,34 @@
     "items": [
       {
         "title": "Burger & Bowls mit Geschichte",
-        "text": "Jedes Gericht hat bei uns einen Namen – vom fetzigen Sven über die gackernde Julia bis zur Prinzessin auf der Kichererbse. Dazu kommt vom Grill Steak, Spare Ribs oder Teriyaki-Lachs."
+        "text": "Jedes Gericht hat bei uns einen Namen – vom fetzigen Sven über die gackernde Julia bis zur Prinzessin auf der Kichererbse. Dazu kommt vom Grill Steak, Spare Ribs oder Teriyaki-Lachs.",
+        "short": "Burger, Bowls und Grillgerichte, jedes mit eigenem Namen."
       },
       {
         "title": "Egal wie du isst",
-        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt nebeneinander. Niemand muss zur Beilage gemacht werden – jeder findet sein Hauptgericht."
+        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt nebeneinander. Niemand muss zur Beilage gemacht werden – jeder findet sein Hauptgericht.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Vierbeiner gehören dazu",
-        "text": "Dein Hund ist drinnen wie auf der Terrasse herzlich willkommen. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt – bei uns sind Tiere Familie."
+        "text": "Dein Hund ist drinnen wie auf der Terrasse herzlich willkommen. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt – bei uns sind Tiere Familie.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       }
     ]
   },
   "stats": [
-    { "value": "wenige Minuten", "label": "von Königswiesen ins Grüne" },
-    { "value": "täglich 8–14 Uhr", "label": "Brunch im Grünen" },
-    { "value": "Hund willkommen", "label": "drinnen wie auf der Terrasse" }
+    {
+      "value": "wenige Minuten",
+      "label": "von Königswiesen ins Grüne"
+    },
+    {
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    }
   ],
   "faq": [
     {
@@ -60,6 +75,9 @@
     "heading": "Aus Königswiesen",
     "accent": "schnell im Grünen.",
     "text": "Ob abends ein Tisch oder der Brunch im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder komm einfach spontan nach Sinzing rüber.",
-    "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
   }
 }

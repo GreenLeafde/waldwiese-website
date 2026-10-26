@@ -6,7 +6,10 @@
   "h1Lead": "Dein Restaurant in der Nähe von",
   "h1Accent": "Bad Abbach.",
   "intro": "Du willst rund um Bad Abbach essen gehen und suchst mehr als die nächste Standardkarte? Wald & Wiese in Sinzing liegt nur wenige Minuten entfernt, mitten im Grünen am Waldrand. Abends gibt's bei uns Burger wie die mähende Moni oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Familiengeführt von der Familie Leber: klein, fein & ehrlich.",
-  "primaryCta": { "label": "Zur Abendkarte", "href": "/speisekarte" },
+  "primaryCta": {
+    "label": "Zur Abendkarte",
+    "href": "/speisekarte"
+  },
   "split": {
     "eyebrow": "Von Bad Abbach raus ins Grüne",
     "heading": "Ein kurzer Weg von Bad Abbach,",
@@ -21,22 +24,34 @@
     "items": [
       {
         "title": "Burger & Grill mit Namen",
-        "text": "Bei uns heißen die Burger mähende Moni, fetziger Sven oder gackernde Julia – handgemacht, jedes mit eigener Geschichte. Vom Grill kommen Steak, Spare Ribs oder Teriyaki-Lachs."
+        "text": "Bei uns heißen die Burger mähende Moni, fetziger Sven oder gackernde Julia – handgemacht, jedes mit eigener Geschichte. Vom Grill kommen Steak, Spare Ribs oder Teriyaki-Lachs.",
+        "short": "Burger, Bowls und Grillgerichte, jedes mit eigenem Namen."
       },
       {
         "title": "Fleisch, vegetarisch & vegan",
-        "text": "Alle drei stehen bei uns gleichberechtigt auf der Karte – von der Bowl Prinzessin auf der Kichererbse bis zum Steak. Du findest dein Gericht, ganz ohne Suchen."
+        "text": "Alle drei stehen bei uns gleichberechtigt auf der Karte – von der Bowl Prinzessin auf der Kichererbse bis zum Steak. Du findest dein Gericht, ganz ohne Suchen.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt – Tiere sind bei uns Familie."
+        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt – Tiere sind bei uns Familie.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       }
     ]
   },
   "stats": [
-    { "value": "wenige Minuten", "label": "von Bad Abbach entfernt" },
-    { "value": "täglich 8–14 Uhr", "label": "Brunch im Grünen" },
-    { "value": "Hund willkommen", "label": "drinnen wie auf der Terrasse" }
+    {
+      "value": "wenige Minuten",
+      "label": "von Bad Abbach entfernt"
+    },
+    {
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
+    },
+    {
+      "value": "Hund willkommen",
+      "label": "drinnen wie auf der Terrasse"
+    }
   ],
   "faq": [
     {
@@ -60,6 +75,9 @@
     "heading": "Aus Bad Abbach",
     "accent": "schnell bei uns.",
     "text": "Ob abends ein Tisch oder der Brunch im Grünen – der Weg aus Bad Abbach zu uns ist kurz und lohnt sich. Reservier in wenigen Klicks oder schau einfach spontan in Sinzing rein.",
-    "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
   }
 }

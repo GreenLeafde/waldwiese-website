@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Abendküche mit Charakter",
-        "text": "Burger wie die mähende Moni oder der Dorfbazi, Bowls und Steak, Spare Ribs oder Teriyaki-Lachs vom Grill. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+        "text": "Burger wie die mähende Moni oder der Dorfbazi, Bowls und Steak, Spare Ribs oder Teriyaki-Lachs vom Grill. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte.",
+        "short": "Burger, Bowls und Grillgerichte, jedes mit eigenem Namen."
       },
       {
-        "title": "Vegan, vegetarisch & Fleisch",
-        "text": "Bei uns stehen Fleisch, vegetarisch und vegan gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange zu suchen."
+        "title": "Fleisch, vegetarisch & vegan",
+        "text": "Bei uns stehen Fleisch, vegetarisch und vegan gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange zu suchen.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt — Hunde sind bei uns Familie."
+        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt — Hunde sind bei uns Familie.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       }
     ]
   },

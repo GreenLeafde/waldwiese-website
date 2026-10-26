@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Burger, Bowls & Grill",
-        "text": "Abends kommen handgemachte Burger wie der „fetzige Sven“, Bowls und Gerichte vom Grill auf den Tisch. Jedes trägt einen eigenen Namen und eine kleine Geschichte — benannt nach Familie, Freunden und Tieren."
+        "text": "Abends kommen handgemachte Burger wie der „fetzige Sven“, Bowls und Gerichte vom Grill auf den Tisch. Jedes trägt einen eigenen Namen und eine kleine Geschichte — benannt nach Familie, Freunden und Tieren.",
+        "short": "Burger wie die mähende Moni, dazu Steak und Spare Ribs vom Grill."
       },
       {
-        "title": "Vegan & vegetarisch dabei",
-        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt auf der Karte. Egal wie ihr in Großprüfening esst — jeder am Tisch findet sein Gericht, ohne lange suchen zu müssen."
+        "title": "Für jeden was dabei",
+        "text": "Fleisch, vegetarisch und vegan stehen bei uns gleichberechtigt auf der Karte. Egal wie ihr in Großprüfening esst — jeder am Tisch findet sein Gericht, ohne lange suchen zu müssen.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       }
     ]
   },

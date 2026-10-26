@@ -6,7 +6,10 @@
   "h1Lead": "Dein Restaurant in der Nähe von",
   "h1Accent": "Pentling.",
   "intro": "Du suchst zum Essen gehen in Pentling einen Tisch ohne Großstadt-Trubel? Wald & Wiese in Sinzing liegt nur wenige Minuten von Pentling entfernt, mitten im Grünen am Waldrand. Abends gibt's Burger wie die mähende Moni oder den Dorfbazi, dazu Bowls und Gerichte vom Grill – Fleisch, vegetarisch und vegan gleichberechtigt. Klein, fein & ehrlich, familiengeführt von der Familie Leber.",
-  "primaryCta": { "label": "Zur Speisekarte", "href": "/speisekarte" },
+  "primaryCta": {
+    "label": "Zur Speisekarte",
+    "href": "/speisekarte"
+  },
   "split": {
     "eyebrow": "Von Pentling raus ins Grüne",
     "heading": "Kurzer Weg von Pentling,",
@@ -21,22 +24,34 @@
     "items": [
       {
         "title": "Burger mit Namen",
-        "text": "Bei uns heißen die Burger mähende Moni, fetziger Sven oder gackernde Julia – handgemacht, mit Geschichte. Dazu Bowls und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs."
+        "text": "Bei uns heißen die Burger mähende Moni, fetziger Sven oder gackernde Julia – handgemacht, mit Geschichte. Dazu Bowls und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs.",
+        "short": "Burger, Bowls und Grillgerichte, jedes mit eigenem Namen."
       },
       {
         "title": "Für jeden was dabei",
-        "text": "Fleisch, vegetarisch und vegan stehen gleichberechtigt auf der Karte. Egal wie du isst, du findest dein Gericht – ohne lange zu suchen."
+        "text": "Fleisch, vegetarisch und vegan stehen gleichberechtigt auf der Karte. Egal wie du isst, du findest dein Gericht – ohne lange zu suchen.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt.",
+        "short": "Unser Gericht Heinzi ist nach Hund Henry benannt."
       }
     ]
   },
   "stats": [
-    { "value": "wenige Minuten", "label": "von Pentling entfernt" },
-    { "value": "täglich 8–14 Uhr", "label": "Brunch im Grünen" },
-    { "value": "familiengeführt", "label": "Familie Leber kocht & serviert" }
+    {
+      "value": "wenige Minuten",
+      "label": "von Pentling entfernt"
+    },
+    {
+      "value": "täglich 8–14 Uhr",
+      "label": "Brunch im Grünen"
+    },
+    {
+      "value": "familiengeführt",
+      "label": "Familie Leber kocht & serviert"
+    }
   ],
   "faq": [
     {
@@ -60,6 +75,9 @@
     "heading": "Aus Pentling",
     "accent": "schnell bei uns.",
     "text": "Ob abends ein Tisch oder der Brunch im Grünen – wir freuen uns auf dich. Reservier in wenigen Klicks oder schau einfach spontan vorbei.",
-    "cta": { "label": "Tisch reservieren", "href": "/reservieren" }
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
   }
 }

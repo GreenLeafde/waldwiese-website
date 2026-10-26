@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Gerichte mit Namen",
-        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Steaks, Spare Ribs oder Teriyaki-Lachs vom Grill. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, Bowls und Steaks, Spare Ribs oder Teriyaki-Lachs vom Grill. Jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte.",
+        "short": "Burger wie die mähende Moni, dazu Steak und Spare Ribs vom Grill."
       },
       {
-        "title": "Vegan, vegetarisch, Fleisch",
-        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange suchen zu müssen oder Kompromisse zu machen."
+        "title": "Fleisch, vegetarisch, vegan",
+        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange suchen zu müssen oder Kompromisse zu machen.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt — Tiere sind bei uns Familie."
+        "text": "Dein Vierbeiner darf mit rein und mit raus auf die Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt — Tiere sind bei uns Familie.",
+        "short": "Unser Gericht Heinzi ist nach Hund Henry benannt."
       }
     ]
   },

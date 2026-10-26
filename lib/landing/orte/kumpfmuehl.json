@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Burger mit Namen",
-        "text": "Handgemachte Burger wie der Dorfbazi, der Heinzi oder die gackernde Julia, dazu Bowls und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs. Jedes Gericht trägt seinen eigenen Namen und eine kleine Geschichte."
+        "text": "Handgemachte Burger wie der Dorfbazi, der Heinzi oder die gackernde Julia, dazu Bowls und vom Grill Steak, Spare Ribs oder Teriyaki-Lachs. Jedes Gericht trägt seinen eigenen Namen und eine kleine Geschichte.",
+        "short": "Burger wie die mähende Moni, dazu Steak und Spare Ribs vom Grill."
       },
       {
         "title": "Fleisch, vegetarisch & vegan",
-        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte – egal wie du isst, du findest dein Gericht. Und zum Schluss lohnt sich das Pistazientiramisu aus eigener Patisserie."
+        "text": "Bei uns stehen alle drei gleichberechtigt auf der Karte – egal wie du isst, du findest dein Gericht. Und zum Schluss lohnt sich das Pistazientiramisu aus eigener Patisserie.",
+        "short": "Ob Steak, Burger oder Bowl – jeder findet sein Gericht."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt.",
+        "short": "Unser Gericht Heinzi ist nach Hund Henry benannt."
       }
     ]
   },

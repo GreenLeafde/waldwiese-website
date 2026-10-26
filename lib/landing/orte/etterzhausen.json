@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Gleich um die Ecke",
-        "text": "Von Etterzhausen bist du in wenigen Minuten da – ideal für den Abend zum Essen gehen oder der Brunch auf der Terrasse."
+        "text": "Von Etterzhausen bist du in wenigen Minuten da – ideal für den Abend zum Essen gehen oder der Brunch auf der Terrasse.",
+        "short": "Von Etterzhausen bist du in wenigen Minuten bei uns."
       },
       {
         "title": "Gerichte mit Geschichte",
-        "text": "Burger wie die mähende Moni oder der fetzige Sven, dazu Bowls und vom Grill – jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte."
+        "text": "Burger wie die mähende Moni oder der fetzige Sven, dazu Bowls und vom Grill – jedes Gericht trägt einen eigenen Namen und eine kleine Geschichte.",
+        "short": "Burger, Bowls und Grillgerichte, jedes mit eigenem Namen."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt."
+        "text": "Dein Vierbeiner darf mit, drinnen wie auf der Terrasse. Unser Gericht Heinzi ist sogar nach unserem Hund Henry benannt.",
+        "short": "Unser Gericht Heinzi ist nach Hund Henry benannt."
       }
     ]
   },
