@@ -192,6 +192,9 @@ export default async function VeranstaltungDetailPage({ params }: Props) {
               <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer" className={BTN_A}>
                 Tickets verschenken <span aria-hidden>↗</span>
               </a>
+              {gift.printCard && (
+                <a href={gift.printCard} download className={LINK}>Geschenkkarte zum Ausdrucken (PDF)</a>
+              )}
               <Link href="/gutscheine" className={LINK}>Lieber flexibel? Wertgutschein</Link>
             </div>
           </div>

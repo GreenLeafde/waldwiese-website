@@ -76,7 +76,8 @@ export type EventItem = {
    * Geschenk-Block für die Weihnachtszeit (nur solange lib/season.ts
    * isXmasSeason() gilt): Hinweis im Kopf + eigener Abschnitt mit Kaufknopf.
    */
-  gift?: { badge: string; heading: string; accent: string; text: string; points: string[] };
+  /** printCard: PDF zum Ausdrucken und Unter-den-Baum-Legen (in public/downloads) */
+  gift?: { badge: string; heading: string; accent: string; text: string; points: string[]; printCard?: string };
 };
 
 const KRIMI = {
@@ -120,7 +121,9 @@ export const EVENTS: EventItem[] = [
         "89,90 € pro Person — Menü und Show inklusive",
         "Fleisch, vegetarisch oder vegan — bei der Buchung wählen",
         "Online bei okticket oder bei uns im Restaurant an der Bar",
+        "Geschenkkarte zum Ausdrucken: einfach falten, Ticket hineinlegen",
       ],
+      printCard: "/downloads/magic-dinner-geschenkkarte.pdf",
     },
     organizer: { name: "Restaurant Wald & Wiese", url: "https://restaurant-waldwiese.de" },
     schemaType: ["TheaterEvent", "FoodEvent"],
