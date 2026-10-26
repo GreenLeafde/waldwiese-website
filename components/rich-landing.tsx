@@ -260,6 +260,25 @@ export function RichLanding({
         </div>
       </DaySection>
 
+      {/* WEITERFÜHREND — interne Links zu verwandten Seiten */}
+      {content.related && content.related.length > 0 && (
+        <DaySection stage={s4} className="py-14 md:py-16">
+          <div className={CONTAINER}>
+            <p className={LABEL}>Auch interessant</p>
+            <ul className="mt-6 grid list-none gap-6 p-0 md:grid-cols-3 md:gap-10">
+              {content.related.slice(0, 3).map((r) => (
+                <li key={r.href} className="border-t pt-5" style={{ borderColor: "var(--linie)" }}>
+                  <Link href={r.href} className="font-display text-[1.3rem] font-normal leading-tight hover:underline underline-offset-4">
+                    {r.label} →
+                  </Link>
+                  <p className={`mt-2 leading-relaxed ${muted}`}>{r.blurb}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </DaySection>
+      )}
+
       {/* GOOGLE-BEWERTUNGEN + ABSCHLUSS — id="anfrage": Ziel der Vorauswahl „Feier" */}
       <DaySection stage={s6} id="anfrage" className="scroll-mt-24 py-14 md:py-20">
         <div className={CONTAINER}>

@@ -27,6 +27,18 @@ const BRUNCH = pick<BreakfastDish>(BREAKFAST_MENU, [
   "Morgenstund hat Avocado im Mund",
   "Wiesenschmuserl",
 ]);
+const FRUEHSTUECK = pick<BreakfastDish>(BREAKFAST_MENU, [
+  "Der gute alte Sepp",
+  "Die süße Mizzi",
+  "Morgenstund hat Avocado im Mund",
+  "Der kleine Hansi",
+]);
+const MITTAG = pick<BreakfastDish>(BREAKFAST_MENU, [
+  "Omas Lieblingscurrywurst",
+  "Der klassische Heinzi",
+  "Die gackernde Julia",
+  "Sophias Garten",
+]);
 const VEGAN = pick<BreakfastDish>(BREAKFAST_MENU, [
   "Die grüne Gretl",
   "Aller Anfang ist grün",
@@ -64,6 +76,12 @@ export function landingPreset(path: string): LandingPreset {
   }
   if (path.includes("vegetarisch")) {
     return { tone: "hell", dishes: [...VEGAN.slice(0, 2), ...VEGGIE], dishesTitle: "Vegetarisch bei uns", slot: "brunch" };
+  }
+  if (path.includes("mittag")) {
+    return { tone: "hell", dishes: MITTAG, dishesTitle: "Mittags ab 11:30 Uhr", slot: "brunch" };
+  }
+  if (path === "/fruehstueck-regensburg") {
+    return { tone: "hell", dishes: FRUEHSTUECK, dishesTitle: "Aus der Frühstückskarte", slot: "brunch" };
   }
   if (path.includes("brunch") || path.includes("fruehstueck")) {
     return { tone: "hell", dishes: BRUNCH, dishesTitle: "Aus der Brunch-Karte", slot: "brunch" };

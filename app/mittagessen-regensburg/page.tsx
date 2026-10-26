@@ -1,0 +1,26 @@
+import { pageTitle } from "@/lib/site";
+import { RichLanding, type LandingContent } from "@/components/rich-landing";
+import { IMG } from "@/lib/images";
+import raw from "@/lib/landing/mittagessen-regensburg.json";
+
+const content = raw as unknown as LandingContent;
+
+export const metadata = {
+  title: pageTitle(content.metaTitle),
+  description: content.metaDescription,
+  alternates: { canonical: "/mittagessen-regensburg" },
+};
+
+export default function MittagessenRegensburgPage() {
+  return (
+    <RichLanding
+      content={content}
+      path="/mittagessen-regensburg"
+      splitImage={{
+        src: IMG.terrasseTische.src,
+        alt: IMG.terrasseTische.alt,
+        position: "center 55%",
+      }}
+    />
+  );
+}

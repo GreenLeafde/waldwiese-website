@@ -37,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/wochenendbrunch-regensburg", priority: 0.8, changeFrequency: "monthly" },
     { path: "/fruehstueck-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/fruehstueck-sinzing", priority: 0.8, changeFrequency: "monthly" },
+    { path: "/mittagessen-regensburg", priority: 0.85, changeFrequency: "monthly" },
     { path: "/veganes-fruehstueck-regensburg", priority: 0.8, changeFrequency: "monthly" },
     { path: "/hochzeitslocation-regensburg", priority: 0.8, changeFrequency: "monthly" },
     { path: "/weihnachtsfeier", priority: 0.85, changeFrequency: "monthly" },

@@ -1,0 +1,110 @@
+{
+  "metaTitle": "Mittagessen Regensburg: Mittagstisch im Grünen, täglich ab 11:30",
+  "metaDescription": "Mittagessen bei Regensburg: Bei Wald & Wiese in Sinzing gibt es täglich ab 11:30 Uhr Omas Currywurst (12,90 €), Burger mit Pommes ab 13,90 € und Salat – à la carte, mit eigenem Parkplatz. Kein Ruhetag.",
+  "breadcrumb": "Mittagessen Regensburg",
+  "eyebrow": "Mittagstisch · bei Regensburg",
+  "h1Lead": "Mittagessen Regensburg –",
+  "h1Accent": "Pause im Grünen.",
+  "intro": "Mittagspause, aber richtig: Bei Wald & Wiese in Sinzing, nur wenige Minuten südwestlich von Regensburg, gibt es jeden Tag ab 11:30 Uhr Mittagsgerichte – Omas Lieblingscurrywurst, Burger mit Pommes oder einen großen Salat. Dazu läuft bis 14 Uhr die ganze Frühstückskarte weiter.",
+  "primaryCta": {
+    "label": "Tisch reservieren",
+    "href": "/reservieren"
+  },
+  "features": {
+    "heading": "Warum sich die Mittagspause",
+    "accent": "bei uns lohnt.",
+    "items": [
+      {
+        "title": "Ehrliche Mittagsgerichte",
+        "text": "Omas Lieblingscurrywurst mit Pommes und hausgemachter Soße, der klassische Heinzi und die gackernde Julia als Burger mit Pommes oder Sophias Garten als großer Salat – frisch gemacht, ohne Fertigmenü."
+      },
+      {
+        "title": "Raus aus dem Büro",
+        "text": "Statt Kantine oder Stadttrubel: ein Tisch drinnen oder auf der Terrasse im Grünen, eigener Parkplatz direkt am Haus und trotzdem nur einen Katzensprung von Regensburg entfernt."
+      },
+      {
+        "title": "Jeden Tag, auch am Wochenende",
+        "text": "Die Mittagsgerichte gibt es täglich von 11:30 bis 14 Uhr – Montag bis Sonntag, ohne Ruhetag. Wer lieber noch frühstückt, bestellt einfach von der Frühstückskarte."
+      }
+    ]
+  },
+  "split": {
+    "eyebrow": "Mit Kollegen, Familie oder allein",
+    "heading": "Mittag à la carte,",
+    "accent": "ohne Hetze.",
+    "paragraphs": [
+      "Bei uns bestellst du à la carte und isst in Ruhe – ob kurz in der Mittagspause oder ausgedehnt mit Freunden. Weil Frühstück und Mittag bis 14 Uhr parallel laufen, findet jeder am Tisch etwas: die eine nimmt den Burger, der andere noch ein Rührei.",
+      "Ihr kommt als größere Gruppe oder als Team aus dem Büro? Ruf uns kurz an oder reservier online, dann halten wir euch einen Tisch frei. Aus Regensburg, Pentling, Nittendorf und Bad Abbach seid ihr schnell bei uns in Sinzing."
+    ]
+  },
+  "stats": [
+    {
+      "value": "ab 11:30",
+      "label": "Mittagsgerichte täglich bis 14 Uhr"
+    },
+    {
+      "value": "ab 12,90 €",
+      "label": "Currywurst oder Salat"
+    },
+    {
+      "value": "Mo – So",
+      "label": "kein Ruhetag"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Wo kann ich bei Regensburg gut zu Mittag essen?",
+      "answer": "Bei Wald & Wiese in Sinzing, nur wenige Minuten südwestlich von Regensburg: Bruckdorfer Straße 42, 93161 Sinzing, mit eigenem Parkplatz direkt am Haus."
+    },
+    {
+      "question": "Wann gibt es Mittagessen?",
+      "answer": "Täglich von 11:30 bis 14 Uhr, Montag bis Sonntag. Parallel gibt es bis 14 Uhr die ganze Frühstückskarte."
+    },
+    {
+      "question": "Was kostet das Mittagessen?",
+      "answer": "Omas Lieblingscurrywurst mit Pommes kostet 12,90 €, der Salat Sophias Garten 12,90 €, die gackernde Julia (Chicken-Burger mit Pommes) 13,90 € und der klassische Heinzi (Burger mit Pommes) 14,90 €. Alle Preise stehen auf unserer Speisekarte."
+    },
+    {
+      "question": "Gibt es einen Mittagstisch oder ein Mittagsangebot?",
+      "answer": "Unsere Mittagsgerichte stehen jeden Tag ab 11:30 Uhr auf der Karte: Currywurst, zwei Burger mit Pommes und ein großer Salat, jeweils à la carte. Dazu kannst du bis 14 Uhr alles von der Frühstückskarte bestellen."
+    },
+    {
+      "question": "Gibt es auch etwas ohne Fleisch?",
+      "answer": "Ja. Den klassischen Heinzi gibt es auch mit veganem Patty, und Sophias Garten bekommst du wahlweise mit Käse und Schinken oder mit Falafel."
+    },
+    {
+      "question": "Können wir als Team oder Gruppe kommen?",
+      "answer": "Gern. Reservier am besten vorher online oder ruf uns an unter 0160 4265772, dann halten wir euch einen passenden Tisch frei."
+    },
+    {
+      "question": "Darf mein Hund mit?",
+      "answer": "Ja, Hunde sind bei uns drinnen wie auf der Terrasse willkommen."
+    }
+  ],
+  "related": [
+    {
+      "label": "Frühstück Regensburg",
+      "href": "/fruehstueck-regensburg",
+      "blurb": "Täglich von 8 bis 14 Uhr frühstücken im Grünen – herzhaft oder süß, à la carte."
+    },
+    {
+      "label": "Brunch Regensburg",
+      "href": "/brunch-regensburg",
+      "blurb": "Vom Frühstück bis zum Mittag: ausgiebig brunchen vor den Toren der Stadt."
+    },
+    {
+      "label": "Speisekarte",
+      "href": "/speisekarte",
+      "blurb": "Die ganze Karte mit allen Preisen – Frühstück, Mittag und Getränke."
+    }
+  ],
+  "closing": {
+    "heading": "Mittagessen täglich",
+    "accent": "ab 11:30 Uhr.",
+    "text": "Gönn dir eine richtige Mittagspause im Grünen – reservier deinen Tisch online oder komm einfach vorbei.",
+    "cta": {
+      "label": "Tisch reservieren",
+      "href": "/reservieren"
+    }
+  }
+}

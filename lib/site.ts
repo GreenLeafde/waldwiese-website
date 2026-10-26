@@ -282,6 +282,7 @@ export const FOOTER_NAV: Array<{
       { label: "Wochenendbrunch Regensburg", href: "/wochenendbrunch-regensburg" },
       { label: "Frühstück Regensburg", href: "/fruehstueck-regensburg" },
       { label: "Frühstück Sinzing", href: "/fruehstueck-sinzing" },
+      { label: "Mittagessen Regensburg", href: "/mittagessen-regensburg" },
       {
         label: "Veganes Frühstück Regensburg",
         href: "/veganes-fruehstueck-regensburg",
