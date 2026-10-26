@@ -98,6 +98,43 @@ function creamCard(inner: string): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f2ead8;border-radius:18px"><tr><td style="padding:32px 30px">${inner}</td></tr></table>`;
 }
 
+/**
+ * Magic Dinner im eigenen Look (CI „Magic Dinner CI & Plakat.pdf“): Nachtwand
+ * #0B0708, Neonrot #FF2A3D, Röhrenweiß #FFE6E9. Mail-Clients kennen die CI-Schriften
+ * nicht — darum gesperrte Versalien in Arial; das Leuchtschild steckt im Motiv.
+ */
+function magicCard(v: Record<string, string>): string {
+  const p = (v.body ?? "")
+    .trim()
+    .split(/\n\s*\n/)
+    .filter(Boolean)
+    .map(
+      (t) =>
+        `<p style="margin:0 0 15px;font-size:16px;color:#ffe6e9;line-height:1.7;font-family:Helvetica,Arial,sans-serif">${esc(t).replace(/\n/g, "<br />")}</p>`,
+    )
+    .join("");
+  const img = v.image
+    ? `<img src="${esc(v.image)}" width="600" alt="Magic Dinner" style="width:100%;max-width:100%;display:block;border-radius:14px 14px 0 0" />`
+    : "";
+  const kick = v.kicker
+    ? `<div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#ff2a3d;font-weight:700;margin:0 0 12px;font-family:Helvetica,Arial,sans-serif">${esc(v.kicker)}</div>`
+    : "";
+  const title = v.title
+    ? `<h1 style="font-family:Helvetica,Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#ffe6e9;font-size:28px;line-height:1.15;margin:0 0 18px">${esc(v.title)}</h1>`
+    : "";
+  const box = v.secret
+    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:22px 0"><tr><td style="border:2px solid #ff2a3d;border-radius:12px;padding:20px 22px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#ffe6e9">${esc(v.secret)}</td></tr></table>`
+    : "";
+  const btn =
+    v.buttonText && v.buttonUrl
+      ? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px auto 6px"><tr><td style="border-radius:9999px;background:#ff2a3d"><a href="${esc(v.buttonUrl)}" style="display:inline-block;padding:15px 34px;color:#ffffff;text-decoration:none;font-weight:800;font-size:14px;letter-spacing:2px;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif">${esc(v.buttonText)}</a></td></tr></table>`
+      : "";
+  const note = v.note
+    ? `<p style="margin:12px 0 0;text-align:center;font-size:12px;letter-spacing:1px;color:#ffe6e9;opacity:.75;line-height:1.6;font-family:Helvetica,Arial,sans-serif">${esc(v.note)}</p>`
+    : "";
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#0b0708" style="background:#0b0708;border-radius:14px"><tr><td>${img}</td></tr><tr><td style="padding:30px 30px 32px">${kick}${title}${p}${box}${btn}${note}</td></tr></table>`;
+}
+
 /* ------------------------------ Vorlagen ------------------------------ */
 
 export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
@@ -199,6 +236,33 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
           paras(v.body) +
           button(v.buttonText, v.buttonUrl),
       ),
+  },
+  {
+    id: "magic-dinner",
+    name: "Magic Dinner",
+    description:
+      "Im Magic-Dinner-Design (Nachtwand + Neonrot): Motiv aus der CI, Text, Fakten-Box, Ticket-Button.",
+    fields: [
+      { key: "image", label: "Motiv (URL)", type: "image" },
+      { key: "kicker", label: "Label (klein)", type: "text" },
+      { key: "title", label: "Überschrift", type: "text" },
+      { key: "body", label: "Text", type: "textarea" },
+      { key: "secret", label: "Neon-Box (z. B. Code oder Hinweis)", type: "text" },
+      { key: "buttonText", label: "Button-Text", type: "text" },
+      { key: "buttonUrl", label: "Button-Link", type: "text" },
+      { key: "note", label: "Zeile unter dem Button", type: "text" },
+    ],
+    sample: {
+      image: `${SITE.url}/newsletter/2026-10/magic-weihnachtsgeschenk.jpg`,
+      kicker: "Magic Dinner · Sa 20.02.2027",
+      title: "Noch kein Weihnachtsgeschenk?",
+      body: "Hallo {{vorname}},\n\nverschenkt dieses Jahr einen Abend voller Magie: ein 3-Gänge-Menü aus unserer Küche und dazwischen Zauberei & Comedy von Emilian Leber, direkt an eurem Tisch.\n\nZum Ticket gibt es unsere Geschenkkarte zum Ausdrucken: falten, Ticket hineinlegen, unter den Baum.",
+      secret: "",
+      buttonText: "Tickets sichern",
+      buttonUrl: `${SITE.url}/veranstaltungen/magic-dinner-regensburg-sinzing-2027`,
+      note: "89,90 € pro Person, Menü + Show · Einlass 17 Uhr, Beginn 18 Uhr · Tickets auch an der Bar",
+    },
+    render: (v) => magicCard(v),
   },
   {
     id: "html",
