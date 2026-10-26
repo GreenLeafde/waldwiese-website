@@ -25,19 +25,18 @@
     "items": [
       {
         "title": "Regional auf dem Teller",
-        "text": "Brot vom Bäcker aus der Region, Obst aus Sinzinger Höfen, Aufstriche und Granola machen wir selbst. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
-      },
-      {
-        "title": "Vegan & vegetarisch gleichberechtigt",
-        "text": "Pflanzlich ist bei uns kein Sonderwunsch, sondern steht gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
+        "text": "Brot vom Bäcker aus der Region, Obst aus Sinzinger Höfen, Aufstriche und Granola machen wir selbst. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei.",
+        "short": "Brot aus der Region, Aufstriche und Granola hausgemacht."
       },
       {
         "title": "Frühstück im Grünen",
-        "text": "Wenn das Wetter mitspielt, frühstückst du draußen auf der Terrasse statt zwischen vier Wänden. Sinzing im Rücken, Ruhe im Ohr, Kaffee in der Hand."
+        "text": "Wenn das Wetter mitspielt, frühstückst du draußen auf der Terrasse statt zwischen vier Wänden. Sinzing im Rücken, Ruhe im Ohr, Kaffee in der Hand.",
+        "short": "Bei schönem Wetter frühstückst du auf der Terrasse."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Hund darf mit – drinnen wie auf der Terrasse. Unser Hund Henry hat es sogar auf die Abendkarte geschafft: Das Gericht Heinzi ist nach ihm benannt."
+        "text": "Dein Hund darf mit – drinnen wie auf der Terrasse. Unser Hund Henry hat es sogar auf die Abendkarte geschafft: Das Gericht Heinzi ist nach ihm benannt.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       },
       {
         "title": "Familie statt Filialleiter",
@@ -46,6 +45,10 @@
       {
         "title": "Mitten in der Bruckdorfer Straße",
         "text": "Du findest uns in der Bruckdorfer Straße 42, mitten in Sinzing. Reservieren kannst du online oder ganz klassisch per Telefon."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Pflanzlich ist bei uns kein Sonderwunsch, sondern steht gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
       }
     ]
   },

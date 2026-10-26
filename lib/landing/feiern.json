@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Geburtstag feiern bei Regensburg",
-        "text": "Runder Geburtstag oder einfach ein langes Tischessen mit deinen Lieblingsmenschen — bei uns im Grünen, in entspannter Runde statt steifer Feierlocation. Drinnen und auf der Terrasse ist Platz für die ganze Gesellschaft."
+        "text": "Runder Geburtstag oder einfach ein langes Tischessen mit deinen Lieblingsmenschen — bei uns im Grünen, in entspannter Runde statt steifer Feierlocation. Drinnen und auf der Terrasse ist Platz für die ganze Gesellschaft.",
+        "short": "Runder Geburtstag oder langes Tischessen im Grünen."
       },
       {
         "title": "Taufe & Familienfeier in Sinzing",
-        "text": "Eine Taufe feiern bei Regensburg oder eine Familienfeier in Sinzing: ruhig, persönlich und kindgerecht entspannt. Zwischen Innenraum und Terrasse findet die ganze Verwandtschaft zusammen, ohne sich in einem Saal zu verlieren."
+        "text": "Eine Taufe feiern bei Regensburg oder eine Familienfeier in Sinzing: ruhig, persönlich und kindgerecht entspannt. Zwischen Innenraum und Terrasse findet die ganze Verwandtschaft zusammen, ohne sich in einem Saal zu verlieren.",
+        "short": "Ruhig, persönlich und entspannt für die ganze Familie."
       },
       {
         "title": "Firmenfeier im Raum Regensburg",
-        "text": "Sommerfest, Weihnachtsfeier oder Teamessen: eine Firmenfeier bei Regensburg, die sich nach echtem Restaurant anfühlt und nicht nach Konferenzraum. Den Termin richten wir individuell mit dir ein — auch außerhalb der regulären Öffnungszeiten."
+        "text": "Sommerfest, Weihnachtsfeier oder Teamessen: eine Firmenfeier bei Regensburg, die sich nach echtem Restaurant anfühlt und nicht nach Konferenzraum. Den Termin richten wir individuell mit dir ein — auch außerhalb der regulären Öffnungszeiten.",
+        "short": "Sommerfest, Weihnachtsfeier oder Teamessen nach Absprache."
       },
       {
         "title": "Hochzeit im kleinen Kreis",

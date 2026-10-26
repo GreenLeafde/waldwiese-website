@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Drinnen wie draußen",
-        "text": "Dein Hund darf mit in den Innenraum und auf die Terrasse — ihr seid nicht aufs Wetter angewiesen. Bei Sonne raus ins Grüne, bei Wind und Regen gemütlich rein. Ihr entscheidet, wo ihr euch wohlfühlt."
+        "text": "Dein Hund darf mit in den Innenraum und auf die Terrasse — ihr seid nicht aufs Wetter angewiesen. Bei Sonne raus ins Grüne, bei Wind und Regen gemütlich rein. Ihr entscheidet, wo ihr euch wohlfühlt.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       },
       {
         "title": "Mitten im Grünen",
-        "text": "Sinzing liegt nur einen Katzensprung südwestlich von Regensburg, im Grünen statt im Trubel. Ideal, wenn du die Gassirunde und einen entspannten Tisch zu einem Ausflug verbinden willst."
+        "text": "Sinzing liegt nur einen Katzensprung südwestlich von Regensburg, im Grünen statt im Trubel. Ideal, wenn du die Gassirunde und einen entspannten Tisch zu einem Ausflug verbinden willst.",
+        "short": "Gassirunde und Brunch im Grünen verbinden."
       },
       {
         "title": "Heinzi, der Namensgeber",
-        "text": "Unser Hund Henry hat es auf die Karte geschafft: Das Gericht Heinzi ist nach ihm benannt. Ein kleiner Beweis dafür, dass Hunde hier nicht bloß geduldet werden, sondern dazugehören."
+        "text": "Unser Hund Henry hat es auf die Karte geschafft: Das Gericht Heinzi ist nach ihm benannt. Ein kleiner Beweis dafür, dass Hunde hier nicht bloß geduldet werden, sondern dazugehören.",
+        "short": "Unser Gericht Heinzi ist nach Hund Henry benannt."
       },
       {
         "title": "Frühstück & Abend",

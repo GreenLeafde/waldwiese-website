@@ -25,19 +25,18 @@
     "items": [
       {
         "title": "Frühstück & Mittag in einem",
-        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird."
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird.",
+        "short": "Von 8 bis 14 Uhr Frühstück, ab 11:30 Uhr auch Mittagstisch."
       },
       {
         "title": "Regional auf dem Teller",
-        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
-      },
-      {
-        "title": "Vegan & vegetarisch gleichberechtigt",
-        "text": "Von der veganen „grünen Gretl“ bis zu den Schmusi-Bowls steht Pflanzliches gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei.",
+        "short": "Brot und Zutaten aus der Region, vieles hausgemacht."
       },
       {
         "title": "Brunch im Grünen",
-        "text": "Wenn das Wetter mitspielt, brunchst du draußen auf der Terrasse statt zwischen vier Wänden. Sinzing im Rücken, Ruhe im Ohr, Kaffee in der Hand."
+        "text": "Wenn das Wetter mitspielt, brunchst du draußen auf der Terrasse statt zwischen vier Wänden. Sinzing im Rücken, Ruhe im Ohr, Kaffee in der Hand.",
+        "short": "Bei schönem Wetter brunchst du draußen auf der Terrasse."
       },
       {
         "title": "Hund herzlich willkommen",
@@ -46,6 +45,10 @@
       {
         "title": "Familie statt Filialleiter",
         "text": "Bei uns kocht und serviert Familie Leber persönlich. Das merkst du am Ton, am Service und daran, dass wir uns über jeden Stammgast ehrlich freuen."
+      },
+      {
+        "title": "Vegan & vegetarisch gleichberechtigt",
+        "text": "Von der veganen „grünen Gretl“ bis zu den Schmusi-Bowls steht Pflanzliches gleichwertig auf der Karte – egal ob du vegan, vegetarisch oder einfach hungrig bist."
       }
     ]
   },

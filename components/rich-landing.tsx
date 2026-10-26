@@ -2,7 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { DaySection, type Tone } from "@/components/day-section";
 import { GoogleReviews } from "@/components/google-reviews";
-import { KarteDish } from "@/components/karte";
+import { KarteDish, KarteSpot } from "@/components/karte";
+import { iconFor } from "@/components/landing-icons";
+import { IMG } from "@/lib/images";
 import { LANDING_STAGES, landingPreset } from "@/components/landing-extras";
 import { PageTone } from "@/components/page-tone";
 import { ReserveButton } from "@/components/reserve-chooser";
@@ -21,7 +23,8 @@ export type LandingContent = {
   features: {
     heading: string;
     accent: string;
-    items: { title: string; text: string }[];
+    /** `short`: ein kurzer Satz für die Icon-Kachel; sonst der erste Satz von `text`. */
+    items: { title: string; text: string; short?: string }[];
   };
   stats: { value: string; label: string }[];
   faq: { question: string; answer: string }[];
@@ -37,6 +40,25 @@ export type LandingContent = {
     cta: { label: string; href: string };
   };
 };
+
+/** Die ersten n Sätze — hält die Landingpages kurz, auch wenn das JSON mehr Text hat. */
+function firstSentences(text: string, n: number): string {
+  // Satzende nur, wenn danach ein Großbuchstabe kommt — so bleiben
+  // „Str. 42“, „z. B. die“ oder „8–14 Uhr. ab“ ganz.
+  const parts = text.split(/(?<=[.!?])(?<!(?:^|\s)\p{L}\.)\s+(?=[A-ZÄÖÜ„"])/u);
+  if (parts.length <= n) return text;
+  return parts.slice(0, n).join(" ").trim();
+}
+
+/** Drei echte Restaurant-Fotos aus demselben Shooting — als ruhiger Bildstreifen. */
+const STRIP = [IMG.wwFood3, IMG.wwFood2, IMG.wwFood1].map((img, i) => ({
+  ...img,
+  alt: [
+    "Gastraum von Wald & Wiese mit grüner Samtbank, bunten Stühlen und großen Fenstern ins Grüne",
+    "Siebträgermaschine an der Bar, dahinter der Gastraum",
+    "Blumenstrauß mit Sonnenblume an der Bar",
+  ][i],
+}));
 
 const CONTAINER = "mx-auto w-full max-w-[1180px] px-5 md:px-12";
 const LABEL = "text-xs font-semibold uppercase tracking-[0.16em] text-akzent";
@@ -143,7 +165,7 @@ export function RichLanding({
                 {content.h1Lead} <span className="font-normal">{content.h1Accent}</span>
               </h1>
               <p className={`m-0 max-w-[48ch] text-[1.05rem] leading-relaxed md:text-[1.15rem] ${muted}`}>
-                {content.intro}
+                {firstSentences(content.intro, 2)}
               </p>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                 <LandingCta cta={content.primaryCta} location={`landing-kopf:${path}`} slot={preset.slot} />
@@ -169,16 +191,24 @@ export function RichLanding({
       {/* DREI PUNKTE — offene Spalten */}
       <DaySection stage={s1} className="py-14 md:py-20">
         <div className={CONTAINER}>
-          <h2 className="max-w-[24ch] font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
+          <h2 className="mx-auto max-w-[24ch] text-center font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
             {content.features.heading} {content.features.accent}
           </h2>
-          <ul className="mt-8 grid list-none gap-6 p-0 md:grid-cols-3 md:gap-10">
-            {features.map((item) => (
-              <li key={item.title} className="border-t pt-5" style={{ borderColor: "var(--linie)" }}>
-                <h3 className="m-0 font-display text-[1.4rem] font-normal leading-tight">{item.title}</h3>
-                <p className={`mt-2 leading-relaxed ${muted}`}>{item.text}</p>
-              </li>
-            ))}
+          <ul className="mt-10 grid list-none gap-10 p-0 md:mt-14 md:grid-cols-3 md:gap-12">
+            {features.map((item) => {
+              const Icon = iconFor(item.title);
+              return (
+                <li key={item.title} className="grid content-start justify-items-center gap-3 text-center">
+                  <span
+                    className={`grid h-16 w-16 place-items-center rounded-full ${dark ? "bg-creme/10 text-creme" : "bg-white text-akzent"}`}
+                  >
+                    <Icon className="h-8 w-8" />
+                  </span>
+                  <h3 className="m-0 font-display text-[1.35rem] font-normal leading-tight">{item.title}</h3>
+                  <p className={`m-0 max-w-[30ch] leading-relaxed ${muted}`}>{item.short ?? firstSentences(item.text, 1)}</p>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </DaySection>
@@ -194,11 +224,16 @@ export function RichLanding({
               </div>
               <Link href="/speisekarte" className={`${LINK} justify-self-start`}>Ganze Karte mit Preisen</Link>
             </div>
-            <ul className="m-0 grid list-none p-0 md:grid-cols-2 md:gap-x-10">
-              {preset.dishes.map((d) => (
-                <KarteDish key={d.name} dish={d} tone={dark ? "light" : "dark"} />
-              ))}
-            </ul>
+            <div className={preset.spot ? "grid items-center gap-8 md:grid-cols-[280px_1fr] md:gap-14" : ""}>
+              {preset.spot && (
+                <KarteSpot spot={preset.spot} width={260} className="mx-auto max-w-[70vw] drop-shadow-xl" />
+              )}
+              <ul className="m-0 grid list-none p-0">
+                {preset.dishes.map((d) => (
+                  <KarteDish key={d.name} dish={d} tone={dark ? "light" : "dark"} />
+                ))}
+              </ul>
+            </div>
             {preset.slot && (
               <div className="mt-8">
                 <ReserveButton location={`landing-karte:${path}`} pre={preset.slot} className={BTN_A}>
@@ -211,21 +246,27 @@ export function RichLanding({
       )}
 
       {/* OPTIONALER TEXTBLOCK */}
-      {content.split && splitParas.length > 0 && (
-        <DaySection stage={s3} className="py-14 md:py-20">
-          <div className={`${CONTAINER} max-w-[860px]`}>
-            <p className={LABEL}>{content.split.eyebrow}</p>
-            <h2 className={H2}>
-              {content.split.heading} {content.split.accent}
-            </h2>
-            <div className={`mt-5 grid gap-4 text-[1.05rem] leading-relaxed ${muted}`}>
-              {splitParas.map((p, i) => (
-                <p key={i} className="m-0">{p}</p>
-              ))}
+      <DaySection stage={s3} className="py-14 md:py-20">
+        <div className={CONTAINER}>
+          {content.split && splitParas.length > 0 && (
+            <div className="mx-auto mb-10 max-w-[640px] text-center md:mb-12">
+              <h2 className={H2}>
+                {content.split.heading} {content.split.accent}
+              </h2>
+              <p className={`mt-4 text-[1.05rem] leading-relaxed ${muted}`}>
+                {firstSentences(splitParas[0], 1)}
+              </p>
             </div>
-          </div>
-        </DaySection>
-      )}
+          )}
+          <ul className="m-0 grid list-none grid-cols-3 gap-3 p-0 md:gap-5">
+            {STRIP.map((img) => (
+              <li key={img.src} className="relative aspect-[3/4] overflow-hidden rounded-[14px] md:aspect-[4/3] md:rounded-[18px]">
+                <Image src={img.src} alt={img.alt} fill sizes="(min-width: 768px) 33vw, 33vw" className="object-cover" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </DaySection>
 
       {/* ZAHLEN */}
       <DaySection stage={s4} className="py-14 md:py-20">
@@ -271,7 +312,7 @@ export function RichLanding({
                   <Link href={r.href} className="font-display text-[1.3rem] font-normal leading-tight hover:underline underline-offset-4">
                     {r.label} →
                   </Link>
-                  <p className={`mt-2 leading-relaxed ${muted}`}>{r.blurb}</p>
+                  <p className={`mt-2 leading-relaxed ${muted}`}>{firstSentences(r.blurb, 1)}</p>
                 </li>
               ))}
             </ul>
@@ -289,7 +330,7 @@ export function RichLanding({
               <h2 className="font-display text-[2rem] font-normal leading-[1.1] md:text-[2.5rem]">
                 {content.closing.heading} {content.closing.accent}
               </h2>
-              <p className={`mt-3 max-w-[56ch] leading-relaxed ${muted}`}>{content.closing.text}</p>
+              <p className={`mt-3 max-w-[56ch] leading-relaxed ${muted}`}>{firstSentences(content.closing.text, 1)}</p>
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <LandingCta cta={content.closing.cta} location={`landing-abschluss:${path}`} slot={preset.slot} />

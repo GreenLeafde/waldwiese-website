@@ -16,15 +16,18 @@
     "items": [
       {
         "title": "Ehrliche Mittagsgerichte",
-        "text": "Omas Lieblingscurrywurst mit Pommes und hausgemachter Soße, der klassische Heinzi und die gackernde Julia als Burger mit Pommes oder Sophias Garten als großer Salat – frisch gemacht, ohne Fertigmenü."
+        "text": "Omas Lieblingscurrywurst mit Pommes und hausgemachter Soße, der klassische Heinzi und die gackernde Julia als Burger mit Pommes oder Sophias Garten als großer Salat – frisch gemacht, ohne Fertigmenü.",
+        "short": "Currywurst, Burger mit Pommes oder ein großer Salat."
       },
       {
         "title": "Raus aus dem Büro",
-        "text": "Statt Kantine oder Stadttrubel: ein Tisch drinnen oder auf der Terrasse im Grünen, eigener Parkplatz direkt am Haus und trotzdem nur einen Katzensprung von Regensburg entfernt."
+        "text": "Statt Kantine oder Stadttrubel: ein Tisch drinnen oder auf der Terrasse im Grünen, eigener Parkplatz direkt am Haus und trotzdem nur einen Katzensprung von Regensburg entfernt.",
+        "short": "Ein Tisch im Grünen, Parkplatz direkt am Haus."
       },
       {
         "title": "Jeden Tag, auch am Wochenende",
-        "text": "Die Mittagsgerichte gibt es täglich von 11:30 bis 14 Uhr – Montag bis Sonntag, ohne Ruhetag. Wer lieber noch frühstückt, bestellt einfach von der Frühstückskarte."
+        "text": "Die Mittagsgerichte gibt es täglich von 11:30 bis 14 Uhr – Montag bis Sonntag, ohne Ruhetag. Wer lieber noch frühstückt, bestellt einfach von der Frühstückskarte.",
+        "short": "Täglich von 11:30 bis 14 Uhr, Montag bis Sonntag."
       }
     ]
   },

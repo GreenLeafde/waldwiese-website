@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Frühstück & Mittag in einem",
-        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Ideal für einen ganzen Ausflugsvormittag."
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Ideal für einen ganzen Ausflugsvormittag.",
+        "short": "Von 8 bis 14 Uhr Frühstück, ab 11:30 Uhr auch Mittagstisch."
       },
       {
         "title": "Mitten im Grünen an der Donau",
-        "text": "Terrasse, Waldrand und Blick ins Freie statt Innenstadt-Trubel – ein Ort, an dem sich der Ausflug ab Kelheim wirklich anfühlt wie Ausflug."
+        "text": "Terrasse, Waldrand und Blick ins Freie statt Innenstadt-Trubel – ein Ort, an dem sich der Ausflug ab Kelheim wirklich anfühlt wie Ausflug.",
+        "short": "Terrasse und Waldrand statt Innenstadt – ein echter Ausflug."
       },
       {
         "title": "Regional & hausgemacht",
-        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei.",
+        "short": "Granola, Aufstriche und Limos machen wir selbst."
       },
       {
         "title": "Vegan & vegetarisch gleichberechtigt",
@@ -59,9 +62,18 @@
     ]
   },
   "stats": [
-    { "value": "8 – 14 Uhr", "label": "Brunch täglich (Mittagstisch ab 11:30)" },
-    { "value": "Ausflug", "label": "ins Grüne bei Sinzing" },
-    { "value": "Fr – So", "label": "abends zusätzlich 17–22 Uhr" }
+    {
+      "value": "8 – 14 Uhr",
+      "label": "Brunch täglich (Mittagstisch ab 11:30)"
+    },
+    {
+      "value": "Ausflug",
+      "label": "ins Grüne bei Sinzing"
+    },
+    {
+      "value": "Fr – So",
+      "label": "abends zusätzlich 17–22 Uhr"
+    }
   ],
   "faq": [
     {

@@ -2,6 +2,7 @@ import type { DayStage, Tone } from "@/components/day-section";
 import { DINNER_MENU, type Dish } from "@/lib/dinner-menu";
 import { BREAKFAST_MENU, type BreakfastDish } from "@/lib/menu";
 import type { ReserveSlot } from "@/lib/reservation";
+import type { SpotKey } from "@/components/karte";
 
 /**
  * Voreinstellungen je Landingpage-Pfad: Ton (hell = Brunch/Orte, dunkel =
@@ -14,6 +15,8 @@ export type LandingPreset = {
   dishes: Array<BreakfastDish | Dish>;
   dishesTitle?: string;
   slot?: ReserveSlot;
+  /** Freisteller aus der gedruckten Karte neben dem Karten-Auszug */
+  spot?: SpotKey;
 };
 
 function pick<T extends { name: string }>(menu: Array<{ items: T[] }>, names: string[]): T[] {
@@ -66,28 +69,28 @@ const VEGGIE = pick<Dish>(DINNER_MENU, [
 
 export function landingPreset(path: string): LandingPreset {
   if (path.includes("abendessen")) {
-    return { tone: "dunkel", dishes: ABEND, dishesTitle: "Aus der Abendkarte", slot: "abend" };
+    return { tone: "dunkel", dishes: ABEND, dishesTitle: "Aus der Abendkarte", slot: "abend", spot: "burger" };
   }
   if (path.includes("burger")) {
-    return { tone: "dunkel", dishes: BURGER, dishesTitle: "Unsere Burger", slot: "abend" };
+    return { tone: "dunkel", dishes: BURGER, dishesTitle: "Unsere Burger", slot: "abend", spot: "burger" };
   }
   if (path.includes("vegan")) {
-    return { tone: "hell", dishes: VEGAN, dishesTitle: "Vegan aus der Brunch-Karte", slot: "brunch" };
+    return { tone: "hell", dishes: VEGAN, dishesTitle: "Vegan aus der Brunch-Karte", slot: "brunch", spot: "bowl" };
   }
   if (path.includes("vegetarisch")) {
-    return { tone: "hell", dishes: [...VEGAN.slice(0, 2), ...VEGGIE], dishesTitle: "Vegetarisch bei uns", slot: "brunch" };
+    return { tone: "hell", dishes: [...VEGAN.slice(0, 2), ...VEGGIE], dishesTitle: "Vegetarisch bei uns", slot: "brunch", spot: "bowl" };
   }
   if (path.includes("mittag")) {
-    return { tone: "hell", dishes: MITTAG, dishesTitle: "Mittags ab 11:30 Uhr", slot: "brunch" };
+    return { tone: "hell", dishes: MITTAG, dishesTitle: "Mittags ab 11:30 Uhr", slot: "brunch", spot: "burger" };
   }
   if (path === "/fruehstueck-regensburg") {
-    return { tone: "hell", dishes: FRUEHSTUECK, dishesTitle: "Aus der Frühstückskarte", slot: "brunch" };
+    return { tone: "hell", dishes: FRUEHSTUECK, dishesTitle: "Aus der Frühstückskarte", slot: "brunch", spot: "brett" };
   }
   if (path.includes("brunch") || path.includes("fruehstueck")) {
-    return { tone: "hell", dishes: BRUNCH, dishesTitle: "Aus der Brunch-Karte", slot: "brunch" };
+    return { tone: "hell", dishes: BRUNCH, dishesTitle: "Aus der Brunch-Karte", slot: "brunch", spot: "brett" };
   }
   // Orte, Biergarten, Hundefreundlich, Restaurant-Seiten: hell, Brunch zuerst
-  return { tone: "hell", dishes: BRUNCH, dishesTitle: "Aus der Karte", slot: "brunch" };
+  return { tone: "hell", dishes: BRUNCH, dishesTitle: "Aus der Karte", slot: "brunch", spot: "brett" };
 }
 
 /** Tagesstufen je Ton für die sechs Sektionen des Templates. */

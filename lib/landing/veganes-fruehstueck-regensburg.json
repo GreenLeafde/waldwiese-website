@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Vegan steht gleichberechtigt da",
-        "text": "Pflanzliche Frühstücksgerichte sind fester Teil der Karte – nicht die eine Ausnahme, die dir extra zusammengestellt wird."
+        "text": "Pflanzliche Frühstücksgerichte sind fester Teil der Karte – nicht die eine Ausnahme, die dir extra zusammengestellt wird.",
+        "short": "Pflanzliche Frühstücke sind fester Teil der Karte."
       },
       {
         "title": "Hausgemacht, nicht aus der Tüte",
-        "text": "Granola und Aufstriche machen wir selbst. So weißt du, was drin ist – und schmeckst es auch."
+        "text": "Granola und Aufstriche machen wir selbst. So weißt du, was drin ist – und schmeckst es auch.",
+        "short": "Granola und Aufstriche machen wir selbst."
       },
       {
         "title": "Obst aus Sinzinger Höfen",
-        "text": "Das Obst kommt von Höfen aus Sinzing, das Brot vom Bäcker aus der Region. Kurze Wege, klare Herkunft."
+        "text": "Das Obst kommt von Höfen aus Sinzing, das Brot vom Bäcker aus der Region. Kurze Wege, klare Herkunft.",
+        "short": "Obst aus Sinzing, Brot vom Bäcker aus der Region."
       },
       {
         "title": "Frühstück im Grünen",

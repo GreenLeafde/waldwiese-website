@@ -25,27 +25,30 @@
     "items": [
       {
         "title": "Abendküche mit Charakter",
-        "text": "Burger, Bowls und Gerichte vom Grill — handgemacht und ehrlich. Jedes trägt einen eigenen Namen und eine kleine Geschichte, benannt nach Familie, Freunden und Tieren."
+        "text": "Burger, Bowls und Gerichte vom Grill — handgemacht und ehrlich. Jedes trägt einen eigenen Namen und eine kleine Geschichte, benannt nach Familie, Freunden und Tieren.",
+        "short": "Burger, Bowls und Gerichte vom Grill, jedes mit eigenem Namen."
       },
       {
         "title": "Regional & saisonal",
-        "text": "Wir kochen mit dem, was die Region rund um Sinzing hergibt. Regionales Restaurant bei Regensburg heißt für uns: kurze Wege, frische Zutaten, ehrlicher Geschmack — ohne Schnickschnack."
-      },
-      {
-        "title": "Vegan & vegetarisch dabei",
-        "text": "Fleisch, vegetarisch oder vegan stehen bei uns gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange suchen zu müssen."
+        "text": "Wir kochen mit dem, was die Region rund um Sinzing hergibt. Regionales Restaurant bei Regensburg heißt für uns: kurze Wege, frische Zutaten, ehrlicher Geschmack — ohne Schnickschnack.",
+        "short": "Wir kochen mit dem, was die Region hergibt."
       },
       {
         "title": "Hund herzlich willkommen",
-        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt."
+        "text": "Dein Vierbeiner gehört bei uns einfach dazu, drinnen wie auf der Terrasse. Unser Gericht „Heinzi“ ist sogar nach unserem Hund Henry benannt.",
+        "short": "Dein Hund darf mit – drinnen wie auf der Terrasse."
       },
       {
         "title": "Drinnen oder im Grünen",
         "text": "Gemütlicher Innenraum oder Terrasse mit Blick ins Grüne — du hast die Wahl. Viel Luft, wenig Stadt-Trubel, nur wenige Minuten von Regensburg entfernt."
       },
       {
-        "title": "Bald auch Frühstück",
-        "text": "Ab dem 6. Juli 2026 starten wir morgens durch — Frühstück im Grünen, regional und in Ruhe. Bis dahin sind wir abends für dich da."
+        "title": "Frühstück & Brunch täglich",
+        "text": "Jeden Tag von 8 bis 14 Uhr gibt es bei uns Frühstück und Brunch à la carte, ab 11:30 Uhr dazu die Mittagsgerichte."
+      },
+      {
+        "title": "Vegan & vegetarisch dabei",
+        "text": "Fleisch, vegetarisch oder vegan stehen bei uns gleichberechtigt auf der Karte. Egal wie du isst — du findest dein Gericht, ohne lange suchen zu müssen."
       }
     ]
   },

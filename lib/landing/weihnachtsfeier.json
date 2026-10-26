@@ -24,15 +24,18 @@
     "items": [
       {
         "title": "Familiengeführt & persönlich",
-        "text": "Kein Caterer, keine Kette: Ihr sprecht direkt mit der Familie Leber, die auch am Abend selbst am Herd und im Service steht. Absprachen sind kurz und direkt."
+        "text": "Kein Caterer, keine Kette: Ihr sprecht direkt mit der Familie Leber, die auch am Abend selbst am Herd und im Service steht. Absprachen sind kurz und direkt.",
+        "short": "Ihr sprecht direkt mit Familie Leber."
       },
       {
         "title": "Hausgemacht & regional",
-        "text": "Die Küche ist komplett hausgemacht, die Zutaten so weit möglich aus der Region. Ein winterliches Menü mit dem, was die Saison hergibt."
+        "text": "Die Küche ist komplett hausgemacht, die Zutaten so weit möglich aus der Region. Ein winterliches Menü mit dem, was die Saison hergibt.",
+        "short": "Hausgemachte Küche mit Zutaten aus der Region."
       },
       {
         "title": "Vegetarisch & vegan gleichberechtigt",
-        "text": "Fleischlos ist bei uns keine Beilage, sondern gleichwertig gedacht – bei jedem Menü, ohne Notlösung. Sagt uns vorab Bescheid."
+        "text": "Fleischlos ist bei uns keine Beilage, sondern gleichwertig gedacht – bei jedem Menü, ohne Notlösung. Sagt uns vorab Bescheid.",
+        "short": "Vegetarische und vegane Menüs gibt es gleichwertig dazu."
       },
       {
         "title": "Am Waldrand, gut zu erreichen",

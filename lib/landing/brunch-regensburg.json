@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Frühstück & Mittag in einem",
-        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr dazu der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird."
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr dazu der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird.",
+        "short": "Von 8 bis 14 Uhr Frühstück, ab 11:30 Uhr auch Mittagstisch."
       },
       {
         "title": "Im Grünen statt im Trubel",
-        "text": "Brunch auf der Terrasse, umgeben von Grün – und trotzdem nur ein Katzensprung von Regensburg. Kein Gedränge, kein Großstadtlärm, nur dein Vormittag und der Blick ins Freie."
+        "text": "Brunch auf der Terrasse, umgeben von Grün – und trotzdem nur ein Katzensprung von Regensburg. Kein Gedränge, kein Großstadtlärm, nur dein Vormittag und der Blick ins Freie.",
+        "short": "Brunch auf der Terrasse, nur einen Katzensprung von Regensburg."
       },
       {
         "title": "Regional & hausgemacht",
-        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Wir holen das Gute aus der Nachbarschaft, statt es weit anzukarren."
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Wir holen das Gute aus der Nachbarschaft, statt es weit anzukarren.",
+        "short": "Granola, Aufstriche und Limos machen wir selbst."
       },
       {
         "title": "Vegan & vegetarisch gleichberechtigt",

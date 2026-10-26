@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Platz für eure Gäste",
-        "text": "Rund 50 Gäste im Innenraum, dazu bis zu 50 auf der Terrasse – kombiniert feiert ihr mit bis zu etwa 100 Menschen, drinnen und draußen fließend verbunden."
+        "text": "Rund 50 Gäste im Innenraum, dazu bis zu 50 auf der Terrasse – kombiniert feiert ihr mit bis zu etwa 100 Menschen, drinnen und draußen fließend verbunden.",
+        "short": "Rund 50 Gäste drinnen, bis zu 50 auf der Terrasse."
       },
       {
         "title": "Regional & individuell",
-        "text": "Euer Hochzeitsmenü planen wir gemeinsam mit dem, was die Region hergibt – ganz auf euch zugeschnitten, vegetarisch und vegan dabei selbstverständlich gleichberechtigt."
+        "text": "Euer Hochzeitsmenü planen wir gemeinsam mit dem, was die Region hergibt – ganz auf euch zugeschnitten, vegetarisch und vegan dabei selbstverständlich gleichberechtigt.",
+        "short": "Euer Menü planen wir gemeinsam mit euch."
       },
       {
         "title": "Familiengeführt & persönlich",
-        "text": "Kein Caterer, keine Hotelkette: Ihr sprecht direkt mit der Familie Leber und merkt das an jedem Detail eures Tages."
+        "text": "Kein Caterer, keine Hotelkette: Ihr sprecht direkt mit der Familie Leber und merkt das an jedem Detail eures Tages.",
+        "short": "Ihr sprecht direkt mit Familie Leber."
       },
       {
         "title": "Tischzauberei auf Wunsch",

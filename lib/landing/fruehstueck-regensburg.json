@@ -16,15 +16,18 @@
     "items": [
       {
         "title": "Herzhaft oder süß",
-        "text": "Der gute alte Sepp bringt Wurst, Käse, Rührei, Tomate-Mozzarella, Joghurt mit Granola und den Brotkorb auf den Tisch, für dich allein oder zu zweit. Wer es süß mag, nimmt die süße Mizzi. Speck, Räucherlachs oder ein Spiegelei bestellst du einfach dazu."
+        "text": "Der gute alte Sepp bringt Wurst, Käse, Rührei, Tomate-Mozzarella, Joghurt mit Granola und den Brotkorb auf den Tisch, für dich allein oder zu zweit. Wer es süß mag, nimmt die süße Mizzi. Speck, Räucherlachs oder ein Spiegelei bestellst du einfach dazu.",
+        "short": "Der Sepp mit Wurst, Käse und Rührei – oder süß mit der Mizzi."
       },
       {
         "title": "Im Grünen statt im Trubel",
-        "text": "Kein Gedränge, keine Parkplatzsuche: Du frühstückst drinnen am gemütlichen Tisch oder draußen auf der Terrasse im Grünen, mit eigenem Parkplatz direkt am Haus – und trotzdem nur einen Katzensprung von Regensburg entfernt."
+        "text": "Kein Gedränge, keine Parkplatzsuche: Du frühstückst drinnen am gemütlichen Tisch oder draußen auf der Terrasse im Grünen, mit eigenem Parkplatz direkt am Haus – und trotzdem nur einen Katzensprung von Regensburg entfernt.",
+        "short": "Drinnen oder auf der Terrasse, mit Parkplatz am Haus."
       },
       {
         "title": "Hausgemacht & familiengeführt",
-        "text": "Marmelade, Granola, Aufstriche und Bananenbrot machen wir selbst. Familie Leber führt das Haus persönlich – Tanja in Küche und Patisserie, Sven hinter der Bar. Hunde sind drinnen wie auf der Terrasse willkommen."
+        "text": "Marmelade, Granola, Aufstriche und Bananenbrot machen wir selbst. Familie Leber führt das Haus persönlich – Tanja in Küche und Patisserie, Sven hinter der Bar. Hunde sind drinnen wie auf der Terrasse willkommen.",
+        "short": "Marmelade, Granola und Aufstriche machen wir selbst."
       }
     ]
   },

@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Frühstück & Mittag in einem",
-        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird."
+        "text": "Von 8 bis 14 Uhr durchgehend: erst Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Currywurst, Burgern und Salaten. Du entscheidest, wie spät dein Morgen wird.",
+        "short": "Von 8 bis 14 Uhr Frühstück, ab 11:30 Uhr auch Mittagstisch."
       },
       {
         "title": "Nur eine kurze Fahrt",
-        "text": "Von Nittendorf aus bist du zügig bei uns in Sinzing – ideal für den entspannten Wochenend-Brunch, ohne lange Anfahrt. Eigener Parkplatz direkt am Haus."
+        "text": "Von Nittendorf aus bist du zügig bei uns in Sinzing – ideal für den entspannten Wochenend-Brunch, ohne lange Anfahrt. Eigener Parkplatz direkt am Haus.",
+        "short": "Kurze Fahrt nach Sinzing, Parkplatz direkt am Haus."
       },
       {
         "title": "Regional & hausgemacht",
-        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei."
+        "text": "Hausgemachtes Granola, Aufstriche, Guacamole und Limonaden, Brot und Zutaten aus der Region. Kurze Wege, ehrliche Zutaten – kein Großhandels-Einerlei.",
+        "short": "Granola, Aufstriche und Limos machen wir selbst."
       },
       {
         "title": "Vegan & vegetarisch gleichberechtigt",
@@ -59,9 +62,18 @@
     ]
   },
   "stats": [
-    { "value": "8 – 14 Uhr", "label": "Brunch täglich (Mittagstisch ab 11:30)" },
-    { "value": "kurze Fahrt", "label": "von Nittendorf nach Sinzing" },
-    { "value": "Fr – So", "label": "abends zusätzlich 17–22 Uhr" }
+    {
+      "value": "8 – 14 Uhr",
+      "label": "Brunch täglich (Mittagstisch ab 11:30)"
+    },
+    {
+      "value": "kurze Fahrt",
+      "label": "von Nittendorf nach Sinzing"
+    },
+    {
+      "value": "Fr – So",
+      "label": "abends zusätzlich 17–22 Uhr"
+    }
   ],
   "faq": [
     {

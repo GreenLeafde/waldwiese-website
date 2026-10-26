@@ -25,15 +25,18 @@
     "items": [
       {
         "title": "Samstag & Sonntag – und die ganze Woche",
-        "text": "Gebruncht wird bei uns täglich von 8 bis 14 Uhr, also auch am Wochenende. Kein einmaliges Zeitfenster, keine Voranmeldung nötig – setz dich hin und lass dir Zeit."
+        "text": "Gebruncht wird bei uns täglich von 8 bis 14 Uhr, also auch am Wochenende. Kein einmaliges Zeitfenster, keine Voranmeldung nötig – setz dich hin und lass dir Zeit.",
+        "short": "Brunch täglich von 8 bis 14 Uhr, auch am Wochenende."
       },
       {
         "title": "Frühstück, das in Mittag übergeht",
-        "text": "Ab 8 Uhr Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Burgern, Currywurst und Salat. Perfekt für Langschläfer und Frühaufsteher am selben Tisch."
+        "text": "Ab 8 Uhr Frühstücke, Brote und Bowls, ab 11:30 Uhr der Mittagstisch mit Burgern, Currywurst und Salat. Perfekt für Langschläfer und Frühaufsteher am selben Tisch.",
+        "short": "Erst Frühstück, ab 11:30 Uhr auch Mittagstisch."
       },
       {
         "title": "Im Grünen statt im Trubel",
-        "text": "Terrasse und Blick ins Freie statt voller Innenstadt und Parkplatzsuche – und trotzdem nur ein Katzensprung von Regensburg."
+        "text": "Terrasse und Blick ins Freie statt voller Innenstadt und Parkplatzsuche – und trotzdem nur ein Katzensprung von Regensburg.",
+        "short": "Terrasse statt Innenstadt, nah an Regensburg."
       },
       {
         "title": "Kaffee mit Charakter & hausgemachte Limos",
