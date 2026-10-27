@@ -256,7 +256,7 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       image: `${SITE.url}/newsletter/2026-10/magic-weihnachtsgeschenk.jpg`,
       kicker: "Magic Dinner · Sa 20.02.2027",
       title: "Noch kein Weihnachtsgeschenk?",
-      body: "Hallo {{vorname}},\n\nverschenkt dieses Jahr einen Abend voller Magie: ein 3-Gänge-Menü aus unserer Küche und dazwischen Zauberei & Comedy von Emilian Leber, direkt an eurem Tisch.\n\nZum Ticket gibt es unsere Geschenkkarte zum Ausdrucken: falten, Ticket hineinlegen, unter den Baum.",
+      body: "Hallo {{vorname}},\n\nverschenkt dieses Jahr einen Abend voller Magie: ein 3-Gänge-Menü aus unserer Küche und dazwischen eine Live-Show mit Zauberei & Comedy von Emilian Leber.\n\nZum Ticket gibt es unsere Geschenkkarte zum Ausdrucken: falten, Ticket hineinlegen, unter den Baum.",
       secret: "",
       buttonText: "Tickets sichern",
       buttonUrl: `${SITE.url}/veranstaltungen/magic-dinner-regensburg-sinzing-2027`,
