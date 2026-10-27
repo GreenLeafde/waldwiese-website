@@ -123,7 +123,7 @@ function magicCard(v: Record<string, string>): string {
     ? `<h1 style="font-family:Helvetica,Arial,sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#ffe6e9;font-size:28px;line-height:1.15;margin:0 0 18px">${esc(v.title)}</h1>`
     : "";
   const box = v.secret
-    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:22px 0"><tr><td style="border:2px solid #ff2a3d;border-radius:12px;padding:20px 22px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:18px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#ffe6e9">${esc(v.secret)}</td></tr></table>`
+    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:22px 0"><tr><td style="border:2px solid #ff2a3d;border-radius:12px;padding:20px 22px;text-align:center;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:800;letter-spacing:2px;color:#ffe6e9">${esc(v.secret)}</td></tr></table>`
     : "";
   const btn =
     v.buttonText && v.buttonUrl
