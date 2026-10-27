@@ -18,7 +18,7 @@ import {
   mailVars,
   type HeaderStyle,
 } from "@/lib/newsletter-shell";
-import { getSentEmails, recordSends } from "@/lib/newsletters";
+import { getSentEmails, recordSends, scheduleContinuation } from "@/lib/newsletters";
 import { getSuppressedEmails } from "@/lib/suppressions";
 import { listSubscribed } from "@/lib/contacts";
 import { signClickTarget, signUnsubscribeToken } from "@/lib/newsletter-token";
@@ -120,6 +120,19 @@ export async function deliverCampaign(
     try {
       const { error } = await resend.batch.send(chunk.map((e) => e.msg));
       if (error) {
+        // Tageslimit des Resend-Tarifs erreicht: Weitere Blöcke wären heute
+        // zwecklos. Der Rest geht am nächsten Morgen automatisch raus (der Cron
+        // greift den neuen Termin auf, bereits Versandte sind ausgeschlossen).
+        if ((error as { name?: string }).name === "daily_quota_exceeded") {
+          failed += recipients.length - i;
+          if (campaignId) {
+            const at = await scheduleContinuation(campaignId, Date.now());
+            console.warn(
+              `[newsletter] ${campaignId}: Tageslimit erreicht nach ${sent} Mails — Rest geht automatisch am ${new Date(at).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })} weiter.`,
+            );
+          }
+          break;
+        }
         failed += chunk.length;
         console.error("[newsletter] batch-Fehler:", error);
       } else {

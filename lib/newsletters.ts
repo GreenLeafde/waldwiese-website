@@ -165,6 +165,53 @@ export async function claimScheduled(id: string): Promise<boolean> {
   return num(res.rowsAffected) > 0;
 }
 
+/** Uhrzeit (deutsche Zeit), zu der ein am Tageslimit gestoppter Versand weitergeht. */
+const WEITER_UM = { hour: 8, minute: 15 };
+
+/** Abstand Europe/Berlin ↔ UTC in ms für einen Zeitpunkt (Sommer-/Winterzeit). */
+function berlinOffsetMs(ms: number): number {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: "Europe/Berlin",
+      hourCycle: "h23",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+      .formatToParts(new Date(ms))
+      .map((x) => [x.type, Number(x.value)]),
+  );
+  return Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second) - Math.floor(ms / 1000) * 1000;
+}
+
+/**
+ * Plant eine Kampagne, die am Resend-Tageslimit hängen geblieben ist, für den
+ * nächsten Morgen um 8:15 Uhr deutscher Zeit neu ein. Der Cron schickt dann
+ * die nächsten offenen Empfänger (bereits Versandte sind ausgeschlossen) und
+ * plant bei erneutem Limit wieder um — Tag für Tag, bis alle durch sind.
+ * 8:15 statt 8:00, damit ein rollierendes 24-h-Limit sicher wieder frei ist.
+ */
+export async function scheduleContinuation(id: string, nowMs: number): Promise<number> {
+  await ensureSchema();
+  const today = new Date(nowMs + berlinOffsetMs(nowMs));
+  const guess = Date.UTC(
+    today.getUTCFullYear(),
+    today.getUTCMonth(),
+    today.getUTCDate() + 1,
+    WEITER_UM.hour,
+    WEITER_UM.minute,
+  );
+  const at = guess - berlinOffsetMs(guess);
+  await getDb().execute({
+    sql: "UPDATE newsletters SET scheduled_at = ? WHERE id = ?",
+    args: [at, id],
+  });
+  return at;
+}
+
 /** Zählt einen Treffer (Öffnung/Klick/Abmeldung) für eine Kampagne. */
 export async function recordNewsletterHit(input: {
   newsletterId: string;
