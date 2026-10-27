@@ -10,6 +10,7 @@ import { dbReachable } from "@/lib/db";
 import { SITE } from "@/lib/site";
 import { DbNotice } from "@/components/admin/db-notice";
 import { NewsletterPreview } from "@/components/admin/newsletter-preview";
+import { ReplaceTextForm } from "@/components/admin/replace-text-form";
 
 export const metadata = {
   title: "Newsletter-Auswertung",
@@ -162,6 +163,8 @@ export default async function VersandDetailPage({
             </ul>
           </section>
         )}
+
+        <ReplaceTextForm newsletterId={newsletter.id} />
 
         {/* Vorschau — gerendert oder als HTML-Code zum Kopieren */}
         <NewsletterPreview

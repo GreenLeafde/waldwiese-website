@@ -96,9 +96,9 @@ export const EVENTS: EventItem[] = [
     metaTitle:
       "Magic Dinner Regensburg 20.02.2027 · Dinnershow mit Zauberer | Wald & Wiese",
     metaDescription:
-      "Magic Dinner bei Regensburg am Samstag, 20.02.2027 im Wald & Wiese in Sinzing: 3-Gänge-Menü plus Zauberei & Comedy von Emilian Leber direkt am Tisch. Einlass 17 Uhr, Beginn 18 Uhr, 89,90 € pro Person.",
+      "Magic Dinner bei Regensburg am Samstag, 20.02.2027 im Wald & Wiese in Sinzing: 3-Gänge-Menü plus Zauberei & Comedy von Emilian Leber zwischen den Gängen. Einlass 17 Uhr, Beginn 18 Uhr, 89,90 € pro Person.",
     teaser:
-      "Ein 3-Gänge-Menü aus unserer Küche — und zwischen den Gängen Close-Up-Magie und Comedy von Emilian Leber direkt an eurem Tisch. Schon zum fünften Mal im Wald & Wiese.",
+      "Ein 3-Gänge-Menü aus unserer Küche — und zwischen den Gängen eine Live-Show mit Zauberei, Mentalmagie und Comedy von Emilian Leber. Schon zum fünften Mal im Wald & Wiese.",
     startsAt: "2027-02-20T18:00:00+01:00",
     doorTime: "2027-02-20T17:00:00+01:00",
     ticketsFrom: "2026-10-18T00:00:00+02:00",
@@ -116,7 +116,7 @@ export const EVENTS: EventItem[] = [
       badge: "Geschenkidee zu Weihnachten",
       heading: "Ein Abend zum Verschenken —",
       accent: "unterm Baum schon Vorfreude.",
-      text: "Tickets fürs Magic Dinner sind ein Geschenk, das man gemeinsam erlebt: ein 3-Gänge-Menü und Zauberei direkt am Tisch, am Samstag, 20. Februar 2027.",
+      text: "Tickets fürs Magic Dinner sind ein Geschenk, das man gemeinsam erlebt: ein 3-Gänge-Menü und dazwischen eine Zaubershow, am Samstag, 20. Februar 2027.",
       points: [
         "89,90 € pro Person — Menü und Show inklusive",
         "Fleisch, vegetarisch oder vegan — bei der Buchung wählen",
@@ -141,14 +141,14 @@ export const EVENTS: EventItem[] = [
     },
     hero: {
       src: "/photos/events/magic-dinner-emilian-leber-01.webp",
-      alt: "Zauberkünstler Emilian Leber im roten Sakko zeigt zwei Gästen im Anzug einen Trick direkt am Tisch",
+      alt: "Zauberkünstler Emilian Leber im roten Sakko zeigt zwei Gästen im Anzug einen Trick",
       width: 1200,
       height: 674,
     },
     heroCredit: "Foto: magicEL",
     gallery: [],
     intro:
-      "Am Samstag, 20. Februar 2027 wird das Wald & Wiese in Sinzing bei Regensburg für einen Abend zu einem Ort voller Magie: Unsere Küche serviert ein 3-Gänge-Menü — und zwischen den Gängen übernimmt Zauberkünstler Emilian Leber, mit Close-Up und Comedy hautnah an eurem Tisch.",
+      "Am Samstag, 20. Februar 2027 wird das Wald & Wiese in Sinzing bei Regensburg für einen Abend zu einem Ort voller Magie: Unsere Küche serviert ein 3-Gänge-Menü — und zwischen den Gängen übernimmt Zauberkünstler Emilian Leber mit einer Live-Show aus Zauberei, Mentalmagie und Comedy, interaktiv und für den ganzen Raum.",
     sections: [
       {
         heading: "Was ist das Magic Dinner?",
@@ -167,7 +167,7 @@ export const EVENTS: EventItem[] = [
       {
         heading: "So läuft der Abend",
         body: [
-          "Einlass ist ab 17:00 Uhr, los geht es um 18:00 Uhr. Serviert wird ein 3-Gänge-Menü; zwischen den Gängen kommt die Show — am Tisch und für den ganzen Raum.",
+          "Einlass ist ab 17:00 Uhr, los geht es um 18:00 Uhr. Serviert wird ein 3-Gänge-Menü; zwischen den Gängen kommt die Show, live für den ganzen Raum. Nach dem Showteil mischt sich Emilian unter die Gäste.",
           "Beim Ticketkauf wählst du für jede Person Fleisch-, vegetarisches oder veganes Menü, ohne Aufpreis. Getränke sind nicht im Ticket enthalten und laufen wie gewohnt über uns.",
         ],
       },
@@ -197,7 +197,7 @@ export const EVENTS: EventItem[] = [
       { label: "Preis", value: "89,90 € pro Person" },
       {
         label: "Inklusive",
-        value: "3-Gänge-Menü + Zaubershow (Close-Up & Comedy)",
+        value: "3-Gänge-Menü + Zaubershow (Zauberei, Mentalmagie & Comedy)",
       },
       {
         label: "Menü",
@@ -232,7 +232,7 @@ export const EVENTS: EventItem[] = [
       },
       {
         q: "Was passiert an dem Abend?",
-        a: "Zwischen den drei Gängen zeigt Emilian Leber Zauberei und Comedy: Close-Up-Magie direkt an eurem Tisch und Momente, die der ganze Raum gemeinsam erlebt.",
+        a: "Zwischen den drei Gängen zeigt Emilian Leber Zauberei und Comedy: drei Showblöcke mit interaktiven und mentalmagischen Momenten, die der ganze Raum gemeinsam erlebt.",
       },
       {
         q: "Wer ist Emilian Leber?",

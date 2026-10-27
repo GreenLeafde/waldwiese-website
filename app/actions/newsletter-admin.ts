@@ -25,6 +25,7 @@ import {
   claimScheduled,
   createNewsletter,
   getNewsletter,
+  replaceInNewsletter,
 } from "@/lib/newsletters";
 import { addSuppressions, removeSuppression } from "@/lib/suppressions";
 import {
@@ -411,6 +412,30 @@ export async function sendNewsletterAction(
       `✓ Versand an ${recipients.length} Empfänger läuft. Das dauert je nach Listengröße ein paar Minuten — ` +
       `du kannst die Seite verlassen. Fortschritt unter „Versand"; bleibt dort etwas offen (z. B. Tageslimit), einfach „Weiter senden".`,
   };
+}
+
+/**
+ * Korrigiert Text (Suchen/Ersetzen) in Betreff und Inhalt einer Kampagne —
+ * gedacht für geplante oder gestaffelt laufende Newsletter, bevor der Rest
+ * rausgeht. Ersetzt wird exakt, Groß-/Kleinschreibung zählt.
+ */
+export async function replaceNewsletterTextAction(
+  _prev: SendState,
+  formData: FormData,
+): Promise<SendState> {
+  await requireAdmin();
+  const id = String(formData.get("newsletterId") ?? "").trim();
+  const find = String(formData.get("find") ?? "");
+  const replace = String(formData.get("replace") ?? "");
+  if (!id) return { status: "error", message: "Kampagne fehlt." };
+  if (!find.trim()) return { status: "error", message: "Bitte den Text angeben, der ersetzt werden soll." };
+
+  const count = await replaceInNewsletter(id, find, replace);
+  revalidatePath(`/admin/versand/${id}`);
+  revalidatePath("/admin/versand");
+  return count === 0
+    ? { status: "error", message: `„${find}“ kommt in diesem Newsletter nicht vor (Groß-/Kleinschreibung beachten).` }
+    : { status: "ok", message: `✓ ${count}× ersetzt. Alle, die ihn ab jetzt bekommen, sehen den neuen Text.` };
 }
 
 /**

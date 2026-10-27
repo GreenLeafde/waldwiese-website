@@ -165,6 +165,28 @@ export async function claimScheduled(id: string): Promise<boolean> {
   return num(res.rowsAffected) > 0;
 }
 
+/**
+ * Ersetzt Text in Betreff und Inhalt einer Kampagne (z. B. eine falsche Angabe,
+ * bevor der Rest einer gestaffelten oder geplanten Kampagne rausgeht). Bereits
+ * verschickte Mails ändert das natürlich nicht. Liefert die Zahl der Treffer.
+ */
+export async function replaceInNewsletter(
+  id: string,
+  find: string,
+  replace: string,
+): Promise<number> {
+  await ensureSchema();
+  const nl = await getNewsletter(id);
+  if (!nl || !find) return 0;
+  const count = nl.html.split(find).length - 1 + (nl.subject.split(find).length - 1);
+  if (count === 0) return 0;
+  await getDb().execute({
+    sql: "UPDATE newsletters SET html = ?, subject = ? WHERE id = ?",
+    args: [nl.html.split(find).join(replace), nl.subject.split(find).join(replace), id],
+  });
+  return count;
+}
+
 /** Uhrzeit (deutsche Zeit), zu der ein am Tageslimit gestoppter Versand weitergeht. */
 const WEITER_UM = { hour: 8, minute: 15 };
 

@@ -300,7 +300,7 @@ export default function GutscheinePage() {
             <p className={LABEL}>Lieber ein Erlebnis?</p>
             <h2 className={H2}>Magic Dinner am 20. Februar 2027</h2>
             <p className={`mt-3 leading-relaxed ${MUTED}`}>
-              3-Gänge-Menü und Zaubershow direkt am Tisch, 89,90 € pro Person. Tickets online
+              3-Gänge-Menü und Zaubershow zwischen den Gängen, 89,90 € pro Person. Tickets online
               oder bei uns an der Bar.
             </p>
             <Link
