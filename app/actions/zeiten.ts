@@ -8,7 +8,11 @@ import {
   loescheEintrag,
   minutenZwischen,
 } from "@/lib/stempel";
-import { sendeStundenMail, stundenEmpfaenger } from "@/lib/stunden-mail";
+import {
+  sendeStundenMail,
+  sendeStundenMailFuerSpanne,
+  stundenEmpfaenger,
+} from "@/lib/stunden-mail";
 
 export type ZeitState = { status: "idle" | "ok" | "error"; message: string };
 
@@ -116,6 +120,31 @@ export async function beendeStempelungAction(
 
   revalidatePath("/admin/zeiten");
   return { status: "ok", message: "Gespeichert." };
+}
+
+/** Die Übersicht für einen frei gewählten Zeitraum verschicken, etwa als Korrektur. */
+export async function sendeSpanneAction(
+  _prev: ZeitState,
+  formData: FormData,
+): Promise<ZeitState> {
+  await requireAdmin();
+
+  const von = String(formData.get("von") ?? "");
+  const bis = String(formData.get("bis") ?? "");
+  const datum = /^\d{4}-\d{2}-\d{2}$/;
+  if (!datum.test(von) || !datum.test(bis) || von > bis) {
+    return { status: "error", message: "Bitte einen gültigen Zeitraum wählen." };
+  }
+
+  try {
+    await sendeStundenMailFuerSpanne(von, bis);
+  } catch (e) {
+    return {
+      status: "error",
+      message: e instanceof Error ? `Nicht versendet: ${e.message}` : "Nicht versendet.",
+    };
+  }
+  return { status: "ok", message: `Verschickt an ${stundenEmpfaenger()}.` };
 }
 
 /**

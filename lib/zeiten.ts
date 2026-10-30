@@ -35,7 +35,9 @@ export type Zeitraum =
   | { art: "tag"; wert: string } // "YYYY-MM-DD"
   | { art: "monat"; wert: string } // "YYYY-MM"
   /** Abrechnung 25. bis 24.; `wert` ist der Monat, in dem sie endet ("YYYY-MM"). */
-  | { art: "abrechnung"; wert: string };
+  | { art: "abrechnung"; wert: string }
+  /** Frei gewählter Zeitraum, `wert` ist "YYYY-MM-DD_YYYY-MM-DD". */
+  | { art: "spanne"; wert: string };
 
 /** "2026-06-25" -> "25.06.2026" (wie in der alten App). */
 export function alsDeutschesDatum(s: string): string {
@@ -87,11 +89,19 @@ export function laufendeAbrechnung(heute: string): string {
   return m === 12 ? `${y + 1}-01` : `${y}-${String(m + 1).padStart(2, "0")}`;
 }
 
+function grenzen(zeitraum: Zeitraum): { von: string; bis: string } {
+  if (zeitraum.art === "spanne") {
+    const [von, bis] = zeitraum.wert.split("_");
+    return { von, bis };
+  }
+  return abrechnungsGrenzen(zeitraum.wert);
+}
+
 /** Liegt der Tag im Zeitraum? Der 25. gehört nur zur Abrechnung, die mit ihm beginnt. */
 export function imZeitraum(datum: string, zeitraum: Zeitraum): boolean {
   if (zeitraum.art === "tag") return datum === zeitraum.wert;
   if (zeitraum.art === "monat") return datum.startsWith(zeitraum.wert + "-");
-  const { von, bis } = abrechnungsGrenzen(zeitraum.wert);
+  const { von, bis } = grenzen(zeitraum);
   return datum >= von && datum <= bis;
 }
 
@@ -101,8 +111,10 @@ function gehoertZu(eintrag: { date: string }, zeitraum: Zeitraum): boolean {
 
 /** Dateiname des CSV-Exports. */
 export function csvDateiname(zeitraum: Zeitraum): string {
-  if (zeitraum.art !== "abrechnung") return `Zeiterfassung_${zeitraum.wert}.csv`;
-  const { von, bis } = abrechnungsGrenzen(zeitraum.wert);
+  if (zeitraum.art === "tag" || zeitraum.art === "monat") {
+    return `Zeiterfassung_${zeitraum.wert}.csv`;
+  }
+  const { von, bis } = grenzen(zeitraum);
   return `Zeiterfassung_${von}_bis_${bis}.csv`;
 }
 
@@ -166,7 +178,9 @@ export function werteAus(
         ? alsDeutschesDatum(zeitraum.wert)
         : zeitraum.art === "monat"
           ? alsMonatsname(zeitraum.wert)
-          : alsAbrechnungsname(zeitraum.wert),
+          : zeitraum.art === "abrechnung"
+            ? alsAbrechnungsname(zeitraum.wert)
+            : `${alsDeutschesDatum(grenzen(zeitraum).von)} – ${alsDeutschesDatum(grenzen(zeitraum).bis)}`,
     dateiname: csvDateiname(zeitraum),
   };
 }

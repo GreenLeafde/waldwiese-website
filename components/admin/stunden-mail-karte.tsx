@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { sendeStundenMailAction, type ZeitState } from "@/app/actions/zeiten";
+import { sendeSpanneAction, sendeStundenMailAction, type ZeitState } from "@/app/actions/zeiten";
 
 const INITIAL: ZeitState = { status: "idle", message: "" };
 
@@ -30,6 +30,7 @@ export function StundenMailKarte({
 }) {
   const [frage, setFrage] = useState(false);
   const [state, formAction, pending] = useActionState(sendeStundenMailAction, INITIAL);
+  const [spanneState, spanneAction, spannePending] = useActionState(sendeSpanneAction, INITIAL);
 
   useEffect(() => {
     if (state.status === "ok") setFrage(false);
@@ -85,6 +86,35 @@ export function StundenMailKarte({
           </span>
         )}
       </div>
+
+      <form action={spanneAction} className="mt-5 border-t border-waldgruen/10 pt-4">
+        <p className="text-sm font-medium text-waldgruen">Anderer Zeitraum, zum Beispiel als Korrektur</p>
+        <div className="mt-2 flex flex-wrap items-end gap-3">
+          <label className="block space-y-1 text-xs text-waldgruen/55">
+            <span>Von</span>
+            <input type="date" name="von" required className="block rounded-xl border border-waldgruen/15 bg-white px-3 py-2 text-sm text-waldgruen" />
+          </label>
+          <label className="block space-y-1 text-xs text-waldgruen/55">
+            <span>Bis</span>
+            <input type="date" name="bis" required className="block rounded-xl border border-waldgruen/15 bg-white px-3 py-2 text-sm text-waldgruen" />
+          </label>
+          <button
+            type="submit"
+            disabled={!konfiguriert || spannePending}
+            className="rounded-full border border-waldgruen/25 px-5 py-2.5 text-sm font-medium text-waldgruen transition-colors hover:border-waldgruen disabled:opacity-50"
+          >
+            {spannePending ? "Wird gesendet …" : "Diesen Zeitraum verschicken"}
+          </button>
+        </div>
+        {spanneState.status !== "idle" && (
+          <p
+            role="status"
+            className={`mt-2 text-sm ${spanneState.status === "error" ? "text-tonwarm-dark" : "text-waldgruen/60"}`}
+          >
+            {spanneState.message}
+          </p>
+        )}
+      </form>
 
       {frage && (
         <div

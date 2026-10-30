@@ -13,7 +13,14 @@ import { Resend } from "resend";
 import { getDb, ensureSchema } from "./db";
 import { SITE } from "./site";
 import { holeEingestempelte } from "./stempel";
-import { alsCsvDatei, alsDeutschesDatum, imZeitraum, ladeZeiten, werteAus } from "./zeiten";
+import {
+  alsCsvDatei,
+  alsDeutschesDatum,
+  imZeitraum,
+  ladeZeiten,
+  werteAus,
+  type Zeitraum,
+} from "./zeiten";
 
 /** Zielpostfach der Lohnbuchhaltung. Über Env überschreibbar. */
 export function stundenEmpfaenger(): string {
@@ -78,9 +85,8 @@ export type StundenMail = {
 };
 
 /** Baut die Mail, ohne sie zu verschicken. */
-export async function baueStundenMail(monat: string): Promise<StundenMail> {
+export async function baueStundenMail(zeitraum: Zeitraum): Promise<StundenMail> {
   const { eintraege, mitarbeiter } = await ladeZeiten();
-  const zeitraum = { art: "abrechnung", wert: monat } as const;
   const a = werteAus(eintraege, mitarbeiter, zeitraum);
 
   let offen: string[] = [];
@@ -207,23 +213,7 @@ export async function sendeStundenMail(
   }
 
   try {
-    const mail = await baueStundenMail(monat);
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from: von,
-      to: an,
-      subject: mail.betreff,
-      html: mail.html,
-      text: mail.text,
-      attachments: [
-        {
-          filename: mail.dateiname,
-          content: Buffer.from(mail.csv, "utf8").toString("base64"),
-        },
-      ],
-    });
-
-    if (error) throw new Error(error.message ?? "Resend meldet einen Fehler.");
+    await verschicke({ art: "abrechnung", wert: monat }, apiKey, von, an);
   } catch (e) {
     // Vermerk zurücknehmen, damit der nächste Versuch es erneut probiert.
     if (!erzwingen) await nimmVermerkZurueck(monat).catch(() => {});
@@ -235,5 +225,44 @@ export async function sendeStundenMail(
 
   if (erzwingen) await merkeVersand(monat, an);
   return { status: "gesendet", monat, empfaenger: an };
+}
+
+async function verschicke(
+  zeitraum: Zeitraum,
+  apiKey: string,
+  von: string,
+  an: string,
+): Promise<void> {
+  const mail = await baueStundenMail(zeitraum);
+  const resend = new Resend(apiKey);
+  const { error } = await resend.emails.send({
+    from: von,
+    to: an,
+    subject: mail.betreff,
+    html: mail.html,
+    text: mail.text,
+    attachments: [
+      {
+        filename: mail.dateiname,
+        content: Buffer.from(mail.csv, "utf8").toString("base64"),
+      },
+    ],
+  });
+  if (error) throw new Error(error.message ?? "Resend meldet einen Fehler.");
+}
+
+/**
+ * Verschickt eine Mail für einen frei gewählten Zeitraum, etwa eine Korrektur.
+ * Zählt nicht als Monatsmail: Der automatische Versand am 25. läuft unverändert.
+ */
+export async function sendeStundenMailFuerSpanne(
+  vonDatum: string,
+  bisDatum: string,
+): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  if (!apiKey) throw new Error("RESEND_API_KEY fehlt.");
+  const von =
+    process.env.CONTACT_FROM_EMAIL?.trim() || `Wald & Wiese <noreply@${SITE.url.replace(/^https?:\/\//, "")}>`;
+  await verschicke({ art: "spanne", wert: `${vonDatum}_${bisDatum}` }, apiKey, von, stundenEmpfaenger());
 }
 
