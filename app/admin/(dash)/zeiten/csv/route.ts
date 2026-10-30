@@ -6,8 +6,8 @@ import { stempelKonfiguriert } from "@/lib/stempel";
  * CSV-Download der Arbeitszeiten.
  *
  * Eigener Endpunkt statt Erzeugung im Browser: Die Datei entsteht aus
- * denselben Daten wie die Ansicht, und der Inhalt ist zeichengleich mit dem
- * Export der bisherigen App — gegen die vorliegende Juni-Datei geprüft.
+ * denselben Daten wie die Ansicht. Aufbau wie in der bisherigen App, die Stunden
+ * stehen aber dezimal.
  */
 export async function GET(request: Request): Promise<Response> {
   if (!(await isAuthed())) {

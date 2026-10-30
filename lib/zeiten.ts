@@ -1,13 +1,13 @@
 /**
  * Auswertung der Arbeitszeiten — Übersicht und CSV.
  *
- * Diese Datei hat eine einzige, harte Anforderung: Sie muss **denselben
- * CSV-Text** erzeugen wie die bisherige Stempel-App. Die Datei geht in die
- * Lohnabrechnung; ändert sich Spaltenreihenfolge, Trennzeichen, Rundung oder
- * Sortierung, merkt das niemand sofort, aber die Zahlen stimmen nicht mehr.
+ * Die Datei geht in die Lohnabrechnung; ändert sich Spaltenreihenfolge,
+ * Trennzeichen, Rundung oder Sortierung, merkt das niemand sofort, aber die
+ * Zahlen stimmen nicht mehr.
  *
- * Deshalb ist die Rechnung hier bewusst 1:1 aus der alten App übernommen —
- * auch dort, wo man es anders bauen würde:
+ * Stunden stehen seit 30.10.2026 dezimal im CSV ("74,97" statt der "74:58" der
+ * alten App, auf Wunsch der Leitung). Summen werden aus den Minuten gebildet und
+ * erst dann gerundet. Sonst ist die Rechnung 1:1 aus der alten App übernommen:
  *   • Dauer = Ende minus Beginn in Minuten, nie negativ (Mitternacht wird
  *     nicht behandelt; die alte App tut das auch nicht).
  *   • Sortierung nach Datum, bei gleichem Datum nach Beginn.

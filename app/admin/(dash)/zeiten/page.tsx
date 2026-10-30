@@ -31,8 +31,8 @@ function Ueberschrift() {
     <div>
       <h1 className="text-3xl font-display font-normal text-waldgruen">Zeiten</h1>
       <p className="mt-2 max-w-2xl text-waldgruen/55">
-        Die Arbeitszeiten aus der Stempeluhr. Der CSV-Export entspricht Zeichen für
-        Zeichen dem der bisherigen App.
+        Die Arbeitszeiten aus der Stempeluhr. Alle Stunden stehen dezimal, 7,50 sind
+        also 7 Stunden 30 Minuten.
       </p>
     </div>
   );
@@ -121,7 +121,7 @@ export default async function ZeitenPage({
             });
             return { anzahl: m.eintraege.length, gesamt: m.gesamt };
           } catch {
-            return { anzahl: 0, gesamt: "0:00" };
+            return { anzahl: 0, gesamt: "0,00" };
           }
         })();
 
@@ -267,7 +267,7 @@ export default async function ZeitenPage({
       />
 
       <p className="text-xs text-waldgruen/40">
-        Dieselben Daten wie in der bisherigen App —{" "}
+        Dieselben Buchungen wie in der bisherigen App (dort aber in Stunden:Minuten) —{" "}
         <Link
           href="https://zeiterfassung-waldwiese.vercel.app"
           target="_blank"

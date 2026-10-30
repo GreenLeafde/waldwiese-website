@@ -44,7 +44,7 @@ export function StundenMailKarte({
           <p className="mt-1 max-w-lg text-sm text-waldgruen/55">
             Geht automatisch am 25. jedes Monats (Abrechnung 25. bis 24.) an{" "}
             <span className="font-medium text-waldgruen">{empfaenger}</span> — mit den
-            Summen im Text und der CSV-Datei im Anhang, im gewohnten Format.
+            Summen im Text und der CSV-Datei im Anhang, alle Stunden dezimal.
           </p>
         </div>
         <span

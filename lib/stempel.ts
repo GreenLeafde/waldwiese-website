@@ -438,8 +438,8 @@ export function minutenZwischen(a: string, b: string): number {
   return Math.max(0, bh * 60 + bm - (ah * 60 + am));
 }
 
-/** "4:33" */
+/** Dezimalstunden mit Komma: 273 Minuten -> "4,55". */
 export function alsStunden(minuten: number): string {
-  if (minuten <= 0) return "0:00";
-  return `${Math.floor(minuten / 60)}:${String(minuten % 60).padStart(2, "0")}`;
+  if (minuten <= 0) return "0,00";
+  return (minuten / 60).toFixed(2).replace(".", ",");
 }

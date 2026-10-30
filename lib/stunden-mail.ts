@@ -3,8 +3,7 @@
  *
  * Geht am 25. jedes Monats an die Lohnbuchhaltung, mit der Abrechnung vom 25.
  * des Vormonats bis zum 24. (der 25. zählt nur einmal: zur nächsten). Angehängt ist **dieselbe
- * CSV-Datei**, die auch der Export unter /admin/zeiten erzeugt — zeichengleich
- * mit dem Export der bisherigen Stempel-App. Im Mailtext stehen die Summen,
+ * CSV-Datei**, die auch der Export unter /admin/zeiten erzeugt. Im Mailtext stehen die Summen,
  * damit man den Stand sieht, ohne den Anhang zu öffnen.
  *
  * NUR server-seitig importieren.
@@ -144,7 +143,7 @@ export async function baueStundenMail(monat: string): Promise<StundenMail> {
 
     <p style="margin:22px 0 0;color:#6b6960;font-size:14px">
       Die vollständige Aufstellung liegt als CSV-Datei bei
-      (<code style="font-size:13px">${schuetze(a.dateiname)}</code>) — im selben Format wie bisher.
+      (<code style="font-size:13px">${schuetze(a.dateiname)}</code>). Alle Stunden stehen dezimal.
     </p>
     <p style="margin:22px 0 0;color:#918e85;font-size:12px">
       Automatisch erzeugt von ${schuetze(SITE.url.replace(/^https?:\/\//, ""))}.

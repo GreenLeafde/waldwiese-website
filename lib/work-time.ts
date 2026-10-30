@@ -35,14 +35,13 @@ export function sumMs(sessions: SessionLike[], now: Date): number {
   return sessions.reduce((acc, s) => acc + sessionMs(s, now), 0);
 }
 
-/** "H:MM" (Minuten gerundet, nie negativ). */
+/** Dezimalstunden mit Komma, "4,55" (Minuten gerundet, nie negativ). */
 export function fmtHM(ms: number): string {
-  if (ms <= 0) return "0:00";
-  const totalMin = Math.round(ms / 60000);
-  return `${Math.floor(totalMin / 60)}:${pad(totalMin % 60)}`;
+  if (ms <= 0) return "0,00";
+  return (Math.round(ms / 60000) / 60).toFixed(2).replace(".", ",");
 }
 
-/** "H:MM h" — Anzeigeform wie im Backend. */
+/** "4,55 h" — Anzeigeform wie im Backend. */
 export function fmtDuration(ms: number): string {
   return `${fmtHM(ms)} h`;
 }
