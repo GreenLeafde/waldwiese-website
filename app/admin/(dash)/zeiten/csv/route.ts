@@ -1,5 +1,5 @@
 import { isAuthed } from "@/lib/admin-auth";
-import { alsCsvDatei, ladeZeiten, type Zeitraum } from "@/lib/zeiten";
+import { alsCsvDatei, csvDateiname, ladeZeiten, type Zeitraum } from "@/lib/zeiten";
 import { stempelKonfiguriert } from "@/lib/stempel";
 
 /**
@@ -18,7 +18,8 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   const p = new URL(request.url).searchParams;
-  const art = p.get("art") === "tag" ? "tag" : "monat";
+  const rohArt = p.get("art");
+  const art = rohArt === "tag" || rohArt === "abrechnung" ? rohArt : "monat";
   const wert = (p.get("wert") ?? "").trim();
 
   const gueltig =
@@ -33,7 +34,7 @@ export async function GET(request: Request): Promise<Response> {
   return new Response(alsCsvDatei(eintraege, mitarbeiter, zeitraum), {
     headers: {
       "Content-Type": "text/csv;charset=utf-8",
-      "Content-Disposition": `attachment; filename="Zeiterfassung_${wert}.csv"`,
+      "Content-Disposition": `attachment; filename="${csvDateiname(zeitraum)}"`,
       "Cache-Control": "no-store",
     },
   });

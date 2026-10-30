@@ -180,6 +180,58 @@ export async function loescheEintrag(id: number): Promise<void> {
   );
 }
 
+/**
+ * Liest die Buchungen für eine Korrektur. Anders als `holeEintraege` wirft das
+ * bei einem Lesefehler: Sonst würde eine leere Liste zurückgeschrieben und alle
+ * Buchungen wären weg.
+ */
+async function leseEintraegeFuerKorrektur(): Promise<Eintrag[]> {
+  const roh = await lese("zt-entries");
+  if (!roh) return [];
+  const liste = JSON.parse(roh) as Eintrag[];
+  if (!Array.isArray(liste)) throw new Error("Die Zeitbuchungen sind nicht lesbar.");
+  return liste;
+}
+
+/** Korrigiert Tag, Beginn und Ende einer Buchung (Korrektur durch die Leitung). */
+export async function aendereEintrag(
+  id: number,
+  daten: { date: string; start: string; end: string },
+): Promise<void> {
+  const alle = await leseEintraegeFuerKorrektur();
+  if (!alle.some((e) => e.id === id)) throw new Error("Diese Buchung gibt es nicht mehr.");
+  await schreibe(
+    "zt-entries",
+    alle.map((e) => (e.id === id ? { ...e, ...daten } : e)),
+  );
+}
+
+/** Beendet eine vergessene Stempelung mit der von der Leitung genannten Uhrzeit. */
+export async function beendeOffeneStempelung(name: string, end: string): Promise<void> {
+  const offen = await leseOffenRoh();
+  const start = offen[name];
+  if (!start) throw new Error(`${name} ist nicht mehr eingestempelt.`);
+
+  const [mitarbeiter, eintraege] = await Promise.all([
+    holeMitarbeiter(),
+    leseEintraegeFuerKorrektur(),
+  ]);
+  const zeile: Eintrag = {
+    id: Date.now(),
+    name,
+    date: String(start.date ?? jetztDatum()),
+    start: String(start.start ?? ""),
+    end,
+    color: mitarbeiter.find((m) => m.name === name)?.color ?? "#888888",
+  };
+
+  // Gleiche Reihenfolge wie beim Ausstempeln: erst die Zeile sichern.
+  await schreibe("zt-entries", [...eintraege, zeile]);
+  const rest = { ...(await leseOffenRoh()) };
+  delete rest[name];
+  await schreibe("zt-open", rest);
+}
+
 async function schreibe(key: string, wert: unknown): Promise<void> {
   if (!stempelKonfiguriert()) throw new Error("Die Zeiterfassung ist nicht verbunden.");
 

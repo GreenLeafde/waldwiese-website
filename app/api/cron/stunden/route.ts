@@ -1,15 +1,15 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { cronAuthorized } from "@/lib/cron-auth";
-import { monatVon, sendeStundenMail } from "@/lib/stunden-mail";
+import { jetztDatum } from "@/lib/stempel";
+import { sendeStundenMail } from "@/lib/stunden-mail";
+import { letzteAbrechnung } from "@/lib/zeiten";
 
 /**
  * Cron: schickt am 25. jedes Monats die Stundenübersicht an die
  * Lohnbuchhaltung — mit der CSV-Datei im Anhang, im gewohnten Format.
  *
- * Der Zeitraum ist der laufende Monat. Am 25. sind das die Tage 1. bis 25.;
- * was danach noch anfällt, steht in der Mail des Folgemonats nicht — deshalb
- * bleibt /admin/zeiten die vollständige Quelle, wenn zum Monatsende
- * nachgerechnet wird.
+ * Der Zeitraum ist die Abrechnung vom 25. des Vormonats bis zum 24. Der 25.
+ * selbst gehört zur nächsten Abrechnung, so fehlt kein Tag und keiner zählt doppelt.
  *
  * Absicherung wie beim Newsletter-Cron: siehe `lib/cron-auth.ts`.
  *
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse("unauthorized", { status: 401 });
   }
 
-  const monat = monatVon(new Date());
+  const monat = letzteAbrechnung(jetztDatum());
   const ergebnis = await sendeStundenMail(monat);
 
   if (ergebnis.status === "fehler") {

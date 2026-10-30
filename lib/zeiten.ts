@@ -33,7 +33,9 @@ export type Zeiteintrag = {
 
 export type Zeitraum =
   | { art: "tag"; wert: string } // "YYYY-MM-DD"
-  | { art: "monat"; wert: string }; // "YYYY-MM"
+  | { art: "monat"; wert: string } // "YYYY-MM"
+  /** Abrechnung 25. bis 24.; `wert` ist der Monat, in dem sie endet ("YYYY-MM"). */
+  | { art: "abrechnung"; wert: string };
 
 /** "2026-06-25" -> "25.06.2026" (wie in der alten App). */
 export function alsDeutschesDatum(s: string): string {
@@ -54,10 +56,54 @@ export function alsMonatsname(s: string): string {
   return `${MONATE[Number(m) - 1]} ${y}`;
 }
 
+/** "2026-10" -> erster und letzter Tag der Abrechnung (25.09. bis 24.10.). */
+export function abrechnungsGrenzen(wert: string): { von: string; bis: string } {
+  const [y, m] = wert.split("-").map(Number);
+  const vorY = m === 1 ? y - 1 : y;
+  const vorM = m === 1 ? 12 : m - 1;
+  return {
+    von: `${vorY}-${String(vorM).padStart(2, "0")}-25`,
+    bis: `${wert}-24`,
+  };
+}
+
+/** "25.09.2026 – 24.10.2026" */
+export function alsAbrechnungsname(wert: string): string {
+  const { von, bis } = abrechnungsGrenzen(wert);
+  return `${alsDeutschesDatum(von)} – ${alsDeutschesDatum(bis)}`;
+}
+
+/** Die zuletzt abgeschlossene Abrechnung; am 25. ist das die bis gestern. */
+export function letzteAbrechnung(heute: string): string {
+  const [y, m, d] = heute.split("-").map(Number);
+  if (d >= 25) return heute.slice(0, 7);
+  return m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, "0")}`;
+}
+
+/** Die Abrechnung, in die der heutige Tag fällt. */
+export function laufendeAbrechnung(heute: string): string {
+  const [y, m, d] = heute.split("-").map(Number);
+  if (d < 25) return heute.slice(0, 7);
+  return m === 12 ? `${y + 1}-01` : `${y}-${String(m + 1).padStart(2, "0")}`;
+}
+
+/** Liegt der Tag im Zeitraum? Der 25. gehört nur zur Abrechnung, die mit ihm beginnt. */
+export function imZeitraum(datum: string, zeitraum: Zeitraum): boolean {
+  if (zeitraum.art === "tag") return datum === zeitraum.wert;
+  if (zeitraum.art === "monat") return datum.startsWith(zeitraum.wert + "-");
+  const { von, bis } = abrechnungsGrenzen(zeitraum.wert);
+  return datum >= von && datum <= bis;
+}
+
 function gehoertZu(eintrag: { date: string }, zeitraum: Zeitraum): boolean {
-  return zeitraum.art === "tag"
-    ? eintrag.date === zeitraum.wert
-    : eintrag.date.startsWith(zeitraum.wert + "-");
+  return imZeitraum(eintrag.date, zeitraum);
+}
+
+/** Dateiname des CSV-Exports. */
+export function csvDateiname(zeitraum: Zeitraum): string {
+  if (zeitraum.art !== "abrechnung") return `Zeiterfassung_${zeitraum.wert}.csv`;
+  const { von, bis } = abrechnungsGrenzen(zeitraum.wert);
+  return `Zeiterfassung_${von}_bis_${bis}.csv`;
 }
 
 /** Einträge des Zeitraums, sortiert wie in der alten App. */
@@ -116,15 +162,19 @@ export function werteAus(
     })),
     gesamt: alsStunden([...summen.values()].reduce((a, b) => a + b, 0)),
     bezeichnung:
-      zeitraum.art === "tag" ? alsDeutschesDatum(zeitraum.wert) : alsMonatsname(zeitraum.wert),
-    dateiname: `Zeiterfassung_${zeitraum.wert}.csv`,
+      zeitraum.art === "tag"
+        ? alsDeutschesDatum(zeitraum.wert)
+        : zeitraum.art === "monat"
+          ? alsMonatsname(zeitraum.wert)
+          : alsAbrechnungsname(zeitraum.wert),
+    dateiname: csvDateiname(zeitraum),
   };
 }
 
 /**
  * Der CSV-Text — ohne BOM, das setzt der Aufrufer davor.
  *
- * Der Summenblock erscheint nur in der Monatsansicht, genau wie bisher.
+ * Der Summenblock erscheint bei Monat und Abrechnung, nicht beim einzelnen Tag.
  */
 export function alsCsv(
   alle: Zeiteintrag[],
@@ -146,7 +196,7 @@ export function alsCsv(
     ]),
   ];
 
-  if (zeitraum.art === "monat") {
+  if (zeitraum.art !== "tag") {
     zeilen.push([]);
     zeilen.push(["Summe je Mitarbeiter"]);
     for (const s of a.summen) {

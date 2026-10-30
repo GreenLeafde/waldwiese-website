@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/admin-auth";
-import { loescheEintrag } from "@/lib/stempel";
+import { aendereEintrag, beendeOffeneStempelung, loescheEintrag } from "@/lib/stempel";
 import { sendeStundenMail, stundenEmpfaenger } from "@/lib/stunden-mail";
 
 export type ZeitState = { status: "idle" | "ok" | "error"; message: string };
@@ -34,6 +34,74 @@ export async function loescheZeitAction(
 
   revalidatePath("/admin/zeiten");
   return { status: "ok", message: "Eintrag gelöscht." };
+}
+
+const UHRZEIT = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+/** Eine falsche Stempelung korrigieren. Nur mit Admin-Passwort. */
+export async function aendereZeitAction(
+  _prev: ZeitState,
+  formData: FormData,
+): Promise<ZeitState> {
+  await requireAdmin();
+
+  const id = Number(formData.get("id"));
+  const date = String(formData.get("date") ?? "");
+  const start = String(formData.get("start") ?? "");
+  const end = String(formData.get("end") ?? "");
+
+  if (!Number.isFinite(id) || id <= 0) {
+    return { status: "error", message: "Eintrag nicht gefunden." };
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !UHRZEIT.test(start) || !UHRZEIT.test(end)) {
+    return { status: "error", message: "Bitte Tag, Beginn und Ende angeben." };
+  }
+  if (end <= start) {
+    return { status: "error", message: "Das Ende muss nach dem Beginn liegen." };
+  }
+
+  try {
+    await aendereEintrag(id, { date, start, end });
+  } catch (e) {
+    return {
+      status: "error",
+      message: e instanceof Error ? `Nicht gespeichert: ${e.message}` : "Nicht gespeichert.",
+    };
+  }
+
+  revalidatePath("/admin/zeiten");
+  return { status: "ok", message: "Gespeichert." };
+}
+
+/** Eine vergessene Stempelung mit einer Uhrzeit beenden. */
+export async function beendeStempelungAction(
+  _prev: ZeitState,
+  formData: FormData,
+): Promise<ZeitState> {
+  await requireAdmin();
+
+  const name = String(formData.get("name") ?? "");
+  const start = String(formData.get("start") ?? "");
+  const end = String(formData.get("end") ?? "");
+
+  if (!name || !UHRZEIT.test(end)) {
+    return { status: "error", message: "Bitte die Uhrzeit angeben." };
+  }
+  if (end <= start) {
+    return { status: "error", message: "Das Ende muss nach dem Beginn liegen." };
+  }
+
+  try {
+    await beendeOffeneStempelung(name, end);
+  } catch (e) {
+    return {
+      status: "error",
+      message: e instanceof Error ? `Nicht gespeichert: ${e.message}` : "Nicht gespeichert.",
+    };
+  }
+
+  revalidatePath("/admin/zeiten");
+  return { status: "ok", message: "Gespeichert." };
 }
 
 /**

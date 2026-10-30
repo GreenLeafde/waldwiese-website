@@ -3,27 +3,29 @@
 import { useRouter } from "next/navigation";
 
 /**
- * Tag oder Monat waehlen. Monat ist die Voreinstellung — fuer die
- * Lohnabrechnung zaehlt der Monat, der Tag ist der Ausnahmefall.
+ * Abrechnung, Monat oder Tag waehlen. Die Abrechnung (25. bis 24.) ist die
+ * Voreinstellung, Kalendermonat und Tag sind der Ausnahmefall.
  */
-export function ZeitraumWahl({ art, wert }: { art: "tag" | "monat"; wert: string }) {
+type Art = "abrechnung" | "monat" | "tag";
+
+export function ZeitraumWahl({ art, wert }: { art: Art; wert: string }) {
   const router = useRouter();
 
-  function gehe(neueArt: "tag" | "monat", neuerWert: string) {
+  function gehe(neueArt: Art, neuerWert: string) {
     router.push(`/admin/zeiten?art=${neueArt}&wert=${neuerWert}`);
   }
 
   /** Beim Umschalten den Zeitraum sinnvoll mitnehmen statt zurückzuspringen. */
-  function wechsle(neueArt: "tag" | "monat") {
+  function wechsle(neueArt: Art) {
     if (neueArt === art) return;
-    if (neueArt === "monat") gehe("monat", wert.slice(0, 7));
-    else gehe("tag", `${wert}-01`);
+    if (neueArt === "tag") gehe("tag", `${wert.slice(0, 7)}-01`);
+    else gehe(neueArt, wert.slice(0, 7));
   }
 
   return (
     <div className="flex flex-wrap items-end gap-3">
       <div className="flex gap-1 rounded-full bg-waldgruen/8 p-1">
-        {(["monat", "tag"] as const).map((a) => (
+        {(["abrechnung", "monat", "tag"] as const).map((a) => (
           <button
             key={a}
             type="button"
@@ -34,7 +36,7 @@ export function ZeitraumWahl({ art, wert }: { art: "tag" | "monat"; wert: string
                 : "text-waldgruen/60 hover:text-waldgruen"
             }`}
           >
-            {a === "monat" ? "Monat" : "Tag"}
+            {a === "abrechnung" ? "Abrechnung" : a === "monat" ? "Monat" : "Tag"}
           </button>
         ))}
       </div>
@@ -44,11 +46,11 @@ export function ZeitraumWahl({ art, wert }: { art: "tag" | "monat"; wert: string
           htmlFor="zeitraum"
           className="block text-xs uppercase tracking-[0.12em] text-waldgruen/45"
         >
-          {art === "monat" ? "Monat" : "Datum"}
+          {art === "abrechnung" ? "Endet im Monat" : art === "monat" ? "Monat" : "Datum"}
         </label>
         <input
           id="zeitraum"
-          type={art === "monat" ? "month" : "date"}
+          type={art === "tag" ? "date" : "month"}
           value={wert}
           onChange={(e) => e.target.value && gehe(art, e.target.value)}
           className="rounded-xl border border-waldgruen/15 bg-white px-3.5 py-2 text-sm text-waldgruen outline-none focus:border-tonwarm"

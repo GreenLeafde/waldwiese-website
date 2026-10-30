@@ -1,20 +1,24 @@
 import Link from "next/link";
 import { holeEingestempelte, stempelKonfiguriert, stempelProblem } from "@/lib/stempel";
 import {
+  alsAbrechnungsname,
   alsDeutschesDatum,
+  imZeitraum,
   ladeZeiten,
+  laufendeAbrechnung,
+  letzteAbrechnung,
   werteAus,
   type Zeitraum,
 } from "@/lib/zeiten";
 import { ZeitraumWahl } from "@/components/admin/zeitraum-wahl";
 import { StundenMailKarte } from "@/components/admin/stunden-mail-karte";
 import {
-  alsMonatsname,
   mailKonfiguriert,
   schonGesendet,
   stundenEmpfaenger,
 } from "@/lib/stunden-mail";
 import { EintragLoeschen } from "@/components/admin/eintrag-loeschen";
+import { EintragBearbeiten, StempelungBeenden } from "@/components/admin/eintrag-bearbeiten";
 
 export const dynamic = "force-dynamic";
 
@@ -34,15 +38,9 @@ function Ueberschrift() {
   );
 }
 
-/** Diesen Monat als "YYYY-MM" in Berliner Zeit. */
-function dieserMonat(): string {
-  return new Date()
-    .toLocaleDateString("en-CA", {
-      timeZone: "Europe/Berlin",
-      year: "numeric",
-      month: "2-digit",
-    })
-    .slice(0, 7);
+/** Heute als "YYYY-MM-DD" in Berliner Zeit. */
+function heute(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Berlin" });
 }
 
 export default async function ZeitenPage({
@@ -64,16 +62,19 @@ export default async function ZeitenPage({
     );
   }
 
-  // Monat ist die Voreinstellung — für die Lohnabrechnung zählt der Monat.
-  const art: "tag" | "monat" = p.art === "tag" ? "tag" : "monat";
+  // Die Abrechnung läuft vom 25. bis zum 24., darum ist sie die Voreinstellung.
+  const art: "abrechnung" | "monat" | "tag" =
+    p.art === "tag" || p.art === "monat" ? p.art : "abrechnung";
   const roh = (p.wert ?? "").trim();
   const passt =
     art === "tag" ? /^\d{4}-\d{2}-\d{2}$/.test(roh) : /^\d{4}-\d{2}$/.test(roh);
   const wert = passt
     ? roh
     : art === "tag"
-      ? new Date().toLocaleDateString("en-CA", { timeZone: "Europe/Berlin" })
-      : dieserMonat();
+      ? heute()
+      : art === "monat"
+        ? heute().slice(0, 7)
+        : laufendeAbrechnung(heute());
 
   const zeitraum = { art, wert } as Zeitraum;
 
@@ -86,9 +87,7 @@ export default async function ZeitenPage({
       holeEingestempelte(),
     ]);
     auswertung = werteAus(eintraege, mitarbeiter, zeitraum);
-    offen = imDienst.filter((e) =>
-      art === "tag" ? e.datum === wert : e.datum.startsWith(wert + "-"),
-    );
+    offen = imDienst.filter((e) => imZeitraum(e.datum, zeitraum));
   } catch (e) {
     fehler = e instanceof Error ? e.message : "Zeiten konnten nicht geladen werden.";
   }
@@ -106,18 +105,18 @@ export default async function ZeitenPage({
 
   const leer = auswertung.eintraege.length === 0;
 
-  // Die Monatsmail bezieht sich immer auf den laufenden Monat — unabhaengig
-  // davon, welchen Zeitraum man sich hier gerade ansieht.
-  const monatFuerMail = dieserMonat();
+  // Die Monatsmail bezieht sich immer auf die zuletzt abgeschlossene Abrechnung,
+  // unabhaengig davon, welchen Zeitraum man sich hier gerade ansieht.
+  const monatFuerMail = letzteAbrechnung(heute());
   const mailRaus = await schonGesendet(monatFuerMail).catch(() => false);
   const mailStand =
-    art === "monat" && wert === monatFuerMail
+    art === "abrechnung" && wert === monatFuerMail
       ? { anzahl: auswertung.eintraege.length, gesamt: auswertung.gesamt }
       : await (async () => {
           try {
             const { eintraege, mitarbeiter } = await ladeZeiten();
             const m = werteAus(eintraege, mitarbeiter, {
-              art: "monat",
+              art: "abrechnung",
               wert: monatFuerMail,
             });
             return { anzahl: m.eintraege.length, gesamt: m.gesamt };
@@ -131,7 +130,14 @@ export default async function ZeitenPage({
       <Ueberschrift />
 
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <ZeitraumWahl art={art} wert={wert} />
+        <div>
+          <ZeitraumWahl art={art} wert={wert} />
+          {art === "abrechnung" && (
+            <p className="mt-2 text-sm tabular-nums text-waldgruen/60">
+              {alsAbrechnungsname(wert)}
+            </p>
+          )}
+        </div>
         <a
           href={`/admin/zeiten/csv?art=${art}&wert=${wert}`}
           className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
@@ -146,15 +152,18 @@ export default async function ZeitenPage({
 
       {offen.length > 0 && (
         <div className="rounded-2xl bg-tonwarm/8 px-5 py-4 text-sm text-tonwarm-dark">
-          <span className="font-medium">Noch nicht ausgestempelt: </span>
-          {offen
-            .map((o) =>
-              art === "monat"
-                ? `${o.name} (${alsDeutschesDatum(o.datum)} seit ${o.seit})`
-                : `${o.name} (seit ${o.seit})`,
-            )
-            .join(", ")}
-          <p className="mt-1 text-tonwarm-dark/70">
+          <p className="font-medium">Noch nicht ausgestempelt</p>
+          <ul className="mt-2 space-y-1">
+            {offen.map((o) => (
+              <li key={o.name} className="flex flex-wrap items-center gap-x-3">
+                <span>
+                  {o.name} ({alsDeutschesDatum(o.datum)} seit {o.seit})
+                </span>
+                <StempelungBeenden name={o.name} datum={alsDeutschesDatum(o.datum)} seit={o.seit} />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-tonwarm-dark/70">
             Diese Zeiten sind noch in keiner Summe enthalten.
           </p>
         </div>
@@ -223,7 +232,14 @@ export default async function ZeitenPage({
                   <td className="px-4 py-2.5 font-medium tabular-nums text-waldgruen">
                     {e.stunden}
                   </td>
-                  <td className="px-4 py-2.5 text-right">
+                  <td className="whitespace-nowrap px-4 py-2.5 text-right">
+                    <EintragBearbeiten
+                      id={e.id}
+                      name={e.name}
+                      date={e.date}
+                      start={e.start}
+                      end={e.end}
+                    />
                     <EintragLoeschen
                       id={e.id}
                       name={e.name}
@@ -242,7 +258,7 @@ export default async function ZeitenPage({
 
       <StundenMailKarte
         monat={monatFuerMail}
-        monatName={alsMonatsname(monatFuerMail)}
+        monatName={alsAbrechnungsname(monatFuerMail)}
         empfaenger={stundenEmpfaenger()}
         schonGesendet={mailRaus}
         konfiguriert={mailKonfiguriert()}

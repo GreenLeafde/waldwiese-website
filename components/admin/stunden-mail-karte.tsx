@@ -40,8 +40,9 @@ export function StundenMailKarte({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h2 className="font-medium text-waldgruen">Monatsmail an die Lohnbuchhaltung</h2>
+          <p className="mt-1 text-sm font-medium tabular-nums text-waldgruen/70">{monatName}</p>
           <p className="mt-1 max-w-lg text-sm text-waldgruen/55">
-            Geht automatisch am 25. jedes Monats an{" "}
+            Geht automatisch am 25. jedes Monats (Abrechnung 25. bis 24.) an{" "}
             <span className="font-medium text-waldgruen">{empfaenger}</span> — mit den
             Summen im Text und der CSV-Datei im Anhang, im gewohnten Format.
           </p>
@@ -53,7 +54,7 @@ export function StundenMailKarte({
               : "bg-waldgruen/8 text-waldgruen/60"
           }`}
         >
-          {schonGesendet ? `${monatName} verschickt` : "diesen Monat noch nicht"}
+          {schonGesendet ? "verschickt" : "noch nicht verschickt"}
         </span>
       </div>
 

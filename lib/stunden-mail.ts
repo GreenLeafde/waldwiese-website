@@ -1,7 +1,8 @@
 /**
  * Monatliche Stundenübersicht per E-Mail.
  *
- * Geht am 25. jedes Monats an die Lohnbuchhaltung. Angehängt ist **dieselbe
+ * Geht am 25. jedes Monats an die Lohnbuchhaltung, mit der Abrechnung vom 25.
+ * des Vormonats bis zum 24. (der 25. zählt nur einmal: zur nächsten). Angehängt ist **dieselbe
  * CSV-Datei**, die auch der Export unter /admin/zeiten erzeugt — zeichengleich
  * mit dem Export der bisherigen Stempel-App. Im Mailtext stehen die Summen,
  * damit man den Stand sieht, ohne den Anhang zu öffnen.
@@ -13,7 +14,7 @@ import { Resend } from "resend";
 import { getDb, ensureSchema } from "./db";
 import { SITE } from "./site";
 import { holeEingestempelte } from "./stempel";
-import { alsCsvDatei, alsDeutschesDatum, alsMonatsname, ladeZeiten, werteAus } from "./zeiten";
+import { alsCsvDatei, alsDeutschesDatum, imZeitraum, ladeZeiten, werteAus } from "./zeiten";
 
 /** Zielpostfach der Lohnbuchhaltung. Über Env überschreibbar. */
 export function stundenEmpfaenger(): string {
@@ -22,17 +23,6 @@ export function stundenEmpfaenger(): string {
 
 export function mailKonfiguriert(): boolean {
   return Boolean(process.env.RESEND_API_KEY?.trim());
-}
-
-/** Monat als "YYYY-MM" in Berliner Zeit. */
-export function monatVon(t: Date): string {
-  return t
-    .toLocaleDateString("en-CA", {
-      timeZone: "Europe/Berlin",
-      year: "numeric",
-      month: "2-digit",
-    })
-    .slice(0, 7);
 }
 
 // ─── Protokoll: verhindert doppelten Versand ────────────────────────────────
@@ -91,13 +81,13 @@ export type StundenMail = {
 /** Baut die Mail, ohne sie zu verschicken. */
 export async function baueStundenMail(monat: string): Promise<StundenMail> {
   const { eintraege, mitarbeiter } = await ladeZeiten();
-  const zeitraum = { art: "monat", wert: monat } as const;
+  const zeitraum = { art: "abrechnung", wert: monat } as const;
   const a = werteAus(eintraege, mitarbeiter, zeitraum);
 
   let offen: string[] = [];
   try {
     offen = (await holeEingestempelte())
-      .filter((e) => e.datum.startsWith(monat + "-"))
+      .filter((e) => imZeitraum(e.datum, zeitraum))
       .map((e) => `${e.name} (${alsDeutschesDatum(e.datum)} seit ${e.seit} Uhr)`);
   } catch {
     /* Dienstliste nicht erreichbar — der Rest der Mail steht trotzdem. */
@@ -134,7 +124,7 @@ export async function baueStundenMail(monat: string): Promise<StundenMail> {
 
     ${
       a.summen.length === 0
-        ? `<p style="color:#6b6960">Für diesen Monat sind noch keine Zeiten erfasst.</p>`
+        ? `<p style="color:#6b6960">Für diesen Zeitraum sind keine Zeiten erfasst.</p>`
         : `<table style="width:100%;border-collapse:collapse;font-size:15px">
              <thead><tr>
                <th style="text-align:left;padding:0 14px 8px 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#918e85;font-weight:600">Name</th>
@@ -168,7 +158,7 @@ export async function baueStundenMail(monat: string): Promise<StundenMail> {
     `Arbeitszeiten ${a.bezeichnung}`,
     `${a.eintraege.length} Buchungen`,
     "",
-    textZeilen || "Für diesen Monat sind noch keine Zeiten erfasst.",
+    textZeilen || "Für diesen Zeitraum sind keine Zeiten erfasst.",
     a.summen.length > 0 ? `\n  Gesamt: ${a.gesamt} h` : "",
     offen.length > 0
       ? `\nNoch nicht ausgestempelt: ${offen.join(", ")}. Diese Zeiten fehlen in den Summen.`
@@ -248,4 +238,3 @@ export async function sendeStundenMail(
   return { status: "gesendet", monat, empfaenger: an };
 }
 
-export { alsMonatsname };
