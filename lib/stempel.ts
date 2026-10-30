@@ -430,12 +430,13 @@ export function naechsteNummer(alle: Mitarbeiter[]): number {
   return alle.reduce((max, m) => Math.max(max, m.nr), 0) + 1;
 }
 
-/** Minuten zwischen zwei "HH:MM" — nie negativ, wie in der alten App. */
+/** Minuten zwischen zwei "HH:MM". Liegt das Ende vor dem Beginn, endet die Schicht am Folgetag. */
 export function minutenZwischen(a: string, b: string): number {
   if (!a || !b) return 0;
   const [ah, am] = a.split(":").map(Number);
   const [bh, bm] = b.split(":").map(Number);
-  return Math.max(0, bh * 60 + bm - (ah * 60 + am));
+  const dauer = bh * 60 + bm - (ah * 60 + am);
+  return dauer < 0 ? dauer + 24 * 60 : dauer;
 }
 
 /** Dezimalstunden mit Komma: 273 Minuten -> "4,55". */

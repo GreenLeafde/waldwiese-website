@@ -113,7 +113,7 @@ export function EintragBearbeiten({
       {offen && (
         <Dialog
           titel="Zeit korrigieren"
-          text={`Buchung von ${name}. Die Änderung gilt sofort für Auswertung und CSV-Export.`}
+          text={`Buchung von ${name}. Die Änderung gilt sofort für Auswertung und CSV-Export. Tag ist der Tag des Beginns; ein Ende vor dem Beginn zählt als Folgetag.`}
           state={state}
           pending={pending}
           action={formAction}
@@ -166,7 +166,7 @@ export function StempelungBeenden({
       {offen && (
         <Dialog
           titel="Stempelung beenden"
-          text={`${name} ist seit ${datum}, ${seit} Uhr eingestempelt. Wann war Schluss?`}
+          text={`${name} ist seit ${datum}, ${seit} Uhr eingestempelt. Wann war Schluss? Ein Ende vor dem Beginn zählt als Folgetag.`}
           state={state}
           pending={pending}
           action={formAction}

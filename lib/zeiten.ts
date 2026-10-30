@@ -8,8 +8,8 @@
  * Stunden stehen seit 30.10.2026 dezimal im CSV ("74,97" statt der "74:58" der
  * alten App, auf Wunsch der Leitung). Summen werden aus den Minuten gebildet und
  * erst dann gerundet. Sonst ist die Rechnung 1:1 aus der alten App übernommen:
- *   • Dauer = Ende minus Beginn in Minuten, nie negativ (Mitternacht wird
- *     nicht behandelt; die alte App tut das auch nicht).
+ *   • Dauer = Ende minus Beginn in Minuten. Liegt das Ende vor dem Beginn, geht
+ *     die Schicht über Mitternacht (die alte App zählt das weiter als 0).
  *   • Sortierung nach Datum, bei gleichem Datum nach Beginn.
  *   • Reihenfolge der Summen = Reihenfolge des ersten Auftretens.
  *   • Trennzeichen Semikolon, Zeilenende \n, BOM voran.

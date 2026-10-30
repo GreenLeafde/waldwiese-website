@@ -2,7 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/admin-auth";
-import { aendereEintrag, beendeOffeneStempelung, loescheEintrag } from "@/lib/stempel";
+import {
+  aendereEintrag,
+  beendeOffeneStempelung,
+  loescheEintrag,
+  minutenZwischen,
+} from "@/lib/stempel";
 import { sendeStundenMail, stundenEmpfaenger } from "@/lib/stunden-mail";
 
 export type ZeitState = { status: "idle" | "ok" | "error"; message: string };
@@ -38,6 +43,17 @@ export async function loescheZeitAction(
 
 const UHRZEIT = /^([01]\d|2[0-3]):[0-5]\d$/;
 
+/** Ein Tippfehler bei der Uhrzeit wird über Mitternacht schnell zur 23-Stunden-Schicht. */
+const LAENGSTE_SCHICHT_MIN = 16 * 60;
+
+function zeitFehler(start: string, end: string): string | null {
+  if (start === end) return "Beginn und Ende sind gleich.";
+  if (minutenZwischen(start, end) > LAENGSTE_SCHICHT_MIN) {
+    return `Von ${start} bis ${end} wären über 16 Stunden. Bitte die Uhrzeiten prüfen.`;
+  }
+  return null;
+}
+
 /** Eine falsche Stempelung korrigieren. Nur mit Admin-Passwort. */
 export async function aendereZeitAction(
   _prev: ZeitState,
@@ -56,9 +72,8 @@ export async function aendereZeitAction(
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !UHRZEIT.test(start) || !UHRZEIT.test(end)) {
     return { status: "error", message: "Bitte Tag, Beginn und Ende angeben." };
   }
-  if (end <= start) {
-    return { status: "error", message: "Das Ende muss nach dem Beginn liegen." };
-  }
+  const fehlerZeit = zeitFehler(start, end);
+  if (fehlerZeit) return { status: "error", message: fehlerZeit };
 
   try {
     await aendereEintrag(id, { date, start, end });
@@ -87,9 +102,8 @@ export async function beendeStempelungAction(
   if (!name || !UHRZEIT.test(end)) {
     return { status: "error", message: "Bitte die Uhrzeit angeben." };
   }
-  if (end <= start) {
-    return { status: "error", message: "Das Ende muss nach dem Beginn liegen." };
-  }
+  const fehlerZeit = zeitFehler(start, end);
+  if (fehlerZeit) return { status: "error", message: fehlerZeit };
 
   try {
     await beendeOffeneStempelung(name, end);
