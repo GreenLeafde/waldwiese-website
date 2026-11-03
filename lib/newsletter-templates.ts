@@ -172,6 +172,40 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       `</div>`,
   },
   {
+    id: "sternstundenfinale",
+    name: "Sternstundenfinale",
+    description:
+      "Dessert des Monats von der Abendkarte: Foto, Beschreibung, Spenden-Box (1 € an Sternstunden), Reservieren-Button.",
+    fields: [
+      { key: "image", label: "Dessert-Foto (URL)", type: "image" },
+      { key: "kicker", label: "Label (klein)", type: "text" },
+      { key: "title", label: "Überschrift", type: "text" },
+      { key: "body", label: "Text", type: "textarea" },
+      { key: "secret", label: "Spenden-Box", type: "text" },
+      { key: "buttonText", label: "Button-Text", type: "text" },
+      { key: "buttonUrl", label: "Button-Link", type: "text" },
+    ],
+    sample: {
+      image: `${SITE.url}/newsletter/2026-11/sternstundenfinale-haselnuss.jpg`,
+      kicker: "Sternstundenfinale · November",
+      title: "Haselnussparfait mit Barolo-Birnen",
+      body: "Hallo {{vorname}},\n\nder November hat ein neues Finale: ein cremig-kaltes Parfait aus gerösteten Haselnüssen, dazu Birnen, die langsam in Barolo gezogen sind, bis sie tiefrot glänzen. Obendrauf Schokolade und Haselnusskrokant. Barolo und Haselnuss passen nicht zufällig so gut zusammen: Beide stammen aus den Hügeln des Piemont.\n\nHaselnussparfait mit Barolo-Birnen · 7,90 €\nFreitag bis Sonntag ab 17 Uhr auf unserer Abendkarte.\n\nDanke, dass du mitisst!\nFamilie Leber & das Wald & Wiese-Team",
+      secret:
+        "Was ist das Sternstundenfinale? Jeden Monat gibt es ein neues Dessert, und für jedes verkaufte spenden wir 1 € an Sternstunden e. V., die Benefizaktion des Bayerischen Rundfunks für Kinder in Not.",
+      buttonText: "Tisch reservieren",
+      buttonUrl: `${SITE.url}/reservieren`,
+    },
+    render: (v) =>
+      hero(v.image) +
+      `<div style="padding-top:18px">` +
+      kicker(v.kicker) +
+      heading(v.title, 30) +
+      paras(v.body) +
+      (v.secret ? secretBox(v.secret) : "") +
+      button(v.buttonText, v.buttonUrl) +
+      `</div>`,
+  },
+  {
     id: "schlicht",
     name: "Schlicht",
     description: "Überschrift + Text. Klar und persönlich.",
