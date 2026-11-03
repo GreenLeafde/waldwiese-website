@@ -83,10 +83,10 @@ function button(text: string, url: string): string {
   )} &nbsp;&rarr;</a></td></tr></table>`;
 }
 
-/** Grünes „noch geheim"-Kästchen — wie der Coming-Soon-Teaser auf der Website. */
-function secretBox(text: string): string {
+/** Grünes Hinweis-Kästchen — wie der Coming-Soon-Teaser auf der Website. */
+function secretBox(text: string, label = "Noch geheim"): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:26px 0"><tr><td bgcolor="#2e3d2c" style="background:#2e3d2c;border-radius:16px;padding:26px 26px;text-align:center">
-    <div style="text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:#c97c5d;font-weight:700;margin-bottom:8px">Noch geheim</div>
+    <div style="text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:#c97c5d;font-weight:700;margin-bottom:8px">${esc(label)}</div>
     <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#f2ead8;line-height:1.4">${esc(
       text,
     )}</div>
@@ -191,7 +191,7 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       title: "Haselnussparfait mit Barolo-Birnen",
       body: "Hallo {{vorname}},\n\nder November hat ein neues Finale: ein cremig-kaltes Parfait aus gerösteten Haselnüssen, dazu Birnen, die langsam in Barolo gezogen sind, bis sie tiefrot glänzen. Obendrauf Schokolade und Haselnusskrokant. Barolo und Haselnuss passen nicht zufällig so gut zusammen: Beide stammen aus den Hügeln des Piemont.\n\nHaselnussparfait mit Barolo-Birnen · 7,90 €\nFreitag bis Sonntag ab 17 Uhr auf unserer Abendkarte.\n\nDanke, dass du mitisst!\nFamilie Leber & das Wald & Wiese-Team",
       secret:
-        "Was ist das Sternstundenfinale? Jeden Monat gibt es ein neues Dessert, und für jedes verkaufte spenden wir 1 € an Sternstunden e. V., die Benefizaktion des Bayerischen Rundfunks für Kinder in Not.",
+        "Jeden Monat gibt es ein neues Dessert, und für jedes verkaufte spenden wir 1 € an Sternstunden e. V., die Benefizaktion des Bayerischen Rundfunks für Kinder in Not.",
       buttonText: "Tisch reservieren",
       buttonUrl: `${SITE.url}/reservieren`,
     },
@@ -201,7 +201,7 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       kicker(v.kicker) +
       heading(v.title, 30) +
       paras(v.body) +
-      (v.secret ? secretBox(v.secret) : "") +
+      (v.secret ? secretBox(v.secret, "Was ist das Sternstundenfinale?") : "") +
       button(v.buttonText, v.buttonUrl) +
       `</div>`,
   },

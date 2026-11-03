@@ -19,7 +19,7 @@ export type EmailHeader = {
 
 export const HEADER_DEFAULTS = {
   title: "Wald & Wiese",
-  tagline: "Frühstück · mitten im Grünen",
+  tagline: "Brunch & Abend · mitten im Grünen",
   style: "cream" as HeaderStyle,
 };
 
@@ -37,9 +37,13 @@ function esc(s: string): string {
 }
 
 /** Branding-Masthead ganz oben — Wortmarke + Trennstrich + Unterzeile. */
+/** Unterzeile aus der Zeit vor Brunch & Abend; gespeicherte Kampagnen tragen sie noch. */
+const OLD_TAGLINE = "Frühstück · mitten im Grünen";
+
 export function renderHeader(h: EmailHeader = {}): string {
   const title = esc((h.title ?? HEADER_DEFAULTS.title).trim() || HEADER_DEFAULTS.title);
-  const tagline = esc((h.tagline ?? HEADER_DEFAULTS.tagline).trim());
+  const raw = (h.tagline ?? HEADER_DEFAULTS.tagline).trim();
+  const tagline = esc(raw === OLD_TAGLINE ? HEADER_DEFAULTS.tagline : raw);
   const style: HeaderStyle = h.style ?? HEADER_DEFAULTS.style;
 
   const dark = style === "green";
@@ -82,7 +86,7 @@ function renderFooter(unsubUrl: string, fullWidth = false): string {
     <table role="presentation" ${innerWidth}>
       <tr><td style="padding:30px 30px 26px;font-family:Helvetica,Arial,sans-serif;color:#f2ead8">
         <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:1px;color:#f2ead8">WALD &amp; WIESE</div>
-        <div style="font-size:13px;color:#b9c2b2;margin-top:3px">Frühstück mitten im Grünen · Sinzing bei Regensburg</div>
+        <div style="font-size:13px;color:#b9c2b2;margin-top:3px">Brunch &amp; Abendessen mitten im Grünen · Sinzing bei Regensburg</div>
 
         <div style="margin-top:20px;font-size:12px;color:#b9c2b2;line-height:1.8">
           <strong style="color:#f2ead8">${SITE.legalName}</strong><br />
