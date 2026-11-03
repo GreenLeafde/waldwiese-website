@@ -166,6 +166,24 @@ export async function claimScheduled(id: string): Promise<boolean> {
 }
 
 /**
+ * Bricht eine geplante Kampagne ab, solange noch keine Mail rausging. Die Zeile
+ * bleibt zur Nachvollziehbarkeit stehen, bekommt „[Abgebrochen]“ vor den Namen
+ * und 0 Empfänger, damit sie nicht unter „Fortsetzen“ auftaucht.
+ */
+export async function cancelScheduled(id: string): Promise<boolean> {
+  await ensureSchema();
+  const res = await getDb().execute({
+    sql: `UPDATE newsletters
+          SET scheduled_at = NULL, recipient_count = 0,
+              name = '[Abgebrochen] ' || COALESCE(NULLIF(name, ''), subject)
+          WHERE id = ? AND scheduled_at IS NOT NULL
+            AND NOT EXISTS (SELECT 1 FROM newsletter_sends s WHERE s.newsletter_id = newsletters.id)`,
+    args: [id],
+  });
+  return num(res.rowsAffected) > 0;
+}
+
+/**
  * Ersetzt Text in Betreff und Inhalt einer Kampagne (z. B. eine falsche Angabe,
  * bevor der Rest einer gestaffelten oder geplanten Kampagne rausgeht). Bereits
  * verschickte Mails ändert das natürlich nicht. Liefert die Zahl der Treffer.

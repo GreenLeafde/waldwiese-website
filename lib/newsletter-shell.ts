@@ -36,40 +36,63 @@ function esc(s: string): string {
     .replace(/>/g, "&gt;");
 }
 
-/** Branding-Masthead ganz oben — Wortmarke + Trennstrich + Unterzeile. */
+/* Look wie die Website (seit Okt. 2026): Morgen-Creme, Tanne, Akzent, Jost + DM Sans, Logo als PNG. */
+const BRAND = `${SITE.url}/newsletter/brand`;
+export const MAIL_FONT_BODY = "'DM Sans',Helvetica,Arial,sans-serif";
+export const MAIL_FONT_DISPLAY = "Jost,Futura,'Century Gothic',Helvetica,Arial,sans-serif";
+export const MAIL_COLORS = {
+  morgen: "#f7f4ec",
+  tanne: "#022914",
+  creme: "#f3eee3",
+  akzent: "#c97c5d",
+  muted: "#52635a",
+};
+const C = MAIL_COLORS;
+
 /** Unterzeile aus der Zeit vor Brunch & Abend; gespeicherte Kampagnen tragen sie noch. */
 const OLD_TAGLINE = "Frühstück · mitten im Grünen";
 
+function navLinks(color: string): string {
+  const link = (label: string, path: string) =>
+    `<a href="${SITE.url}${path}" style="color:${color};text-decoration:none">${label}</a>`;
+  return [
+    link("Brunch", "/speisekarte#fruehstueck"),
+    link("Abendessen", "/speisekarte#abend"),
+    link("Events", "/veranstaltungen"),
+    link("Gutscheine", "/gutscheine"),
+  ].join("&nbsp;&nbsp;&middot;&nbsp;&nbsp;");
+}
+
+/** Kopf: Logo, Unterzeile und die Bereiche der Website als kleine Navigation. */
 export function renderHeader(h: EmailHeader = {}): string {
-  const title = esc((h.title ?? HEADER_DEFAULTS.title).trim() || HEADER_DEFAULTS.title);
   const raw = (h.tagline ?? HEADER_DEFAULTS.tagline).trim();
   const tagline = esc(raw === OLD_TAGLINE ? HEADER_DEFAULTS.tagline : raw);
   const style: HeaderStyle = h.style ?? HEADER_DEFAULTS.style;
 
   const dark = style === "green";
   const minimal = style === "minimal";
-  const bg = minimal ? "#f7f6f3" : dark ? "#2e3d2c" : "#f2ead8";
-  const titleColor = dark ? "#f2ead8" : "#2e3d2c";
-  const accent = "#c97c5d";
-  const titleSize = minimal ? 21 : 27;
-  const pad = minimal ? "24px 30px 8px" : "34px 30px 30px";
+  const bg = dark ? C.tanne : C.morgen;
+  const fg = dark ? C.creme : C.tanne;
+  const logoWidth = minimal ? 150 : 190;
 
-  const rule = minimal
-    ? ""
-    : `<table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:13px auto 0"><tr><td style="width:46px;border-top:2px solid ${accent};font-size:0;line-height:0">&nbsp;</td></tr></table>`;
-
+  const logo = `<a href="${SITE.url}" style="text-decoration:none"><img src="${BRAND}/logo-${
+    dark ? "creme" : "tanne"
+  }.png" width="${logoWidth}" alt="Wald &amp; Wiese" style="display:block;margin:0 auto;width:${logoWidth}px;max-width:70%;height:auto;border:0" /></a>`;
   const taglineHtml = tagline
-    ? `<div style="text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:${accent};font-weight:700;margin-top:${
-        minimal ? 7 : 13
-      }px">${tagline}</div>`
+    ? `<div style="font-family:${MAIL_FONT_BODY};text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:${C.akzent};font-weight:700;margin-top:14px">${tagline}</div>`
     : "";
+  const nav = minimal
+    ? ""
+    : `<div style="font-family:${MAIL_FONT_BODY};font-size:13px;color:${fg};margin-top:16px">${navLinks(fg)}</div>`;
 
   return `<tr><td align="center" bgcolor="${bg}" style="background:${bg};padding:0">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
-      <tr><td align="center" style="padding:${pad};text-align:center">
-        <div style="font-family:Georgia,'Times New Roman',serif;font-size:${titleSize}px;letter-spacing:1px;color:${titleColor}">${title}</div>
-        ${rule}
+      <tr><td align="center" style="padding:${minimal ? "26px 24px 12px" : "34px 24px 24px"};text-align:center;border-bottom:1px solid ${
+        dark ? "rgba(243,238,227,0.16)" : "rgba(2,41,20,0.12)"
+      }">
+        ${logo}
         ${taglineHtml}
+        ${nav}
       </td></tr>
     </table>
   </td></tr>`;
@@ -82,31 +105,27 @@ function renderFooter(unsubUrl: string, fullWidth = false): string {
   const innerWidth = fullWidth
     ? `width="100%" cellpadding="0" cellspacing="0" style="width:100%"`
     : `width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px"`;
-  return `<tr><td align="center" bgcolor="#2e3d2c" style="background:#2e3d2c;padding:0">
+  const link = (label: string, href: string) =>
+    `<a href="${href}" style="color:${C.creme};text-decoration:none">${label}</a>`;
+  return `<tr><td align="center" bgcolor="${C.tanne}" style="background:${C.tanne};padding:0">
     <table role="presentation" ${innerWidth}>
-      <tr><td style="padding:30px 30px 26px;font-family:Helvetica,Arial,sans-serif;color:#f2ead8">
-        <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;letter-spacing:1px;color:#f2ead8">WALD &amp; WIESE</div>
-        <div style="font-size:13px;color:#b9c2b2;margin-top:3px">Brunch &amp; Abendessen mitten im Grünen · Sinzing bei Regensburg</div>
-
-        <div style="margin-top:20px;font-size:12px;color:#b9c2b2;line-height:1.8">
-          <strong style="color:#f2ead8">${SITE.legalName}</strong><br />
-          ${COMPANY.ceoTitel}: ${COMPANY.ceo}<br />
-          ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city} · ${CONTACT.country}<br />
-          Tel.: ${CONTACT.phone} · <a href="${mailto}" style="color:#f2ead8;text-decoration:none">${CONTACT.email}</a><br />
-          ${COMPANY.court}, ${COMPANY.register} · USt-IdNr.: ${COMPANY.vatId}
+      <tr><td align="center" style="padding:42px 30px 30px;font-family:${MAIL_FONT_BODY};color:${C.creme};text-align:center">
+        <img src="${BRAND}/logo-creme.png" width="150" alt="Wald &amp; Wiese" style="display:block;margin:0 auto;width:150px;height:auto;border:0" />
+        <div style="font-size:14px;color:rgba(243,238,227,0.78);margin-top:16px;line-height:1.7">
+          Brunch täglich 8–14 Uhr &nbsp;·&nbsp; Abendessen Fr–So 17–22 Uhr<br />
+          ${CONTACT.street}, ${CONTACT.postalCode} ${CONTACT.city}
         </div>
-
-        <div style="margin-top:18px;font-size:12px">
-          <a href="${SITE.url}" style="color:#c97c5d;text-decoration:none">Website</a> &nbsp;·&nbsp;
-          <a href="${SITE.url}/impressum" style="color:#c97c5d;text-decoration:none">Impressum</a> &nbsp;·&nbsp;
-          <a href="${SITE.url}/datenschutz" style="color:#c97c5d;text-decoration:none">Datenschutz</a> &nbsp;·&nbsp;
-          <a href="${CONTACT.instagram}" style="color:#c97c5d;text-decoration:none">Instagram</a>
+        <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:22px auto 0"><tr><td style="border-radius:9999px;background:${C.akzent}"><a href="${SITE.url}/reservieren" style="display:inline-block;padding:12px 28px;color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;font-family:${MAIL_FONT_BODY}">Tisch reservieren</a></td></tr></table>
+        <div style="margin-top:22px;font-size:13px">
+          ${link("Website", SITE.url)} &nbsp;·&nbsp; ${link("Instagram", CONTACT.instagram)} &nbsp;·&nbsp; ${link("Impressum", `${SITE.url}/impressum`)} &nbsp;·&nbsp; ${link("Datenschutz", `${SITE.url}/datenschutz`)}
         </div>
-
-        <div style="margin-top:20px;border-top:1px solid rgba(242,234,216,0.16);padding-top:14px;font-size:11px;color:#9aa595;line-height:1.7">
+        <div style="margin-top:26px;border-top:1px solid rgba(243,238,227,0.16);padding-top:18px;font-size:11px;color:rgba(243,238,227,0.6);line-height:1.8">
+          ${SITE.legalName} · ${COMPANY.ceoTitel}: ${COMPANY.ceo}<br />
+          ${CONTACT.street} · ${CONTACT.postalCode} ${CONTACT.city} · ${CONTACT.country} · Tel. ${CONTACT.phone} · <a href="${mailto}" style="color:rgba(243,238,227,0.8);text-decoration:none">${CONTACT.email}</a><br />
+          ${COMPANY.court}, ${COMPANY.register} · USt-IdNr.: ${COMPANY.vatId}<br /><br />
           Du erhältst diese E-Mail, weil du dich für den Newsletter von Wald &amp; Wiese angemeldet hast.
-          Wenn du keine Newsletter mehr möchtest, kannst du dich <a href="${unsubUrl}" style="color:#f2ead8">hier jederzeit abmelden</a>.<br />
-          © ${year} ${SITE.legalName}. Alle Rechte vorbehalten.
+          <a href="${unsubUrl}" style="color:${C.creme}">Hier kannst du dich jederzeit abmelden</a>.<br />
+          © ${year} ${SITE.legalName}
         </div>
       </td></tr>
     </table>
@@ -213,7 +232,7 @@ export function trackingPixel(base: string, campaignId: string): string {
  * Vorschau, damit das <style> nicht ins Backend „ausläuft").
  */
 export function emailDocument(bodyHtml: string, opts?: { bg?: string }): string {
-  const bg = opts?.bg ?? "#f7f6f3";
+  const bg = opts?.bg ?? C.morgen;
   return `<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -222,6 +241,7 @@ export function emailDocument(bodyHtml: string, opts?: { bg?: string }): string 
 <meta name="color-scheme" content="light only" />
 <meta name="supported-color-schemes" content="light" />
 <title>Wald &amp; Wiese</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
 <style>
   :root { color-scheme: light only; supported-color-schemes: light; }
   body { margin:0; padding:0; background:${bg}; }
@@ -255,12 +275,12 @@ export function wrapEmail(
       </td></tr>`
     : `<tr><td align="center" style="padding:0">
     <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
-      <tr><td style="padding:30px 30px 34px;font-family:Helvetica,Arial,sans-serif;color:#1a1a1a;line-height:1.6">
+      <tr><td style="padding:34px 30px 40px;font-family:${MAIL_FONT_BODY};color:#12201a;line-height:1.65">
         ${inner}
       </td></tr>
     </table>
   </td></tr>`;
-  const outerBg = opts.bare ? "transparent" : "#f7f6f3";
+  const outerBg = opts.bare ? "transparent" : C.morgen;
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0;padding:0;border-collapse:collapse;background:${outerBg}">
   ${headerRow}
 

@@ -3,10 +3,13 @@
  * Eingabefeldern wird gebrandetes, E-Mail-taugliches HTML erzeugt (Tabellen +
  * Inline-Styles). Der Impressum-Footer kommt beim Versand automatisch dazu.
  *
- * Markenfarben: Waldgrün #2e3d2c · Mehlcreme #f2ead8 · Tonwarm #c97c5d.
+ * Look wie die Website: Tanne #022914 · Morgen-Creme #f7f4ec · Akzent #c97c5d, Jost + DM Sans.
  */
 
+import { MAIL_COLORS as C, MAIL_FONT_BODY, MAIL_FONT_DISPLAY } from "./newsletter-shell";
 import { SITE } from "./site";
+
+const BRAND = `${SITE.url}/newsletter/brand`;
 
 export type TemplateField = {
   key: string;
@@ -43,7 +46,7 @@ function paras(body: string): string {
     .filter(Boolean)
     .map(
       (p) =>
-        `<p style="margin:0 0 15px;font-size:16px;color:#3a3a36;line-height:1.7">${esc(
+        `<p style="margin:0 0 16px;font-family:${MAIL_FONT_BODY};font-size:16px;color:#34433a;line-height:1.7">${esc(
           p,
         ).replace(/\n/g, "<br />")}</p>`,
     )
@@ -54,13 +57,13 @@ function hero(url: string): string {
   return url
     ? `<img src="${esc(
         url,
-      )}" width="600" alt="" style="width:100%;max-width:100%;display:block;border-radius:16px;margin:0 0 6px" />`
+      )}" width="600" alt="" style="width:100%;max-width:100%;display:block;border-radius:18px;margin:0 0 10px" />`
     : "";
 }
 
 function kicker(t: string): string {
   return t
-    ? `<div style="text-transform:uppercase;letter-spacing:2.5px;font-size:12px;color:#c97c5d;font-weight:700;margin:0 0 10px">${esc(
+    ? `<div style="font-family:${MAIL_FONT_BODY};text-transform:uppercase;letter-spacing:2.5px;font-size:12px;color:${C.akzent};font-weight:700;margin:0 0 12px">${esc(
         t,
       )}</div>`
     : "";
@@ -68,7 +71,7 @@ function kicker(t: string): string {
 
 function heading(t: string, size = 30): string {
   return t
-    ? `<h1 style="font-family:Georgia,'Times New Roman',serif;font-weight:400;color:#2e3d2c;font-size:${size}px;line-height:1.18;margin:0 0 16px">${esc(
+    ? `<h1 style="font-family:${MAIL_FONT_DISPLAY};font-weight:300;letter-spacing:-0.5px;color:${C.tanne};font-size:${size + 4}px;line-height:1.12;margin:0 0 18px">${esc(
         t,
       )}</h1>`
     : "";
@@ -76,21 +79,50 @@ function heading(t: string, size = 30): string {
 
 function button(text: string, url: string): string {
   if (!text || !url) return "";
-  return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 4px"><tr><td style="border-radius:9999px;background:#c97c5d"><a href="${esc(
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:26px 0 4px"><tr><td style="border-radius:9999px;background:${C.akzent}"><a href="${esc(
     url,
-  )}" style="display:inline-block;padding:14px 32px;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;font-family:Helvetica,Arial,sans-serif">${esc(
+  )}" style="display:inline-block;padding:15px 34px;color:#ffffff;text-decoration:none;font-weight:700;font-size:15px;font-family:${MAIL_FONT_BODY}">${esc(
     text,
   )} &nbsp;&rarr;</a></td></tr></table>`;
 }
 
 /** Grünes Hinweis-Kästchen — wie der Coming-Soon-Teaser auf der Website. */
 function secretBox(text: string, label = "Noch geheim"): string {
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:26px 0"><tr><td bgcolor="#2e3d2c" style="background:#2e3d2c;border-radius:16px;padding:26px 26px;text-align:center">
-    <div style="text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:#c97c5d;font-weight:700;margin-bottom:8px">${esc(label)}</div>
-    <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#f2ead8;line-height:1.4">${esc(
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:28px 0"><tr><td bgcolor="${C.tanne}" style="background:${C.tanne};border-radius:18px;padding:30px 28px;text-align:center">
+    <div style="font-family:${MAIL_FONT_BODY};text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:${C.akzent};font-weight:700;margin-bottom:10px">${esc(label)}</div>
+    <div style="font-family:${MAIL_FONT_DISPLAY};font-weight:300;font-size:21px;color:${C.creme};line-height:1.45">${esc(
       text,
     )}</div>
   </td></tr></table>`;
+}
+
+/** Preis groß links, darunter wann es das Gericht gibt — wie die Preiszeilen der Website-Karte. */
+function priceCard(price: string, when: string): string {
+  if (!price && !when) return "";
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:22px 0 4px;border-top:1px solid rgba(2,41,20,0.15);border-bottom:1px solid rgba(2,41,20,0.15)"><tr>
+    <td style="padding:18px 0;font-family:${MAIL_FONT_DISPLAY};font-weight:400;font-size:30px;color:${C.tanne};white-space:nowrap;width:1%">${esc(price)}</td>
+    <td style="padding:18px 0 18px 22px;font-family:${MAIL_FONT_BODY};font-size:14px;color:${C.muted};line-height:1.5">${esc(when)}</td>
+  </tr></table>`;
+}
+
+/** Spenden-Box in Tanne mit Stern-Grafik. */
+function starBox(text: string): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:28px 0"><tr><td bgcolor="${C.tanne}" style="background:${C.tanne};border-radius:18px;padding:32px 28px;text-align:center">
+    <img src="${BRAND}/stern-akzent.png" width="34" height="34" alt="" style="display:block;margin:0 auto 14px;width:34px;height:34px;border:0" />
+    <div style="font-family:${MAIL_FONT_BODY};text-transform:uppercase;letter-spacing:2.5px;font-size:11px;color:${C.akzent};font-weight:700;margin-bottom:10px">Was ist das Sternstundenfinale?</div>
+    <div style="font-family:${MAIL_FONT_DISPLAY};font-weight:300;font-size:20px;color:${C.creme};line-height:1.5">${esc(text)}</div>
+    <div style="font-family:${MAIL_FONT_DISPLAY};font-weight:400;font-size:34px;color:${C.akzent};margin-top:18px">1 € pro Dessert</div>
+  </td></tr></table>`;
+}
+
+/** Unterstrichener Textlink wie „Zur Brunch-Karte“ auf der Website. */
+function textLink(text: string, url: string): string {
+  return `<div style="margin:16px 0 0"><a href="${esc(url)}" style="font-family:${MAIL_FONT_BODY};font-size:15px;font-weight:700;color:${C.tanne};text-decoration:none;border-bottom:2px solid ${C.akzent};padding-bottom:2px">${esc(text)} &rarr;</a></div>`;
+}
+
+/** Zweig-Ornament als ruhiger Abschluss vor dem Gruß. */
+function ornament(): string {
+  return `<img src="${BRAND}/zweig-akzent.png" width="160" alt="" style="display:block;margin:34px auto 26px;width:160px;height:auto;border:0" />`;
 }
 
 /** Inhalt in einer Mehlcreme-Karte mit dezentem Rand. */
@@ -181,28 +213,38 @@ export const NEWSLETTER_TEMPLATES: NewsletterTemplate[] = [
       { key: "kicker", label: "Label (klein)", type: "text" },
       { key: "title", label: "Überschrift", type: "text" },
       { key: "body", label: "Text", type: "textarea" },
+      { key: "price", label: "Preis", type: "text" },
+      { key: "when", label: "Wann (Zeile unter dem Preis)", type: "text" },
       { key: "secret", label: "Spenden-Box", type: "text" },
       { key: "buttonText", label: "Button-Text", type: "text" },
       { key: "buttonUrl", label: "Button-Link", type: "text" },
+      { key: "signoff", label: "Gruß", type: "textarea" },
     ],
     sample: {
       image: `${SITE.url}/newsletter/2026-11/sternstundenfinale-haselnuss.jpg`,
       kicker: "Sternstundenfinale · November",
       title: "Haselnussparfait mit Barolo-Birnen",
-      body: "Hallo {{vorname}},\n\nder November hat ein neues Finale: ein cremig-kaltes Parfait aus gerösteten Haselnüssen, dazu Birnen, die langsam in Barolo gezogen sind, bis sie tiefrot glänzen. Obendrauf Schokolade und Haselnusskrokant. Barolo und Haselnuss passen nicht zufällig so gut zusammen: Beide stammen aus den Hügeln des Piemont.\n\nHaselnussparfait mit Barolo-Birnen · 7,90 €\nFreitag bis Sonntag ab 17 Uhr auf unserer Abendkarte.\n\nDanke, dass du mitisst!\nFamilie Leber & das Wald & Wiese-Team",
+      body: "Hallo {{vorname}},\n\nder November hat ein neues Finale: ein cremig-kaltes Parfait aus gerösteten Haselnüssen, dazu Birnen, die langsam in Barolo gezogen sind, bis sie tiefrot glänzen. Obendrauf Schokolade und Haselnusskrokant.\n\nBarolo und Haselnuss passen nicht zufällig so gut zusammen: Beide stammen aus den Hügeln des Piemont.",
+      price: "7,90 €",
+      when: "Freitag bis Sonntag ab 17 Uhr auf unserer Abendkarte",
       secret:
         "Jeden Monat gibt es ein neues Dessert, und für jedes verkaufte spenden wir 1 € an Sternstunden e. V., die Benefizaktion des Bayerischen Rundfunks für Kinder in Not.",
       buttonText: "Tisch reservieren",
       buttonUrl: `${SITE.url}/reservieren`,
+      signoff: "Danke, dass du mitisst!\nFamilie Leber & das Wald & Wiese-Team",
     },
     render: (v) =>
       hero(v.image) +
-      `<div style="padding-top:18px">` +
+      `<div style="padding-top:22px">` +
       kicker(v.kicker) +
       heading(v.title, 30) +
       paras(v.body) +
-      (v.secret ? secretBox(v.secret, "Was ist das Sternstundenfinale?") : "") +
+      priceCard(v.price, v.when) +
+      (v.secret ? starBox(v.secret) : "") +
       button(v.buttonText, v.buttonUrl) +
+      textLink("Zur Abendkarte", `${SITE.url}/speisekarte#abend`) +
+      ornament() +
+      paras(v.signoff) +
       `</div>`,
   },
   {

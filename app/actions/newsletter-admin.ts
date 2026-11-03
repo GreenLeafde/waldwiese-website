@@ -22,6 +22,7 @@ import {
   type Recipient,
 } from "@/lib/newsletter-delivery";
 import {
+  cancelScheduled,
   claimScheduled,
   createNewsletter,
   getNewsletter,
@@ -436,6 +437,22 @@ export async function replaceNewsletterTextAction(
   return count === 0
     ? { status: "error", message: `„${find}“ kommt in diesem Newsletter nicht vor (Groß-/Kleinschreibung beachten).` }
     : { status: "ok", message: `✓ ${count}× ersetzt. Alle, die ihn ab jetzt bekommen, sehen den neuen Text.` };
+}
+
+/** Bricht einen geplanten Versand ab, solange noch nichts verschickt ist. */
+export async function cancelScheduledAction(
+  _prev: SendState,
+  formData: FormData,
+): Promise<SendState> {
+  await requireAdmin();
+  const id = String(formData.get("newsletterId") ?? "").trim();
+  if (!id) return { status: "error", message: "Kampagne fehlt." };
+  const ok = await cancelScheduled(id);
+  revalidatePath("/admin/versand");
+  revalidatePath(`/admin/versand/${id}`);
+  return ok
+    ? { status: "ok", message: "Abgebrochen. Es geht nichts raus." }
+    : { status: "error", message: "Nicht abgebrochen: Die Kampagne ist nicht (mehr) geplant oder schon teilweise verschickt." };
 }
 
 /**

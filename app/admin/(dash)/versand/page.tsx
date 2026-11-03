@@ -2,6 +2,7 @@ import Link from "next/link";
 import { listNewslettersWithStats } from "@/lib/newsletters";
 import { dbReachable } from "@/lib/db";
 import { DbNotice } from "@/components/admin/db-notice";
+import { CancelScheduledButton } from "@/components/admin/cancel-scheduled-button";
 import { ResumeButton } from "@/components/admin/resume-button";
 
 export const metadata = {
@@ -110,7 +111,12 @@ export default async function VersandPage() {
                         </>
                       )}
                     </span>
-                    <ResumeButton newsletterId={n.id} />
+                    <div className="flex items-start gap-2">
+                      {n.scheduledAt != null && n.sentCount === 0 && (
+                        <CancelScheduledButton newsletterId={n.id} />
+                      )}
+                      <ResumeButton newsletterId={n.id} />
+                    </div>
                   </div>
                 )}
               </li>
