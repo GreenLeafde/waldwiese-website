@@ -36,6 +36,9 @@ export const SITE_PHOTOS: SitePhoto[] = [
   { src: P("ww-00008.jpeg"), label: "Impression 3" },
   { src: P("ww-00009.jpeg"), label: "Impression 4" },
   { src: P("ww-00010.jpeg"), label: "Impression 5" },
+  // Sternstundenfinale November 2026
+  { src: NL("2026-11/sternstundenfinale-haselnuss.jpg"), label: "Finale Nov · Haselnussparfait" },
+  { src: NL("2026-11/sternstundenfinale-tisch.jpg"), label: "Finale Nov · Teller von oben" },
   // Magic Dinner 20.02.2027 · Motive im Magic-Dinner-CI (für die Vorlage „Magic Dinner“)
   { src: NL("2026-10/magic-weihnachtsgeschenk.jpg"), label: "Magic · Weihnachtsgeschenk" },
   { src: NL("2026-10/magic-black-friday.jpg"), label: "Magic · Black Friday" },
