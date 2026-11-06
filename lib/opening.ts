@@ -10,6 +10,9 @@
 /** Geschlossene Tage (ISO-Datum, Europe/Berlin), z. B. "2026-12-24". */
 export const CLOSED_DAYS: string[] = [];
 
+/** Tage, an denen nur das Abendessen ausfällt (Brunch läuft normal). */
+export const CLOSED_EVENINGS: string[] = ["2026-11-06", "2026-11-07", "2026-11-08"];
+
 const BRUNCH = { from: 8, to: 14 } as const;
 const ABEND = { from: 17, to: 22, days: new Set([5, 6, 0]) } as const; // Fr, Sa, So
 
@@ -51,7 +54,7 @@ export function openingStatus(now: Date = new Date()): OpeningStatus {
     return { open: false, text: "Heute geschlossen", slot: "geschlossen" };
   }
   const t = b.hour + b.minute / 60;
-  const abendTag = ABEND.days.has(b.weekday);
+  const abendTag = ABEND.days.has(b.weekday) && !CLOSED_EVENINGS.includes(b.iso);
 
   if (t >= BRUNCH.from && t < BRUNCH.to) {
     return { open: true, text: `Jetzt geöffnet · Brunch bis ${BRUNCH.to} Uhr`, slot: "brunch" };

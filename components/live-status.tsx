@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { activeNotice, type Notice } from "@/lib/notices";
 import { openingStatus, type OpeningStatus } from "@/lib/opening";
 
 /**
@@ -11,15 +12,29 @@ import { openingStatus, type OpeningStatus } from "@/lib/opening";
  */
 export function LiveStatus({ className = "" }: { className?: string }) {
   const [status, setStatus] = useState<OpeningStatus | null>(null);
+  const [notice, setNotice] = useState<Notice | null>(null);
 
   useEffect(() => {
-    const tick = () => setStatus(openingStatus());
+    const tick = () => {
+      setStatus(openingStatus());
+      setNotice(activeNotice());
+    };
     tick();
     const id = window.setInterval(tick, 60_000);
     return () => window.clearInterval(id);
   }, []);
 
   if (!status) return <span className={className} aria-hidden />;
+
+  // Ein aktueller Hinweis (z. B. kurzfristig geschlossen) hat Vorrang vor dem Live-Status.
+  if (notice) {
+    return (
+      <span className={`inline-flex min-w-0 items-center gap-2 font-semibold ${className}`}>
+        <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-akzent" />
+        <span className="truncate">{notice.short}</span>
+      </span>
+    );
+  }
 
   return (
     <span className={`inline-flex items-center gap-2 font-semibold ${className}`}>

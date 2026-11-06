@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ConsentProvider } from "@/components/consent-provider";
 import { CookieBanner } from "@/components/cookie-banner";
+import { NoticeCard } from "@/components/notice-card";
 import { SommelierFab } from "@/components/sommelier/sommelier-fab";
 import { TrackingScripts } from "@/components/tracking-scripts";
 import { Analytics } from "@/components/analytics";
@@ -218,6 +219,7 @@ export default function RootLayout({
           <ReserveChooserProvider>
           <HideOnInternal>
             <SiteHeader />
+            <NoticeCard />
           </HideOnInternal>
           <main className="flex-1">{children}</main>
           <HideOnInternal>
