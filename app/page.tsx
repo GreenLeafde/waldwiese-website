@@ -208,6 +208,12 @@ export default function HomePage() {
                 <span>Brunch · täglich 8–14 Uhr</span>
                 <span>Abendessen · Fr–So 17–22 Uhr</span>
               </p>
+              {/* Einstiegspreise aus lib/menu.ts (Die süße Mizzi, Mittags ab 11:30). */}
+              <p className="m-0 flex flex-col items-center rounded-2xl bg-creme/15 px-5 py-1.5 text-sm font-semibold tracking-wide md:flex-row md:gap-2 md:rounded-full md:text-base">
+                <span>Frühstück ab 11,90 €</span>
+                <span aria-hidden className="hidden md:inline">·</span>
+                <span>Mittagessen ab 12,90 €</span>
+              </p>
               {/* Reservieren steht auf dem Handy schon in der festen Leiste unten. */}
               <div className="mt-1 flex flex-wrap items-center justify-center gap-3" style={{ textShadow: "none" }}>
                 <span className="hidden md:inline-flex">
