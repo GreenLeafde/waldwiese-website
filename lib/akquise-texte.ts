@@ -341,21 +341,24 @@ export function nachfassEntwurf(
       .reduce((s, c) => s + c.charCodeAt(0), 0) % 3;
   const ende = `\n\n${GRUSS}\n${ABSENDER.name}`;
 
-  const fassungen = [
+  // November 2026: Nachfassen mit neuer Idee (Feier tagsueber unter der Woche),
+  // statt nur zu erinnern. Gilt fuer alle, die im Oktober angeschrieben wurden.
+  const tag = `\n\nWas viele nicht wissen: Bei uns kann man auch tagsüber feiern, als Weihnachtsfrühstück oder gemeinsames Mittagessen unter der Woche, jeden Tag zwischen 8 und 14 Uhr. Das passt in jeden Arbeitstag, und abends muss niemand mehr fahren.`;
+  const neu = [
     {
-      betreff: ersteMail ? `Nochmal wegen: ${ersteMail}` : "Kurz nachgefragt",
-      text: `${anrede(l)}\n\nvor ein paar Tagen hatte ich Ihnen wegen Ihrer Weihnachtsfeier geschrieben. Ich weiß, wie so etwas im Tagesgeschäft untergeht, deshalb diese eine kurze Erinnerung.\n\nFalls das Thema bei Ihnen schon erledigt ist, sagen Sie einfach kurz Bescheid, dann melde ich mich nicht wieder. Und falls nicht, reicht eine Zeile mit Ihrem Wunschtermin.${ende}`,
+      betreff: "Ihre Weihnachtsfeier, mal zum Frühstück?",
+      text: `${anrede(l)}\n\nim Oktober hatte ich Ihnen wegen Ihrer Weihnachtsfeier geschrieben. Falls ein Abend bei Ihnen schwer unterzubringen ist, hätte ich noch eine andere Idee.${tag}\n\nWäre das etwas für Ihr Team? Dann reicht mir eine kurze Zeile mit Wunschtag und ungefähr, wie viele Sie sind.${ende}`,
     },
     {
-      betreff: "Darf ich nachhaken?",
-      text: `${anrede(l)}\n\nmeine Mail von neulich ist vermutlich untergegangen. Das ist keine Kritik, bei uns läuft es genauso.\n\nFalls Sie für Ihre Feier noch einen Ort suchen, mache ich Ihnen gern einen Vorschlag für Ihren Wunschtermin. Falls nicht, sagen Sie es mir ruhig, dann lasse ich Sie in Frieden.${ende}`,
+      betreff: "Noch eine Idee für Ihre Weihnachtsfeier",
+      text: `${anrede(l)}\n\nmeine Mail von Oktober ist vermutlich im Tagesgeschäft untergegangen, das kenne ich gut. Ich melde mich trotzdem noch einmal, weil ich eine Idee nachreichen wollte.${tag}\n\nSoll ich Ihnen für einen Tag einen Vorschlag machen?${ende}`,
     },
     {
-      betreff: "Letzte Nachricht von mir",
-      text: `${anrede(l)}\n\nich melde mich ein zweites und letztes Mal. Wenn ich nichts höre, gehe ich davon aus, dass Ihre Feier schon steht, und Sie haben Ruhe vor mir.\n\nSollte sich das ändern, finden Sie uns unter restaurant-waldwiese.de. Wir sind in Sinzing und bleiben da.${ende}`,
+      betreff: "Weihnachtsfeier ohne Abendtermin?",
+      text: `${anrede(l)}\n\nich hatte Ihnen im Oktober wegen Ihrer Weihnachtsfeier geschrieben. Falls die Abende im Dezember bei Ihnen schon voll sind: Es geht auch anders.${tag}\n\nWäre das für Ihr Team eine Option?${ende}`,
     },
   ];
-  return fassungen[nummer];
+  return neu[nummer];
 }
 
 /* ------------------------------ Mail-Huelle ------------------------------ */
