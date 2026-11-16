@@ -209,19 +209,19 @@ export function anrede(l: Pick<Lead, "person">): string {
  */
 const ZIELGRUPPE: Record<Typ, { betreff: string; satz: string; frage: string }> = {
   firma: {
-    betreff: "Haben Sie schon an Ihre Weihnachtsfeier gedacht?",
-    satz: "Nach so einem Jahr hat sich Ihr Team einen Abend verdient, an dem sich ausnahmsweise mal jemand anderes um alles kümmert.",
-    frage: "Wäre das etwas für Ihr Team? Dann schreiben Sie mir einfach Ihren Wunschtermin und ungefähr, wie viele Sie sind.",
+    betreff: "Ihre Weihnachtsfeier, mal zum Frühstück?",
+    satz: "Nach so einem Jahr hat sich Ihr Team einen Termin verdient, an dem sich ausnahmsweise mal jemand anderes um alles kümmert.",
+    frage: "Wäre eins davon etwas für Ihr Team? Dann schreiben Sie mir einfach Ihren Wunschtermin und ungefähr, wie viele Sie sind.",
   },
   praxis: {
-    betreff: "Schon an Ihr Weihnachtsessen gedacht?",
-    satz: "Gerade in einem kleinen Team ist so ein Abend zum Jahresende oft der schönste Moment, einfach mal Danke zu sagen.",
-    frage: "Hätten Sie Lust, mit Ihrem Team bei uns zu feiern? Ein Wunschtermin genügt mir schon.",
+    betreff: "Ihr Weihnachtsessen, mal zum Frühstück?",
+    satz: "Gerade in einem kleinen Team ist so ein gemeinsamer Termin zum Jahresende oft der schönste Moment, einfach mal Danke zu sagen.",
+    frage: "Hätten Sie Lust, mit Ihrem Team bei uns zu feiern, morgens, mittags oder abends? Ein Wunschtermin genügt mir schon.",
   },
   handwerk: {
     betreff: "Haben Sie schon an Ihre Weihnachtsfeier gedacht?",
     satz: "Nach einem vollen Jahr auf den Baustellen darf es zum Abschluss ruhig gemütlich werden, ohne dass jemand etwas organisieren muss.",
-    frage: "Wäre das was für Ihre Mannschaft? Schreiben Sie mir gern Ihren Wunschtermin.",
+    frage: "Wäre das was für Ihre Mannschaft, zum Mittagessen oder am Abend? Schreiben Sie mir gern Ihren Wunschtermin.",
   },
   verein: {
     betreff: "Schon an Ihre Weihnachtsfeier gedacht?",
@@ -246,10 +246,12 @@ function fassung<T>(id: string, salz: string, xs: readonly T[]): T {
   return xs[n % xs.length];
 }
 
+// Stand November 2026: Advent steht vor der Tür, deshalb kein "frueh dran"
+// mehr, sondern ein Vorschlag, der auch kurzfristig klappt.
 const EROEFFNUNG = [
-  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Ich frage lieber jetzt, denn die Abende im Advent sind bei uns erfahrungsgemäß als Erstes vergeben.",
-  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Ich weiß, im Oktober fühlt sich das noch weit weg an, aber die Adventsabende sind erfahrungsgemäß schnell weg.",
-  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Falls noch nicht, hätte ich da eine Idee für Sie.",
+  "steht Ihre Weihnachtsfeier schon? Falls nicht, hätte ich einen Vorschlag, der sich auch kurzfristig noch gut einrichten lässt.",
+  "haben Sie schon einen Ort für Ihre Weihnachtsfeier? Falls nicht, hätte ich da eine Idee für Sie.",
+  "haben Sie Ihre Weihnachtsfeier schon geplant? Falls nicht, hätte ich eine Idee, die vielleicht besser passt als der übliche Abend.",
 ] as const;
 
 const VORSTELLUNG = [
@@ -257,9 +259,16 @@ const VORSTELLUNG = [
   "Kurz zu mir: Ich bin Emilian Leber, und zusammen mit meiner Familie führe ich das Wald & Wiese am Waldrand in Sinzing.",
 ] as const;
 
+// Zwei Wege: tagsueber unter der Woche (Fruehstueck, Brunch, Mittag, alles in
+// unseren normalen Oeffnungszeiten 8 bis 14 Uhr) oder klassisch am Abend.
+const TAGSUEBER = [
+  "Meine Idee: Feiern Sie doch mal tagsüber. Ein gemeinsames Weihnachtsfrühstück oder Mittagessen unter der Woche, mitten im Grünen, und am Nachmittag ist jeder wieder zu Hause. Das passt in jeden Dienstplan, und abends muss niemand mehr fahren.",
+  "Mein Vorschlag wäre ein Weihnachtsfrühstück oder ein gemeinsames Mittagessen unter der Woche. Das lässt sich gut in den Arbeitstag einbauen, und niemand opfert dafür seinen Abend.",
+] as const;
+
 const HIGHLIGHTS = [
-  "Bei uns wird es ein richtig schöner Abend: Es gibt einen Glühweinempfang und ein Lagerfeuer, danach ein hausgemachtes Drei-Gänge-Menü, vegetarisch und vegan genauso gut wie alles andere. Und wenn Sie mögen, komme ich zwischen den Gängen mit ein bisschen Zauberei an Ihre Tische, ich bin nämlich auch Zauberer.",
-  "Was Sie bei uns erwartet: ein Glühweinempfang, ein Lagerfeuer und ein hausgemachtes Drei-Gänge-Menü, auf Wunsch auch vegetarisch oder vegan. Wer mag, bekommt zwischen den Gängen noch etwas Zauberei an den Tisch. Die mache ich selbst, als Magicel stehe ich seit 2016 auf der Bühne.",
+  "Wer lieber abends feiert, bekommt bei uns einen Glühweinempfang am Lagerfeuer und danach ein hausgemachtes Drei-Gänge-Menü, vegetarisch und vegan genauso gut wie alles andere. Wenn Sie mögen, komme ich zwischen den Gängen mit ein bisschen Zauberei an Ihre Tische, ich bin nämlich auch Zauberer.",
+  "Und wer lieber abends feiert: Dann gibt es einen Glühweinempfang am Lagerfeuer und ein hausgemachtes Drei-Gänge-Menü, auf Wunsch auch vegetarisch oder vegan. Zwischen den Gängen bringe ich auf Wunsch etwas Zauberei an den Tisch, als Magicel stehe ich seit 2016 auf der Bühne.",
 ] as const;
 
 const GROESSE = [
@@ -301,9 +310,13 @@ ${fassung(id, "auf", EROEFFNUNG)}
 
 ${fassung(id, "wer", VORSTELLUNG)} ${persoenlich}
 
+${fassung(id, "tag", TAGSUEBER)}
+
 ${fassung(id, "hi", HIGHLIGHTS)}
 
 ${fassung(id, "gr", GROESSE)}${ortsatz(l.ort)} Ein paar Eindrücke habe ich Ihnen angehängt.
+
+Und auch ohne Anlass: Für ein Team-Frühstück oder ein Geschäftsessen sind Sie bei uns jeden Tag von 8 bis 14 Uhr herzlich willkommen.
 
 ${z.frage}
 
