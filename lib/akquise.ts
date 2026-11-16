@@ -296,6 +296,37 @@ export async function entwuerfeFuerNeue(): Promise<number> {
   return leads.length;
 }
 
+/**
+ * Setzt unversendete Entwuerfe auf die aktuelle Vorlage, wenn sie noch der
+ * alte, automatisch geschriebene Text sind. Von Hand geaenderte Entwuerfe
+ * (ohne einen der alten Einstiegssaetze) bleiben unangetastet.
+ */
+const ALTE_EINSTIEGE = [
+  "Ich frage lieber jetzt, denn die Abende im Advent",
+  "im Oktober fühlt sich das noch weit weg an",
+  "haben Sie schon an Ihre Weihnachtsfeier gedacht? Falls noch nicht, hätte ich da eine Idee für Sie.",
+];
+
+export async function entwuerfeAuffrischen(): Promise<number> {
+  const leads = (await listLeads()).filter(
+    (l) =>
+      !l.angeschrieben_am &&
+      l.email &&
+      !l.gesperrt &&
+      (l.status === "neu" || l.status === "entwurf") &&
+      (!l.entwurf || ALTE_EINSTIEGE.some((s) => l.entwurf!.includes(s))),
+  );
+  const jetzt = Date.now();
+  for (const l of leads) {
+    const e = entwurfFuer(l);
+    await getDb().execute({
+      sql: "UPDATE akquise_leads SET betreff = ?, entwurf = ?, status = 'entwurf', updated_at = ? WHERE id = ? AND angeschrieben_am IS NULL",
+      args: [e.betreff, e.text, jetzt, l.id],
+    });
+  }
+  return leads.length;
+}
+
 export async function setStatus(
   id: string,
   status: Status,

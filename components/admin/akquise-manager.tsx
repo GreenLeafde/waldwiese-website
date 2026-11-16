@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   anrufAction,
+  entwuerfeAuffrischenAction,
   entwuerfeFuerNeueAction,
   importiereAction,
   loescheLeadAction,
@@ -526,6 +527,13 @@ export function AkquiseManager({
           className={BTN_SEK}
           disabled={busy}
           onConfirm={() => tue(() => entwuerfeFuerNeueAction())}
+        />
+        <ZweiKlick
+          label="Entwürfe auffrischen"
+          frage="Alte Vorlagen-Texte ersetzen?"
+          className={BTN_SEK}
+          disabled={busy}
+          onConfirm={() => tue(() => entwuerfeAuffrischenAction())}
         />
         <input
           type="number"

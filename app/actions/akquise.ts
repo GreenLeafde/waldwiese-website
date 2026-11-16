@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import {
   addNotiz,
   deleteLead,
+  entwuerfeAuffrischen,
   entwuerfeFuerNeue,
   importLeads,
   listEvents,
@@ -84,6 +85,22 @@ export async function importiereAction(text: string, typ: string): Promise<Ergeb
           ? `, ${r.uebersprungen} übersprungen (doppelte Adresse, ungültige Adresse oder leere Zeile)`
           : "") +
         ".",
+    };
+  } catch (e) {
+    return fehler(e);
+  }
+}
+
+export async function entwuerfeAuffrischenAction(): Promise<Ergebnis> {
+  await requireAdmin();
+  try {
+    const n = await entwuerfeAuffrischen();
+    frisch();
+    return {
+      ok: true,
+      message: n
+        ? `${n} Entwürfe auf den neuen Text gesetzt. Von Hand geänderte blieben, wie sie waren.`
+        : "Kein Entwurf mit altem Text gefunden.",
     };
   } catch (e) {
     return fehler(e);
