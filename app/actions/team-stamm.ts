@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 import {
   aendereMitarbeiter,
   entferneMitarbeiter,
+  holeZurueck,
   legeMitarbeiterAn,
   type MitarbeiterEingabe,
 } from "@/lib/stempel";
@@ -84,5 +85,22 @@ export async function entferneMitarbeiterAction(
 
   revalidatePath("/admin/team");
   revalidatePath("/schicht");
-  return { status: "ok", message: "Aus der Liste entfernt." };
+  return { status: "ok", message: "Ausgetragen. Stunden und Personalnummer bleiben in der Abrechnung." };
+}
+
+export async function holeZurueckAction(
+  _prev: StammState,
+  formData: FormData,
+): Promise<StammState> {
+  await requireAdmin();
+  const id = Number(formData.get("id"));
+  if (!Number.isFinite(id)) return { status: "error", message: "Person nicht gefunden." };
+  try {
+    await holeZurueck(id);
+  } catch (e) {
+    return { status: "error", message: e instanceof Error ? e.message : "Nicht geklappt." };
+  }
+  revalidatePath("/admin/team");
+  revalidatePath("/schicht");
+  return { status: "ok", message: "Wieder im Team." };
 }

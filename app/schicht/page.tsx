@@ -20,7 +20,7 @@ import {
 import { SchichtBereich } from "@/components/schicht/schicht-bereich";
 import {
   holeEingestempelte,
-  holeMitarbeiter,
+  holeAktiveMitarbeiter,
   stempelKonfiguriert,
   stempelProblem,
 } from "@/lib/stempel";
@@ -115,7 +115,7 @@ export default async function SchichtPage({
   const [aufgaben, uebertrag, mitarbeiter, imDienst] = await Promise.all([
     aufgabenFuerSchicht(gewaehltesDatum, schicht),
     offeneUebertraege(gewaehltesDatum, schicht),
-    holeMitarbeiter(),
+    holeAktiveMitarbeiter(),
     holeEingestempelte(),
   ]);
   const kommentarMap = await kommentareZuMehreren(

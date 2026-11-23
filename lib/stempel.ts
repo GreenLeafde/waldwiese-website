@@ -29,6 +29,13 @@ export type Mitarbeiter = {
   name: string;
   lohnart: string;
   color: string;
+  /**
+   * Datum (YYYY-MM-DD), ab dem die Person nicht mehr im Team ist (23.11.2026).
+   * Sie bleibt in zt-config stehen, damit Personalnummer und Lohnart in
+   * Abrechnung, CSV und Monatsmail weiter erscheinen — fehlt sie, stuenden
+   * ihre letzten Stunden ohne Nummer da. Die alte App ignoriert das Feld.
+   */
+  ausgeschieden?: string;
 };
 
 export type Eingestempelt = {
@@ -89,10 +96,15 @@ async function leseJson<T>(key: string, standard: T): Promise<T> {
   }
 }
 
-/** Die Mitarbeiter, wie sie in der Stempel-App gepflegt sind. */
+/** Die Mitarbeiter, wie sie in der Stempel-App gepflegt sind — inkl. ausgeschiedener (fuer die Abrechnung). */
 export async function holeMitarbeiter(): Promise<Mitarbeiter[]> {
   const liste = await leseJson<Mitarbeiter[]>("zt-config", []);
   return Array.isArray(liste) ? liste : [];
+}
+
+/** Nur wer aktuell im Team ist — fuer die Namensauswahl beim Stempeln. */
+export async function holeAktiveMitarbeiter(): Promise<Mitarbeiter[]> {
+  return (await holeMitarbeiter()).filter((m) => !m.ausgeschieden);
 }
 
 /**
@@ -403,17 +415,20 @@ export async function aendereMitarbeiter(
 }
 
 /**
- * Entfernt eine Person aus der Liste. Die bereits erfassten Zeiten bleiben
- * stehen — sie gehoeren in die Abrechnung, auch wenn jemand nicht mehr da ist.
+ * Nimmt eine Person aus dem Team (markiert sie als ausgeschieden). Sie
+ * verschwindet aus der Stempel-Auswahl, bleibt aber in zt-config, damit
+ * Personalnummer und Lohnart in der Abrechnung stehen bleiben. Die erfassten
+ * Zeiten bleiben ohnehin stehen.
  */
 export async function entferneMitarbeiter(id: number): Promise<void> {
   const alle = await holeMitarbeiter();
   const person = alle.find((m) => m.id === id);
   if (!person) return;
 
+  const heute = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
   await schreibe(
     "zt-config",
-    alle.filter((m) => m.id !== id),
+    alle.map((m) => (m.id === id ? { ...m, ausgeschieden: heute } : m)),
   );
 
   // Eine laufende Stempelung waere sonst nicht mehr zu beenden.
@@ -423,6 +438,19 @@ export async function entferneMitarbeiter(id: number): Promise<void> {
     delete rest[person.name];
     await schreibe("zt-open", rest);
   }
+}
+
+/** Holt eine ausgeschiedene Person ins Team zurueck. */
+export async function holeZurueck(id: number): Promise<void> {
+  const alle = await holeMitarbeiter();
+  await schreibe(
+    "zt-config",
+    alle.map((m) => {
+      if (m.id !== id) return m;
+      const { ausgeschieden: _weg, ...rest } = m;
+      return rest;
+    }),
+  );
 }
 
 /** Naechste freie Personalnummer als Vorschlag. */

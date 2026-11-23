@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import {
   entferneMitarbeiterAction,
+  holeZurueckAction,
   speichereMitarbeiterAction,
   type StammState,
 } from "@/app/actions/team-stamm";
@@ -26,6 +27,9 @@ export function MitarbeiterListe({
 }) {
   const [bearbeite, setBearbeite] = useState<Mitarbeiter | null>(null);
   const [entfernen, setEntfernen] = useState<Mitarbeiter | null>(null);
+  // Ausgetragene bleiben fuer die Abrechnung in der Liste, aber getrennt (23.11.2026)
+  const ehemalige = mitarbeiter.filter((m) => m.ausgeschieden);
+  mitarbeiter = mitarbeiter.filter((m) => !m.ausgeschieden);
 
   return (
     <div className="space-y-8">
@@ -92,13 +96,35 @@ export function MitarbeiterListe({
                       onClick={() => setEntfernen(m)}
                       className="text-waldgruen/40 transition-colors hover:text-tonwarm-dark"
                     >
-                      Entfernen
+                      Austragen
                     </button>
                   </span>
                 </li>
               );
             })}
           </ul>
+        )}
+
+        {ehemalige.length > 0 && (
+          <div className="space-y-2 pt-4">
+            <h2 className="text-sm font-medium uppercase tracking-[0.18em] text-waldgruen/45">
+              Ausgetragen ({ehemalige.length})
+            </h2>
+            <ul className="divide-y divide-waldgruen/8 overflow-hidden rounded-2xl bg-white/60 ring-1 ring-waldgruen/10">
+              {ehemalige.map((m) => (
+                <li key={m.id} className="flex flex-wrap items-center gap-3 px-5 py-3 text-sm text-waldgruen/55">
+                  <span className="min-w-[9rem] flex-1">
+                    {m.name} · Nr. {m.nr} · seit {m.ausgeschieden!.split("-").reverse().join(".")}
+                  </span>
+                  <Zurueck id={m.id} />
+                </li>
+              ))}
+            </ul>
+            <p className="max-w-xl text-xs text-waldgruen/45">
+              Ausgetragene können nicht mehr stempeln. Ihre Stunden und Personalnummer bleiben in
+              Abrechnung, CSV und Monatsmail.
+            </p>
+          </div>
         )}
 
         <p className="max-w-xl text-xs text-waldgruen/45">
@@ -246,14 +272,14 @@ function EntfernenDialog({
         className="w-full max-w-sm rounded-3xl bg-stone-soft p-6"
       >
         <h2 className="font-display text-2xl leading-tight text-waldgruen">
-          {person.name} entfernen?
+          {person.name} austragen?
         </h2>
         <p className="mt-3 text-sm text-waldgruen/65">
           Die Person verschwindet aus der Stempeluhr und der Schichtansicht.{" "}
           <strong className="font-medium text-waldgruen">
-            Bereits erfasste Arbeitszeiten bleiben erhalten
+            Erfasste Arbeitszeiten und Personalnummer bleiben erhalten
           </strong>{" "}
-          — sie gehören in die Abrechnung.
+          — sie gehören in die Abrechnung. Zurückholen geht jederzeit.
         </p>
 
         {state.status === "error" && (
@@ -276,10 +302,23 @@ function EntfernenDialog({
             disabled={pending}
             className="flex-1 rounded-full bg-tonwarm-dark px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-tonwarm disabled:opacity-60"
           >
-            {pending ? "Moment …" : "Entfernen"}
+            {pending ? "Moment …" : "Austragen"}
           </button>
         </form>
       </div>
     </div>
+  );
+}
+
+function Zurueck({ id }: { id: number }) {
+  const [state, formAction, pending] = useActionState(holeZurueckAction, INITIAL);
+  return (
+    <form action={formAction} className="flex items-center gap-2">
+      <input type="hidden" name="id" value={id} />
+      {state.status === "error" && <span className="text-xs text-tonwarm-dark">{state.message}</span>}
+      <button type="submit" disabled={pending} className="text-waldgruen/55 transition-colors hover:text-waldgruen disabled:opacity-60">
+        {pending ? "Moment …" : "Wieder aufnehmen"}
+      </button>
+    </form>
   );
 }

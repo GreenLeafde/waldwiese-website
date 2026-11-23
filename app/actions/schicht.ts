@@ -22,7 +22,7 @@ import {
 } from "@/lib/schichten";
 import {
   holeEingestempelte,
-  holeMitarbeiter,
+  holeAktiveMitarbeiter,
   istEingestempelt,
   stempleAus,
   stempleEin,
@@ -172,7 +172,7 @@ export async function starteSchichtAction(
   if (!name) return { status: "error", message: "Bitte zuerst den Namen wählen." };
 
   try {
-    const stamm = await holeMitarbeiter();
+    const stamm = await holeAktiveMitarbeiter();
     if (!stamm.some((m) => m.name === name)) {
       return { status: "error", message: "Diesen Namen gibt es in der Zeiterfassung nicht." };
     }
